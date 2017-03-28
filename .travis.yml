@@ -4,22 +4,23 @@ dist: trusty
 
 branches:
   only:
-   - master
+  - master
 
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - $HOME/.m2/repository
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.m2/repository"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 
 script:
- - echo Hello Travis for e-Arbiter
+- echo Hello Travis for e-Arbiter
 
 notifications:
   email: false
   slack:
-    secure: ul7wGvWfdKXtLjZrwZCHYqt/oI9bXOCxFVIZYgd81CNA6w31NKfal/qtpFSzT95WqKwzWdVVFjUPdY5NG+3fSarnpLLx0GbctVNRm8xZer3drVcJYwkDrxiT1ffpRngR3ak01S0v3k2lxGecFl9quCTLtowMO7ewpNdz2TRY8AEahyRXONiUjQg6aMuK0bUvSlsSyd10PSFdGVJhO6pD0ex70nPpw2AxAVJEERVNMEHi4f1+ggkOlS6zrOQP1MSuYSHtEuEu+1nDbZPLMsh2RDUluL04w2vlCjccvTM4DACoV+1EiKwO0GImCB+ZH4RbG1HXWh9J95ojm8oHrV/jzEfhs2ufNj/Md+NH8mKM4r88ZpBjpgdzYagdngZNN8L9gRGYvR0i/ZHBVZj0vPuYudAsyXRTbnHUL3V7WX7aA6e7/spIQKAO0S2oHKPTNcMmzy2y9V7EBrUdvaP2LF4Z5ZvXWVT11P0Kp7+OFZyRNHKep7h/qranaQJJKSG8O9LPFBFPUKaI7ZAYBCgAHnm/dLn7zjiuLfdW3vijeqJdInjipjbt3TibR0yIYaj+AfVmfINib0UKiDxPs4BNWzrqo83pPsveXHE5Z6Qc7UYFlhYyHITePsPj0+aDZ6f3H8Wfdm0Zv7XXcmgGlECAfPn8bqqUwAiwNc+H8yaK6JNGkRA=
+    rooms:
+      secure: hyV8HTWLz+2j6OtPiU56yXBmE9R8cwBjwFVTtVmSTLiXHav+wxNifxvg5xbMMvc8m6RQYhIjt/iJkOTyYIKzwMkSmmpDJj2p+xfvCJ2nWHJXg83xt7YplN3jc9a8qcrgI9nARjSq17AUfGFXmYKsuNW9E+BfS2oD3YAhxOTJaGrJyUZfOYh7m9yOJm5t26sCiY2CXR5BsIqcLAnllW0UyzKnsG8sxGooeZsoerwcwazqP2g/KMAe3U9V4nZhbFdltXfWinqjT+2ii3YzXOG1ADcf6miNQvVQYEUmf1DiCnMwodsj7qIDXUkzdzKgdLZt9F5OXSt6v+TaxdqWh1hB+Ax/F1asSlCyI/v42wZJxAMmshycmZLshpvKcuIv2G7Xp6Ln0U+3bJ3/UutZFqZ7mGbA007GC4jZQE8Z/kpIeDU1RdzVg35A2eZr0fyr82maIihzsVS32v4Bo7DcllSBolF8WPnKWWmD4GBPOGGIC9Gieqhz2nqwNcOzEkxvcLg4RUIr6YOIsVKUT1CX5IAMhGOjS6qf8DI5wDSdf1rniWdAPjm2asmH0SlXRoOJltOd7AfPgXohc392zfYb/YoSxxxISzQJkxW3tkl4LyXTFZAq1uGXXD5/PSKpifeTqEMxiQ43EuqhQlAhcdUGliuyMWUffWNE9N3P3hgJ8HuiCzU=
