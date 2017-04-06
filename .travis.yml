@@ -1,6 +1,7 @@
 language: java
 jdk: oraclejdk8
 dist: trusty
+sudo: required
 
 #TODO uncomment after front development
 #branches:
@@ -28,6 +29,8 @@ before_cache:
 before_script:
  - npm install -g @angular/cli@1.0.0
  - npm install -g angular-cli-ghpages
+ - cd webapp
+ - npm install
 
 cache:
   directories:
@@ -39,13 +42,11 @@ cache:
 
 script:
  - echo Hello Travis for e-Arbiter
- - cd webapp
  - ng build --env=prod --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
 # TODO uncomment, you know when..:)
 # - ng test --watch=false
 
 after_success:
- - cd webapp
  - angular-cli-ghpages --no-silent --repo=https://GH_TOKEN@github.com/arturczopek/e-arbiter.git
 
 notifications:
