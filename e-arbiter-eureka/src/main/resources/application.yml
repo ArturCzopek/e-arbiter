@@ -7,3 +7,6 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+
+# workaround for actuator endpoints for now
+management.security.enabled: false

@@ -1,0 +1,23 @@
+e-arbiter:
+  service-name: API Gateway
+
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 8080
+
+zuul:
+  routes:
+    # since auth module is on 8090 port, then ZUUL_ADDRESS:8080/auth will redirect to authentication module
+    # TODO move ports and adresses to env variables
+    auth:
+      url: http://localhost:8090
+
+    # since executor module is on 8091 port, then ZUUL_ADDRESS:8080/exec will redirect to executor module
+    # TODO move ports and adresses to env variables
+    exec:
+      url: http://localhost:8091
+
+# workaround for actuator endpoints for now
+management.security.enabled: false

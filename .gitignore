@@ -8,6 +8,8 @@
 **/gradlew.bat
 !gradle-wrapper.jar
 *.class
+!gradlew
+!gradlew.bat
 
 # Logs
 *.log

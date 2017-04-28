@@ -10,3 +10,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+# workaround for actuator endpoints for now
+management.security.enabled: false

@@ -1,9 +1,9 @@
-package pl.cyganki.docker;
+package pl.cyganki.executor.docker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.cyganki.modules.AuthModule;
+import pl.cyganki.executor.modules.AuthModule;
 
 @RestController
 public class ExecutorController {
