@@ -8,4 +8,7 @@ public interface AuthModule {
 
     @RequestMapping("/login")
     String login();
+
+    @RequestMapping("/failLogin")
+    String failLogin();
 }

@@ -15,4 +15,9 @@ public class ExecutorController {
     public String executeCode() {
         return "Executed: " + authModule.login();
     }
+
+    @GetMapping("/executeFail")
+    public String executeFailCode() {
+        return "Failed: " + authModule.failLogin(); // there should be login too
+    }
 }
