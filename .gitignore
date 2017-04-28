@@ -28,3 +28,6 @@
 out/
 .idea/
 **/*.iml
+
+# Unignore
+!/gradle/wrapper/gradle-wrapper.jar
