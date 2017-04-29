@@ -1,11 +1,11 @@
 e-arbiter:
-  service-name: Executor Module
+  service-name: Solution Repository Module
 
 spring:
   application:
-    name: executor-module
+    name: solution-repository-module
 server:
-  port: 8091
+  port: 8094
 eureka:
   client:
     serviceUrl:

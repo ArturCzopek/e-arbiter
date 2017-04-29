@@ -4,7 +4,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient("authentication-module")
-public interface AuthModule {
+public interface AuthModuleInterface {
 
     @RequestMapping("/login")
     String login();

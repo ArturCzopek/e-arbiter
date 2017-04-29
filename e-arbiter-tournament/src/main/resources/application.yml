@@ -1,11 +1,11 @@
 e-arbiter:
-  service-name: Executor Module
+  service-name: Tournament Module
 
 spring:
   application:
-    name: executor-module
+    name: tournament-module
 server:
-  port: 8091
+  port: 8092
 eureka:
   client:
     serviceUrl:

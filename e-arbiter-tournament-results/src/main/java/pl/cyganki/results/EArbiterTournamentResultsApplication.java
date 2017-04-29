@@ -1,16 +1,14 @@
-package pl.cyganki.gateway;
+package pl.cyganki.results;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-@EnableZuulProxy
 @EnableEurekaClient
 @SpringBootApplication
-public class EArbiterApiGatewayApplication {
+public class EArbiterTournamentResultsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EArbiterApiGatewayApplication.class, args);
+        SpringApplication.run(EArbiterTournamentResultsApplication.class, args);
     }
 }

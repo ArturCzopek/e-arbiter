@@ -1,0 +1,22 @@
+jar {
+    baseName = 'e-arbiter-solution-repository'
+    version = null
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.solution.EArbiterSolutionRepositoryApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.solution.EArbiterSolutionRepositoryApplication'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}

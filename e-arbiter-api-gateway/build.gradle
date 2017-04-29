@@ -1,50 +1,21 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.3.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: sonar_version
-	}
+jar {
+    baseName = 'e-arbiter-api-gateway'
+    version = null
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'org.sonarqube'
-
-
-version = '1.0.0-SNAPSHOT'
-sourceCompatibility = 1.8
-
-repositories {
-	mavenCentral()
+springBoot {
+    executable = true
 }
 
-
-ext {
-	springCloudVersion = 'Dalston.RELEASE'
+bootRun {
+    main = 'pl.cyganki.gateway.EArbiterApiGatewayApplication'
 }
 
+bootRepackage {
+    mainClass = 'pl.cyganki.gateway.EArbiterApiGatewayApplication'
+}
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.cloud:spring-cloud-starter-zuul')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.boot:spring-boot-starter-web')
 }
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
-}
-
-sonarqube {
-	properties {
-		property "sonar.projectName", "e-Arbiter API Gateway"
-		property "sonar.projectKey", "pl.cyganki.gateway:e-arbiter-api-gatewy"
-	}
-}
-

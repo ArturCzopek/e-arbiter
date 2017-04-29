@@ -1,21 +1,62 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
+
+
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/libs-milestone" }
     }
     dependencies {
-        classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: sonar_version
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:${dependencyPlugin}")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarVersion}")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'org.sonarqube'
-
-version = '1.0.0-SNAPSHOT'
-sourceCompatibility = 1.8
-
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
+    maven { url "http://repo.spring.io/release" }
+    maven { url "https://repo.spring.io/libs-milestone" }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = compatibility
+    targetCompatibility = compatibility
+
+    tasks.withType(JavaCompile) {
+        options.incremental = true
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+        }
+    }
+
+    dependencies {
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/libs-milestone" }
+    }
 }
 
 sonarqube {
@@ -25,5 +66,10 @@ sonarqube {
     }
 }
 
-//TODO remove sonar and add task for executing all sonar from all modules
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
 
+    version = version
+    group = group
+}
