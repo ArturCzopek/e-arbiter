@@ -6,7 +6,6 @@ apply plugin: 'org.sonarqube'
 
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "http://repo.spring.io/release" }
@@ -20,7 +19,6 @@ buildscript {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     jcenter()
     maven { url "http://repo.spring.io/release" }
@@ -47,11 +45,13 @@ subprojects {
     }
 
     dependencies {
+        compile('org.springframework.boot:spring-boot-devtools')
+        compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
     repositories {
-        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "http://repo.spring.io/release" }

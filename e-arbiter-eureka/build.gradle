@@ -1,20 +1,22 @@
 jar {
-	baseName = 'e-arbiter-eureka'
-	version = null
+    baseName = 'e-arbiter-eureka'
+    version = null
 }
 
 springBoot {
-	executable = true
+    executable = true
 }
 
 bootRun {
-	main = 'pl.cyganki.eureka.EArbiterEurekaServerApplication'
+    main = 'pl.cyganki.eureka.EArbiterEurekaServerApplication'
 }
 
 bootRepackage {
-	mainClass = 'pl.cyganki.eureka.EArbiterEurekaServerApplication'
+    mainClass = 'pl.cyganki.eureka.EArbiterEurekaServerApplication'
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+    compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+    compile('org.springframework.cloud:spring-cloud-netflix-turbine')
 }

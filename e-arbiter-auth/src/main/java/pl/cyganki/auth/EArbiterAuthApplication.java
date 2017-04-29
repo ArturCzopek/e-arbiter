@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableCircuitBreaker
 public class EArbiterAuthApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EArbiterAuthApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EArbiterAuthApplication.class, args);
+    }
 }

@@ -1,5 +1,6 @@
 package pl.cyganki.executor.docker;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,5 +20,15 @@ public class ExecutorController {
     @GetMapping("/executeFail")
     public String executeFailCode() {
         return "Failed: " + authModule.failLogin(); // there should be login too
+    }
+
+    @GetMapping("/hystrix")
+    @HystrixCommand(fallbackMethod = "rescue")
+    public String hystrix() throws Exception {
+        throw new Exception();
+    }
+
+    public String rescue() {
+        return "its fucked up";
     }
 }
