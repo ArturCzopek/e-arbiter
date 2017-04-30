@@ -7,3 +7,5 @@
 ./gradlew bootRun -p e-arbiter-tournament-results &
 ./gradlew bootRun -p e-arbiter-solution-repository &
 ./gradlew bootRun -p e-arbiter-api-gateway &
+cd e-arbiter-web &&
+ng serve

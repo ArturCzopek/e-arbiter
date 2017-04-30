@@ -1,6 +1,6 @@
 {
-  "name": "webapp",
-  "version": "0.0.0",
+  "name": "e-Arbiter",
+  "version": "1.0.0-SNAPSHOT",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

@@ -3,10 +3,9 @@ jdk: oraclejdk8
 dist: trusty
 sudo: required
 
-#TODO uncomment after front development
-#branches:
-#  only:
-#  - master
+branches:
+  only:
+  - master
 
 addons:
 apt:
@@ -29,8 +28,9 @@ before_cache:
 before_script:
  - npm install -g @angular/cli@1.0.0
  - npm install -g angular-cli-ghpages
- - cd webapp
+ - cd e-arbiter-web
  - npm install
+ - cd ..
 
 cache:
   directories:
@@ -38,10 +38,12 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.nvm"
-  - "webapp/node_modules"
+  - "e-arbiter-web/node_modules"
 
 script:
  - echo Hello Travis for e-Arbiter
+ - ./gradlew build
+ - cd e-arbiter-web
  - ng build --env=prod --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
 # TODO uncomment, you know when..:)
 # - ng test --watch=false

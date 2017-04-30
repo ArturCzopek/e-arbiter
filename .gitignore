@@ -11,6 +11,10 @@
 !gradlew
 !gradlew.bat
 
+# Front end
+*/node_modules/
+
+
 # Logs
 *.log
 
