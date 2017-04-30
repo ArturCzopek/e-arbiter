@@ -1,24 +1,53 @@
 language: java
 jdk: oraclejdk8
 dist: trusty
+sudo: required
 
 #TODO uncomment after front development
 #branches:
 #  only:
 #  - master
 
+addons:
+apt:
+  sources:
+   - google-chrome
+  packages:
+   - google-chrome-stable
+
+before_install:
+ - export CHROME_BIN=chromium-browser
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - nvm install 6.9.4
+ - nvm use 6.9.4
+
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+before_script:
+ - npm install -g @angular/cli@1.0.0
+ - npm install -g angular-cli-ghpages
+ - cd webapp
+ - npm install
 
 cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+  - "$HOME/.nvm"
+  - "webapp/node_modules"
 
 script:
-- echo Hello Travis for e-Arbiter
+ - echo Hello Travis for e-Arbiter
+ - ng build --env=prod --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
+# TODO uncomment, you know when..:)
+# - ng test --watch=false
+
+after_success:
+ - angular-cli-ghpages --no-silent --repo=https://GH_TOKEN@github.com/arturczopek/e-arbiter.git
 
 notifications:
   email: false
