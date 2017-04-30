@@ -3,7 +3,7 @@
   "warnings": [],
   "version": "2.2.1",
   "hash": "12e371448f2b5d3a6623",
-  "time": 6198,
+  "time": 6630,
   "publicPath": "",
   "assetsByChunkName": {
     "polyfills": [
@@ -7905,9 +7905,9 @@
             3
           ],
           "assets": [],
-          "issuer": "/home/travis/build/ArturCzopek/e-arbiter/webapp/node_modules/rxjs/Subscriber.js",
-          "issuerId": 13,
-          "issuerName": "./~/rxjs/Subscriber.js",
+          "issuer": "/home/travis/build/ArturCzopek/e-arbiter/webapp/node_modules/rxjs/Subscription.js",
+          "issuerId": 26,
+          "issuerName": "./~/rxjs/Subscription.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -14057,9 +14057,9 @@
         3
       ],
       "assets": [],
-      "issuer": "/home/travis/build/ArturCzopek/e-arbiter/webapp/node_modules/rxjs/Subscriber.js",
-      "issuerId": 13,
-      "issuerName": "./~/rxjs/Subscriber.js",
+      "issuer": "/home/travis/build/ArturCzopek/e-arbiter/webapp/node_modules/rxjs/Subscription.js",
+      "issuerId": 26,
+      "issuerName": "./~/rxjs/Subscription.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
