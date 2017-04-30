@@ -2,12 +2,18 @@ language: java
 jdk: oraclejdk8
 dist: trusty
 sudo: required
+install: true
 
 branches:
   only:
   - master
 
 addons:
+  sonarqube:
+    organization: "cyganki"
+    token:
+      secure: "gMmpdJHqz5dkH8pydMzHXw51/YL5jYNLJlt0rqDL56hludHWnl2T29OnOcBXVbD9vt87psjF4kweEiUYg1+4vUybAbVYMbcLtbcq0J8ALhiNrlnau3pT0st0LEqgZcTlc4C9RIKX3aWjMQH9GRVE/wUWUNayvY8Zg25embVx0LiCUrmWqHMoaM1tkTxoH5ldwKhW58DhtSLhvaqwWkGKgbh6lBV/UTiBeZ5bWneLk1H0HErRBWwKD0p1YcwW7wV0x97YtpHlEyVo0F942oiWhPsSvrOopmZ/frky9g1bvGvZ+6iVx1WIvp+fborf+PxWrniyjibPcB0KZxVON9u4CXmQWtjn/+IvbYWY54Smvrqyctaf1yxQOP9RzYttXfSjbgMMHP+WIbrYsHwEk9c/mc37c9R3DaYBdx6jiOKp/G+0zFLT+ptfUBCIAMevX+YYJh/NCErzEl0OySzlqC6b9ln9BpwIDjfklPLYDvDD/QrxVwml619XTOPn5Pq13/+nkw60HgP2nLdYm3XOMTH+Z0E3GNJjR903o/dCzh2Psv2yIsaYtTxsQduQ33xpImz5pgG47Pe/S5dJvZPVd1WpOCgNcQtpj+es79fqO2cH4RfAgwYF7QKsk0N6ezmXu3NPXvSnJamg+JoryVmWyI4qhHxXpNk8DkXBqpdwCqqbfAc="
+
 apt:
   sources:
    - google-chrome
@@ -37,12 +43,15 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+  - "$HOME/.sonar/cache"
+  - ".gradle"
   - "$HOME/.nvm"
   - "e-arbiter-web/node_modules"
 
 script:
  - echo Hello Travis for e-Arbiter
  - ./gradlew build
+ - ./gradlew sonarqube
  - cd e-arbiter-web
  - ng build --env=prod --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
 # TODO uncomment, you know when..:)
