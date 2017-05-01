@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @GetMapping("/login")
-    @ApiOperation(value = "log in user", nickname = "login")
+    @ApiOperation(value = "log in user")
     public String login() {
         return "test";
     }
 
     @GetMapping("/failLogin")
-    @ApiOperation(value = "log in user by hystrix method", nickname = "failLogin")
+    @ApiOperation(value = "log in user by hystrix method")
     @HystrixCommand(fallbackMethod = "login")
     public String failLogin() {
         throw new UnsupportedOperationException();

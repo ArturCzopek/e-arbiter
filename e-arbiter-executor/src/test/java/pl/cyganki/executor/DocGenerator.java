@@ -1,4 +1,4 @@
-package pl.cyganki.auth;
+package pl.cyganki.executor;
 
 import io.github.robwin.markup.builder.MarkupLanguage;
 import io.github.robwin.swagger2markup.GroupBy;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {EArbiterAuthApplication.class}, loader = SpringBootContextLoader.class)
+@ContextConfiguration(classes = {EArbiterExecutorApplication.class}, loader = SpringBootContextLoader.class)
 public class DocGenerator {
 
     @Autowired

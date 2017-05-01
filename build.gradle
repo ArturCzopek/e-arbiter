@@ -79,7 +79,7 @@ task createDoc {
 
     def docs = files(
             './e-arbiter-auth/docs/paths.md',
-//            './e-arbiter-executor/docs/paths.md',
+            './e-arbiter-executor/docs/paths.md',
 //            './e-arbiter-solution-repository/docs/paths.md',
 //            './e-arbiter-tournament/docs/paths.md',
 //            './e-arbiter-tournament-results/docs/paths.md',
@@ -89,11 +89,17 @@ task createDoc {
     apiFile.text = ""
 
     docs.eachWithIndex { File file, int i -> apiFile << replaceHeaderAndControllers(file, i)}
+
+    cleanDocFiles()
 }
 
 compileJava.dependsOn createDoc
 
 // FUNCTIONS
+
+def cleanDocFiles() {
+    print "lol"
+}
 
 String replaceHeaderAndControllers(File file, int index) {
     file.text
@@ -103,11 +109,11 @@ String replaceHeaderAndControllers(File file, int index) {
 
 String getHeader(int index) {
     def headers = [
-            "Authentication Module - /auth",
-            "Executor Module - /exec",
-            "Solution Repository Module - /repo",
-            "Tournament Module - /tournament",
-            "Tournament Results Module - /results",
+            "Authentication Module",
+            "Executor Module",
+            "Solution Repository Module",
+            "Tournament Module",
+            "Tournament Results Module",
     ]
 
     headers[index]
