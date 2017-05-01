@@ -1,0 +1,20 @@
+e-arbiter:
+  swagger:
+    title: e-Arbiter - Authentication Module
+    description: API for Authentication Module
+    contact-name: cyganki
+    contact-address: artur@simplecoding.pl
+    contact-url: http://simplecoding.pl
+    path: rest-api
+
+spring:
+  profiles: dev
+
+server:
+  port: 8090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

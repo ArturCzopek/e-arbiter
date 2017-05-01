@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("authentication-module")
 public interface AuthModuleInterface {
 
-    @RequestMapping("/login")
+    @RequestMapping("/api/login")
     String login();
 
-    @RequestMapping("/failLogin")
+    @RequestMapping("/api/failLogin")
     String failLogin();
 }

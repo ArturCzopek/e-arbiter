@@ -48,6 +48,7 @@ subprojects {
         compile('org.springframework.boot:spring-boot-devtools')
         compile('org.springframework.cloud:spring-cloud-starter-hystrix')
         compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.projectlombok:lombok:' + lombokVersion)
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
@@ -73,3 +74,15 @@ allprojects {
     version = version
     group = group
 }
+
+task createDoc {
+    (new File('API.md')).text = files(
+            './e-arbiter-auth/docs/paths.md',
+//            './e-arbiter-executor/docs/paths.md',
+//            './e-arbiter-solution-repository/docs/paths.md',
+//            './e-arbiter-tournament/docs/paths.md',
+//            './e-arbiter-tournament-results/docs/paths.md',
+    ).collect{it.getText()}.join("\n")
+}
+
+compileJava.dependsOn createDoc
