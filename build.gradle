@@ -76,13 +76,39 @@ allprojects {
 }
 
 task createDoc {
-    (new File('API.md')).text = files(
+
+    def docs = files(
             './e-arbiter-auth/docs/paths.md',
 //            './e-arbiter-executor/docs/paths.md',
 //            './e-arbiter-solution-repository/docs/paths.md',
 //            './e-arbiter-tournament/docs/paths.md',
 //            './e-arbiter-tournament-results/docs/paths.md',
-    ).collect{it.getText()}.join("\n")
+    )
+
+    def apiFile = new File('API.md')
+    apiFile.text = ""
+
+    docs.eachWithIndex { File file, int i -> apiFile << replaceHeaderAndControllers(file, i)}
 }
 
 compileJava.dependsOn createDoc
+
+// FUNCTIONS
+
+String replaceHeaderAndControllers(File file, int index) {
+    file.text
+            .replaceAll("## Resources", "## ${getHeader(index)}")
+            .replaceAll("### \\w*-controller\n", "")
+}
+
+String getHeader(int index) {
+    def headers = [
+            "Authentication Module - /auth",
+            "Executor Module - /exec",
+            "Solution Repository Module - /repo",
+            "Tournament Module - /tournament",
+            "Tournament Results Module - /results",
+    ]
+
+    headers[index]
+}

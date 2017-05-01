@@ -1,5 +1,4 @@
-## Resources
-### Login-controller
+## Authentication Module
 
 Login Controller
 
