@@ -18,4 +18,8 @@ bootRepackage {
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('io.springfox:springfox-swagger2:'+ swagger_version)
+    compile('io.springfox:springfox-swagger-ui:' + swagger_version)
+    testCompile('io.springfox:springfox-staticdocs:' + swagger_version)
+
 }
