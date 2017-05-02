@@ -3,7 +3,7 @@
   "warnings": [],
   "version": "2.2.1",
   "hash": "0c65220563c87161bca6",
-  "time": 6742,
+  "time": 6493,
   "publicPath": "",
   "assetsByChunkName": {
     "polyfills": [
@@ -2990,9 +2990,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/home/travis/build/ArturCzopek/e-arbiter/e-arbiter-web/node_modules/core-js/modules/_object-gpo.js",
-          "issuerId": 12,
-          "issuerName": "./~/core-js/modules/_object-gpo.js",
+          "issuer": "/home/travis/build/ArturCzopek/e-arbiter/e-arbiter-web/node_modules/core-js/modules/_object-create.js",
+          "issuerId": 35,
+          "issuerName": "./~/core-js/modules/_object-create.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -12735,9 +12735,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/home/travis/build/ArturCzopek/e-arbiter/e-arbiter-web/node_modules/core-js/modules/_object-gpo.js",
-      "issuerId": 12,
-      "issuerName": "./~/core-js/modules/_object-gpo.js",
+      "issuer": "/home/travis/build/ArturCzopek/e-arbiter/e-arbiter-web/node_modules/core-js/modules/_object-create.js",
+      "issuerId": 35,
+      "issuerName": "./~/core-js/modules/_object-create.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
