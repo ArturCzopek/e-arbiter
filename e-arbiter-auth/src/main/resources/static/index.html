@@ -11,35 +11,68 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
     <base href="/">
+    <a href="/auth/github/login">Login</a>
+    <button onclick="logout()">Logout</button>
 </head>
 <script>
-    setTimeout(function () {
-        $(document).ready(function () {
-            $.get("http://localhost:8080/auth/api/clientUrl", function (clientUrl) {
+    const clientUrl = "http://localhost:4200"
 
-                console.log('url', clientUrl);
+//    $(document).ready(function () {
+//        if (localStorage.getItem('oauth_token') === null) {
+//            console.log('ni ma tokena');
+//            console.log('wez tokena');
+//            $.get("http://localhost:8080/auth/api/token", function (token) {
+//                console.log('bierzemy tokena');
+//                console.log(token);
+//                if (token && token !== '') {
+//                    console.log('jest token');
+//                    localStorage.setItem('oauth_token', token);
+//                    window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+//                } else {
+//                    console.log('ni ma tokena, logujemy pana');
+//                    window.location = "http://localhost:8080/auth/github/login";
+//                }
+//            });
+//        } else {
+//            console.log("login with token");
+//            window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+//        }
+//
+//        $.get("http://localhost:8080/auth/user", function (data) {
+//            console.log(data);
+//        });
+//    });
 
-                if (localStorage.getItem('oauth_token') === null) {
-                    console.log('ni ma tokena');
-                    console.log('wez tokena');
-                    $.get("http://localhost:8080/auth/api/token", function (token) {
-                        console.log('bierzemy tokena');
-                        console.log(token);
-                        if (token && token !== '') {
-                            console.log('jest token');
-                            localStorage.setItem('oauth_token', token);
-                            window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
-                        } else {
-                            console.log('ni ma tokena, logujemy pana');
-                            window.location = "http://localhost:8080/auth/login";
-                        }
-                    });
-                } else {
-                    window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
-                }
-            });
-        });
-    }, 5000);
+    function logout() {
+        $.post("/logout");
+    }
+    //    setTimeout(function () {
+    //        $(document).ready(function () {
+    //            $.get("http://localhost:8080/auth/api/clientUrl", function (clientUrl) {
+    //
+    //                console.log('url', clientUrl);
+    //
+    //                if (localStorage.getItem('oauth_token') === null) {
+    //                    console.log('ni ma tokena');
+    //                    console.log('wez tokena');
+    //                    $.get("http://localhost:8080/auth/api/token", function (token) {
+    //                        console.log('bierzemy tokena');
+    //                        console.log(token);
+    //                        if (token && token !== '') {
+    //                            console.log('jest token');
+    //                            localStorage.setItem('oauth_token', token);
+    //                            window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+    //                        } else {
+    //                            console.log('ni ma tokena, logujemy pana');
+    //                            window.location = "http://localhost:8080/auth/login";
+    //                        }
+    //                    });
+    //                } else {
+    //                    window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+    //                }
+    //            });
+    //        });
+    //    }, 5000);
 </script>
 <body>
 <h1>Demo</h1>
