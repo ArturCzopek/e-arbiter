@@ -1,11 +1,11 @@
-## Authentication Module
+## Resources
 ### Login-controller
 
 Login Controller
 
-#### log in user
+#### log in user by hystrix method
 ```
-GET /api/login
+GET /api/failLogin
 ```
 
 ##### Responses
@@ -25,9 +25,9 @@ GET /api/login
 
 * */*
 
-#### log in user by hystrix method
+#### log in user
 ```
-GET /api/failLogin
+GET /api/login
 ```
 
 ##### Responses

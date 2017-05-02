@@ -4,9 +4,5 @@ e-arbiter:
 spring:
   application:
     name: tournament-module
-server:
-  port: 8092
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  profiles:
+    active: dev

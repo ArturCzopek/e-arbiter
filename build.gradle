@@ -75,36 +75,37 @@ allprojects {
     group = group
 }
 
-task createDoc {
-
-    def docs = files(
-            './e-arbiter-auth/docs/paths.md',
-            './e-arbiter-executor/docs/paths.md',
-//            './e-arbiter-solution-repository/docs/paths.md',
-//            './e-arbiter-tournament/docs/paths.md',
-//            './e-arbiter-tournament-results/docs/paths.md',
-    )
+task markdownDoc(type: Delete) {
 
     def apiFile = new File('API.md')
     apiFile.text = ""
 
-    docs.eachWithIndex { File file, int i -> apiFile << replaceHeaderAndControllers(file, i)}
-
-    cleanDocFiles()
+    getModulePaths().eachWithIndex { String path, int i ->
+        apiFile << replaceHeaderAndControllers(new File("$path/docs/paths.md"), i)
+//        it should be cleaned by IJ run automatically this task...
+//        delete fileTree("$path/docs/") { include '**/*.md' }
+//        delete "$path/docs"
+    }
 }
 
-compileJava.dependsOn createDoc
+configure(markdownDoc) {
+    group = 'documentation'
+    description = 'Create markdown documentation based on Swagger'
+}
+
+compileJava.dependsOn markdownDoc
 
 // FUNCTIONS
 
-def cleanDocFiles() {
-    print "lol"
-}
-
 String replaceHeaderAndControllers(File file, int index) {
-    file.text
-            .replaceAll("## Resources", "## ${getHeader(index)}")
-            .replaceAll("### \\w*-controller\n", "")
+
+    try {
+        file.text
+                .replaceAll("## Resources", "## ${getHeader(index)}")
+                .replaceAll("### \\w*-controller\n", "")
+    } catch (FileNotFoundException ex) {
+        // do nothing, this is workaround for gradle before checking if file exists (they will be later)
+    }
 }
 
 String getHeader(int index) {
@@ -117,4 +118,16 @@ String getHeader(int index) {
     ]
 
     headers[index]
+}
+
+String[] getModulePaths() {
+    def modulePaths = [
+            "./e-arbiter-auth",
+            "./e-arbiter-executor",
+            "./e-arbiter-solution-repository",
+            "./e-arbiter-tournament",
+            "./e-arbiter-tournament-results",
+    ]
+
+    modulePaths
 }

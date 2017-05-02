@@ -4,22 +4,24 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.executor.modules.AuthModuleInterface;
 
 @RestController
+@RequestMapping("/api")
 public class ExecutorController {
 
     @Autowired
     private AuthModuleInterface authModule;
 
-    @GetMapping("/api/execute")
+    @GetMapping("/execute")
     @ApiOperation(value = "Executes code")
     public String executeCode() {
         return "Executed: " + authModule.login();
     }
 
-    @GetMapping("/api/executeFail")
+    @GetMapping("/executeFail")
     @ApiOperation(value = "Executes code with failed login")
     public String executeFailCode() {
         return "Failed: " + authModule.failLogin(); // there should be login too
