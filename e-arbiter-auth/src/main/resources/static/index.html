@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Demo</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <base href="/">
+</head>
+<script>
+    setTimeout(function () {
+        $(document).ready(function () {
+            $.get("http://localhost:8080/auth/api/clientUrl", function (clientUrl) {
+
+                console.log('url', clientUrl);
+
+                if (localStorage.getItem('oauth_token') === null) {
+                    console.log('ni ma tokena');
+                    console.log('wez tokena');
+                    $.get("http://localhost:8080/auth/api/token", function (token) {
+                        console.log('bierzemy tokena');
+                        console.log(token);
+                        if (token && token !== '') {
+                            console.log('jest token');
+                            localStorage.setItem('oauth_token', token);
+                            window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+                        } else {
+                            console.log('ni ma tokena, logujemy pana');
+                            window.location = "http://localhost:8080/auth/login";
+                        }
+                    });
+                } else {
+                    window.location = clientUrl + "/login/" + localStorage.getItem('oauth_token');
+                }
+            });
+        });
+    }, 5000);
+</script>
+<body>
+<h1>Demo</h1>
+<div class="container"></div>
+</body>
+</html>

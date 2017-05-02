@@ -3,9 +3,8 @@ package pl.cyganki.executor.docker;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.cyganki.executor.model.User;
 import pl.cyganki.executor.modules.AuthModuleInterface;
 
 @RestController
@@ -17,14 +16,9 @@ public class ExecutorController {
 
     @GetMapping("/execute")
     @ApiOperation(value = "Executes code")
-    public String executeCode() {
-        return "Executed: " + authModule.login();
-    }
-
-    @GetMapping("/executeFail")
-    @ApiOperation(value = "Executes code with failed login")
-    public String executeFailCode() {
-        return "Failed: " + authModule.failLogin(); // there should be login too
+    public String executeCode(@RequestParam("token") String token) {
+        User user =  authModule.getUser(token);
+        return "Executed: " + user.getName() + ", " + user.getId();
     }
 
     @GetMapping("/hystrix")

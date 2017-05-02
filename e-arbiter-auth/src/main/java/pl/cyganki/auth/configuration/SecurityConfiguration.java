@@ -1,22 +1,15 @@
-package pl.cyganki.gateway;
+package pl.cyganki.auth.configuration;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.client.RestTemplate;
 
-@EnableZuulProxy
-@EnableEurekaClient
-@SpringBootApplication
+@Configuration
 @EnableOAuth2Sso
-public class EArbiterApiGatewayApplication extends WebSecurityConfigurerAdapter {
-
-    public static void main(String[] args) {
-        SpringApplication.run(EArbiterApiGatewayApplication.class, args);
-    }
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,4 +22,8 @@ public class EArbiterApiGatewayApplication extends WebSecurityConfigurerAdapter 
                 .and().csrf().disable();
     }
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
