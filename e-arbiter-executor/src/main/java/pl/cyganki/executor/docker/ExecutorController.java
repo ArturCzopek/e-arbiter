@@ -16,9 +16,9 @@ public class ExecutorController {
 
     @GetMapping("/execute")
     @ApiOperation(value = "Executes code")
-    public String executeCode(@RequestParam("token") String token) {
+    public User executeCode(@RequestHeader("oauth_token") String token) {
         User user =  authModule.getUser(token);
-        return "Executed: " + user.getName() + ", " + user.getId();
+        return user;
     }
 
     @GetMapping("/hystrix")

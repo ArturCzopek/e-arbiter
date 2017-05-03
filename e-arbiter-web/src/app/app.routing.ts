@@ -1,10 +1,17 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {LoginComponent} from "./login.component";
+import {MainComponent} from "./main.component";
+import {DashboardComponent} from "./dashboard.component";
+import {LogoutComponent} from "./logout.component";
+import {AuthGuard} from "./auth.guard";
+import {AnonymousUserGuard} from "app/anonymous-user.guard";
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: '/login/', pathMatch: 'full'},
-  {path: 'login/:oauth_token', component: LoginComponent}
+  {path: '', redirectTo: '/main', pathMatch: 'full'},
+  {path: 'logout', component: LogoutComponent, canActivate: [AnonymousUserGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'main', component: MainComponent},
+  {path: 'main/:oauth_token', component: MainComponent}
 ];
 
 @NgModule({

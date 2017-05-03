@@ -6,6 +6,8 @@ e-arbiter:
     contact-address: artur@simplecoding.pl
     contact-url: http://simplecoding.pl
     path: rest-api
+  clientUrl: http://localhost:4200
+  proxyUrl: http://localhost:8080
 
 spring:
   profiles: dev
