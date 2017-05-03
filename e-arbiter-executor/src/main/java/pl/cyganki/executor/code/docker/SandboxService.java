@@ -53,4 +53,8 @@ class SandboxService implements AutoCloseable {
     void stopContainer(String id, int timeout) throws DockerException, InterruptedException {
         dockerClient.stopContainer(id, timeout);
     }
+
+    void delContainer(String id) throws DockerException, InterruptedException {
+        dockerClient.removeContainer(id);
+    }
 }

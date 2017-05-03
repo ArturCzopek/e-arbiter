@@ -48,6 +48,7 @@ public class DockerCodeRunner implements CodeRunner {
             sandboxService.startContainer(id);
             result = parseOutput(sandboxService.getContainerLogs(id));
             sandboxService.stopContainer(id, 20);
+            sandboxService.delContainer(id);
         } catch (DockerException | InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -74,7 +75,8 @@ public class DockerCodeRunner implements CodeRunner {
         try {
             byte[] programBytes = Files.toByteArray(program);
             byte[] testDataBytes = Files.toByteArray(testData);
-            execute(programBytes, "c", testDataBytes);
+            ExecutionResult result = execute(programBytes, "c", testDataBytes);
+            System.out.println(result.getOutput());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
