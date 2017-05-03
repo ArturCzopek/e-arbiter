@@ -1,6 +1,5 @@
 e-arbiter:
   service-name: Authentication Module
-  clientUrl: http://localhost:4200/
 
 spring:
   application:

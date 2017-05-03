@@ -10,8 +10,7 @@ const appRoutes: Routes = [
   {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: 'logout', component: LogoutComponent, canActivate: [AnonymousUserGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'main', component: MainComponent},
-  {path: 'main/:oauth_token', component: MainComponent}
+  {path: 'main', component: MainComponent}
 ];
 
 @NgModule({

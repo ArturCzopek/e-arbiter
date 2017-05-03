@@ -17,12 +17,12 @@ export class MainComponent implements OnInit {
 
   private loginUrl = '/login';
 
-  constructor(private route: ActivatedRoute, public userService: UserService) {
+  constructor(public userService: UserService) {
 
   }
 
   ngOnInit(): void {
-    this.userService.logIn(this.route.snapshot.params[environment.authToken]);
+    this.userService.logIn();
   }
 
   public login() {

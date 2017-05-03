@@ -24,7 +24,7 @@ export class UserService {
     this.message = '';
   }
 
-  public logIn(oauth_token: string) {
+  public logIn() {
 
     if (this.user) {
       return;
@@ -32,7 +32,7 @@ export class UserService {
 
     // if we want to log in user, we use received token,
     // otherwise, we check if user was logged in earlier by getting token from storage
-    const token = oauth_token || localStorage.getItem(environment.authToken);
+    const token = this.getTokenFromCookie() || localStorage.getItem(environment.authToken);
 
     // we want to log new/earlier user
     if (token) {
@@ -76,6 +76,17 @@ export class UserService {
     window.location = `${environment.authUrl}${this.logoutUrl}`;
   }
 
+  private getTokenFromCookie(): string {
+    let token: string;
+    const cookiesFromRegex = document.cookie.match(new RegExp(environment.authToken + '=([^;]+)'));
+
+    if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
+      token = cookiesFromRegex[1];
+    }
+
+    return token;
+  }
+
   private getUserFromServer(): any {
     this.http.get(`${environment.authUrl}${this.userUrl}`, this.prepareAuthOptions())
       .map(res => res.json())
@@ -98,7 +109,6 @@ export class UserService {
   private handleInvalidToken() {
     this.message = 'Wrong token!';
     localStorage.removeItem(environment.authToken);
-    this.router.navigate(['/']);
     return Observable.throw('invalid token');
   }
 

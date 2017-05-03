@@ -13,17 +13,24 @@
     <base href="/">
     <script>
         $(document).ready(function () {
-            $.get("http://localhost:8090/api/data/clientUrl", function(clientUrl) {
-                $.get("http://localhost:8090/api/token", function (token) {
+            $.get("/api/data/clientUrl", function (clientUrl) {
+                $.get("/api/token", function (token) {
                     if (token && token !== '') {
-                        window.location = clientUrl + "/main/" + token;
+                        setTokenInCookie(token);
+                       window.location = clientUrl + "/main";
                     } else {
-                        window.location = "http://localhost:8090/login";
+                        window.location = "/login";
                     }
                 });
             });
         });
 
+        function setTokenInCookie(tokenValue) {
+            var cookieTime = new Date();
+            var tokenLifeSeconds = 15;
+            cookieTime.setTime(cookieTime.getTime() + (tokenLifeSeconds * 1000));
+            document.cookie = "oauth_token=" + tokenValue + "; expires=" + cookieTime.toGMTString() + "; path=/";
+        }
     </script>
 </head>
 <body>
