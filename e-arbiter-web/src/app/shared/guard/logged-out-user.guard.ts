@@ -1,10 +1,10 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Injectable} from "@angular/core";
-import {UserService} from "./user.service";
-import {environment} from "../environments/environment";
+import {UserService} from "../service/user.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
-export class AnonymousUserGuard implements CanActivate {
+export class LoggedOutUserGuard implements CanActivate {
 
   private dashboardUrl: string = '/dashboard';
 
@@ -17,7 +17,7 @@ export class AnonymousUserGuard implements CanActivate {
       return true;
     }
 
-    alert('Logout failed!');
+    console.log('Logout failed!', this.userService, localStorage.getItem(environment.authToken));
 
     this.router.navigate([this.dashboardUrl]);
     return false;

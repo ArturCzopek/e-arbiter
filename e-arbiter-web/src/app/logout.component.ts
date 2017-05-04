@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'arb-logout',
   template: `<p>You've been logout</p>`,
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.scss']
 })
 export class LogoutComponent implements OnInit {
 
@@ -13,6 +13,6 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => this.router.navigate(['/']), 3000);
+    setTimeout(() => this.router.navigate(['/main']), 3000);
   }
 }

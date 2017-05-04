@@ -6,22 +6,21 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import {Observable} from "rxjs/Observable";
 import {Router} from "@angular/router";
-import {environment} from "../environments/environment";
-import {User} from "./user.model";
+import {environment} from "../../../environments/environment";
+import {User} from "../model/user.model";
 
 declare var window: any;
 
 @Injectable()
 export class UserService {
   private user: User;
-  private message: string;
   private tokenUrl: string = '/api/token';
   private userUrl: string = '/api/user';
   private logoutUrl: string = '/github/logout';
   private dashboardUrl: string = '/dashboard';
 
   constructor(private http: Http, private router: Router) {
-    this.message = '';
+
   }
 
   public logIn() {
@@ -50,7 +49,6 @@ export class UserService {
         .first()
         .subscribe(
           token => {
-            this.message = 'got token, there must be a problem with local storage';
             localStorage.setItem(environment.authToken, token);
             this.getUserFromServer();
           }
@@ -60,10 +58,6 @@ export class UserService {
 
   public getLoggedInUser() {
     return this.user;
-  }
-
-  public getMessage() {
-    return this.message;
   }
 
   public getUserFromServerUsingOtherModule(): Observable<any> {
@@ -76,7 +70,7 @@ export class UserService {
     window.location = `${environment.authUrl}${this.logoutUrl}`;
   }
 
-  private getTokenFromCookie(): string {
+  public getTokenFromCookie(): string {
     let token: string;
     const cookiesFromRegex = document.cookie.match(new RegExp(environment.authToken + '=([^;]+)'));
 
@@ -96,7 +90,6 @@ export class UserService {
       .subscribe(
         user => {
           this.user = user;
-          this.message = 'logged In';
           this.router.navigate([this.dashboardUrl]);
         }
       );
@@ -107,19 +100,17 @@ export class UserService {
   }
 
   private handleInvalidToken() {
-    this.message = 'Wrong token!';
     localStorage.removeItem(environment.authToken);
     return Observable.throw('invalid token');
   }
 
   private handleMissingToken() {
-    this.message = 'Not found token, log in by button';
     return Observable.throw('Not found token, log in by button');
   }
 
   private prepareAuthOptions(): RequestOptions {
     const headers = new Headers();
-    headers.append("oauth_token", localStorage.getItem(environment.authToken));
+    headers.append(environment.authToken, localStorage.getItem(environment.authToken));
     const options = new RequestOptions();
     options.headers = headers;
     return options;

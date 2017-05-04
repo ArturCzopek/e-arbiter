@@ -1,10 +1,10 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Injectable} from "@angular/core";
-import {UserService} from "./user.service";
-import {environment} from "../environments/environment";
+import {UserService} from "../service/user.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class LoggedInUserGuard implements CanActivate {
 
   private mainUrl: string = '/main';
 
@@ -13,11 +13,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    if (localStorage.getItem(environment.authToken) && this.userService.getLoggedInUser()) {
+    if (this.userService.getLoggedInUser() !== null) {
       return true;
     }
 
-    alert('Log in first!');
+    console.log('Log in first!');
     this.router.navigate([this.mainUrl]);
     return false;
   }

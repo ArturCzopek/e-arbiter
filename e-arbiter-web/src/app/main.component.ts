@@ -1,17 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {UserService} from "./user.service";
-import {environment} from "../environments/environment";
+import {UserService} from "./shared/service/user.service";
+import {environment} from "environments/environment";
+import {ActivatedRouteSnapshot, Router} from "@angular/router";
 
 declare var window: any;
 
 @Component({
-  selector: 'arb-login',
+  selector: 'arb-main',
   template: `
-    <p *ngIf="!userService.getLoggedInUser()">You are not logged in</p>
-    <button *ngIf="!userService.getLoggedInUser()" (click)="login()">Click to log in</button>
+    <div class="ui four column grid">
+      <div class="one column row">
+        <div class="column">
+          <p>You are not logged in</p>
+          <button (click)="login()">Click to log in</button>
+        </div>
+      </div>
+    </div>
   `,
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.scss']
 })
 export class MainComponent implements OnInit {
 
@@ -22,7 +28,9 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.logIn();
+    if (localStorage.getItem(environment.authToken) || this.userService.getTokenFromCookie()) {
+      this.userService.logIn();
+    }
   }
 
   public login() {

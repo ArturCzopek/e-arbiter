@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'arb-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <arb-header></arb-header>
+    <div class="main-tab" style="margin-top: 70px;">
+      <router-outlet></router-outlet>
+    </div>
+  `,
+  styleUrls: ['./app.scss']
 })
 export class AppComponent {
-  title = 'e-Arbiter';
 }
