@@ -3,8 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'arb-root',
   template: `
-    <arb-header></arb-header>
-    <div class="main-tab" style="margin-top: 70px;">
+    <div class="ui inverted vertical masthead center aligned segment main-page">
       <router-outlet></router-outlet>
     </div>
   `,

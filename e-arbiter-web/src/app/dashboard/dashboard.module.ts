@@ -5,12 +5,14 @@ import {HttpModule} from "@angular/http";
 import {CommonModule} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
 import {UserDataComponent} from "./user-data.component";
+import {HeaderComponent} from "./header.component";
 import {DashboardRouting} from "./dashboard.routing";
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UserDataComponent
+    UserDataComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,7 @@ import {DashboardRouting} from "./dashboard.routing";
     DashboardRouting
   ],
   exports: [
-    DashboardComponent,
+    DashboardComponent
   ],
   providers: [
   ]

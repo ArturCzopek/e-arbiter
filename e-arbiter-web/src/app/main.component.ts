@@ -1,29 +1,37 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {UserService} from "./shared/service/user.service";
 import {environment} from "environments/environment";
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 declare var window: any;
 
 @Component({
   selector: 'arb-main',
   template: `
-    <div class="ui four column grid">
-      <div class="one column row">
-        <div class="column">
-          <p>You are not logged in</p>
-          <button (click)="login()">Click to log in</button>
+
+    <div class="ui text container">
+      <h1 class="ui inverted header">e-Arbiter</h1>
+      <div *ngIf="!userService.getLoggedInUser(); else goToPanel">
+        <h2>Nie jesteś zalogowany</h2>
+        <div class="ui vertical labeled icon buttons">
+          <button (click)="loginUser()" class="ui black big inverted button">
+            <i class="github large icon"></i>Zaloguj się
+          </button>
         </div>
+
       </div>
+      <ng-template #goToPanel>
+        <img class="ui small centered circular image" *ngIf="this.userService.getLoggedInUser()" src="{{userService.getUserImgLink()}}">
+        <h2>Witaj, {{userService.getLoggedInUser().name}}</h2>
+        <button (click)="goToDashboard()" class="ui black inverted big button">Przejdź do aplikacji</button>
+      </ng-template>
     </div>
   `,
   styleUrls: ['./app.scss']
 })
 export class MainComponent implements OnInit {
 
-  private loginUrl = '/login';
-
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService, public router: Router) {
 
   }
 
@@ -33,7 +41,12 @@ export class MainComponent implements OnInit {
     }
   }
 
-  public login() {
-    window.location = `${environment.authUrl}${this.loginUrl}`;
+  public loginUser() {
+    console.log(environment.server.auth.loginUrl)
+    window.location = `${environment.server.auth.loginUrl}`;
+  }
+
+  public goToDashboard() {
+    this.router.navigate([environment.client.dashboard.url]);
   }
 }

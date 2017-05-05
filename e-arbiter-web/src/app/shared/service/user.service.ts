@@ -13,13 +13,9 @@ declare var window: any;
 
 @Injectable()
 export class UserService {
-  private user: User;
-  private tokenUrl: string = '/api/token';
-  private userUrl: string = '/api/user';
-  private logoutUrl: string = '/github/logout';
-  private dashboardUrl: string = '/dashboard';
+  private user: User = null;
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http) {
 
   }
 
@@ -61,13 +57,13 @@ export class UserService {
   }
 
   public getUserFromServerUsingOtherModule(): Observable<any> {
-    return this.http.get(`${environment.proxyUrl}/exec/api/execute`, this.prepareAuthOptions()).map(res => res.json());
+    return this.http.get(`${environment.server.proxy.url}/exec/api/execute`, this.prepareAuthOptions()).map(res => res.json());
   }
 
   public logOut() {
     localStorage.removeItem(environment.authToken);
     this.user = null;
-    window.location = `${environment.authUrl}${this.logoutUrl}`;
+    window.location = `${environment.server.auth.logoutUrl}`;
   }
 
   public getTokenFromCookie(): string {
@@ -81,8 +77,12 @@ export class UserService {
     return token;
   }
 
+  public getUserImgLink(): string {
+    return `${environment.githubUrl}/${this.getLoggedInUser().name}.png`;
+  }
+
   private getUserFromServer(): any {
-    this.http.get(`${environment.authUrl}${this.userUrl}`, this.prepareAuthOptions())
+    this.http.get(`${environment.server.auth.userUrl}`, this.prepareAuthOptions())
       .map(res => res.json())
       // token is invalid
       .catch(this.handleInvalidToken)
@@ -90,13 +90,12 @@ export class UserService {
       .subscribe(
         user => {
           this.user = user;
-          this.router.navigate([this.dashboardUrl]);
         }
       );
   }
 
   private getToken(): Observable<any> {
-    return this.http.get(`${environment.authUrl}${this.tokenUrl}`);
+    return this.http.get(`${environment.server.auth.tokenUrl}`);
   }
 
   private handleInvalidToken() {

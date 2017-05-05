@@ -1,12 +1,18 @@
-nav {
-  a.item {
-    font-size: 16px;
-    cursor: pointer;
-    padding: 0.9rem;
-  }
+.main-page {
+  height: 100%;
+  padding-top: 1px;
 
-  a.title {
-    font-size: 30px;
-    cursor: pointer;
+  :host-context(*) {
+    .ui.text.container {
+      h1.ui.inverted.header {
+        margin-top: 30%;
+        font-size: 80px;
+        margin-bottom: 10%;
+      }
+
+      h2 {
+        margin-bottom: 5%;
+      }
+    }
   }
 }

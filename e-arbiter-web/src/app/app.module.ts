@@ -9,14 +9,12 @@ import {UserService} from "./shared/service/user.service";
 import {LoggedInUserGuard} from "./shared/guard/logged-in-user.guard";
 import {LoggedOutUserGuard} from "./shared/guard/logged-out-user.guard";
 import {DashboardModule} from "./dashboard/dashboard.module";
-import {HeaderComponent} from "./header.component";
 import {LogoutComponent} from "./logout.component";
 import {MainComponent} from "./main.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     LogoutComponent,
     MainComponent
   ],
