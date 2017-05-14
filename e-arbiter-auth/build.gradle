@@ -1,0 +1,21 @@
+jar {
+    baseName = 'e-arbiter-auth'
+    version = null
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.auth.EArbiterAuthApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.auth.EArbiterAuthApplication'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}

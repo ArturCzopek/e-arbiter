@@ -1,0 +1,22 @@
+jar {
+    baseName = 'e-arbiter-tournament'
+    version = null
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.tournament.EArbiterTournamentApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.tournament.EArbiterTournamentApplication'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.cloud:spring-cloud-starter-feign')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}

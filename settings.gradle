@@ -1,0 +1,10 @@
+rootProject.name = applicationName
+
+include 'e-arbiter-api-gateway'
+include 'e-arbiter-auth'
+include 'e-arbiter-eureka'
+include 'e-arbiter-executor'
+include 'e-arbiter-tournament'
+include 'e-arbiter-tournament-results'
+include 'e-arbiter-solution-repository'
+

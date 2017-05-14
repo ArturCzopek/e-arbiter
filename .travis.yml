@@ -2,13 +2,12 @@ language: java
 jdk: oraclejdk8
 dist: trusty
 sudo: required
+install: true
 
-#TODO uncomment after front development
-#branches:
-#  only:
-#  - master
+branches:
+  only:
+  - master
 
-addons:
 apt:
   sources:
    - google-chrome
@@ -29,19 +28,25 @@ before_cache:
 before_script:
  - npm install -g @angular/cli@1.0.0
  - npm install -g angular-cli-ghpages
- - cd webapp
+ - cd e-arbiter-web
  - npm install
+ - cd ..
 
 cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+  - "$HOME/.sonar/cache"
+  - ".gradle"
   - "$HOME/.nvm"
-  - "webapp/node_modules"
+  - "e-arbiter-web/node_modules"
 
 script:
  - echo Hello Travis for e-Arbiter
+ - ./gradlew build
+ - ./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.organization=cyganki -Dsonar.login=$SONAR_TOKEN
+ - cd e-arbiter-web
  - ng build --env=prod --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
 # TODO uncomment, you know when..:)
 # - ng test --watch=false

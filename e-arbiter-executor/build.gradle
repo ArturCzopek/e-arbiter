@@ -1,0 +1,22 @@
+jar {
+	baseName = 'e-arbiter-executor'
+	version = null
+}
+
+springBoot {
+	executable = true
+}
+
+bootRun {
+	main = 'pl.cyganki.executor.EArbiterExecutorApplication'
+}
+
+bootRepackage {
+	mainClass = 'pl.cyganki.executor.EArbiterExecutorApplication'
+}
+
+dependencies {
+	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile('org.springframework.cloud:spring-cloud-starter-feign')
+	compile('org.springframework.boot:spring-boot-starter-web')
+}

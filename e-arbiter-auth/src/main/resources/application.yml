@@ -1,0 +1,14 @@
+e-arbiter:
+  service-name: Authentication Module
+
+spring:
+  application:
+    name: authentication-module
+server:
+  port: 8090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

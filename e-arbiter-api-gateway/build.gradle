@@ -1,0 +1,21 @@
+jar {
+    baseName = 'e-arbiter-api-gateway'
+    version = null
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.gateway.EArbiterApiGatewayApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.gateway.EArbiterApiGatewayApplication'
+}
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}

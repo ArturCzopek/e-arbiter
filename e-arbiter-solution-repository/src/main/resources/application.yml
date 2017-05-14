@@ -1,0 +1,12 @@
+e-arbiter:
+  service-name: Solution Repository Module
+
+spring:
+  application:
+    name: solution-repository-module
+server:
+  port: 8094
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
