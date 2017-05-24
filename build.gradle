@@ -48,6 +48,7 @@ subprojects {
         compile('org.springframework.boot:spring-boot-devtools')
         compile('org.springframework.cloud:spring-cloud-starter-hystrix')
         compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.projectlombok:lombok:' + lombokVersion)
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
@@ -72,4 +73,61 @@ allprojects {
 
     version = version
     group = group
+}
+
+task markdownDoc(type: Delete) {
+
+    def apiFile = new File('API.md')
+    apiFile.text = ""
+
+    getModulePaths().eachWithIndex { String path, int i ->
+        apiFile << replaceHeaderAndControllers(new File("$path/docs/paths.md"), i)
+//        it should be cleaned by IJ run automatically this task...
+//        delete fileTree("$path/docs/") { include '**/*.md' }
+//        delete "$path/docs"
+    }
+}
+
+configure(markdownDoc) {
+    group = 'documentation'
+    description = 'Create markdown documentation based on Swagger'
+}
+
+compileJava.dependsOn markdownDoc
+
+// FUNCTIONS
+
+String replaceHeaderAndControllers(File file, int index) {
+
+    try {
+        file.text
+                .replaceAll("## Resources", "## ${getHeader(index)}")
+                .replaceAll("### \\w*-controller\n", "")
+    } catch (FileNotFoundException ex) {
+        // do nothing, this is workaround for gradle before checking if file exists (they will be later)
+    }
+}
+
+String getHeader(int index) {
+    def headers = [
+            "Authentication Module",
+            "Executor Module",
+            "Solution Repository Module",
+            "Tournament Module",
+            "Tournament Results Module",
+    ]
+
+    headers[index]
+}
+
+String[] getModulePaths() {
+    def modulePaths = [
+            "./e-arbiter-auth",
+            "./e-arbiter-executor",
+            "./e-arbiter-solution-repository",
+            "./e-arbiter-tournament",
+            "./e-arbiter-tournament-results",
+    ]
+
+    modulePaths
 }

@@ -1,0 +1,18 @@
+.main-page {
+  height: 100%;
+  padding-top: 1px;
+
+  :host-context(*) {
+    .ui.text.container {
+      h1.ui.inverted.header {
+        margin-top: 30%;
+        font-size: 80px;
+        margin-bottom: 10%;
+      }
+
+      h2 {
+        margin-bottom: 5%;
+      }
+    }
+  }
+}

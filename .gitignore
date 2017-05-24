@@ -14,6 +14,8 @@
 # Front end
 */node_modules/
 
+# Doc markdowns - we want only this one from root
+**/docs/
 
 # Logs
 *.log

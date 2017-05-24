@@ -1,0 +1,20 @@
+e-arbiter:
+  swagger:
+    title: e-Arbiter - Executor Module
+    description: API for Executor Module
+    contact-name: cyganki
+    contact-address: artur@simplecoding.pl
+    contact-url: http://simplecoding.pl
+    path: rest-api
+  clientUrl: http://localhost:4200
+  proxyUrl: http://localhost:8080
+
+spring:
+  profiles: dev
+
+server:
+  port: 8091
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

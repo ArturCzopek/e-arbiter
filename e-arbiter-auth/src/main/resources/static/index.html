@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Demo</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <base href="/">
+    <script>
+        $(document).ready(function () {
+            $.get("/api/data/clientUrl", function (clientUrl) {
+                $.get("/api/token", function (token) {
+                    if (token && token !== '') {
+                        setTokenInCookie(token);
+                       window.location = clientUrl + "/main";
+                    } else {
+                        window.location = "/login";
+                    }
+                });
+            });
+        });
+
+        function setTokenInCookie(tokenValue) {
+            var cookieTime = new Date();
+            var tokenLifeSeconds = 5;
+            cookieTime.setTime(cookieTime.getTime() + (tokenLifeSeconds * 1000));
+            document.cookie = "oauth_token=" + tokenValue + "; expires=" + cookieTime.toGMTString() + "; path=/";
+        }
+    </script>
+</head>
+<body>
+<p>Login...</p>
+</body>
+</html>

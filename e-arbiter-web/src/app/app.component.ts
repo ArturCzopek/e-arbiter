@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'arb-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <div class="ui inverted vertical masthead center aligned segment main-page">
+      <router-outlet></router-outlet>
+    </div>
+  `,
+  styleUrls: ['./app.scss']
 })
 export class AppComponent {
-  title = 'app works!';
 }
