@@ -27,7 +27,7 @@
 
         function setTokenInCookie(tokenValue) {
             var cookieTime = new Date();
-            var tokenLifeSeconds = 15;
+            var tokenLifeSeconds = 5;
             cookieTime.setTime(cookieTime.getTime() + (tokenLifeSeconds * 1000));
             document.cookie = "oauth_token=" + tokenValue + "; expires=" + cookieTime.toGMTString() + "; path=/";
         }
