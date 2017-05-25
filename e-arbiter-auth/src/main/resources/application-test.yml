@@ -1,0 +1,21 @@
+e-arbiter:
+  swagger:
+    title: test
+    description: test
+    contact-name: test
+    contact-address: test
+    contact-url: test
+    path: rest-api
+  clientUrl: test
+  proxyUrl: test
+
+spring:
+  profiles: test
+
+security:
+  basic:
+    enabled: false
+
+eureka:
+  client:
+    enabled: false
