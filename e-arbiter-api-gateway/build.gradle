@@ -1,6 +1,6 @@
 jar {
     baseName = 'e-arbiter-api-gateway'
-    version = null
+    version = '1.0-SNAPSHOT'
 }
 
 springBoot {
@@ -17,8 +17,5 @@ bootRepackage {
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-zuul')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
-//    compile('org.springframework.cloud:spring-cloud-security')
-//    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
     compile('org.springframework.boot:spring-boot-starter-web')
-//    compile('org.springframework.boot:spring-boot-starter-security')
 }

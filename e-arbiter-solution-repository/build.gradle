@@ -1,6 +1,6 @@
 jar {
     baseName = 'e-arbiter-solution-repository'
-    version = null
+    version = '1.0-SNAPSHOT'
 }
 
 springBoot {

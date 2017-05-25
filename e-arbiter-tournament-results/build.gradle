@@ -1,6 +1,7 @@
 jar {
     baseName = 'e-arbiter-tournament-results'
-    version = null
+    version = '1.0-SNAPSHOT'
+
 }
 
 springBoot {
