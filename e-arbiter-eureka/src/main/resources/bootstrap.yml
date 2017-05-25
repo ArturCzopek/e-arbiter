@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: dev
+  cloud.config.uri: ${E_ARB_DEV_HOST}:${E_ARB_DEV_CFG_PORT}

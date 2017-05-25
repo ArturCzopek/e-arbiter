@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 ./gradlew build
+./gradlew bootRun -p e-arbiter-config &
 ./gradlew bootRun -p e-arbiter-eureka &
 ./gradlew bootRun -p e-arbiter-auth &
 ./gradlew bootRun -p e-arbiter-executor &

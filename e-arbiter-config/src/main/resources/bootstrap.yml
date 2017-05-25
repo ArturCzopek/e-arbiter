@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: config-module
+  profiles:
+    active: dev
+  cloud.config.server.git.uri: file://${E_ARB_DEV_CFG_PATH}

@@ -1,13 +1,9 @@
 e-arbiter:
-  service-name: Config Server
+  service-name: ${E_ARB_DEV_CFG_NAME}
 
 server:
-  port: 8096
+  port: ${E_ARB_DEV_CFG_PORT}
 eureka:
-  instance:
-    hostname: localhost
   client:
-    registerWithEureka: false
-    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

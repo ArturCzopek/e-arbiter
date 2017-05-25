@@ -1,8 +1,0 @@
-e-arbiter:
-  service-name: Authentication Module
-
-spring:
-  application:
-    name: authentication-module
-  profiles:
-    active: dev
