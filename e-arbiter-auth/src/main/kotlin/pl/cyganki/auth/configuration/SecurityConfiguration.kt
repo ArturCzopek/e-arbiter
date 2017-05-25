@@ -30,7 +30,7 @@ open class Security(
     }
 
     fun corsConfigurer(): WebMvcConfigurer {
-        object : WebMvcConfigurerAdapter() {
+        return object : WebMvcConfigurerAdapter() {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**").allowedOrigins(proxyUrl, clientUrl)
             }

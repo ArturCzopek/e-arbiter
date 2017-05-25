@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import static com.google.common.base.Predicates.and;
 import static springfox.documentation.builders.PathSelectors.regex;
 
-@Profile("dev")
+@Profile({"dev", "test"})
 @Setter
 @Configuration
 @EnableSwagger2
