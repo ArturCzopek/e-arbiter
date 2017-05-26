@@ -61,3 +61,5 @@ if successes == iterations:
     print "ALL PASSED"
 else:
     print "{} FAILED".format(iterations - successes)
+
+print "FINISHED"

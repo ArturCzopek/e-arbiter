@@ -8,6 +8,11 @@ import com.spotify.docker.client.messages.ContainerCreation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 @Service
 class SandboxService implements AutoCloseable {
 
@@ -46,12 +51,32 @@ class SandboxService implements AutoCloseable {
         dockerClient.startContainer(id);
     }
 
-    String getContainerLogs(String id) throws DockerException, InterruptedException {
-        return dockerClient.logs(id, DockerClient.LogsParam.stdout(), DockerClient.LogsParam.stderr()).readFully();
+    String getContainerLogs(String id, int timeout)
+            throws DockerException, InterruptedException, TimeoutException {
+
+        FutureTask<String> logsFetching = new FutureTask<>(() -> {
+            String logs = "";
+
+            while (!logs.contains("FINISHED")) {
+                logs = dockerClient.logs(id, DockerClient.LogsParam.stdout(),
+                        DockerClient.LogsParam.stderr()).readFully();
+            }
+
+            return logs;
+        });
+
+        new Thread(logsFetching).start();
+        String logs = "";
+
+        try {
+            logs = logsFetching.get(timeout, TimeUnit.SECONDS);
+        } catch (ExecutionException ignored) {}
+
+        return logs;
     }
 
-    void stopContainer(String id, int timeout) throws DockerException, InterruptedException {
-        dockerClient.stopContainer(id, timeout);
+    void stopContainer(String id) throws DockerException, InterruptedException {
+        dockerClient.stopContainer(id, 5);
     }
 
     void delContainer(String id) throws DockerException, InterruptedException {

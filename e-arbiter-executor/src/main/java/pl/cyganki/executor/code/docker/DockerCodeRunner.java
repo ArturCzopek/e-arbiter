@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeoutException;
 
 import static pl.cyganki.executor.code.ExecutionResult.Status;
 
@@ -46,10 +47,10 @@ public class DockerCodeRunner implements CodeRunner {
 
         try {
             sandboxService.startContainer(id);
-            result = parseOutput(sandboxService.getContainerLogs(id));
-            sandboxService.stopContainer(id, 20);
+            result = parseOutput(sandboxService.getContainerLogs(id, 20));
+            sandboxService.stopContainer(id);
             sandboxService.delContainer(id);
-        } catch (DockerException | InterruptedException e) {
+        } catch (DockerException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
         } finally {
             filesystemUtils.deleteDir(hostDir);
@@ -64,7 +65,7 @@ public class DockerCodeRunner implements CodeRunner {
 
     private ExecutionResult parseOutput(String output) {
         Status status = output.contains("ALL PASSED") ? Status.SUCCESS : Status.FAILURE;
-        return new ExecutionResult(status, output);
+        return new ExecutionResult(status, output, 0);
     }
 
     @PostConstruct
