@@ -76,7 +76,8 @@ public class DockerCodeRunner implements CodeRunner {
         return new ExecutionResult(status, output);
     }
 
-    @PostConstruct
+    // convenient method for testing purposes
+    /*@PostConstruct
     void test() {
         File program = new File("/home/maciej/Projects/compilebox/solution/program.c");
         File testData = new File("/home/maciej/Projects/compilebox/solution/test_data");
@@ -85,9 +86,9 @@ public class DockerCodeRunner implements CodeRunner {
             byte[] programBytes = Files.toByteArray(program);
             byte[] testDataBytes = Files.toByteArray(testData);
             ExecutionResult result = execute(programBytes, "c", testDataBytes);
-            System.out.println(result.getOutput() + " " + result.getStatus().name());
+            System.out.println(result.getOutput() + ":" + result.getStatus().name());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-    }
+    }*/
 }
