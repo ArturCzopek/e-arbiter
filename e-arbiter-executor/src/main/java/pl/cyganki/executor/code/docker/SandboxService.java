@@ -33,25 +33,18 @@ class SandboxService implements AutoCloseable {
         }
     }
 
-    ContainerCreation createContainer(DockerBinding binding) {
+    ContainerCreation createContainer(DockerBinding binding)
+            throws DockerException, InterruptedException {
+
         ContainerConfig config = sandboxConfig.createConfig(binding.getValue());
-
-        ContainerCreation creation = null;
-
-        try {
-            creation = dockerClient.createContainer(config);
-        } catch (DockerException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return creation;
+        return dockerClient.createContainer(config);
     }
 
     void startContainer(String id) throws DockerException, InterruptedException {
         dockerClient.startContainer(id);
     }
 
-    String getContainerLogs(String id, int timeout)
+    String getContainerLogs(String id, long timeout)
             throws DockerException, InterruptedException, TimeoutException {
 
         FutureTask<String> logsFetching = new FutureTask<>(() -> {
@@ -69,10 +62,15 @@ class SandboxService implements AutoCloseable {
         String logs = "";
 
         try {
-            logs = logsFetching.get(timeout, TimeUnit.SECONDS);
+            logs = logsFetching.get(timeout, TimeUnit.MILLISECONDS);
         } catch (ExecutionException ignored) {}
 
         return logs;
+    }
+
+    void stopAndDelContainer(String id) throws DockerException, InterruptedException {
+        stopContainer(id);
+        delContainer(id);
     }
 
     void stopContainer(String id) throws DockerException, InterruptedException {
