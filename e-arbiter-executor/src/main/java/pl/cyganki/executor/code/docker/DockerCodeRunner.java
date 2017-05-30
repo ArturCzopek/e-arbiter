@@ -21,14 +21,14 @@ import static pl.cyganki.executor.code.ExecutionResult.Status;
 public class DockerCodeRunner implements CodeRunner {
 
     private final SandboxService sandboxService;
-    private final FilesystemUtils filesystemUtils;
+    private final FileSystemUtils fileSystemUtils;
     private final DockerBinding dockerBinding;
 
     @Autowired
-    public DockerCodeRunner(SandboxService sandboxService, FilesystemUtils filesystemUtils,
+    public DockerCodeRunner(SandboxService sandboxService, FileSystemUtils fileSystemUtils,
                             @Value("${docker.binding}") String bindingValue) {
         this.sandboxService = sandboxService;
-        this.filesystemUtils = filesystemUtils;
+        this.fileSystemUtils = fileSystemUtils;
         this.dockerBinding = new DockerBinding(bindingValue);
     }
 
@@ -37,8 +37,8 @@ public class DockerCodeRunner implements CodeRunner {
         DockerBinding binding = dockerBinding.appendToHostDir(getUniqueName());
         String hostDir = binding.getHostDir();
 
-        filesystemUtils.saveFile(program, "program." + ext, hostDir);
-        filesystemUtils.saveFile(testData, "test_data", hostDir);
+        fileSystemUtils.saveFile(program, "program." + ext, hostDir);
+        fileSystemUtils.saveFile(testData, "test_data", hostDir);
 
         String containerId = null;
         ExecutionResult result;
@@ -61,7 +61,7 @@ public class DockerCodeRunner implements CodeRunner {
                     sandboxService.stopAndDelContainer(containerId);
                 } catch (DockerException | InterruptedException ignored) {}
             }
-            filesystemUtils.deleteDir(hostDir);
+            fileSystemUtils.deleteDir(hostDir);
         }
 
         return result;
@@ -77,7 +77,7 @@ public class DockerCodeRunner implements CodeRunner {
     }
 
     // convenient method for testing purposes
-    /*@PostConstruct
+    @PostConstruct
     void test() {
         File program = new File("/home/maciej/Projects/compilebox/solution/program.c");
         File testData = new File("/home/maciej/Projects/compilebox/solution/test_data");
@@ -90,5 +90,5 @@ public class DockerCodeRunner implements CodeRunner {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-    }*/
+    }
 }

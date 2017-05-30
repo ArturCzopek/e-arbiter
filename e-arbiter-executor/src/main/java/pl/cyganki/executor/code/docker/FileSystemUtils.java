@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Service
-class FilesystemUtils {
+class FileSystemUtils {
 
     void saveFile(byte[] data, String name, String path) {
         String fileDest = path + "/" + name;

@@ -16,6 +16,8 @@ import java.util.concurrent.TimeoutException;
 @Service
 class SandboxService implements AutoCloseable {
 
+    private static final String FINISH_MESSAGE = "FINISHED";
+
     private final DockerClient dockerClient;
     private final SandboxConfig sandboxConfig;
 
@@ -50,7 +52,7 @@ class SandboxService implements AutoCloseable {
         FutureTask<String> logsFetching = new FutureTask<>(() -> {
             String logs = "";
 
-            while (!logs.contains("FINISHED")) {
+            while (!logs.contains(FINISH_MESSAGE)) {
                 logs = dockerClient.logs(id, DockerClient.LogsParam.stdout(),
                         DockerClient.LogsParam.stderr()).readFully();
             }
