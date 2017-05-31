@@ -47,7 +47,7 @@ class SandboxService implements AutoCloseable {
     }
 
     String getContainerLogs(String id, long timeout)
-            throws DockerException, InterruptedException, TimeoutException {
+            throws InterruptedException, TimeoutException {
 
         FutureTask<String> logsFetching = new FutureTask<>(() -> {
             String logs = "";
@@ -65,7 +65,9 @@ class SandboxService implements AutoCloseable {
 
         try {
             logs = logsFetching.get(timeout, TimeUnit.MILLISECONDS);
-        } catch (ExecutionException ignored) {}
+        } catch (ExecutionException ignored) {
+            // do nothing
+        }
 
         return logs;
     }
