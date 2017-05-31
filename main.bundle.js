@@ -89,7 +89,7 @@ function View_DashboardComponent_0(l) {
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n      '])),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-header', [], null, null, null, __WEBPACK_IMPORTED_MODULE_2__header_component_ngfactory__["a" /* View_HeaderComponent_0 */], __WEBPACK_IMPORTED_MODULE_2__header_component_ngfactory__["b" /* RenderType_HeaderComponent */])),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](2121728, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_dashboard_header_component__["a" /* HeaderComponent */], [__WEBPACK_IMPORTED_MODULE_4__app_shared_service_user_service__["a" /* UserService */]], null, null),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](4243456, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_dashboard_header_component__["a" /* HeaderComponent */], [__WEBPACK_IMPORTED_MODULE_4__app_shared_service_user_service__["a" /* UserService */]], null, null),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n      '])),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 4, 'div', [
             [
@@ -102,8 +102,8 @@ function View_DashboardComponent_0(l) {
             ]
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n        '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](8388608, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](73728, null, 0, __WEBPACK_IMPORTED_MODULE_5__angular_router__["y" /* RouterOutlet */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](16777216, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](147456, null, 0, __WEBPACK_IMPORTED_MODULE_5__angular_router__["y" /* RouterOutlet */], [
             __WEBPACK_IMPORTED_MODULE_5__angular_router__["l" /* RouterOutletMap */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["U" /* ComponentFactoryResolver */],
@@ -120,7 +120,7 @@ function View_DashboardComponent_0(l) {
 function View_DashboardComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-dashboard', [], null, null, null, View_DashboardComponent_0, RenderType_DashboardComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](24576, null, 0, __WEBPACK_IMPORTED_MODULE_6__app_dashboard_dashboard_component__["a" /* DashboardComponent */], [], null, null)
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](49152, null, 0, __WEBPACK_IMPORTED_MODULE_6__app_dashboard_dashboard_component__["a" /* DashboardComponent */], [], null, null)
     ], null, null);
 }
 var DashboardComponentNgFactory = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_28" /* ɵccf */]('arb-dashboard', __WEBPACK_IMPORTED_MODULE_6__app_dashboard_dashboard_component__["a" /* DashboardComponent */], View_DashboardComponent_Host_0, {}, {}, []);
@@ -222,8 +222,8 @@ function View_UserDataComponent_1(l) {
             ]
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n        '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](8388608, null, null, 1, null, View_UserDataComponent_2)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](8192, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](16777216, null, null, 1, null, View_UserDataComponent_2)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](16384, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* TemplateRef */]
         ], { ngIf: [
@@ -247,8 +247,8 @@ function View_UserDataComponent_1(l) {
 function View_UserDataComponent_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n    '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](8388608, null, null, 1, null, View_UserDataComponent_1)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](8192, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](16777216, null, null, 1, null, View_UserDataComponent_1)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](16384, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* TemplateRef */]
         ], { ngIf: [
@@ -265,7 +265,7 @@ function View_UserDataComponent_0(l) {
 function View_UserDataComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-user-data', [], null, null, null, View_UserDataComponent_0, RenderType_UserDataComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](24576, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_dashboard_user_data_component__["a" /* UserDataComponent */], [__WEBPACK_IMPORTED_MODULE_4__app_shared_service_user_service__["a" /* UserService */]], null, null)
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](49152, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_dashboard_user_data_component__["a" /* UserDataComponent */], [__WEBPACK_IMPORTED_MODULE_4__app_shared_service_user_service__["a" /* UserService */]], null, null)
     ], null, null);
 }
 var UserDataComponentNgFactory = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_28" /* ɵccf */]('arb-user-data', __WEBPACK_IMPORTED_MODULE_3__app_dashboard_user_data_component__["a" /* UserDataComponent */], View_UserDataComponent_Host_0, {}, {}, []);
@@ -353,8 +353,8 @@ function View_AppComponent_0(l) {
             ]
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n      '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](8388608, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](73728, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_router__["y" /* RouterOutlet */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](16777216, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](147456, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_router__["y" /* RouterOutlet */], [
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["l" /* RouterOutletMap */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["U" /* ComponentFactoryResolver */],
@@ -370,7 +370,7 @@ function View_AppComponent_0(l) {
 function View_AppComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-root', [], null, null, null, View_AppComponent_0, RenderType_AppComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](24576, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_app_component__["a" /* AppComponent */], [], null, null)
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](49152, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_app_component__["a" /* AppComponent */], [], null, null)
     ], null, null);
 }
 var AppComponentNgFactory = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_28" /* ɵccf */]('arb-root', __WEBPACK_IMPORTED_MODULE_3__app_app_component__["a" /* AppComponent */], View_AppComponent_Host_0, {}, {}, []);
@@ -1168,7 +1168,7 @@ function View_HeaderComponent_0(l) {
             }
             return ad;
         }, null, null)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](335872, [[
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](671744, [[
                 2,
                 4
             ]
@@ -1182,7 +1182,7 @@ function View_HeaderComponent_0(l) {
             ]
         }, null),
         __WEBPACK_IMPORTED_MODULE_1__angular_core__["_32" /* ɵpad */](1),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](860160, null, 2, __WEBPACK_IMPORTED_MODULE_2__angular_router__["A" /* RouterLinkActive */], [
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](1720320, null, 2, __WEBPACK_IMPORTED_MODULE_2__angular_router__["A" /* RouterLinkActive */], [
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["j" /* Router */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["L" /* ElementRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["K" /* Renderer */],
@@ -1192,8 +1192,8 @@ function View_HeaderComponent_0(l) {
                 'routerLinkActive'
             ]
         }, null),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_33" /* ɵqud */](301989888, 1, { links: 1 }),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_33" /* ɵqud */](301989888, 2, { linksWithHrefs: 1 }),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_33" /* ɵqud */](603979776, 1, { links: 1 }),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_33" /* ɵqud */](603979776, 2, { linksWithHrefs: 1 }),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['Strona główna'])),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n        '])),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'a', [[
@@ -1229,8 +1229,8 @@ function View_HeaderComponent_0(l) {
             ]
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n            '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](8388608, null, null, 1, null, View_HeaderComponent_1)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](8192, null, 0, __WEBPACK_IMPORTED_MODULE_3__angular_common__["l" /* NgIf */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](16777216, null, null, 1, null, View_HeaderComponent_1)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](16384, null, 0, __WEBPACK_IMPORTED_MODULE_3__angular_common__["l" /* NgIf */], [
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* TemplateRef */]
         ], { ngIf: [
@@ -1321,7 +1321,7 @@ function View_HeaderComponent_0(l) {
 function View_HeaderComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-header', [], null, null, null, View_HeaderComponent_0, RenderType_HeaderComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](2121728, null, 0, __WEBPACK_IMPORTED_MODULE_4__app_dashboard_header_component__["a" /* HeaderComponent */], [__WEBPACK_IMPORTED_MODULE_5__app_shared_service_user_service__["a" /* UserService */]], null, null)
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](4243456, null, 0, __WEBPACK_IMPORTED_MODULE_4__app_dashboard_header_component__["a" /* HeaderComponent */], [__WEBPACK_IMPORTED_MODULE_5__app_shared_service_user_service__["a" /* UserService */]], null, null)
     ], null, null);
 }
 var HeaderComponentNgFactory = __WEBPACK_IMPORTED_MODULE_1__angular_core__["_28" /* ɵccf */]('arb-header', __WEBPACK_IMPORTED_MODULE_4__app_dashboard_header_component__["a" /* HeaderComponent */], View_HeaderComponent_Host_0, {}, {}, []);
@@ -1381,7 +1381,7 @@ function View_LogoutComponent_0(l) {
 function View_LogoutComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-logout', [], null, null, null, View_LogoutComponent_0, RenderType_LogoutComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](57344, null, 0, __WEBPACK_IMPORTED_MODULE_2__app_logout_component__["a" /* LogoutComponent */], [__WEBPACK_IMPORTED_MODULE_3__angular_router__["j" /* Router */]], null, null)
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](114688, null, 0, __WEBPACK_IMPORTED_MODULE_2__app_logout_component__["a" /* LogoutComponent */], [__WEBPACK_IMPORTED_MODULE_3__angular_router__["j" /* Router */]], null, null)
     ], function (ck, v) {
         ck(v, 1, 0);
     }, null);
@@ -1483,8 +1483,8 @@ function View_MainComponent_3(l) {
 function View_MainComponent_2(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n        '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](8388608, null, null, 1, null, View_MainComponent_3)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](8192, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](16777216, null, null, 1, null, View_MainComponent_3)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](16384, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* TemplateRef */]
         ], { ngIf: [
@@ -1544,8 +1544,8 @@ function View_MainComponent_0(l) {
         ], null, null, null, null, null)),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['e-Arbiter'])),
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_25" /* ɵted */](null, ['\n      '])),
-        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](8388608, null, null, 1, null, View_MainComponent_1)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](8192, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
+        (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_30" /* ɵand */](16777216, null, null, 1, null, View_MainComponent_1)),
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](16384, null, 0, __WEBPACK_IMPORTED_MODULE_2__angular_common__["l" /* NgIf */], [
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["T" /* ViewContainerRef */],
             __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* TemplateRef */]
         ], {
@@ -1576,7 +1576,7 @@ function View_MainComponent_0(l) {
 function View_MainComponent_Host_0(l) {
     return __WEBPACK_IMPORTED_MODULE_1__angular_core__["_24" /* ɵvid */](0, [
         (l()(), __WEBPACK_IMPORTED_MODULE_1__angular_core__["_26" /* ɵeld */](0, null, null, 1, 'arb-main', [], null, null, null, View_MainComponent_0, RenderType_MainComponent)),
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](57344, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_main_component__["a" /* MainComponent */], [
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["_27" /* ɵdid */](114688, null, 0, __WEBPACK_IMPORTED_MODULE_3__app_main_component__["a" /* MainComponent */], [
             __WEBPACK_IMPORTED_MODULE_4__app_shared_service_user_service__["a" /* UserService */],
             __WEBPACK_IMPORTED_MODULE_5__angular_router__["j" /* Router */]
         ], null, null)
