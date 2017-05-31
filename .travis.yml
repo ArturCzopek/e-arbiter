@@ -51,7 +51,9 @@ script:
 # - ng test --watch=false
 
 after_success:
+ - cd ..
  - ./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.organization=cyganki -Dsonar.login=$SONAR_TOKEN
+ - cd e-arbiter-web
  - angular-cli-ghpages --no-silent --repo=https://GH_TOKEN@github.com/arturczopek/e-arbiter.git
 
 notifications:
