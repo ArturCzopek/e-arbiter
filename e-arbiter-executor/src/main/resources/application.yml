@@ -6,3 +6,10 @@ spring:
     name: executor-module
   profiles:
     active: dev
+
+# Docker-specific configuration items
+docker:
+  uri: unix:///var/run/docker.sock
+  img: maciejmarczak/compilebox:latest
+  cmd: python, run.py
+  binding: /home/maciej/Projects/compilebox/solution/:/solution

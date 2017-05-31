@@ -45,13 +45,15 @@ cache:
 script:
  - echo Hello Travis for e-Arbiter
  - ./gradlew build
- - ./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.organization=cyganki -Dsonar.login=$SONAR_TOKEN
  - cd e-arbiter-web
  - ng build --env=dev --base-href "https://arturczopek.github.io/e-arbiter/" -aot --stats-json
 # TODO uncomment, you know when..:)
 # - ng test --watch=false
 
 after_success:
+ - cd ..
+ - ./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.organization=cyganki -Dsonar.login=$SONAR_TOKEN
+ - cd e-arbiter-web
  - angular-cli-ghpages --no-silent --repo=https://GH_TOKEN@github.com/arturczopek/e-arbiter.git
 
 notifications:
