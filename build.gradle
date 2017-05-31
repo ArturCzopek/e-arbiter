@@ -64,7 +64,7 @@ sonarqube {
     properties {
         property "sonar.projectName", "e-Arbiter"
         property "sonar.projectKey", "pl.cyganki:e-Arbiter"
-        property "sonar.exclusions", "e-arbiter-executor/src/main/resources/test_files/**/*"
+        property "sonar.exclusions", "/**/*.c"
     }
 }
 
