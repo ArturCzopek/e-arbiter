@@ -1,8 +1,7 @@
 package pl.cyganki.tournament.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,9 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Document(collection = "joined_tournaments")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@Builder
 public class JoinedTournament {
     @Id
     private long joinedTournamentId;

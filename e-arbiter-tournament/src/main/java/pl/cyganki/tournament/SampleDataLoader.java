@@ -3,6 +3,8 @@ package pl.cyganki.tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.cyganki.tournament.model.JoinedTournament;
@@ -15,29 +17,28 @@ import pl.cyganki.tournament.repository.TournamentRepository;
 import pl.cyganki.tournament.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Profile("dev")
 @Component
 public class SampleDataLoader implements ApplicationRunner {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private TournamentRepository tournamentRepository;
-
-    @Autowired
     private QuestionRepository questionRepository;
-
-    @Autowired
     private JoinedTournamentRepository joinedTournamentRepository;
+    private MongoTemplate mongoTemplate;
 
     @Autowired
-    private org.springframework.data.mongodb.core.MongoTemplate mongoTemplate;
-
+    public SampleDataLoader(UserRepository userRepository, TournamentRepository tournamentRepository,
+                            QuestionRepository questionRepository,  JoinedTournamentRepository joinedTournamentRepository,
+                            MongoTemplate mongoTemplate) {
+        this.userRepository = userRepository;
+        this.tournamentRepository = tournamentRepository;
+        this.questionRepository = questionRepository;
+        this.joinedTournamentRepository = joinedTournamentRepository;
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     @Transactional
@@ -48,64 +49,61 @@ public class SampleDataLoader implements ApplicationRunner {
         answerSet.put("Odpowiedz numer 1", true);
         answerSet.put("Odpowiedz numer 2", false);
 
-        Question question = new Question(1, 5, "Testowe pytanie es numero 1", answerSet);
+        List <Question> questionsList = Arrays.asList(Question.builder().questionId(1).value(5).content("Testowe pytanie es numero 1").answers(answerSet).build(),
+                Question.builder().questionId(2).value(5).content("Testowe pytanie es numero 2").answers(answerSet).build()
+        );
 
-        Question question2 = new Question(2, 5, "Testowe pytanie es numero 2", answerSet);
+        List<User> usersList = Arrays.asList(User.builder().userId(1).name("Konrad Onieszczuk").build(),
+                User.builder().userId(2).name("Maciej Marczak").build(),
+                User.builder().userId(3).name("Artur Czopek").build()
+        );
 
-        List<Question> questionsList = new LinkedList<>();
-        questionsList.add(question);
-        questionsList.add(question2);
+        List<User> sharedUsers = Arrays.asList(
+                usersList.get(0),
+                usersList.get(2)
+        );
 
-        User user = new User(1, "Konrad Onieszczuk",null);
 
-        User user2 = new User(2, "Maciej Marczak",null);
+        List<Tournament> tournamentsList = Arrays.asList(
+                Tournament.builder().tournamentId(1).owner(usersList.get(0)).name("Testowy turniej es numero 1").startDate(LocalDate.parse("2017-05-26"))
+                        .endDate(LocalDate.parse("2017-05-27")).Public(true).Code(false).timeout(0).Test(true).maxPoints(20).build(),
+                Tournament.builder().tournamentId(2).owner(usersList.get(1)).name("Testowy turniej es numero 2").startDate(LocalDate.parse("2017-05-26"))
+                        .endDate(LocalDate.parse("2017-05-27")).Public(true).sharedUsers(sharedUsers).Code(true)
+                        .language(Tournament.Language.RUBY).timeout(0).solution("http://github.com/yoyo").Test(true).questions(questionsList).maxPoints(10).build()
+        );
 
-        User user3 = new User(3, "Artur Czopek",null);
 
-        Tournament tournament = new Tournament(1, user, "Testowy turniej es numero 1", LocalDate.parse("2017-05-26"), LocalDate.parse("2017-05-27"),
-                true, null, false, null, 0, null, null, true, null, 20);
+        List<JoinedTournament> joinedTournamentsList = Arrays.asList(
+                JoinedTournament.builder().joinedTournamentId(1).tournament(tournamentsList.get(0)).build(),
+                JoinedTournament.builder().joinedTournamentId(2).tournament(tournamentsList.get(1)).build(),
+                JoinedTournament.builder().joinedTournamentId(3).tournament(tournamentsList.get(0)).build(),
+                JoinedTournament.builder().joinedTournamentId(4).tournament(tournamentsList.get(1)).build()
+        );
 
-        List<User> sharedUsers = new LinkedList<>();
-        sharedUsers.add(user);
-        sharedUsers.add(user3);
+        questionRepository.save(questionsList);
 
-        Tournament tournament2 = new Tournament(2, user2, "Testowy turniej es numero 2", LocalDate.parse("2017-05-26"), LocalDate.parse("2017-05-27"),
-                false, sharedUsers, true, "ruby", 0, "http://github.com/yoyo", null, false, questionsList, 10);
+        userRepository.save(usersList);
 
-        JoinedTournament joinedTournament = new JoinedTournament(1, tournament, null, null, null);
-        JoinedTournament joinedTournament2 = new JoinedTournament(2, tournament2, null, null, null);
-        JoinedTournament joinedTournament3 = new JoinedTournament(3, tournament, null, null, null);
-        JoinedTournament joinedTournament4 = new JoinedTournament(4, tournament2, null, null, null);
+        tournamentRepository.save(tournamentsList);
 
-        questionRepository.save(question);
-        questionRepository.save(question2);
+        joinedTournamentRepository.save(joinedTournamentsList);
 
-        userRepository.save(user);
-        userRepository.save(user2);
-        userRepository.save(user3);
 
-        tournamentRepository.save(tournament);
-        tournamentRepository.save(tournament2);
+        List<JoinedTournament> joinedTournamentListToAdd = new ArrayList<>();
 
-        joinedTournamentRepository.save(joinedTournament);
-        joinedTournamentRepository.save(joinedTournament2);
-        joinedTournamentRepository.save(joinedTournament3);
-        joinedTournamentRepository.save(joinedTournament4);
+        joinedTournamentListToAdd.add(joinedTournamentsList.get(0));
+        joinedTournamentListToAdd.add(joinedTournamentsList.get(1));
+        usersList.get(2).setJoinedTournaments(joinedTournamentListToAdd);
+        userRepository.save(usersList.get(2));
 
-        List<JoinedTournament> joinedTournamentList = new LinkedList<>();
-        joinedTournamentList.add(joinedTournament);
-        joinedTournamentList.add(joinedTournament2);
-        user3.setJoinedTournaments(joinedTournamentList);
-        userRepository.save(user3);
+        joinedTournamentListToAdd.clear();
+        joinedTournamentListToAdd.add(joinedTournamentsList.get(2));
+        usersList.get(1).setJoinedTournaments(joinedTournamentListToAdd);
+        userRepository.save(usersList.get(1));
 
-        joinedTournamentList.clear();
-        joinedTournamentList.add(joinedTournament3);
-        user2.setJoinedTournaments(joinedTournamentList);
-        userRepository.save(user2);
-
-        joinedTournamentList.clear();
-        joinedTournamentList.add(joinedTournament4);
-        user.setJoinedTournaments(joinedTournamentList);
-        userRepository.save(user);
+        joinedTournamentListToAdd.clear();
+        joinedTournamentListToAdd.add(joinedTournamentsList.get(3));
+        usersList.get(0).setJoinedTournaments(joinedTournamentListToAdd);
+        userRepository.save(usersList.get(0));
     }}
 

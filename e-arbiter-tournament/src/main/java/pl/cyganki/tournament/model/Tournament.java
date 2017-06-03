@@ -1,8 +1,7 @@
 package pl.cyganki.tournament.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,10 +11,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Document(collection = "tournaments")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@Builder
 public class Tournament {
+
+    public enum Language{
+        PYTHON,
+        JAVA,
+        HASKELL,
+        RUBY,
+        KOTLIN
+    }
+
     @Id
     private long tournamentId;
 
@@ -33,16 +40,16 @@ public class Tournament {
     private LocalDate endDate;
 
     @NotNull(message = "Tournament 'is public' cannot be null")
-    private boolean isPublic;
+    private boolean Public;
 
     @DBRef
     private List<User> sharedUsers;
 
     @NotNull(message = "Tournament 'is code' cannot be null")
-    private boolean isCode;
+    private boolean Code;
 
     //here tournament code properties
-    private String language;
+    private Language language;
 
     private int timeout;
 
@@ -51,7 +58,7 @@ public class Tournament {
     private List<String> parameters;
 
     @NotNull(message = "Tournament 'is test' cannot be null")
-    private boolean isTest;
+    private boolean Test;
 
     //and here tournament test properties
     private List<Question> questions;
