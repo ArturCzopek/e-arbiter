@@ -66,10 +66,10 @@ public class SampleDataLoader implements ApplicationRunner {
 
         List<Tournament> tournamentsList = Arrays.asList(
                 Tournament.builder().tournamentId(1).owner(usersList.get(0)).name("Testowy turniej es numero 1").startDate(LocalDate.parse("2017-05-26"))
-                        .endDate(LocalDate.parse("2017-05-27")).Public(true).Code(false).timeout(0).Test(true).maxPoints(20).build(),
+                        .endDate(LocalDate.parse("2017-05-27")).publicFlag(true).codeFlag(false).timeout(0).testFlag(true).maxPoints(20).build(),
                 Tournament.builder().tournamentId(2).owner(usersList.get(1)).name("Testowy turniej es numero 2").startDate(LocalDate.parse("2017-05-26"))
-                        .endDate(LocalDate.parse("2017-05-27")).Public(true).sharedUsers(sharedUsers).Code(true)
-                        .language(Tournament.Language.RUBY).timeout(0).solution("http://github.com/yoyo").Test(true).questions(questionsList).maxPoints(10).build()
+                        .endDate(LocalDate.parse("2017-05-27")).publicFlag(true).sharedUsers(sharedUsers).codeFlag(true)
+                        .language(Tournament.Language.JAVA).timeout(0).solution("http://github.com/yoyo").testFlag(true).questions(questionsList).maxPoints(10).build()
         );
 
 

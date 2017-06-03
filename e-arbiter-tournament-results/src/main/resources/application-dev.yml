@@ -10,6 +10,26 @@ e-arbiter:
 spring:
   profiles: dev
 
+  datasource:
+    name: e-arbiter
+    platform: h2
+    url: jdbc:h2:mem:e-arbiter;DATABASE_TO_UPPER=false;IGNORECASE=true;
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    openInView: false
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /db-console
+
+liquibase:
+  enabled: true
+  change-log: classpath:/db/changelog/db.changelog-test.xml
+
 server:
   port: 8093
 eureka:

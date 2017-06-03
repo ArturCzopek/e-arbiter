@@ -16,11 +16,10 @@ import java.util.List;
 public class Tournament {
 
     public enum Language{
-        PYTHON,
         JAVA,
-        HASKELL,
-        RUBY,
-        KOTLIN
+        PYTHON,
+        C11,
+        CPP
     }
 
     @Id
@@ -40,13 +39,13 @@ public class Tournament {
     private LocalDate endDate;
 
     @NotNull(message = "Tournament 'is public' cannot be null")
-    private boolean Public;
+    private boolean publicFlag;
 
     @DBRef
     private List<User> sharedUsers;
 
     @NotNull(message = "Tournament 'is code' cannot be null")
-    private boolean Code;
+    private boolean codeFlag;
 
     //here tournament code properties
     private Language language;
@@ -58,7 +57,7 @@ public class Tournament {
     private List<String> parameters;
 
     @NotNull(message = "Tournament 'is test' cannot be null")
-    private boolean Test;
+    private boolean testFlag;
 
     //and here tournament test properties
     private List<Question> questions;

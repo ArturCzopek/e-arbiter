@@ -4,7 +4,29 @@ Data Controller
 
 #### getClientUrl
 ```
-DELETE /api/data/clientUrl
+HEAD /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+PATCH /api/data/clientUrl
 ```
 
 ##### Responses
@@ -49,16 +71,16 @@ PUT /api/data/clientUrl
 
 #### getClientUrl
 ```
-PATCH /api/data/clientUrl
+GET /api/data/clientUrl
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -94,7 +116,7 @@ POST /api/data/clientUrl
 
 #### getClientUrl
 ```
-HEAD /api/data/clientUrl
+DELETE /api/data/clientUrl
 ```
 
 ##### Responses
@@ -104,28 +126,6 @@ HEAD /api/data/clientUrl
 |204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-GET /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -163,7 +163,29 @@ User Controller
 
 #### getToken
 ```
-DELETE /api/token
+HEAD /api/token
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getToken
+```
+PATCH /api/token
 ```
 
 ##### Responses
@@ -208,16 +230,16 @@ PUT /api/token
 
 #### getToken
 ```
-PATCH /api/token
+GET /api/token
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -253,7 +275,7 @@ POST /api/token
 
 #### getToken
 ```
-HEAD /api/token
+DELETE /api/token
 ```
 
 ##### Responses
@@ -263,28 +285,6 @@ HEAD /api/token
 |204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getToken
-```
-GET /api/token
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -319,7 +319,35 @@ OPTIONS /api/token
 
 #### user
 ```
-DELETE /api/user
+HEAD /api/user
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|HeaderParameter|oauth_token|oauth_token|true|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### user
+```
+PATCH /api/user
 ```
 
 ##### Parameters
@@ -376,7 +404,7 @@ PUT /api/user
 
 #### user
 ```
-PATCH /api/user
+GET /api/user
 ```
 
 ##### Parameters
@@ -389,9 +417,9 @@ PATCH /api/user
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|User|
-|204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -433,7 +461,7 @@ POST /api/user
 
 #### user
 ```
-HEAD /api/user
+DELETE /api/user
 ```
 
 ##### Parameters
@@ -449,34 +477,6 @@ HEAD /api/user
 |204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### user
-```
-GET /api/user
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -569,33 +569,7 @@ GET /api/hystrix
 
 * */*
 
-## Solution Repository Module
-
-Solution Controller
-
-#### test
-```
-GET /api/test
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-## Tournament Module
+null## Tournament Module
 
 Tournament Controller
 
