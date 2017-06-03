@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="Insert test users" author="E-arbiter">
+        <loadData tableName="users" separator=";" file="db/changelog/test-data/db.users.csv">
+            <column name="user_id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Insert test tournaments" author="E-arbiter">
+        <loadData tableName="tournaments" separator=";" file="db/changelog/test-data/db.tournaments.csv">
+            <column name="tournament_id" type="numeric"/>
+            <column name="some_content" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Insert test results" author="E-arbiter">
+        <loadData tableName="results" separator=";" file="db/changelog/test-data/db.results.csv">
+            <column name="user_id" type="numeric"/>
+            <column name="tournament_id" type="numeric"/>
+            <column name="success" type="boolean"/>
+            <column name="execution_time" type="numeric"/>
+            <column name="earned_points" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
