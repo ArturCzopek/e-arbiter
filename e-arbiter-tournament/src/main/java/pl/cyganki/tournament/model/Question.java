@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.Map;
 
 @Document(collection = "questions")
@@ -22,5 +23,5 @@ public class Question {
     private String content;
 
     @NotNull(message = "Question 'answers' cannot be null")
-    private Map<String, Boolean> answers;
+    private Map<String, Boolean> answers = new HashMap<>();
 }

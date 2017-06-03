@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "tournaments")
@@ -42,7 +43,7 @@ public class Tournament {
     private boolean publicFlag;
 
     @DBRef
-    private List<User> sharedUsers;
+    private List<User> sharedUsers = new ArrayList<>();
 
     @NotNull(message = "Tournament 'is code' cannot be null")
     private boolean codeFlag;
@@ -54,13 +55,13 @@ public class Tournament {
 
     private String solution;
 
-    private List<String> parameters;
+    private List<String> parameters = new ArrayList<>();
 
     @NotNull(message = "Tournament 'is test' cannot be null")
     private boolean testFlag;
 
     //and here tournament test properties
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     private int maxPoints;
 }
