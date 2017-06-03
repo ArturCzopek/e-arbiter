@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "joined_tournaments")
@@ -20,7 +21,7 @@ public class JoinedTournament {
 
     private String solution;
 
-    private List<String> parameters;
+    private List<String> parameters = new ArrayList<>();;
 
-    private List<String> answers;
+    private List<String> answers = new ArrayList<>();;
 }

@@ -8,12 +8,46 @@
             <column name="user_id" type="long">
                 <constraints primaryKey="true" primaryKeyName="PK_Users" unique="true"/>
             </column>
-            <column name="some_content" type="nvarchar(255)">
+            <column name="name" type="nvarchar(255)">
             </column>
         </createTable>
         <rollback>
             <dropTable tableName="users"/>
         </rollback>
+    </changeSet>
+
+    <changeSet id="Create tournaments table" author="E-arbiter">
+        <createTable tableName="tournaments">
+            <column name="tournament_id" type="long">
+                <constraints primaryKey="true" primaryKeyName="PK_Tournaments" unique="true"/>
+            </column>
+            <column name="name" type="nvarchar(255)">
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="tournaments"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="Create results table" author="E-arbiter">
+        <createTable tableName="results">
+            <column name="result_id" type="long" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_Results" unique="true"/>
+            </column>
+            <column name="user_id" type="long">
+                <constraints nullable="false" foreignKeyName="FK_Results_Users" references="Users(user_id)"/>
+            </column>
+            <column name="tournament_id" type="long">
+                <constraints nullable="false" foreignKeyName="FK_Results_Tournaments" references="Tournaments(tournament_id)"/>
+            </column>
+            <column name="success" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="execution_time" type="double">
+            </column>
+            <column name="earned_points" type="integer">
+            </column>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>

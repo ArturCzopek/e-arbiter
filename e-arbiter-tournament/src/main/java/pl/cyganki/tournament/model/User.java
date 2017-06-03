@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "users")
@@ -20,5 +21,5 @@ public class User {
     private String name;
 
     @DBRef
-    private List<JoinedTournament> joinedTournaments;
+    private List<JoinedTournament> joinedTournaments = new ArrayList<>();
 }

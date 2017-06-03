@@ -1,6 +1,5 @@
 package pl.cyganki.results.model.database;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
@@ -12,11 +11,11 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "tournaments")
+public class Tournament {
     @Id
-    @Column(name = "user_id")
-    private long userId;
+    @Column(name = "tournament_id")
+    private long tournamentId;
 
     @Column(name = "name", nullable = false, length = 255)
     private String name;
