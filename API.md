@@ -4,7 +4,30 @@ Data Controller
 
 #### getClientUrl
 ```
-HEAD /api/data/clientUrl
+POST /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|201|Created|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+DELETE /api/data/clientUrl
 ```
 
 ##### Responses
@@ -48,7 +71,7 @@ GET /api/data/clientUrl
 
 #### getClientUrl
 ```
-PATCH /api/data/clientUrl
+HEAD /api/data/clientUrl
 ```
 
 ##### Responses
@@ -93,6 +116,28 @@ PUT /api/data/clientUrl
 
 #### getClientUrl
 ```
+PATCH /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
 OPTIONS /api/data/clientUrl
 ```
 
@@ -103,51 +148,6 @@ OPTIONS /api/data/clientUrl
 |204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-DELETE /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-POST /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -215,6 +215,28 @@ GET /api/user
 
 Executor Controller
 
+#### Hystrix demo
+```
+GET /api/hystrix
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Executes code
 ```
 GET /api/execute
@@ -230,28 +252,6 @@ GET /api/execute
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Hystrix demo
-```
-GET /api/hystrix
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

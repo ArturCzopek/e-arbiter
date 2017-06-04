@@ -10,7 +10,7 @@ export const environment = {
   server: {
     auth: {
       url: 'http://localhost:8090',
-      logoutUrl: 'http://localhost:8090/github/logout',
+      logoutUrl: 'http://localhost:8090/logout',
       userUrl: 'http://localhost:8090/api/user',
       tokenUrl: 'http://localhost:8090/api/token',
       loginUrl: 'http://localhost:8090/login'
