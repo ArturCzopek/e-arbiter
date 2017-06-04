@@ -265,33 +265,7 @@ GET /api/hystrix
 
 * */*
 
-## Solution Repository Module
-
-Solution Controller
-
-#### test
-```
-GET /api/test
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-## Tournament Module
+null## Tournament Module
 
 Tournament Controller
 
