@@ -1664,7 +1664,7 @@ var environment = {
     server: {
         auth: {
             url: 'http://localhost:8090',
-            logoutUrl: 'http://localhost:8090/logout',
+            logoutUrl: 'http://localhost:8090/github/logout',
             userUrl: 'http://localhost:8090/api/user',
             tokenUrl: 'http://localhost:8090/api/token',
             loginUrl: 'http://localhost:8090/login'
