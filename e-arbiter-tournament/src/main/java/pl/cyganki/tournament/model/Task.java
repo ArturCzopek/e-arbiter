@@ -6,20 +6,19 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "users")
+@Document(collection = "TASKS")
 @Data
 @Builder
-public class User {
+public class Task {
     @Id
-    private long userId;
-
-    @NotNull(message = "User 'name' cannot be null")
-    private String name;
+    private long taskId;
 
     @DBRef
-    private List<JoinedTournament> joinedTournaments = new ArrayList<>();
+    private List<CodeTask> codeTasks = new ArrayList<>();
+
+    @DBRef
+    private List<QuestionTask> questionTasks = new ArrayList<>();
 }
