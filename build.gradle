@@ -130,7 +130,6 @@ String getHeader(int index) {
     def headers = [
             "Authentication Module",
             "Executor Module",
-            "Solution Repository Module",
             "Tournament Module",
             "Tournament Results Module",
     ]
@@ -142,7 +141,6 @@ String[] getModulePaths() {
     def modulePaths = [
             "./e-arbiter-auth",
             "./e-arbiter-executor",
-            "./e-arbiter-solution-repository",
             "./e-arbiter-tournament",
             "./e-arbiter-tournament-results",
     ]
