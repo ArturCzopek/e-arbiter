@@ -4,38 +4,17 @@ Data Controller
 
 #### getClientUrl
 ```
-PATCH /api/data/clientUrl
+POST /api/data/clientUrl
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|204|No Content|No Content|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-OPTIONS /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -114,7 +93,7 @@ HEAD /api/data/clientUrl
 
 #### getClientUrl
 ```
-POST /api/data/clientUrl
+PUT /api/data/clientUrl
 ```
 
 ##### Responses
@@ -137,17 +116,38 @@ POST /api/data/clientUrl
 
 #### getClientUrl
 ```
-PUT /api/data/clientUrl
+PATCH /api/data/clientUrl
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|201|Created|No Content|
+|204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+OPTIONS /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
 
 
 ##### Consumes
@@ -265,33 +265,7 @@ GET /api/hystrix
 
 * */*
 
-## Solution Repository Module
-
-Solution Controller
-
-#### test
-```
-GET /api/test
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-## Tournament Module
+null## Tournament Module
 
 Tournament Controller
 

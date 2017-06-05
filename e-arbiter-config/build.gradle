@@ -1,0 +1,21 @@
+jar {
+    baseName = 'e-arbiter-config'
+    version = '1.0-SNAPSHOT'
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.config.EArbiterConfigApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.config.EArbiterConfigApplication'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.cloud:spring-cloud-config-server')
+}

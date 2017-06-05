@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -12,7 +14,12 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableCircuitBreaker
 public class EArbiterExecutorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EArbiterExecutorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EArbiterExecutorApplication.class, args);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }

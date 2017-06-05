@@ -1,8 +1,0 @@
-e-arbiter:
-  service-name: Solution Repository Module
-
-spring:
-  application:
-    name: solution-repository-module
-  profiles:
-    active: dev

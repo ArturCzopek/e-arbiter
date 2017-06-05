@@ -1,8 +1,0 @@
-e-arbiter:
-  service-name: Tournament Module
-
-spring:
-  application:
-    name: tournament-module
-  profiles:
-    active: dev

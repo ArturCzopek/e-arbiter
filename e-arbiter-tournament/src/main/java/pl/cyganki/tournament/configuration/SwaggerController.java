@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@Profile("dev")
+@Profile({"dev", "test"})
 public class SwaggerController {
 
     private static final String SWAGGER_URL = "redirect:/swagger-ui.html";

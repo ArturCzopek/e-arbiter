@@ -1,8 +1,0 @@
-e-arbiter:
-  service-name: API Gateway
-
-spring:
-  application:
-    name: api-gateway
-  profiles:
-    active: dev

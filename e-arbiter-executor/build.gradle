@@ -1,6 +1,6 @@
 jar {
 	baseName = 'e-arbiter-executor'
-	version = null
+	version = '1.0-SNAPSHOT'
 }
 
 springBoot {
