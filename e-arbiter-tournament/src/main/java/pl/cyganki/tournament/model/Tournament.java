@@ -6,17 +6,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.cyganki.tournament.repository.CodeTaskRepository;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "TOURNAMENTS")
 @Data
 @Builder
-public class Tournament{
+public class Tournament implements Serializable {
+
+    private static final long serialVersionUID = -5370765864497317104L;
 
     @Id
     private long tournamentId;

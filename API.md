@@ -4,51 +4,6 @@ Data Controller
 
 #### getClientUrl
 ```
-HEAD /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PUT /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
 POST /api/data/clientUrl
 ```
 
@@ -72,7 +27,7 @@ POST /api/data/clientUrl
 
 #### getClientUrl
 ```
-PATCH /api/data/clientUrl
+DELETE /api/data/clientUrl
 ```
 
 ##### Responses
@@ -94,7 +49,29 @@ PATCH /api/data/clientUrl
 
 #### getClientUrl
 ```
-DELETE /api/data/clientUrl
+GET /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+PATCH /api/data/clientUrl
 ```
 
 ##### Responses
@@ -138,13 +115,36 @@ OPTIONS /api/data/clientUrl
 
 #### getClientUrl
 ```
-GET /api/data/clientUrl
+HEAD /api/data/clientUrl
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+PUT /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -265,9 +265,35 @@ GET /api/hystrix
 
 * */*
 
-## Tournament Module
+null## Tournament Module
 
 Tournament Controller
+
+#### test
+```
+GET /api/test
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Tournament array|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+## Tournament Results Module
+
+Results Controller
 
 #### test
 ```
@@ -291,4 +317,3 @@ GET /api/test
 
 * */*
 
-null
