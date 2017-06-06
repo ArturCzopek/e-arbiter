@@ -71,6 +71,50 @@ GET /api/data/clientUrl
 
 #### getClientUrl
 ```
+PATCH /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+OPTIONS /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
 HEAD /api/data/clientUrl
 ```
 
@@ -104,50 +148,6 @@ PUT /api/data/clientUrl
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PATCH /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-OPTIONS /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
 
 
 ##### Consumes
@@ -277,7 +277,7 @@ GET /api/test
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|Tournament array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

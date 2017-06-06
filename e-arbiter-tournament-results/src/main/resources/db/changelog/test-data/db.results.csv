@@ -1,0 +1,4 @@
+user_id;tournament_id;result_code;language;execution_time;earned_points
+1;1;null;JAVA;5;0
+2;1;null;CPP;0;0
+3;1;null;C11;0;0
