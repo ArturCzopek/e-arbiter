@@ -14,9 +14,6 @@
             <column name="name" type="nvarchar(255)">
             </column>
         </createTable>
-        <rollback>
-            <dropTable tableName="users"/>
-        </rollback>
     </changeSet>
 
     <changeSet id="Create results table" author="e-Arbiter">

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.cyganki.tournament.repository.CodeTaskRepository;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.util.List;
 @Document(collection = "TOURNAMENTS")
 @Data
 @Builder
-public class Tournament {
+public class Tournament{
 
     @Id
     private long tournamentId;
@@ -38,7 +39,7 @@ public class Tournament {
 
     @DBRef
     @NotNull(message = "Tournament 'tasks' cannot be null")
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     @NotNull(message = "Tournament 'max points' cannot be null")
     private double maxPoints;

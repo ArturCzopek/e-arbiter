@@ -28,12 +28,13 @@ public class Result {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JoinColumn(name = "tournament_id")
+    @Column(name = "tournament_id")
     private long tournamentId;
 
     @Column(name ="result_code")
     private Blob resultCode;
 
+    @Enumerated(EnumType.STRING)
     @Column(name ="language")
     private Language language;
 

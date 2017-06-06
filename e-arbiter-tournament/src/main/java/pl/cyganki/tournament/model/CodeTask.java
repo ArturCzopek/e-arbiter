@@ -2,28 +2,12 @@ package pl.cyganki.tournament.model;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "CODE_TASKS")
 @Data
-@Builder
-public class CodeTask {
-
-    @Builder
-    public static class TestSet {
-        private String result;
-        private List<String> parameters;
-
-        public TestSet(String result, List<String> parameters){
-            this.result=result;
-            this.parameters=parameters;
-        }
-    }
+public class CodeTask extends Task{
 
     public enum Language{
         JAVA,
@@ -31,18 +15,23 @@ public class CodeTask {
         C11,
         CPP
     }
-
-    @Id
     private long codeTaskId;
 
     @NotNull(message = "CodeTask 'test sets' cannot be null")
-    private List<TestSet> testSets = new ArrayList<>();
+    private List<TestSet> testSets;
 
+    // TODO: 6/5/17 move it to utils lib because we don't want to duplicate this language 
     @NotNull(message = "CodeTask 'language' cannot be null")
-    private Language language;
+    private List<Language> language;
 
-    private int timeout;
+    private double timeoutInMs;
 
-    @NotNull(message = "CodeTask 'value' cannot be null")
-    private double pointsForCodeTask;
+    @Builder
+    private CodeTask(long taskId, double maxPoints, long codeTaskId, List<TestSet> testSets, List<Language> language, double timeoutInMs){
+        super(taskId, maxPoints);
+        this.codeTaskId = codeTaskId;
+        this.testSets = testSets;
+        this.language = language;
+        this.timeoutInMs = timeoutInMs;
+    }
 }
