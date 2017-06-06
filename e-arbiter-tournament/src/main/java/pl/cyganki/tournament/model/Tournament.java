@@ -35,7 +35,7 @@ public class Tournament{
     @NotNull(message = "Tournament 'is public' cannot be null")
     private boolean publicFlag;
 
-    private List<Long> joinedUsersId = new ArrayList<>();
+    private List<Long> joinedUsersId;
 
     @DBRef
     @NotNull(message = "Tournament 'tasks' cannot be null")
