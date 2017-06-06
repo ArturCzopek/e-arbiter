@@ -1,7 +1,5 @@
 package pl.cyganki.tournament;
 
-import io.github.robwin.markup.builder.MarkupLanguage;
-import io.github.robwin.swagger2markup.GroupBy;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import pl.cyganki.utils.test.SwaggerTestUtilsKt;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,12 +33,6 @@ public class DocGenerator {
 
     @Test
     public void generateApiDoc() throws Exception {
-        this.mockMvc.perform(get("/v2/api-docs")
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(Swagger2MarkupResultHandler.outputDirectory("docs")
-                        .withMarkupLanguage(MarkupLanguage.MARKDOWN)
-                        .withPathsGroupedBy(GroupBy.TAGS)
-                        .withExamples("docs").build())
-                .andExpect(status().isOk());
+        SwaggerTestUtilsKt.generateApiDoc(mockMvc);
     }
 }

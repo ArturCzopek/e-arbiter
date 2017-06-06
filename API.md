@@ -2,52 +2,7 @@
 
 Data Controller
 
-#### getClientUrl
-```
-POST /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-DELETE /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
+#### Returns a web client url. It is used for redirecting from server to client
 ```
 GET /api/data/clientUrl
 ```
@@ -69,99 +24,10 @@ GET /api/data/clientUrl
 
 * */*
 
-#### getClientUrl
-```
-PATCH /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-OPTIONS /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-HEAD /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PUT /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 
 User Controller
 
-#### getToken
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user
 ```
 GET /api/token
 ```
@@ -183,7 +49,7 @@ GET /api/token
 
 * */*
 
-#### user
+#### Returns a current logged in user based on passed token
 ```
 GET /api/user
 ```
@@ -265,7 +131,7 @@ GET /api/hystrix
 
 * */*
 
-null## Tournament Module
+## Tournament Module
 
 Tournament Controller
 

@@ -68,10 +68,11 @@ export class UserService {
 
   public getTokenFromCookie(): string {
     let token: string;
-    const cookiesFromRegex = document.cookie.match(new RegExp(environment.authToken + '=([^;]+)'));
+    const cookiesFromRegex = document.cookie.match(new RegExp(`${environment.authToken}=([^;]+)`));
 
     if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
       token = cookiesFromRegex[1];
+      document.cookie = `${environment.authToken}=; Max-age=0` // remove cookie, it's not needed
     }
 
     return token;

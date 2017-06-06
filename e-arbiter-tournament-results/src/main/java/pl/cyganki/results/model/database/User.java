@@ -6,7 +6,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,5 +25,5 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "result_id")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Result> results = new ArrayList<>();
+    private List<Result> results;
 }

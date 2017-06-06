@@ -17,12 +17,9 @@ bootRepackage {
 
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
-    compile('org.springframework.cloud:spring-cloud-starter-feign')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('io.springfox:springfox-swagger2:'+ swaggerVersion)
-    compile('io.springfox:springfox-swagger-ui:' + swaggerVersion)
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+    compile('io.springfox:springfox-swagger2:' + swaggerVersion)
     compile('org.hibernate:hibernate-validator:' + hibernateValidatorVersion)
     compile('org.projectlombok:lombok:' + lombokVersion)
-    testCompile('io.springfox:springfox-staticdocs:' + swaggerVersion)
 }

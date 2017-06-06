@@ -4,8 +4,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.cyganki.executor.model.User;
-import pl.cyganki.executor.modules.AuthModuleInterface;
+import pl.cyganki.utils.modules.AuthModuleInterface;
+import pl.cyganki.utils.security.User;
 
 @RestController
 @RequestMapping("/api")
