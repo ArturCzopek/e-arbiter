@@ -1,6 +1,6 @@
 language: java
-services: mongodb
 jdk: oraclejdk8
+services: mongodb
 dist: trusty
 sudo: required
 install: true
