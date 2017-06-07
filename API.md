@@ -4,6 +4,50 @@ Data Controller
 
 #### getClientUrl
 ```
+GET /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
+HEAD /api/data/clientUrl
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|204|No Content|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### getClientUrl
+```
 POST /api/data/clientUrl
 ```
 
@@ -49,13 +93,14 @@ DELETE /api/data/clientUrl
 
 #### getClientUrl
 ```
-GET /api/data/clientUrl
+PUT /api/data/clientUrl
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -103,51 +148,6 @@ OPTIONS /api/data/clientUrl
 |204|No Content|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-HEAD /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PUT /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
 
 
 ##### Consumes
@@ -215,6 +215,28 @@ GET /api/user
 
 Executor Controller
 
+#### Hystrix demo
+```
+GET /api/hystrix
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Executes code
 ```
 GET /api/execute
@@ -243,29 +265,7 @@ GET /api/execute
 
 * */*
 
-#### Hystrix demo
-```
-GET /api/hystrix
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-null## Tournament Module
+## Tournament Module
 
 Tournament Controller
 
@@ -277,7 +277,7 @@ GET /api/test
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|Tournament array|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
