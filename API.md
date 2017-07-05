@@ -2,6 +2,7 @@
 
 Data Controller
 
+=======
 #### getClientUrl
 ```
 GET /api/data/clientUrl
@@ -158,10 +159,9 @@ OPTIONS /api/data/clientUrl
 
 * */*
 
-
 User Controller
 
-#### getToken
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user
 ```
 GET /api/token
 ```
@@ -183,7 +183,7 @@ GET /api/token
 
 * */*
 
-#### user
+#### Returns a current logged in user based on passed token
 ```
 GET /api/user
 ```

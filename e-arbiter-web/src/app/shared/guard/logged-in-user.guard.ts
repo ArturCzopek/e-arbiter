@@ -16,7 +16,6 @@ export class LoggedInUserGuard implements CanActivate {
       return true;
     }
 
-    alert('Log in first!');
     this.router.navigate([environment.client.mainUrl]);
     return false;
   }

@@ -19,7 +19,7 @@ export class LoggedOutUserGuard implements CanActivate {
 
     console.log('Logout failed!', this.userService, localStorage.getItem(environment.authToken));
 
-    alert([environment.client.dashboard.url]);
+    this.router.navigate([environment.client.dashboard.url]);
     return false;
   }
 
