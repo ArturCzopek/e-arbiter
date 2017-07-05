@@ -1880,7 +1880,6 @@ var LoggedInUserGuard = (function () {
         if (this.userService.getLoggedInUser() !== null) {
             return true;
         }
-        alert('Log in first!');
         this.router.navigate([__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].client.mainUrl]);
         return false;
     };
@@ -1942,7 +1941,7 @@ var LoggedOutUserGuard = (function () {
             return true;
         }
         console.log('Logout failed!', this.userService, localStorage.getItem(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].authToken));
-        alert([__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].client.dashboard.url]);
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].client.dashboard.url]);
         return false;
     };
     LoggedOutUserGuard.ctorParameters = function () { return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_router__["j" /* Router */] }, { type: __WEBPACK_IMPORTED_MODULE_1__service_user_service__["a" /* UserService */] }]; };
@@ -2025,9 +2024,10 @@ var UserService = (function () {
     };
     UserService.prototype.getTokenFromCookie = function () {
         var token;
-        var cookiesFromRegex = document.cookie.match(new RegExp(__WEBPACK_IMPORTED_MODULE_6__environments_environment__["a" /* environment */].authToken + '=([^;]+)'));
+        var cookiesFromRegex = document.cookie.match(new RegExp(__WEBPACK_IMPORTED_MODULE_6__environments_environment__["a" /* environment */].authToken + "=([^;]+)"));
         if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
             token = cookiesFromRegex[1];
+            document.cookie = __WEBPACK_IMPORTED_MODULE_6__environments_environment__["a" /* environment */].authToken + "=; Max-age=0"; // remove cookie, it's not needed
         }
         return token;
     };
