@@ -60,6 +60,10 @@ export class UserService {
     return this.http.get(`${environment.server.proxy.url}/exec/api/execute`, this.prepareAuthOptions()).map(res => res.json());
   }
 
+  public executeSampleCode(): Observable<any> {
+    return this.http.get(`${environment.server.proxy.url}/exec/api/example`, this.prepareAuthOptions()).map(res => res.json());
+  }
+
   public logOut() {
     localStorage.removeItem(environment.authToken);
     this.user = null;

@@ -6,19 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.utils.modules.AuthModuleInterface;
 import pl.cyganki.utils.security.User;
+import pl.cyganki.executor.code.CodeRunner;
+import pl.cyganki.executor.code.ExecutionResult;
+import pl.cyganki.executor.code.docker.DockerCodeRunner;
 
 @RestController
 @RequestMapping("/api")
 public class ExecutorController {
 
+    private final AuthModuleInterface authModule;
+    private final DockerCodeRunner codeRunner;
+
     @Autowired
-    private AuthModuleInterface authModule;
+    public ExecutorController(AuthModuleInterface authModule,
+                              DockerCodeRunner codeRunner) {
+        this.authModule = authModule;
+        this.codeRunner = codeRunner;
+    }
 
     @GetMapping("/execute")
     @ApiOperation(value = "Executes code")
     public User executeCode(@RequestHeader("oauth_token") String token) {
-        User user =  authModule.getUser(token);
-        return user;
+        return authModule.getUser(token);
+    }
+
+    @GetMapping("/example")
+    public ExecutionResult example() {
+        return codeRunner.test();
     }
 
     @GetMapping("/hystrix")

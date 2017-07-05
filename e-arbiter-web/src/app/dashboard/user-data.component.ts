@@ -14,6 +14,11 @@ import {UserService} from "../shared/service/user.service";
                 class="ui black inverted positive button">Wyloguj się
         </button>
       </div>
+      <div class="ui buttons">
+        <button (click)="executeSampleCode()" class="ui black inverted button">
+          Uruchom executora (sprawdź konsolę)
+        </button>
+      </div>
     </div>`,
   styleUrls: ['./dashboard.scss']
 })
@@ -29,5 +34,9 @@ export class UserDataComponent {
     )
   }
 
-
+  public executeSampleCode() {
+    this.userService.executeSampleCode().first().subscribe(
+      res => console.log(res)
+    )
+  }
 }
