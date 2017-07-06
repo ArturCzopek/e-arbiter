@@ -33,6 +33,12 @@ public class AuthController {
         return new User(Long.valueOf((int) userMap.get("id")), (String) userMap.get("login"), TEST_ROLE);
     }
 
+    @GetMapping("/admin/ping")
+    @ApiOperation("Ping for admins. Filter returns 403 if user has no access")
+    public String pingForAdmin() {
+        return "ok";
+    }
+
     @GetMapping("/token")
     @ApiOperation("Returns a token for current logged in user. Token is widely used in app to authenticate user")
     public ResponseEntity<String> getToken() {
