@@ -6,6 +6,7 @@ import mu.KLogging
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import pl.cyganki.gateway.utils.FilterType
+import pl.cyganki.gateway.utils.getLoggedInUserAuthToken
 
 
 @Component
@@ -23,9 +24,7 @@ class AdminFilter : ZuulFilter() {
     override fun run(): Any? {
 
         // TODO check admin better...:)
-        val isAdmin = false
-
-        if (isAdmin) {
+        if (isAdmin()) {
             logger.info("[testUserName] - has an admin role")
         } else {
             // proper path will be printed by LoggerFilter.kt
@@ -38,6 +37,15 @@ class AdminFilter : ZuulFilter() {
         }
 
         return null
+    }
+
+    // check if tokens are valid from cache
+    // if yes, check if user has role
+    // else, re-login user by new token and check after that
+    private fun isAdmin(): Boolean {
+        val authToken = getLoggedInUserAuthToken()
+        logger.info("Token: $authToken")
+        return false
     }
 
     companion object : KLogging()

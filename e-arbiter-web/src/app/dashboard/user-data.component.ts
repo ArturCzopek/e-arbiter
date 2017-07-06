@@ -4,7 +4,7 @@ import {AuthService} from "../shared/service/auth.service";
   selector: 'arb-user-data',
   template: `
     <div *ngIf="authService.getLoggedInUser()">
-      <h1>Zalogowano jako {{authService.getLoggedInUser().name}} (id: {{authService.getLoggedInUser().id}})</h1>
+      <h1>Zalogowano jako {{authService.getLoggedInUser().name}} (id: {{authService.getLoggedInUser().id}}, ghId: {{authService.getLoggedInUser().githubId}})</h1>
       <div class="ui buttons">
         <button (click)="getUserFromOtherModule()" class="ui black inverted button">Weż użytkownika poprzez
           executora (sprawdź konsolę)

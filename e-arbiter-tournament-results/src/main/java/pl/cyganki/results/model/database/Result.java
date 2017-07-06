@@ -1,7 +1,6 @@
 package pl.cyganki.results.model.database;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,9 +23,9 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long resultId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
+    // id for user will be fetched from auth module
+    @Column(name = "user_id")
+    private long userId;
 
     @Column(name = "tournament_id")
     private long tournamentId;

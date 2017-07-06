@@ -2,8 +2,7 @@
 
 Data Controller
 
-=======
-#### getClientUrl
+#### Returns a web client url. It is used for redirecting from server to client
 ```
 GET /api/data/clientUrl
 ```
@@ -25,139 +24,6 @@ GET /api/data/clientUrl
 
 * */*
 
-#### getClientUrl
-```
-HEAD /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-POST /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-DELETE /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PUT /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-PATCH /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### getClientUrl
-```
-OPTIONS /api/data/clientUrl
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|204|No Content|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
 
 User Controller
 
@@ -215,28 +81,6 @@ GET /api/user
 
 Executor Controller
 
-#### Hystrix demo
-```
-GET /api/hystrix
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Executes code
 ```
 GET /api/execute
@@ -265,6 +109,28 @@ GET /api/execute
 
 * */*
 
+#### Hystrix demo
+```
+GET /api/hystrix
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 ## Tournament Module
 
 Tournament Controller
@@ -277,7 +143,7 @@ GET /api/test
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|Tournament array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

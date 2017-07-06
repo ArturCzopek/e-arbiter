@@ -1,0 +1,42 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="Create Roles table" author="Artur Czopek">
+        <createTable tableName="Roles">
+            <column name="role_id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="Roles" unique="true"/>
+            </column>
+            <column name="role_name" type="nvarchar(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create Users table" author="Artur Czopek">
+        <createTable tableName="Users">
+            <column name="user_id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="Users" unique="true"/>
+            </column>
+            <column name="github_id" type="long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_name" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create Users -- Roles table" author="Artur Czopek">
+        <createTable tableName="Users_roles">
+            <column name="user_id" type="long">
+            </column>
+            <column name="role_id" type="long">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
