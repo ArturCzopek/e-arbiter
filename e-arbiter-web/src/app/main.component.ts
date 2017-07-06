@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {UserService} from "./shared/service/user.service";
+import {AuthService} from "./shared/service/auth.service";
 import {environment} from "environments/environment";
 import {Router} from "@angular/router";
 
@@ -11,7 +11,7 @@ declare var window: any;
 
     <div class="ui text container">
       <h1 class="ui inverted header">e-Arbiter</h1>
-      <div *ngIf="!userService.getLoggedInUser(); else goToPanel">
+      <div *ngIf="!authService.getLoggedInUser(); else goToPanel">
         <h2>Nie jesteś zalogowany</h2>
         <div class="ui vertical labeled icon buttons">
           <button (click)="loginUser()" class="ui black big inverted button">
@@ -21,8 +21,9 @@ declare var window: any;
 
       </div>
       <ng-template #goToPanel>
-        <img class="ui small centered circular image" *ngIf="this.userService.getLoggedInUser()" src="{{userService.getUserImgLink()}}">
-        <h2>Witaj, {{userService.getLoggedInUser().name}}</h2>
+        <img class="ui small centered circular image" *ngIf="this.authService.getLoggedInUser()"
+             src="{{authService.getUserImgLink()}}">
+        <h2>Witaj, {{authService.getLoggedInUser().name}}</h2>
         <button (click)="goToDashboard()" class="ui black inverted big button">Przejdź do aplikacji</button>
       </ng-template>
     </div>
@@ -31,7 +32,7 @@ declare var window: any;
 })
 export class MainComponent implements OnInit {
 
-  constructor(public userService: UserService, public router: Router) {
+  constructor(public userService: AuthService, public router: Router) {
 
   }
 

@@ -1,16 +1,16 @@
 import {Component} from "@angular/core";
-import {UserService} from "../shared/service/user.service";
+import {AuthService} from "../shared/service/auth.service";
 @Component({
   selector: 'arb-user-data',
   template: `
-    <div *ngIf="userService.getLoggedInUser()">
-      <h1>Zalogowano jako {{userService.getLoggedInUser().name}} (id: {{userService.getLoggedInUser().id}})</h1>
+    <div *ngIf="authService.getLoggedInUser()">
+      <h1>Zalogowano jako {{authService.getLoggedInUser().name}} (id: {{authService.getLoggedInUser().id}})</h1>
       <div class="ui buttons">
         <button (click)="getUserFromOtherModule()" class="ui black inverted button">Weż użytkownika poprzez
           executora (sprawdź konsolę)
         </button>
         <div class="or"></div>
-        <button *ngIf="userService.getLoggedInUser()" (click)="userService.logOut()"
+        <button *ngIf="authService.getLoggedInUser()" (click)="authService.logOut()"
                 class="ui black inverted positive button">Wyloguj się
         </button>
       </div>
@@ -24,18 +24,18 @@ import {UserService} from "../shared/service/user.service";
 })
 export class UserDataComponent {
 
-  constructor(public userService: UserService) {
+  constructor(public authService: AuthService) {
 
   }
 
   public getUserFromOtherModule() {
-    this.userService.getUserFromServerUsingOtherModule().first().subscribe(
+    this.authService.getUserFromServerUsingOtherModule().first().subscribe(
       user => console.log(user)
     )
   }
 
   public executeSampleCode() {
-    this.userService.executeSampleCode().first().subscribe(
+    this.authService.executeSampleCode().first().subscribe(
       res => console.log(res)
     )
   }

@@ -5,7 +5,7 @@ import {HttpModule} from "@angular/http";
 
 import {AppComponent} from "./app.component";
 import {AppRouting} from "./app.routing";
-import {UserService} from "./shared/service/user.service";
+import {AuthService} from "./shared/service/auth.service";
 import {LoggedInUserGuard} from "./shared/guard/logged-in-user.guard";
 import {LoggedOutUserGuard} from "./shared/guard/logged-out-user.guard";
 import {DashboardModule} from "./dashboard/dashboard.module";
@@ -26,7 +26,7 @@ import {MainComponent} from "./main.component";
     AppRouting
   ],
   providers: [
-    UserService,
+    AuthService,
     LoggedInUserGuard,
     LoggedOutUserGuard
   ],

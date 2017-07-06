@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class AuthController {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/user")
     @ApiOperation("Returns a current logged in user based on passed token")
-    public User user(@RequestHeader("oauth_token") String token) {
+    public User getUser(@RequestHeader("oauth_token") String token) {
         Map<String, Object> userMap = restTemplate.getForObject("https://api.github.com/user?access_token=" + token, Map.class);
         return new User(Long.valueOf((int) userMap.get("id")), (String) userMap.get("login"), TEST_ROLE);
     }

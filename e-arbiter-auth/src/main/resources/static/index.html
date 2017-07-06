@@ -29,7 +29,7 @@
             var cookieTime = new Date();
             var tokenLifeSeconds = 10;
             cookieTime.setTime(cookieTime.getTime() + (tokenLifeSeconds * 1000));
-            document.cookie = "oauth_token=" + tokenValue + "; expires=" + cookieTime.toGMTString();
+            document.cookie = "oauth_token=" + tokenValue + "; expires=" + cookieTime.toGMTString() + "; path=/";
         }
     </script>
 </head>

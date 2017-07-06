@@ -1,18 +1,17 @@
 import {Injectable} from "@angular/core";
-import {Http, RequestOptions, Headers} from "@angular/http";
+import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/first";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import {Observable} from "rxjs/Observable";
-import {Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
 import {User} from "../model/user.model";
 
 declare var window: any;
 
 @Injectable()
-export class UserService {
+export class AuthService {
   private user: User = null;
 
   constructor(private http: Http) {
@@ -76,8 +75,7 @@ export class UserService {
 
     if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
       token = cookiesFromRegex[1];
-      document.cookie = `${environment.authToken}=; Max-age=0` // remove cookie, it's not needed
-    }
+          }
 
     return token;
   }
@@ -95,6 +93,7 @@ export class UserService {
       .subscribe(
         user => {
           this.user = user;
+          this.removeAuthTokenFromCookies();
         }
       );
   }
@@ -110,6 +109,10 @@ export class UserService {
 
   private handleMissingToken() {
     return Observable.throw('Not found token, log in by button');
+  }
+
+  private removeAuthTokenFromCookies() {
+    document.cookie = `${environment.authToken}=; Max-age=0`
   }
 
   private prepareAuthOptions(): RequestOptions {

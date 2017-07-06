@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {UserService} from "../shared/service/user.service";
+import {AuthService} from "../shared/service/auth.service";
 
 declare var $: any;
 
@@ -15,15 +15,15 @@ declare var $: any;
         <a class="item">Ostatnie wyniki</a>
         <div class="right menu">
           <div class="ui dropdown item">
-            <img class="ui avatar image" *ngIf="this.userService.getLoggedInUser()"
-                 src="{{userService.getUserImgLink()}}">
-            <span>{{userService.getLoggedInUser().name}}</span>
+            <img class="ui avatar image" *ngIf="this.authService.getLoggedInUser()"
+                 src="{{authService.getUserImgLink()}}">
+            <span>{{authService.getLoggedInUser().name}}</span>
             <i class="dropdown icon"></i>
             <div class="menu">
               <a class="item">Moje dane</a>
               <a class="item">Cokolwiek</a>
               <div class="divider"></div>
-              <a class="item" (click)="userService.logOut()">Wyloguj się</a>
+              <a class="item" (click)="authService.logOut()">Wyloguj się</a>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ declare var $: any;
 export class HeaderComponent implements AfterViewInit {
   public dashboardUrl = environment.client.dashboard.url;
 
-  constructor(public userService: UserService) {
+  constructor(public authService: AuthService) {
   }
 
   ngAfterViewInit(): void {
