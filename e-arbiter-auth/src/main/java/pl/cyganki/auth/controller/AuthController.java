@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import pl.cyganki.auth.database.entity.User;
 import pl.cyganki.auth.service.UserService;
+import pl.cyganki.utils.security.User;
 
 import java.util.Map;
 
@@ -31,14 +31,14 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    @ApiOperation("Returns a current logged in user based on passed token. If user does not exist, then is created")
+    @ApiOperation("Returns a current logged in user based on passed token. If user does not exist, then is created.")
     public User getUser(@RequestHeader("oauth_token") String token) {
         Map<String, Object> userMap = restTemplate.getForObject("https://api.github.com/user?access_token=" + token, Map.class);
         return userService.getLoggedInUser(userMap);
     }
 
     @GetMapping("/token")
-    @ApiOperation("Returns a token for current logged in user. Token is widely used in app to authenticate user")
+    @ApiOperation("Returns a token for current logged in user. Token is widely used in app to authenticate user.")
     public ResponseEntity<String> getToken() {
 
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();

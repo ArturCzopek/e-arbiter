@@ -1,11 +1,11 @@
 package pl.cyganki.auth.database.repository
 
 import org.springframework.data.repository.CrudRepository
-import pl.cyganki.auth.database.entity.User
+import pl.cyganki.auth.database.entity.DbUser
 
-interface UserRepository: CrudRepository<User, Long> {
+interface UserRepository: CrudRepository<DbUser, Long> {
 
-    fun findOneByGithubId(githubId: Long): User?
+    fun findOneByGithubId(githubId: Long): DbUser?
 
-    override fun findAll(): List<User>
+    override fun findAll(): List<DbUser>
 }

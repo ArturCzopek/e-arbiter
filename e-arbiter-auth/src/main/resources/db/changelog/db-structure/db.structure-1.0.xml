@@ -9,7 +9,7 @@
                 <constraints primaryKey="true" primaryKeyName="Roles" unique="true"/>
             </column>
             <column name="role_name" type="nvarchar(30)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -20,10 +20,10 @@
                 <constraints primaryKey="true" primaryKeyName="Users" unique="true"/>
             </column>
             <column name="github_id" type="long">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="user_name" type="nvarchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="enabled" type="boolean" defaultValue="true">
                 <constraints nullable="false"/>

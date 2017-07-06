@@ -1,10 +1,10 @@
 package pl.cyganki.auth.database.repository
 
 import org.springframework.data.repository.CrudRepository
-import pl.cyganki.auth.database.entity.Role
+import pl.cyganki.auth.database.entity.DbRole
 
 
-interface RoleRepository: CrudRepository<Role, Long> {
+interface RoleRepository: CrudRepository<DbRole, Long> {
 
-    fun findOneByName(name: String): Role
+    fun findOneByName(name: String): DbRole
 }
