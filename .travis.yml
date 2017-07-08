@@ -16,6 +16,7 @@ apt:
    - google-chrome-stable
 
 before_install:
+ - chmod +x ./scripts/**
  - ./scripts/installPackages.sh
 
 before_cache:
@@ -27,7 +28,7 @@ before_script:
  - npm install -g angular-cli-ghpages
  - cd e-arbiter-web
  - npm install
- - cd ..
+ - cd $TRAVIS_BUILD_DIR
 
 cache:
   directories:
