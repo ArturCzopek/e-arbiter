@@ -20,7 +20,7 @@ class AdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun run(): Any? {
 
-        val userName = userSessionCache.getLoggedInUser()?.name ?: ""
+        val userName = userSessionCache.getNameOfCurrentLoggedInUser()
 
         if (userSessionCache.isLoggedInUserAdmin()) {
             logger.info("[$userName] - has an admin role")

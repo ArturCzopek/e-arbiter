@@ -22,13 +22,13 @@ public class AdminController {
     }
 
     @GetMapping("/all")
-    @ApiOperation("Returns all users from db. Filter returns 401 if user has no admin role.")
+    @ApiOperation("Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.")
     public List<DbUser> getAllUsersFromDb() {
         return userService.getAllUsersFromDb();
     }
 
     @GetMapping("/ping")
-    @ApiOperation("Ping for admins. Filter returns 401 if user has no admin role.")
+    @ApiOperation("Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.")
     public String pingForAdmin() {
         return "ok";
     }

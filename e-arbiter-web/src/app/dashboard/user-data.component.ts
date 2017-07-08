@@ -4,7 +4,7 @@ import {AuthService} from "../shared/service/auth.service";
   selector: 'arb-user-data',
   template: `
     <div *ngIf="authService.getLoggedInUser()">
-      <h1>Zalogowano jako {{authService.getLoggedInUser().name}} (id: {{authService.getLoggedInUser().id}}, ghId: {{authService.getLoggedInUser().githubId}})</h1>
+      <h1>Zalogowano jako {{authService.getLoggedInUser().name}} (id: {{authService.getLoggedInUser().id}})</h1>
       <div class="ui buttons">
         <button (click)="getUserFromOtherModule()" class="ui black inverted button">Weż użytkownika poprzez
           executora (sprawdź konsolę)
@@ -18,7 +18,9 @@ import {AuthService} from "../shared/service/auth.service";
         <button (click)="executeSampleCode()" class="ui black inverted button">
           Uruchom executora (sprawdź konsolę)
         </button>
+        <button (click)="getMeInfo()" class="ui black inverted button">/me (console)</button>
       </div>
+
     </div>`,
   styleUrls: ['./dashboard.scss']
 })
@@ -38,5 +40,13 @@ export class UserDataComponent {
     this.authService.executeSampleCode().first().subscribe(
       res => console.log(res)
     )
+  }
+
+  public getMeInfo() {
+    this.authService.getMeInfo()
+      .first()
+      .subscribe(
+        res => console.log(res)
+      )
   }
 }

@@ -6,8 +6,8 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-import pl.cyganki.utils.modules.EnableArbiterModules;
-import pl.cyganki.utils.swagger.EnableArbiterSwagger;
+import pl.cyganki.utils.annotation.EnableArbiterModules;
+import pl.cyganki.utils.annotation.EnableArbiterSwagger;
 
 @SpringBootApplication
 @EnableEurekaClient

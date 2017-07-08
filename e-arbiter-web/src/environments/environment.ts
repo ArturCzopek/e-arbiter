@@ -13,6 +13,7 @@ export const environment = {
       logoutUrl: 'http://localhost:8080/auth/logout',
       userUrl: 'http://localhost:8080/auth/api/user',
       tokenUrl: 'http://localhost:8080/auth/api/token',
+      meUrl:  'http://localhost:8080/auth/api/me',
       loginUrl: 'http://localhost:8090/login'   // login by routing seems to not work currently, TODO: #48 @ trello
     },
     proxy: {

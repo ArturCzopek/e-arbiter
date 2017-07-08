@@ -31,12 +31,13 @@
 *.tar.gz
 *.rar
 
-
-
 # IntelliJ
 out/
 .idea/
 **/*.iml
+
+# Folder for custom local libs
+libs/
 
 # Unignore
 !/gradle/wrapper/gradle-wrapper.jar

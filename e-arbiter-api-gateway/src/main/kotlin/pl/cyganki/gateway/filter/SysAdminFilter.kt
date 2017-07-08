@@ -8,6 +8,10 @@ import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getRequest
 import pl.cyganki.gateway.utils.unauthorizeRequest
 
+/**
+ * Filter responsible for checking if user is a SysAdmin
+ * If not, this event is written to logs and request is invalid
+ */
 @Component
 class SysAdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
@@ -15,11 +19,11 @@ class SysAdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun filterType() = FilterType.PRE.value
 
-    override fun filterOrder() = 2
+    override fun filterOrder() = 3
 
     override fun run(): Any? {
 
-        val userName = userSessionCache.getLoggedInUser()?.name ?: ""
+        val userName = userSessionCache.getNameOfCurrentLoggedInUser()
 
         if (userSessionCache.isLoggedInUserSysAdmin()) {
             logger.info("[$userName] - has a sysadmin role")

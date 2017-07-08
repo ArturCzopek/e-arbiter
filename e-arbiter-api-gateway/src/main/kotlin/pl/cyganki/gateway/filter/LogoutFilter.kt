@@ -16,12 +16,12 @@ class LogoutFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun shouldFilter() = getRequest().requestURI.contains("/logout")
 
-    override fun filterType() = FilterType.POST.value
+    override fun filterType() = FilterType.PRE.value
 
-    override fun filterOrder() = 0
+    override fun filterOrder() = 4
 
     override fun run(): Any? {
-        val userNameBeforeLogout = userSessionCache.getLoggedInUser()!!.name
+        val userNameBeforeLogout = userSessionCache.getNameOfCurrentLoggedInUser()
         userSessionCache.clearUser()
         logger.info("[$userNameBeforeLogout] - logged out")
         return null
