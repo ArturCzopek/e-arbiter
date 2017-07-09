@@ -17,7 +17,8 @@ bootRepackage {
 
 dependencies {
 	compile('com.spotify:docker-client:' + dockerClientVersion)
-	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('io.springfox:springfox-swagger2:'+ swaggerVersion)
+	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile('org.springframework.cloud:spring-cloud-starter-feign:' + springBootCloudVersion)
+	compile('org.springframework.boot:spring-boot-starter-web')
 }

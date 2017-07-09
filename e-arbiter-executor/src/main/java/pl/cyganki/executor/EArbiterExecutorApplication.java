@@ -9,11 +9,11 @@ import org.springframework.web.client.RestTemplate;
 import pl.cyganki.utils.annotation.EnableArbiterModules;
 import pl.cyganki.utils.annotation.EnableArbiterSwagger;
 
-@SpringBootApplication
-@EnableEurekaClient
 @EnableArbiterModules
 @EnableArbiterSwagger
 @EnableCircuitBreaker
+@EnableEurekaClient
+@SpringBootApplication
 public class EArbiterExecutorApplication {
 
 	public static void main(String[] args) {

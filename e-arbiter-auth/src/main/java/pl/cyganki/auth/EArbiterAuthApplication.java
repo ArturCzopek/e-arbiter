@@ -10,12 +10,12 @@ import pl.cyganki.utils.annotation.EnableArbiterResolvers;
 import pl.cyganki.utils.annotation.EnableArbiterSwagger;
 import pl.cyganki.utils.annotation.EnableH2Console;
 
-@SpringBootApplication
-@EnableEurekaClient
-@EnableCircuitBreaker
-@EnableArbiterSwagger
 @EnableArbiterResolvers
+@EnableArbiterSwagger
+@EnableCircuitBreaker
+@EnableEurekaClient
 @EnableH2Console
+@SpringBootApplication
 public class EArbiterAuthApplication {
 
     public static void main(String[] args) {
