@@ -1,5 +1,6 @@
-package pl.cyganki.auth.configuration
+package pl.cyganki.auth.configuration.dev
 
+import mu.KLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso
 import org.springframework.context.annotation.Bean
@@ -11,32 +12,46 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+import pl.cyganki.utils.GlobalValues
 
 @Profile("dev")
 @Configuration
 @EnableOAuth2Sso
-open class Security(
+open class SecurityConfiguration(
         @Value("\${e-arbiter.clientUrl}") var clientUrl: String,
-        @Value("\${e-arbiter.proxyUrl}") var proxyUrl: String
+        @Value("\${e-arbiter.proxyUrl}") var proxyUrl: String,
+        @Value("\${spring.h2.console.path}") var h2ConsoleUrl: String,
+        @Value("\${e-arbiter.swagger.path}") var swaggerUrl: String     // we need to precede it later by "/" because addres to it by prop is without "/"
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/index.html", "/login**", "/api/**").permitAll()
+                .antMatchers("/", "/index.html", "/login**", "/api/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(LoginUrlAuthenticationEntryPoint("/"))
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/logout")
-                .and().csrf().disable()
+                .invalidateHttpSession(true).deleteCookies(GlobalValues.AUTH_TOKEN)
+                .and().csrf().disable().headers().frameOptions().disable()
+
+        logger.info("Configured dev security")
     }
 
     @Bean
     open fun corsConfigurer(): WebMvcConfigurer {
         return object : WebMvcConfigurerAdapter() {
             override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**").allowedOrigins(proxyUrl, clientUrl)
+                registry.addMapping("/**")
+                        .allowedOrigins(proxyUrl, clientUrl)
+                        .allowedHeaders("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .maxAge(3600)
+
+                logger.info("Allowed AJAX origins: $clientUrl, $proxyUrl")
             }
         }
     }
+
+    companion object: KLogging()
 }
 

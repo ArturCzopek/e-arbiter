@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 fuser $E_ARB_DEV_CLIENT_PORT/tcp -k &
 fuser $E_ARB_DEV_API_PORT/tcp -k &
 fuser $E_ARB_DEV_AUTH_PORT/tcp -k &

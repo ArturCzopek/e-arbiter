@@ -18,7 +18,9 @@ import {AuthService} from "../shared/service/auth.service";
         <button (click)="executeSampleCode()" class="ui black inverted button">
           Uruchom executora (sprawdź konsolę)
         </button>
+        <button (click)="getMeInfo()" class="ui black inverted button">/me (console)</button>
       </div>
+
     </div>`,
   styleUrls: ['./dashboard.scss']
 })
@@ -38,5 +40,13 @@ export class UserDataComponent {
     this.authService.executeSampleCode().first().subscribe(
       res => console.log(res)
     )
+  }
+
+  public getMeInfo() {
+    this.authService.getMeInfo()
+      .first()
+      .subscribe(
+        res => console.log(res)
+      )
   }
 }

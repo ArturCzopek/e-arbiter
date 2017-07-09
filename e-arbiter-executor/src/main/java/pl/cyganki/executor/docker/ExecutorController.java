@@ -3,12 +3,14 @@ package pl.cyganki.executor.docker;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import pl.cyganki.utils.modules.AuthModuleInterface;
-import pl.cyganki.utils.security.User;
-import pl.cyganki.executor.code.CodeRunner;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.executor.code.ExecutionResult;
 import pl.cyganki.executor.code.docker.DockerCodeRunner;
+import pl.cyganki.utils.modules.AuthModuleInterface;
+import pl.cyganki.utils.security.dto.User;
 
 @RestController
 @RequestMapping("/api")

@@ -6,7 +6,6 @@ apply plugin: 'org.sonarqube'
 
 
 buildscript {
-    ext.kotlin_version = '1.1.2-4'
     repositories {
         mavenCentral()
         jcenter()
@@ -17,7 +16,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:${dependencyPlugin}")
         classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarVersion}")
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
     }
 }
 
@@ -42,12 +41,11 @@ subprojects {
     }
 
     buildscript {
-        ext.kotlin_version = '1.1.2-4'
         repositories {
             mavenCentral()
         }
         dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
         }
     }
 
@@ -58,23 +56,28 @@ subprojects {
         }
     }
 
-    dependencies {
-        compile('org.springframework.boot:spring-boot-devtools')
-        compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-        compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile('org.springframework.cloud:spring-cloud-starter-config')
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version")
-        compile('org.projectlombok:lombok:' + lombokVersion)
-        compile('pl.cyganki:e-arbiter-utils:' + version)
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-    }
+
 
     repositories {
         mavenCentral()
         jcenter()
         maven { url "http://repo.spring.io/release" }
-        maven { url "https://mymavenrepo.com/repo/tpcuo7p3QNPGqEXXYJZK/" }
+        maven { url "https://mymavenrepo.com/repo/tpcuo7p3QNPGqEXXYJZK/" } // comment it if you're using your version of utils lib
         maven { url "https://repo.spring.io/libs-milestone" }
+    }
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-devtools')
+        compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.springframework.cloud:spring-cloud-starter-config')
+        compile('org.jetbrains.kotlin:kotlin-stdlib-jre8:' + kotlinVersion)
+        compile('org.projectlombok:lombok:' + lombokVersion)
+        compile('io.github.microutils:kotlin-logging:' + kotlinLoggerVersion)
+        compile('pl.cyganki:e-arbiter-utils:' + version)   // comment it if you're using your version of utils lib
+//        compile fileTree(dir: "${project.rootDir}/libs", include: ['*.jar'])    // PUSH COMMENTED!!! uncomment it if you're using your version of utils lib
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile 'io.springfox:springfox-staticdocs:' + swaggerVersion
     }
 }
 
@@ -112,7 +115,7 @@ configure(markdownDoc) {
     description = 'Create markdown documentation based on Swagger'
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 }
 
 // FUNCTIONS
@@ -133,7 +136,7 @@ String getHeader(int index) {
             "Authentication Module",
             "Executor Module",
             "Tournament Module",
-            "Tournament Results Module",
+            "Tournament Results Module"
     ]
 
     headers[index]
@@ -144,7 +147,7 @@ String[] getModulePaths() {
             "./e-arbiter-auth",
             "./e-arbiter-executor",
             "./e-arbiter-tournament",
-            "./e-arbiter-tournament-results",
+            "./e-arbiter-tournament-results"
     ]
 
     modulePaths

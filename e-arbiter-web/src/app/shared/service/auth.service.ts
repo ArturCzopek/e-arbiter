@@ -63,10 +63,14 @@ export class AuthService {
     return this.http.get(`${environment.server.proxy.url}/exec/api/example`, this.prepareAuthOptions()).map(res => res.json());
   }
 
+  public getMeInfo(): Observable<any> {
+    return this.http.get(environment.server.auth.meUrl, this.prepareAuthOptions()).map(res => res.json());
+  }
+
   public logOut() {
     localStorage.removeItem(environment.authToken);
     this.user = null;
-    window.location = `${environment.server.auth.logoutUrl}`;
+    window.location = environment.server.auth.logoutUrl;
   }
 
   public getTokenFromCookie(): string {
@@ -75,7 +79,7 @@ export class AuthService {
 
     if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
       token = cookiesFromRegex[1];
-          }
+    }
 
     return token;
   }

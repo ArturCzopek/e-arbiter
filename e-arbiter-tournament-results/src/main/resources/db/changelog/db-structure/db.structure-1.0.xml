@@ -3,26 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="Create users table" author="e-Arbiter">
-        <createTable tableName="users">
-            <column name="user_id" type="long">
-                <constraints primaryKey="true" primaryKeyName="PK_Users" unique="true"/>
-            </column>
-            <column name="github_id" type="long">
-                <constraints nullable ="false" unique="true"/>
-            </column>
-            <column name="name" type="nvarchar(255)">
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="Create results table" author="e-Arbiter">
         <createTable tableName="results">
             <column name="result_id" type="long" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="PK_Results" unique="true"/>
             </column>
             <column name="user_id" type="long">
-                <constraints nullable="false" foreignKeyName="FK_Results_Users" references="Users(user_id)"/>
+                <constraints nullable="false"/>
             </column>
             <column name="tournament_id" type="long">
                 <constraints nullable="false"/>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="Insert test Users" author="Artur Czopek">
+        <loadData tableName="Users" separator=";" file="db/changelog/test-data/db.users.csv">
+            <column name="user_id" type="numeric"/>
+            <column name="github_id" type="numeric"/>
+            <column name="user_name" type="string"/>
+            <column name="enabled" type="boolean"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Insert test Roles" author="Artur Czopek">
+        <loadData tableName="Roles" separator=";" file="db/changelog/test-data/db.roles.csv">
+            <column name="role_id" type="numeric"/>
+            <column name="role_name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Insert test Users - Roles" author="Artur Czopek">
+        <loadData tableName="Users_roles" separator=";" file="db/changelog/test-data/db.users-roles.csv">
+            <column name="user_id" type="numeric"/>
+            <column name="role_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+
+</databaseChangeLog>

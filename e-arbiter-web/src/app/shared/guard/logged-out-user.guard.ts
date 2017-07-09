@@ -8,16 +8,16 @@ import "rxjs/observable/of";
 @Injectable()
 export class LoggedOutUserGuard implements CanActivate {
 
-  constructor(private router: Router, private userService: AuthService) {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
 
-    if (!this.userService.getLoggedInUser() && !localStorage.getItem(environment.authToken)) {
+    if (!this.authService.getLoggedInUser() && !localStorage.getItem(environment.authToken)) {
       return true;
     }
 
-    console.log('Logout failed!', this.userService, localStorage.getItem(environment.authToken));
+    console.log('Logout failed!', this.authService, localStorage.getItem(environment.authToken));
 
     this.router.navigate([environment.client.dashboard.url]);
     return false;
