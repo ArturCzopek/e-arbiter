@@ -1,11 +1,14 @@
 #!/bin/bash
 
-cd $TRAVIS_BUILD_DIR
+#cd $TRAVIS_BUILD_DIR
+cd /home/arturczopek/Projects/Inzynier/e-arbiter
 
 echo "Build script for e-Arbiter"
 echo "Branch: "$TRAVIS_BRANCH", pull request: "$TRAVIS_PULL_REQUEST
 
 gradlew_output=$(./gradlew build); gradlew_return_code=$?
+
+echo "$gradlew_output";
 
 if (( gradlew_return_code != 0 ))
 then
@@ -20,6 +23,8 @@ ng_output=$(ng build --env=dev --base-href "https://arturczopek.github.io/e-arbi
 
 # TODO uncomment, you know when..:)
 # - ng test --watch=false
+
+echo "$ng_output";
 
 if (( ng_return_code != 0 ))
 then
