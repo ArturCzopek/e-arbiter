@@ -32,13 +32,13 @@ declare var window: any;
 })
 export class MainComponent implements OnInit {
 
-  constructor(public userService: AuthService, public router: Router) {
+  constructor(public authService: AuthService, public router: Router) {
 
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem(environment.authToken) || this.userService.getTokenFromCookie()) {
-      this.userService.logIn();
+    if (localStorage.getItem(environment.authToken) || this.authService.getTokenFromCookie()) {
+      this.authService.logIn();
     }
   }
 
