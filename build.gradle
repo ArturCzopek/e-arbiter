@@ -56,8 +56,6 @@ subprojects {
         }
     }
 
-
-
     repositories {
         mavenCentral()
         jcenter()
@@ -99,12 +97,12 @@ allprojects {
 
 task markdownDoc(type: Delete) {
 
-    def apiFile = new File('API.md')
+    def apiFile = new File("${project.rootDir}/API.md")
     apiFile.text = ""
 
     getModulePaths().eachWithIndex { String path, int i ->
         apiFile << replaceHeaderAndControllers(new File("$path/docs/paths.md"), i)
-//        it should be cleaned by IJ run automatically this task...
+//        it should be cleaned but IJ run automatically this task...
 //        delete fileTree("$path/docs/") { include '**/*.md' }
 //        delete "$path/docs"
     }
@@ -114,6 +112,7 @@ configure(markdownDoc) {
     group = 'documentation'
     description = 'Create markdown documentation based on Swagger'
 }
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
 }

@@ -159,28 +159,6 @@ GET /api/data/clientUrl
 
 Executor Controller
 
-#### example
-```
-GET /api/example
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|ExecutionResult|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Executes code
 ```
 GET /api/execute
@@ -218,6 +196,28 @@ GET /api/hystrix
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### example
+```
+GET /api/example
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|ExecutionResult|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

@@ -17,9 +17,6 @@
 # Doc markdowns - we want only this one from root
 **/docs/
 
-# TODO remove it - it's only temporary workaround for fucking files creating by dumb gradle/intellij...
-**/API.md
-
 # Logs
 *.log
 
