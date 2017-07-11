@@ -12,12 +12,16 @@ import pl.cyganki.executor.code.ExecutionResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 
 import static pl.cyganki.executor.code.ExecutionResult.Status;
 
 @Component
 public class DockerCodeRunner implements CodeRunner {
+
+    private static final Semaphore SEM =
+            new Semaphore(Runtime.getRuntime().availableProcessors());
 
     private final SandboxService sandboxService;
     private final FileSystemUtils fileSystemUtils;
@@ -46,9 +50,13 @@ public class DockerCodeRunner implements CodeRunner {
             ContainerCreation creation = sandboxService.createContainer(binding);
             containerId = creation.id();
 
-            sandboxService.startContainer(containerId);
-
-            result = parseOutput(sandboxService.getContainerLogs(containerId, 5 * 1000));
+            SEM.acquire();
+            try {
+                sandboxService.startContainer(containerId);
+                result = parseOutput(sandboxService.getContainerLogs(containerId, 5 * 1000));
+            } finally {
+                SEM.release();
+            }
 
         } catch (DockerException | InterruptedException e) {
             result = new ExecutionResult(Status.INTERNAL_ERROR, e.getMessage());
