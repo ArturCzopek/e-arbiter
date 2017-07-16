@@ -1,17 +1,21 @@
 package pl.cyganki.tournament.model;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Builder
-@EqualsAndHashCode
+
 @Data
-public class Answer implements Serializable {
-    private static final long serialVersionUID = 3629960358660808621L;
+@EqualsAndHashCode
+@NoArgsConstructor
+public class Answer {
 
+    @NotNull(message = "Answer's 'content' cannot be empty")
+    @Size(min = 3, max = 64, message = "Answer's 'content' must be of length between 3 and 64 characters")
     private String content;
+
     private boolean correct;
 }

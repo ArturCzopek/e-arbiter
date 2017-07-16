@@ -1,17 +1,19 @@
 package pl.cyganki.tournament.model;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.NoArgsConstructor;
 
-@Document(collection = "TASKS")
-@AllArgsConstructor
 @Data
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = CodeTask.class, name = "CodeTask"),
+        @JsonSubTypes.Type(value = QuizTask.class, name = "QuizTask")
+})
 public abstract class Task {
-
-    @Id
-    protected long taskId;
-
-    protected double maxPoints;
+    protected long maxPoints;
 }
