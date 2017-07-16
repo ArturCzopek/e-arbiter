@@ -19,7 +19,7 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:' + jacksonDatatypeVersion)
     compile('io.springfox:springfox-swagger2:' + swaggerVersion)
-    compile('org.hibernate:hibernate-validator:' + hibernateValidatorVersion)
     compile('org.projectlombok:lombok:' + lombokVersion)
 }
