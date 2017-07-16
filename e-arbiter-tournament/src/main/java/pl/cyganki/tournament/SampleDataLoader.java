@@ -1,5 +1,6 @@
 package pl.cyganki.tournament;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.repository.TaskRepository;
 import pl.cyganki.tournament.repository.TournamentRepository;
 
@@ -29,48 +31,78 @@ public class SampleDataLoader implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        /*mongoTemplate.getDb().dropDatabase();
-        List<Answer> questionsTasksAnswersList = Arrays.asList(
-                Answer.builder().content("Answer 1").correct(true).build(),
-                Answer.builder().content("Answer 2").correct(true).build(),
-                Answer.builder().content("Answer 3").correct(false).build()
-        );
+        mongoTemplate.getDb().dropDatabase();
 
-        List<String> parameters = Arrays.asList(
-                "Jeden",
-                "Dwa",
-                "Trzy"
-        );
+        final String sampleJson = "{  \n" +
+                "   \"ownerId\":36,\n" +
+                "   \"name\":\"Sample Tournament\",\n" +
+                "   \"description\":\"This is an example of how Tournament's JSON representation looks like.\",\n" +
+                "   \"startDate\":null,\n" +
+                "   \"endDate\":[  \n" +
+                "      2017,\n" +
+                "      7,\n" +
+                "      22\n" +
+                "   ],\n" +
+                "   \"publicFlag\":true,\n" +
+                "   \"joinedUsersId\":null,\n" +
+                "   \"tasks\":[  \n" +
+                "      {  \n" +
+                "         \"@type\":\"CodeTask\",\n" +
+                "         \"maxPoints\":100,\n" +
+                "         \"testSets\":[  \n" +
+                "            {  \n" +
+                "               \"expectedResult\":\"100150200250\",\n" +
+                "               \"parameters\":[  \n" +
+                "                  \"100\",\n" +
+                "                  \"150\",\n" +
+                "                  \"200\",\n" +
+                "                  \"250\"\n" +
+                "               ]\n" +
+                "            },\n" +
+                "            {  \n" +
+                "               \"expectedResult\":\"TAK!\",\n" +
+                "               \"parameters\":[  \n" +
+                "                  \"T\",\n" +
+                "                  \"A\",\n" +
+                "                  \"A\",\n" +
+                "                  \"!\"\n" +
+                "               ]\n" +
+                "            }\n" +
+                "         ],\n" +
+                "         \"languages\":[  \n" +
+                "            \"PYTHON\",\n" +
+                "            \"JAVA\",\n" +
+                "            \"CPP\"\n" +
+                "         ],\n" +
+                "         \"timeoutInMs\":50\n" +
+                "      },\n" +
+                "      {  \n" +
+                "         \"@type\":\"QuizTask\",\n" +
+                "         \"maxPoints\":100,\n" +
+                "         \"name\":\"Sample Quiz\",\n" +
+                "         \"questions\":[  \n" +
+                "            {  \n" +
+                "               \"content\":\"Question's Content\",\n" +
+                "               \"answers\":[  \n" +
+                "                  {  \n" +
+                "                     \"content\":\"1st answer's content\",\n" +
+                "                     \"correct\":true\n" +
+                "                  },\n" +
+                "                  {  \n" +
+                "                     \"content\":\"2nd answer's content\",\n" +
+                "                     \"correct\":false\n" +
+                "                  }\n" +
+                "               ]\n" +
+                "            }\n" +
+                "         ]\n" +
+                "      }\n" +
+                "   ],\n" +
+                "   \"maxPoints\":100\n" +
+                "}";
 
-        List<TestSet> codesTasksTestSetsList = Arrays.asList(
-                new TestSet("10152025", Arrays.asList("10", "15", "20", "25")),
-                new TestSet("Tak!", Arrays.asList("T", "a", "k", "!"))
-                //TestSet.builder().expectedResult("Result 1").parameters(parameters).build(),
-                //TestSet.builder().expectedResult("Result 2").parameters(parameters).build()
-        );
+        ObjectMapper mapper = new ObjectMapper();
+        Tournament tournament = mapper.readValue(sampleJson, Tournament.class);
 
-        List<CodeTask.Language> languages = Arrays.asList(
-                CodeTask.Language.PYTHON,
-                CodeTask.Language.JAVA,
-                CodeTask.Language.CPP
-        );
-
-        List<Task> tasksList = Arrays.asList(
-                new CodeTask(codesTasksTestSetsList, languages, 50, 10),
-                new CodeTask(codesTasksTestSetsList, languages, 20, 15)
-                //CodeTask.builder().taskId(1).maxPoints(5).testSets(codesTasksTestSetsList).languages(languages).build(),
-                //CodeTask.builder().taskId(2).maxPoints(3).testSets(codesTasksTestSetsList).languages(languages).build(),
-                //Question.builder().taskId(3).maxPoints(10).content("Testowe pytanie es numero 1").answers(questionsTasksAnswersList).build(),
-                //Question.builder().taskId(4).maxPoints(20).content("Testowe pytanie es numero 2").answers(questionsTasksAnswersList).build()
-        );
-
-        List<Tournament> tournamentsList = Arrays.asList(
-                new Tournament(36L, "TT1", LocalDate.of(2017, 7, 22), true, tasksList),
-                new Tournament(38L, "TT2", LocalDate.of(2017, 7, 28), false, tasksList)
-                //Tournament.builder().tournamentId(1).ownerId(34).name("Tournament 1").publicFlag(true).tasks(tasksList).maxPoints(100).build(),
-                //Tournament.builder().tournamentId(2).ownerId(32).name("Tournament 2").publicFlag(false).tasks(tasksList).maxPoints(34).build()
-        );
-
-        tournamentRepository.save(tournamentsList);*/
+        tournamentRepository.save(tournament);
     }
 }
