@@ -1,0 +1,9 @@
+spring:
+  profiles: test
+  cloud.config.server.git:
+    uri: ${E_ARB_TEST_CFG_PATH}
+    username: e-Arbiter
+    password: ${E_ARB_USR_PASS}
+eureka:
+  client:
+    enabled: false

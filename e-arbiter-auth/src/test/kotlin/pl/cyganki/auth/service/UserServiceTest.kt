@@ -89,9 +89,6 @@ class UserServiceTest {
 
     @Test
     fun `should return all users from DB`() {
-        // given
-        // ---
-
         // when
         val users = userService.getAllUsersFromDb()
 

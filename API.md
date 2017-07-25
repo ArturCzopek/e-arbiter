@@ -49,15 +49,21 @@ GET /admin/all
 
 Auth Controller
 
-#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
-GET /api/token
+GET /api/user
 ```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|HeaderParameter|oauth_token|oauth_token|true|string||
+
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|User|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -102,21 +108,15 @@ GET /api/me
 
 * */*
 
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
 ```
-GET /api/user
+GET /api/token
 ```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
-
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|User|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -159,6 +159,28 @@ GET /api/data/clientUrl
 
 Executor Controller
 
+#### example
+```
+GET /api/example
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|ExecutionResult|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Executes code
 ```
 GET /api/execute
@@ -196,28 +218,6 @@ GET /api/hystrix
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### example
-```
-GET /api/example
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|ExecutionResult|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

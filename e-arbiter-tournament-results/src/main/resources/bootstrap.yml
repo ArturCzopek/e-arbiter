@@ -3,4 +3,4 @@ spring:
     name: tournament-results-module
   profiles:
     active: dev
-  cloud.config.uri: ${E_ARB_DEV_HOST}:${E_ARB_DEV_CFG_PORT}
+  cloud.config.uri: ${E_ARB_HOST}:${E_ARB_CFG_PORT}

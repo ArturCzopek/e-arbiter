@@ -7,4 +7,4 @@ fuser $E_ARB_DEV_EXEC_PORT/tcp -k &
 fuser $E_ARB_DEV_TOUR_PORT/tcp -k &
 fuser $E_ARB_DEV_TRES_PORT/tcp -k &
 fuser $E_ARB_DEV_EUR_PORT/tcp -k &
-fuser $E_ARB_DEV_CFG_PORT/tcp -k
+fuser $E_ARB_CFG_PORT/tcp -k
