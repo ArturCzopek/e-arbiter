@@ -12,14 +12,22 @@ e-arbiter:
 spring:
   profiles: test
   datasource:
-    name: test
+    name: e-arbiter-auth-test
     platform: h2
     url: jdbc:h2:mem:e-arbiter-auth-test;DATABASE_TO_UPPER=true;IGNORECASE=true;
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     database: H2
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
     openInView: false
     show-sql: true
+
+  h2:
+    console:
+      enabled: false
 
 liquibase:
   enabled: true

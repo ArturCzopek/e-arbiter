@@ -2,28 +2,6 @@
 
 Admin Controller
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
-```
-GET /admin/all
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|DbUser array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
 GET /admin/ping
@@ -46,24 +24,40 @@ GET /admin/ping
 
 * */*
 
-
-Auth Controller
-
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /api/user
+GET /admin/all
 ```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
-
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|User|
+|200|OK|DbUser array|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+
+Auth Controller
+
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+```
+GET /api/token
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -108,15 +102,21 @@ GET /api/me
 
 * */*
 
-#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
-GET /api/token
+GET /api/user
 ```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|HeaderParameter|oauth_token|oauth_token|true|string||
+
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|User|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
