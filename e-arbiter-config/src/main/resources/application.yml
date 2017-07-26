@@ -1,8 +1,8 @@
 e-arbiter:
-  service-name: ${E_ARB_DEV_CFG_NAME}
+  service-name: ${E_ARB_CFG_NAME}
 
 server:
-  port: ${E_ARB_DEV_CFG_PORT}
+  port: ${E_ARB_CFG_PORT}
 eureka:
   client:
     serviceUrl:

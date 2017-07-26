@@ -9,19 +9,21 @@ import pl.cyganki.utils.exception.WrongGithubUserException
 import pl.cyganki.utils.security.dto.Role
 import pl.cyganki.utils.security.dto.User
 
+typealias GitHubUserMap = Map<String, Any>
+
 @Service
 class UserService(
         val userRepository: UserRepository,
         val roleRepository: RoleRepository
 ) {
 
-    fun getLoggedInUser(userMap: Map<String, Any>): User {
+    fun getLoggedInUser(userMap: GitHubUserMap): User {
 
         val githubId = (userMap[GlobalValues.GH_ID] as Int).toLong()
         var dbUser = userRepository.findOneByGithubId(githubId)
 
         if (dbUser == null) {
-            val githubLogin = userMap[GlobalValues.GH_LOGIN] as String
+            val githubLogin = (userMap[GlobalValues.GH_LOGIN] ?: "") as String
 
             if (githubLogin.isEmpty()) {
                 throw WrongGithubUserException()

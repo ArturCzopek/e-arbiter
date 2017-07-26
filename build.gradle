@@ -75,7 +75,7 @@ subprojects {
         compile('pl.cyganki:e-arbiter-utils:' + version)   // comment it if you're using your version of utils lib
 //        compile fileTree(dir: "${project.rootDir}/libs", include: ['*.jar'])    // PUSH COMMENTED!!! uncomment it if you're using your version of utils lib
         testCompile('org.springframework.boot:spring-boot-starter-test')
-        testCompile 'io.springfox:springfox-staticdocs:' + swaggerVersion
+        testCompile('io.springfox:springfox-staticdocs:' + swaggerVersion)
     }
 }
 
