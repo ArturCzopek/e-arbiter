@@ -14,7 +14,6 @@ apt:
    - google-chrome
   packages:
    - google-chrome-stable
-   - lynx
 
 before_install:
  - chmod +x ./scripts/**
@@ -23,7 +22,7 @@ before_install:
  - sh -e /etc/init.d/xvfb start
  - nvm install 6.9.4
  - nvm use 6.9.4
-
+ - sudo apt-get install lynx lynx-cur
 
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -51,9 +50,12 @@ script:
 
 after_success:
  - ./scripts/publish.sh
- 
- after_failure:
-  - if [ -f $TRAVIS_BUILD_DIR/e-arbiter-auth/build/reports/tests/test/index.html ]; then lynx -dump $TRAVIS_BUILD_DIR/e-arbiter-auth/build/reports/tests/test/index.html; fi
+
+ # This is only for "debug" purposes on Travis. We cannot get files from there but you can't print them, for example report from test
+ # You can print proper file by setting $TEST_FILE_PATH env variable in Travis which already exists
+ # REMEMBER THAT IT SHOULD BE VISIBLE IN LOGS! We can reuse it later and easily change
+after_failure:
+ - if [ -f $TEST_FILE_PATH ]; then lynx -dump $TEST_FILE_PATH; fi
 
 notifications:
   email: false
