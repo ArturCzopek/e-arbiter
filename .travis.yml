@@ -29,7 +29,7 @@ before_cache:
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 before_script:
- - npm install -g @angular/cli@1.0.0
+ - npm install -g @angular/cli@1.2.4
  - npm install -g angular-cli-ghpages
  - cd e-arbiter-web
  - npm install
