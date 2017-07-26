@@ -14,6 +14,7 @@ apt:
    - google-chrome
   packages:
    - google-chrome-stable
+   - lynx
 
 before_install:
  - chmod +x ./scripts/**
@@ -50,6 +51,9 @@ script:
 
 after_success:
  - ./scripts/publish.sh
+ 
+ after_failure:
+  - if [ -f $TRAVIS_BUILD_DIR/e-arbiter-auth/build/reports/tests/test/index.html ]; then lynx -dump $TRAVIS_BUILD_DIR/e-arbiter-auth/build/reports/tests/test/index.html; fi
 
 notifications:
   email: false
