@@ -9,15 +9,14 @@
 #        pingResponse=`curl -s $E_ARB_HOST:$1/ping`
 #    done
 #}
-
 # ELK stack run
-$E_ARB_ES_RUN & sleep 10 & $E_ARB_KIB_RUN & sleep 10 & $E_ARB_LOG_RUN -f $E_ARB_LOG_CFG_PATH
+#$E_ARB_ES_RUN & sleep 10 & $E_ARB_KIB_RUN & sleep 10 & $E_ARB_LOG_RUN -f $E_ARB_LOG_CFG_PATH
 
 # We cannot run other modules without config server
 
-#./gradlew bootRun -p e-arbiter-config &
-#pingService $E_ARB_CFG_PORT "Config Server"
-#echo "Config server is working! Port: $E_ARB_CFG_PORT"
+./gradlew bootRun -p e-arbiter-config &
+pingService $E_ARB_CFG_PORT "Config Server"
+echo "Config server is working! Port: $E_ARB_CFG_PORT"
 
 # Next, we should start eureka. However, there is a problem with
 # adding controllers to eureka (they are not visible...).
@@ -32,7 +31,7 @@ $E_ARB_ES_RUN & sleep 10 & $E_ARB_KIB_RUN & sleep 10 & $E_ARB_LOG_RUN -f $E_ARB_
 #
 #./gradlew bootRun -p e-arbiter-executor &
 #sleep 15s
-
+#
 #./gradlew bootRun -p e-arbiter-tournament &
 #sleep 15s
 #
@@ -41,6 +40,4 @@ $E_ARB_ES_RUN & sleep 10 & $E_ARB_KIB_RUN & sleep 10 & $E_ARB_LOG_RUN -f $E_ARB_
 
 #./gradlew bootRun -p e-arbiter-api-gateway &
 #sleep 15s
-
-#cd e-arbiter-web &&
-#ng serve
+#cd e-arbiter-web & ng serve
