@@ -9,8 +9,6 @@
 #        pingResponse=`curl -s $E_ARB_HOST:$1/ping`
 #    done
 #}
-# ELK stack run
-#$E_ARB_ES_RUN & sleep 10 & $E_ARB_KIB_RUN & sleep 10 & $E_ARB_LOG_RUN -f $E_ARB_LOG_CFG_PATH
 
 # We cannot run other modules without config server
 
