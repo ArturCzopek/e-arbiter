@@ -19,6 +19,7 @@
 
 # Logs
 *.log
+/logs/**
 
 # Package Files #
 *.jar

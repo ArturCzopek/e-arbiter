@@ -40,4 +40,6 @@ sleep 15s
 
 ./gradlew bootRun -p e-arbiter-api-gateway &
 sleep 15s
-cd e-arbiter-web & ng serve
+
+cd e-arbiter-web &&
+ng serve
