@@ -19,6 +19,9 @@ public class CodeTask extends Task {
         CPP
     }
 
+    @NotNull
+    private String description;
+
     @Valid
     @NotNull(message = "CodeTask's list of test sets cannot be empty")
     @Size(min = 1, message = "CodeTask must contain at least one test set")

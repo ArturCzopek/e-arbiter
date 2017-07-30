@@ -50,6 +50,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 "   \"tasks\":[  \n" +
                 "      {  \n" +
                 "         \"@type\":\"CodeTask\",\n" +
+                "         \"description\":\"Sample CodeTask description. Just for testing purposes.\",\n" +
                 "         \"codeTaskTestSets\":[  \n" +
                 "            {  \n" +
                 "               \"expectedResult\":\"100150200250\",\n" +
