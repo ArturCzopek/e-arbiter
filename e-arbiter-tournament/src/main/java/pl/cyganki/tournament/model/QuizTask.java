@@ -22,4 +22,9 @@ public class QuizTask extends Task {
     @NotNull(message = "QuizTask's question list cannot be empty")
     @Size(min = 1, message = "QuizTask must contains at least one question")
     private List<Question> questions;
+
+    @Override
+    public long getMaxPoints() {
+        return questions.size();
+    }
 }

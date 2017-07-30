@@ -48,8 +48,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 "   \"tasks\":[  \n" +
                 "      {  \n" +
                 "         \"@type\":\"CodeTask\",\n" +
-                "         \"maxPoints\":100,\n" +
-                "         \"testSets\":[  \n" +
+                "         \"codeTaskTestSets\":[  \n" +
                 "            {  \n" +
                 "               \"expectedResult\":\"100150200250\",\n" +
                 "               \"parameters\":[  \n" +
@@ -78,7 +77,6 @@ public class SampleDataLoader implements ApplicationRunner {
                 "      },\n" +
                 "      {  \n" +
                 "         \"@type\":\"QuizTask\",\n" +
-                "         \"maxPoints\":100,\n" +
                 "         \"name\":\"Sample Quiz\",\n" +
                 "         \"questions\":[  \n" +
                 "            {  \n" +
@@ -96,8 +94,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 "            }\n" +
                 "         ]\n" +
                 "      }\n" +
-                "   ],\n" +
-                "   \"maxPoints\":100\n" +
+                "   ]\n" +
                 "}";
 
         ObjectMapper mapper = new ObjectMapper();

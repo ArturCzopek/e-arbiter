@@ -22,11 +22,16 @@ public class CodeTask extends Task {
     @Valid
     @NotNull(message = "CodeTask's list of test sets cannot be empty")
     @Size(min = 1, message = "CodeTask must contain at least one test set")
-    private List<TestSet> testSets;
+    private List<CodeTaskTestSet> codeTaskTestSets;
 
     @NotNull(message = "CodeTask's language list cannot be empty")
     @Size(min = 1, message = "CodeTask must support at least one language")
     private List<Language> languages;
 
     private long timeoutInMs;
+
+    @Override
+    public long getMaxPoints() {
+        return codeTaskTestSets.size();
+    }
 }

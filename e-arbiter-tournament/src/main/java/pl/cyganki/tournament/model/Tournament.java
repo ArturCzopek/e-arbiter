@@ -44,10 +44,16 @@ public class Tournament {
 
     private List<Long> joinedUsersId;
 
+    private boolean resultsVisibleForJoinedUsers;
+
+    private String password;
+
     @Valid
     @NotNull(message = "Tournament's task list cannot be empty")
     @Size(min = 1, message = "Tournament must contain at least one task")
     private List<Task> tasks;
 
-    private long maxPoints;
+    public long getMaxPoints() {
+        return tasks.stream().mapToLong(Task::getMaxPoints).sum();
+    }
 }

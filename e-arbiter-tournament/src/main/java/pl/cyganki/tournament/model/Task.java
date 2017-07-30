@@ -15,5 +15,5 @@ import lombok.NoArgsConstructor;
         @JsonSubTypes.Type(value = QuizTask.class, name = "QuizTask")
 })
 public abstract class Task {
-    protected long maxPoints;
+    abstract public long getMaxPoints();
 }
