@@ -21,8 +21,6 @@ echo "Config server is working! Port: $E_ARB_CFG_PORT"
 # So we run it at first, and after 10 seconds we'll run other
 # microservices
 # Next microservices has small delay to. Your PC won't burn :)
-sleep 15s
-
 ./gradlew bootRun -p e-arbiter-eureka &
 sleep 15s
 
