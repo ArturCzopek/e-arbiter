@@ -1,6 +1,7 @@
 package pl.cyganki.tournament;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -14,6 +15,7 @@ import pl.cyganki.tournament.repository.TournamentRepository;
 
 @Profile({"dev", "test"})
 @Component
+@Slf4j
 public class SampleDataLoader implements ApplicationRunner {
 
     private TournamentRepository tournamentRepository;
@@ -63,7 +65,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 "               \"parameters\":[  \n" +
                 "                  \"T\",\n" +
                 "                  \"A\",\n" +
-                "                  \"A\",\n" +
+                "                  \"K\",\n" +
                 "                  \"!\"\n" +
                 "               ]\n" +
                 "            }\n" +
@@ -101,5 +103,7 @@ public class SampleDataLoader implements ApplicationRunner {
         Tournament tournament = mapper.readValue(sampleJson, Tournament.class);
 
         tournamentRepository.save(tournament);
+
+        log.info("Dropped Tournament table and created a new one with one tournament");
     }
 }
