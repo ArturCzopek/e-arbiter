@@ -2,6 +2,7 @@ package pl.cyganki.tournament.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.cyganki.utils.modules.tournament.model.Language;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,13 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class CodeTask extends Task {
-
-    public enum Language {
-        JAVA,
-        PYTHON,
-        C11,
-        CPP
-    }
 
     @NotNull
     private String description;

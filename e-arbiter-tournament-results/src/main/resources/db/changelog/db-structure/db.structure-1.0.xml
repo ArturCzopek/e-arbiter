@@ -3,24 +3,28 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="Create results table" author="e-Arbiter">
-        <createTable tableName="results">
+    <changeSet id="Create Result table" author="e-Arbiter">
+        <createTable tableName="result">
             <column name="result_id" type="long" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="PK_Results" unique="true"/>
+                <constraints primaryKey="true" primaryKeyName="PK_result" unique="true"/>
             </column>
             <column name="user_id" type="long">
                 <constraints nullable="false"/>
             </column>
-            <column name="tournament_id" type="long">
+            <column name="tournament_id" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="result_code" type="blob">
             </column>
-            <column name="language" type="ENUM ('JAVA','PYTHON', 'C11', 'CPP')">
+            <column name="language" type="ENUM ('JAVA', 'PYTHON', 'C11', 'CPP')">
             </column>
-            <column name="execution_time" type="double">
+            <column name="execution_time" type="long">
             </column>
-            <column name="earned_points" type="double">
+            <column name="chosen_answers" type="text">
+            </column>
+            <column name="earned_points" type="text">
+            </column>
+            <column name="result_type" type="ENUM ('CODE', 'QUIZ')">
             </column>
         </createTable>
     </changeSet>
