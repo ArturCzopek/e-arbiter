@@ -1,47 +1,59 @@
 package pl.cyganki.tournament.model;
 
-import lombok.Builder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
 @Document(collection = "TOURNAMENTS")
 @Data
-@Builder
-public class Tournament implements Serializable {
-
-    private static final long serialVersionUID = -5370765864497317104L;
+@NoArgsConstructor
+public class Tournament {
 
     @Id
-    private long tournamentId;
+    private String id;
 
-    @NotNull(message = "Tournament 'ownerId' cannot be null")
-    private long ownerId;
+    @NotNull(message = "Tournament's 'ownerId' cannot be empty")
+    private Long ownerId;
 
-    @NotNull(message = "Tournament 'name' cannot be null")
+    @NotNull(message = "Tournament's 'name' cannot be empty")
+    @Size(min = 3, max = 64, message = "Tournament's 'name' must be of length between 3 and 64 characters")
     private String name;
 
-    @CreatedDate
+    private String description;
+
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startDate;
 
+    @NotNull
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate endDate;
 
-    @NotNull(message = "Tournament 'is public' cannot be null")
     private boolean publicFlag;
 
     private List<Long> joinedUsersId;
 
-    @DBRef
-    @NotNull(message = "Tournament 'tasks' cannot be null")
+    private boolean resultsVisibleForJoinedUsers;
+
+    private String password;
+
+    @Valid
+    @NotNull(message = "Tournament's task list cannot be empty")
+    @Size(min = 1, message = "Tournament must contain at least one task")
     private List<Task> tasks;
 
-    @NotNull(message = "Tournament 'max points' cannot be null")
-    private double maxPoints;
+    public long getMaxPoints() {
+        return tasks.stream().mapToLong(Task::getMaxPoints).sum();
+    }
 }

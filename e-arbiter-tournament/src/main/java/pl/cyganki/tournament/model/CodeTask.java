@@ -1,18 +1,16 @@
 package pl.cyganki.tournament.model;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class CodeTask extends Task implements Serializable{
-
-    private static final long serialVersionUID = 8587016431191862140L;
+@NoArgsConstructor
+public class CodeTask extends Task {
 
     public enum Language {
         JAVA,
@@ -21,27 +19,19 @@ public class CodeTask extends Task implements Serializable{
         CPP
     }
 
-    private long codeTaskId;
+    @Valid
+    @NotNull(message = "CodeTask's list of test sets cannot be empty")
+    @Size(min = 1, message = "CodeTask must contain at least one test set")
+    private List<CodeTaskTestSet> codeTaskTestSets;
 
-    @NotNull(message = "CodeTask 'test sets' cannot be null")
-    private List<TestSet> testSets;
-
-    // TODO: 6/5/17 move it to utils lib because we don't want to duplicate this language 
-    @NotNull(message = "CodeTask 'language' cannot be null")
+    @NotNull(message = "CodeTask's language list cannot be empty")
+    @Size(min = 1, message = "CodeTask must support at least one language")
     private List<Language> languages;
 
-    private double timeoutInMs;
+    private long timeoutInMs;
 
-    public CodeTask() {
-        super(0, 0);
-    }
-
-    @Builder
-    private CodeTask(long taskId, double maxPoints, long codeTaskId, List<TestSet> testSets, List<Language> languages, double timeoutInMs) {
-        super(taskId, maxPoints);
-        this.codeTaskId = codeTaskId;
-        this.testSets = testSets;
-        this.languages = languages;
-        this.timeoutInMs = timeoutInMs;
+    @Override
+    public long getMaxPoints() {
+        return codeTaskTestSets.size();
     }
 }

@@ -49,34 +49,6 @@ GET /admin/all
 
 Auth Controller
 
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
-```
-GET /api/user
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Returns a current logged in user based on object from request from API Gateway
 ```
 GET /api/me
@@ -117,6 +89,34 @@ GET /api/token
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+```
+GET /api/user
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|HeaderParameter|oauth_token|oauth_token|true|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -235,15 +235,22 @@ GET /api/hystrix
 
 Tournament Controller
 
-#### test
+#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
 ```
-GET /api/test
+POST /api/add
 ```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|tournament|tournament|true|Tournament||
+
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|Tournament array|
+|200|OK|Tournament|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
