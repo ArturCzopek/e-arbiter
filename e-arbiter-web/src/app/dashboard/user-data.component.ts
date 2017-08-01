@@ -21,7 +21,8 @@ import {AuthService} from "../shared/service/auth.service";
         <button (click)="getMeInfo()" class="ui black inverted button">/me (console)</button>
       </div>
 
-    </div>`,
+    </div>
+    <tournament-form></tournament-form>`,
   styleUrls: ['./dashboard.scss']
 })
 export class UserDataComponent {

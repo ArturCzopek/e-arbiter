@@ -7,6 +7,7 @@ import {DashboardComponent} from "./dashboard.component";
 import {UserDataComponent} from "./user-data.component";
 import {HeaderComponent} from "./header.component";
 import {DashboardRouting} from "./dashboard.routing";
+import {TournamentModule} from "../tournament/tournament.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {DashboardRouting} from "./dashboard.routing";
     CommonModule,
     FormsModule,
     HttpModule,
-    DashboardRouting
+    DashboardRouting,
+    TournamentModule
   ],
   exports: [
     DashboardComponent
