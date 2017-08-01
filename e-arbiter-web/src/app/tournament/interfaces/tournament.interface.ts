@@ -8,7 +8,8 @@ export interface Tournament {
   startDate?: Date;
   endDate: Date;
   publicFlag: boolean;
-  joinedUsersId: number;
+  joinedUsersId?: number[];
+  resultsVisibleForJoinedUsers?: boolean;
+  password?: string;
   tasks: Task[];
-  maxPoints: number;
 }

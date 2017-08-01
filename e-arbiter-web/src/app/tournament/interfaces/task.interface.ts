@@ -1,15 +1,13 @@
 import {Language} from "./language.enum";
 import {Question} from "./question.interface";
-import {TestSet} from "./testset.interface";
+import {CodeTaskTestSet} from "./testset.interface";
 
-export interface Task {
-  maxPoints: number;
-}
+export interface Task {}
 
 export interface CodeTask extends Task {
-  testSets: TestSet[];
+  codeTaskTestSets: CodeTaskTestSet[];
   languages: Language[];
-  timeout: number;
+  timeoutInMs: number;
 }
 
 export interface QuizTask extends Task {

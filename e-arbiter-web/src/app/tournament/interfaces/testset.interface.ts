@@ -1,4 +1,4 @@
-export interface TestSet {
+export interface CodeTaskTestSet {
   expectedResult: string;
   parameters: string[];
 }
