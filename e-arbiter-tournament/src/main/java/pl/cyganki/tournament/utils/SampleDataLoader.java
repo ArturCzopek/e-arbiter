@@ -1,4 +1,4 @@
-package pl.cyganki.tournament;
+package pl.cyganki.tournament.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -39,10 +39,8 @@ public class SampleDataLoader implements ApplicationRunner {
                 "   \"ownerId\":36,\n" +
                 "   \"name\":\"Sample Tournament\",\n" +
                 "   \"description\":\"This is an example of how Tournament's JSON representation looks like.\",\n" +
-                "   \"startDate\":null,\n" +
                 "   \"endDate\":\"2012-04-23T18:25:43.511\",\n" +
                 "   \"publicFlag\":true,\n" +
-                "   \"joinedUsersId\":null,\n" +
                 "   \"tasks\":[  \n" +
                 "      {  \n" +
                 "         \"@type\":\"CodeTask\",\n" +
