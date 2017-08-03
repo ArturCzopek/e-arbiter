@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,5 +17,9 @@ import lombok.NoArgsConstructor;
         @JsonSubTypes.Type(value = QuizTask.class, name = "QuizTask")
 })
 public abstract class Task {
+
+    @NotNull
+    private String description;
+
     abstract public long getMaxPoints();
 }

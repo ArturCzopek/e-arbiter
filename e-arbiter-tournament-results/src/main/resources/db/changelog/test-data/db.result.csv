@@ -1,0 +1,7 @@
+user_id;tournament_id;result_code;language;execution_time;chosen_answers;earned_points;result_type
+1;tid1;null;JAVA;5;null;1,1,0;CODE
+2;tid1;null;CPP;15;null;0,1,0;CODE
+3;tid1;null;C11;25;null;0,0,0;CODE
+1;tid1;null;null;null;1,4,3;0,1,0;QUIZ
+2;tid1;null;null;null;1,4,4;0,1,1;QUIZ
+3;tid1;null;null;null;2,3,1;1,0,0;QUIZ
