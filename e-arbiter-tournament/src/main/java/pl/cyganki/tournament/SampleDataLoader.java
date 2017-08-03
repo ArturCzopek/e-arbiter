@@ -77,6 +77,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 "      {  \n" +
                 "         \"@type\":\"QuizTask\",\n" +
                 "         \"name\":\"Sample Quiz\",\n" +
+                "         \"description\":\"This quiz checks if you are a retard\",\n" +
                 "         \"questions\":[  \n" +
                 "            {  \n" +
                 "               \"content\":\"Question's Content\",\n" +
