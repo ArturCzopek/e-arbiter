@@ -40,16 +40,13 @@ public class SampleDataLoader implements ApplicationRunner {
                 "   \"name\":\"Sample Tournament\",\n" +
                 "   \"description\":\"This is an example of how Tournament's JSON representation looks like.\",\n" +
                 "   \"startDate\":null,\n" +
-                "   \"endDate\":[  \n" +
-                "      2017,\n" +
-                "      7,\n" +
-                "      22\n" +
-                "   ],\n" +
+                "   \"endDate\":\"2012-04-23T18:25:43.511\",\n" +
                 "   \"publicFlag\":true,\n" +
                 "   \"joinedUsersId\":null,\n" +
                 "   \"tasks\":[  \n" +
                 "      {  \n" +
                 "         \"@type\":\"CodeTask\",\n" +
+                "         \"description\":\"Sample CodeTask description. Just for testing purposes.\",\n" +
                 "         \"codeTaskTestSets\":[  \n" +
                 "            {  \n" +
                 "               \"expectedResult\":\"100150200250\",\n" +
