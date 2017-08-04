@@ -4,13 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.cyganki.tournament.exception.IllegalTournamentStatus;
+import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -53,13 +51,13 @@ public class Tournament {
     @Setter(AccessLevel.NONE)
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime endDate;
+    protected LocalDateTime endDate;
 
     @Setter(AccessLevel.NONE)
     private boolean publicFlag;
 
     @Setter(AccessLevel.NONE)
-    private List<Long> joinedUsersIds;
+    private List<Long> joinedUsersIds = new LinkedList<>();
 
     @Setter(AccessLevel.NONE)
     private boolean resultsVisibleForJoinedUsers;
@@ -68,13 +66,13 @@ public class Tournament {
     private String password;
 
     @Setter(AccessLevel.NONE)
-    private TournamentStatus status = TournamentStatus.DRAFT;
+    protected TournamentStatus status = TournamentStatus.DRAFT;
 
     @Valid
     @NotNull(message = "Tournament's task list cannot be empty")
     @Size(min = 1, message = "Tournament must contain at least one task")
     @Setter(AccessLevel.NONE)
-    private List<Task> tasks;
+    private List<Task> tasks = new LinkedList<>();
 
     private static class AllowedStatuses {
         final static List<TournamentStatus> DRAFT = Arrays.asList(TournamentStatus.DRAFT);
@@ -126,7 +124,7 @@ public class Tournament {
         this.joinedUsersIds.remove(userId);
     }
 
-    public void resultsVisibleForJoinedUsers(boolean resultsVisibleForJoinedUsers) {
+    public void setResultsVisibleForJoinedUsers(boolean resultsVisibleForJoinedUsers) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
         this.resultsVisibleForJoinedUsers = resultsVisibleForJoinedUsers;
     }
@@ -176,7 +174,7 @@ public class Tournament {
 
     private void checkTournamentStatus(List<TournamentStatus> allowedStatuses) {
         if (!allowedStatuses.contains(this.status)) {
-            throw new IllegalTournamentStatus(this.status, allowedStatuses);
+            throw new IllegalTournamentStatusException(this.status, allowedStatuses);
         }
     }
 }

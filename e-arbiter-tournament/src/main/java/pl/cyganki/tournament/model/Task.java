@@ -24,4 +24,6 @@ public abstract class Task {
     abstract public long getMaxPoints();
 
     abstract public String getId();
+
+    abstract void setId(String id);
 }
