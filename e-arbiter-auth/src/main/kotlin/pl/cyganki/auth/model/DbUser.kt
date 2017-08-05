@@ -1,4 +1,4 @@
-package pl.cyganki.auth.database.entity
+package pl.cyganki.auth.model
 
 import javax.persistence.*
 

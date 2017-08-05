@@ -1,4 +1,4 @@
-package pl.cyganki.auth.controller;
+package pl.cyganki.auth.controller.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import pl.cyganki.auth.service.UserService;
+import pl.cyganki.auth.service.AuthService;
 import pl.cyganki.utils.GlobalValues;
 import pl.cyganki.utils.security.dto.User;
 
@@ -24,12 +24,12 @@ import java.util.Map;
 public class AuthController {
 
     private RestTemplate restTemplate;
-    private UserService userService;
+    private AuthService authService;
 
     @Autowired
-    public AuthController(RestTemplate restTemplate, UserService userService) {
+    public AuthController(RestTemplate restTemplate, AuthService authService) {
         this.restTemplate = restTemplate;
-        this.userService = userService;
+        this.authService = authService;
     }
 
     @GetMapping("/me")
@@ -42,7 +42,7 @@ public class AuthController {
     @ApiOperation("Returns a current logged in user based on passed token. If user does not exist, then is created.")
     public User getUser(@RequestHeader(GlobalValues.AUTH_TOKEN) String token) {
         Map<String, Object> userMap = restTemplate.getForObject("https://api.github.com/user?access_token=" + token, Map.class);
-        return userService.getLoggedInUser(userMap);
+        return authService.getLoggedInUser(userMap);
     }
 
     @GetMapping("/token")

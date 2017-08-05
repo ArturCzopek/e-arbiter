@@ -1,12 +1,12 @@
-package pl.cyganki.auth.controller;
+package pl.cyganki.auth.controller.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.cyganki.auth.database.entity.DbUser;
-import pl.cyganki.auth.service.UserService;
+import pl.cyganki.auth.model.DbUser;
+import pl.cyganki.auth.service.AuthService;
 
 import java.util.List;
 
@@ -14,17 +14,17 @@ import java.util.List;
 @RestController
 public class AdminController {
 
-    private UserService userService;
+    private AuthService authService;
 
     @Autowired
-    public AdminController(UserService userService) {
-        this.userService = userService;
+    public AdminController(AuthService authService) {
+        this.authService = authService;
     }
 
     @GetMapping("/all")
     @ApiOperation("Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.")
     public List<DbUser> getAllUsersFromDb() {
-        return userService.getAllUsersFromDb();
+        return authService.getAllUsersFromDb();
     }
 
     @GetMapping("/ping")
