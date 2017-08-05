@@ -1,0 +1,60 @@
+{
+  "ownerId": 2,
+  "name": "Sample Tournament",
+  "description": "This is an example of how Tournament's JSON representation looks like.",
+  "endDate": "2018-04-10T18:15:00.000",
+  "publicFlag": true,
+  "resultsVisibleForJoinedUsers": true,
+  "tasks": [
+    {
+      "@type": "CodeTask",
+      "description": "Sample CodeTask description. Just for testing purposes.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": "100150200250",
+          "parameters": [
+            "100",
+            "150",
+            "200",
+            "250"
+          ]
+        },
+        {
+          "expectedResult": "TAK!",
+          "parameters": [
+            "T",
+            "A",
+            "K",
+            "!"
+          ]
+        }
+      ],
+      "languages": [
+        "PYTHON",
+        "JAVA",
+        "CPP"
+      ],
+      "timeoutInMs": 50
+    },
+    {
+      "@type": "QuizTask",
+      "name": "Sample Quiz",
+      "description": "This quiz checks if you are a retard",
+      "questions": [
+        {
+          "content": "Question's Content",
+          "answers": [
+            {
+              "content": "1st answer's content",
+              "correct": true
+            },
+            {
+              "content": "2nd answer's content",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

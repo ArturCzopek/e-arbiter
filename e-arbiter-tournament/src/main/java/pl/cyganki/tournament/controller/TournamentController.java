@@ -2,14 +2,12 @@ package pl.cyganki.tournament.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.repository.TournamentRepository;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -27,5 +25,10 @@ public class TournamentController {
     public Tournament addTournament(@RequestBody @Valid Tournament tournament) {
         // TODO create service with adding user id etc
         return tournamentRepository.save(tournament);
+    }
+
+    @GetMapping("/all")
+    public List<Tournament> tours() {
+        return tournamentRepository.findAll();
     }
 }

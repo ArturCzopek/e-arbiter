@@ -18,5 +18,5 @@ class InnerUserDataController(val userService: UserService) {
 
     @GetMapping("/name/{id}")
     @ApiOperation("Returns a name of user by passed user id. Used for fetching information about tournament. There always should be user because passed id is from module where existing user's id is stored")
-    fun getUserNameById(@PathVariable id: Long) = userService.getUserNameById(id)
+    fun getUserNameById(@PathVariable("id") id: Long) = userService.getUserNameById(id)
 }
