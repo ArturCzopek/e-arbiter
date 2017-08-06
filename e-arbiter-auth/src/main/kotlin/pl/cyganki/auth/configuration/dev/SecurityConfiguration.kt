@@ -27,7 +27,7 @@ open class SecurityConfiguration(
     override fun configure(http: HttpSecurity) {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/index.html", "/login**", "/api/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html").permitAll()
+                .antMatchers("/", "/index.html", "/login**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(LoginUrlAuthenticationEntryPoint("/"))
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/logout")

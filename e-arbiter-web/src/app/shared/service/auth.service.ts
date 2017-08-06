@@ -118,7 +118,7 @@ export class AuthService {
     document.cookie = `${environment.authToken}=; Max-age=0`
   }
 
-  private prepareAuthOptions(): RequestOptions {
+  public prepareAuthOptions(): RequestOptions {
     const headers = new Headers();
     headers.append(environment.authToken, localStorage.getItem(environment.authToken));
     const options = new RequestOptions();
