@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
@@ -21,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 
 @Document(collection = "TOURNAMENTS")
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class Tournament {
 
     @Id
@@ -200,20 +199,18 @@ public class Tournament {
         this.tasks.add(task);
     }
 
-    public Task getTask(String taskId) {
-        return this.tasks.stream().filter(task -> task.getId() == taskId).findFirst().orElse(null);
+    public Task getTask(int taskIndex) {
+        return this.tasks.get(taskIndex);
     }
 
-    public void removeTask(String taskId) {
+    public void removeTask(int taskIndex) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
-        this.tasks.removeIf(task -> task.getId() == taskId);
+        this.tasks.remove(taskIndex);
     }
 
-    public void updateTask(Task task) {
+    public void updateTask(Task task, int taskIndex) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
-        IntStream.range(0, this.tasks.size())
-                .filter(i -> this.tasks.get(i).getId() == task.getId())
-                .forEach(i -> this.tasks.set(i, task));
+        this.tasks.set(taskIndex, task);
     }
 
     private void checkTournamentStatus(List<TournamentStatus> allowedStatuses) {

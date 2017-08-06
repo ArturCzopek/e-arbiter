@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -18,12 +19,14 @@ import javax.validation.constraints.NotNull;
 })
 public abstract class Task {
 
+    @NotNull(message = "Task's 'name' cannot be empty")
+    @Size(min = 3, max = 64, message = "Task's 'name' must be of length between 3 and 64 characters")
+    private String name;
+
     @NotNull
     private String description;
 
     abstract public long getMaxPoints();
 
-    abstract public String getId();
 
-    abstract void setId(String id);
 }

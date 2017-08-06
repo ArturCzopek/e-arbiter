@@ -2,8 +2,8 @@
   "ownerId": 1,
   "name": "Active Tournament",
   "description": "Example ACTIVE Tournament",
-  "startDate": "2017-08-01T18:00:00.000",
-  "endDate": "2018-04-10T18:15:00.000",
+  "startDate": {"$date": "2017-08-01T18:00:00.000Z"},
+  "endDate": {"$date": "2018-04-10T18:15:00.000Z"},
   "publicFlag": true,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
@@ -13,7 +13,8 @@
   ],
   "tasks": [
     {
-      "@type": "CodeTask",
+      "_class": "pl.cyganki.tournament.model.CodeTask",
+      "name": "Big big sth again",
       "description": "Do you like it?",
       "codeTaskTestSets": [
         {
@@ -42,7 +43,7 @@
       "timeoutInMs": 500
     },
     {
-      "@type": "QuizTask",
+      "_class": "pl.cyganki.tournament.model.QuizTask",
       "name": "Quiz fur dumis",
       "description": "Still retard? Let's see it",
       "questions": [
