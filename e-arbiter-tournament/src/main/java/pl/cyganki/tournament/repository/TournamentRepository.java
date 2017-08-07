@@ -17,14 +17,15 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
             "}")
     Page<Tournament> findAllTournamentsWhereUserParticipateByStatus(long userId, TournamentStatus status, Pageable pageable);
 
+    // $options: 'i' means case insensitive
     @Query("{ " +
                 "$and: [" +
                     "{ 'joinedUsersIds': ?0 }," +
                     "{ 'status': ?1 }, " +
                     "{ " +
                         "$or: [" +
-                            "{'name': /?2/ }," +
-                            "{'description': /?2/ }," +
+                            "{'name': {$regex: ?2, $options: 'i'} }," +
+                            "{'description': {$regex: ?2, $options: 'i'} }" +
                         "]" +
                     "}" +
                 "]" +

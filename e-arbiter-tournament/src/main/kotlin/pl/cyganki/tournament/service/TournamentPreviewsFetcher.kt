@@ -1,6 +1,5 @@
 package pl.cyganki.tournament.service
 
-import org.apache.commons.lang3.StringUtils
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -16,12 +15,12 @@ class TournamentPreviewsFetcher(
         val authModuleInterface: AuthModuleInterface
 ) {
 
-    fun getActiveTournamentsInWhichUserParticipates(userId: Long, pageable: Pageable, query: String) = getTournamentsInWhichUserParticipatesByStatus(userId, TournamentStatus.ACTIVE, pageable, query)
+    fun getActiveTournamentsInWhichUserParticipates(userId: Long, pageable: Pageable, query: String?) = getTournamentsInWhichUserParticipatesByStatus(userId, TournamentStatus.ACTIVE, pageable, query)
 
-    fun getFinishedTournamentsInWhichUserParticipates(userId: Long, pageable: Pageable, query: String) = getTournamentsInWhichUserParticipatesByStatus(userId, TournamentStatus.FINISHED, pageable, query)
+    fun getFinishedTournamentsInWhichUserParticipates(userId: Long, pageable: Pageable, query: String?) = getTournamentsInWhichUserParticipatesByStatus(userId, TournamentStatus.FINISHED, pageable, query)
 
-    private fun getTournamentsInWhichUserParticipatesByStatus(userId: Long, status: TournamentStatus, pageable: Pageable, query: String): Page<TournamentPreview> {
-        val tournaments = getTournamentDependingOnQuery(query, userId, status, pageable)
+    private fun getTournamentsInWhichUserParticipatesByStatus(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<TournamentPreview> {
+        val tournaments = getTournamentDependingOnQuery(userId, status, pageable, query)
         return tournaments.map {
             TournamentPreview(
                     it.id,
@@ -34,11 +33,13 @@ class TournamentPreviewsFetcher(
         }
     }
 
-    private fun getTournamentDependingOnQuery(query: String, userId: Long, status: TournamentStatus, pageable: Pageable): Page<Tournament> {
-        return if (StringUtils.isEmpty(query)) {
+    private fun getTournamentDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
+        return if (query == null || query.length == 0) {
             tournamentRepository.findAllTournamentsWhereUserParticipateByStatus(userId, status, pageable)
         } else {
-            tournamentRepository.findAllTournamentsWhereUserParticipateByStatusAndQuery(userId, status, query, pageable)
+            tournamentRepository.findAllTournamentsWhereUserParticipateByStatusAndQuery(userId, status, convertQueryToLikeRegex(query), pageable)
         }
     }
+
+    private fun convertQueryToLikeRegex(query: String) = ".*$query.*"
 }
