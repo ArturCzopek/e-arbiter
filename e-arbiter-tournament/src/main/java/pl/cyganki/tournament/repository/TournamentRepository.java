@@ -15,7 +15,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
                     "{ 'status': ?1 } " +
                 "]" +
             "}")
-    Page<Tournament> findAllTournamentsWhereUserParticipateByStatus(long userId, TournamentStatus status, Pageable pageable);
+    Page<Tournament> findAllTournamentsInWhichUserParticipatesByStatus(long userId, TournamentStatus status, Pageable pageable);
 
     // $options: 'i' means case insensitive
     @Query("{ " +
@@ -30,6 +30,6 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
                     "}" +
                 "]" +
             "}")
-    Page<Tournament> findAllTournamentsWhereUserParticipateByStatusAndQuery(long userId, TournamentStatus status, String query, Pageable pageable);
+    Page<Tournament> findAllTournamentsInWhichUserParticipatesByStatusAndQuery(long userId, TournamentStatus status, String query, Pageable pageable);
 }
 

@@ -1,17 +1,18 @@
 {
   "ownerId": 1,
-  "name": "Finished Tournament",
-  "description": "Example finished Tournament",
+  "name": "Finished Tournament - private!",
+  "description": "UHAHAHAHHAHA",
   "startDate": {
-    "$date": "2017-08-01T18:00:00.000Z"
+    "$date": "2017-06-01T18:00:00.000Z"
   },
   "endDate": {
-    "$date": "2017-08-05T18:15:00.000Z"
+    "$date": "2017-06-05T18:15:00.000Z"
   },
-  "publicFlag": true,
-  "resultsVisibleForJoinedUsers": true,
+  "publicFlag": false,
+  "resultsVisibleForJoinedUsers": false,
   "status": "FINISHED",
   "joinedUsersIds": [
+    2,
     3,
     4
   ],
@@ -42,7 +43,8 @@
         }
       ],
       "languages": [
-        "JAVA"
+        "JAVA",
+        "CPP"
       ],
       "timeoutInMs": 500
     },

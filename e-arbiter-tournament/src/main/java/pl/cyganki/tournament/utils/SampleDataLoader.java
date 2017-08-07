@@ -37,6 +37,7 @@ public class SampleDataLoader implements ApplicationRunner {
             insertTournament("active-tournament");
             insertTournament("active-tournament-private");
             insertTournament("finished-tournament");
+            insertTournament("finished-tournament-private");
             log.info("Dropped Tournaments table and created new tournaments");
         } catch (Exception e) {
             log.error("Cannot insert test tournaments! {}", e.getMessage());

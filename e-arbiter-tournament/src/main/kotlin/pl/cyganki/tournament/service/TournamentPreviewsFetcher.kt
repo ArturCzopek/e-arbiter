@@ -28,6 +28,7 @@ class TournamentPreviewsFetcher(
                     it.name,
                     it.description,
                     it.isPublicFlag,
+                    it.status,
                     it.joinedUsersIds.size
             )
         }
@@ -35,11 +36,11 @@ class TournamentPreviewsFetcher(
 
     private fun getTournamentDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
         return if (query == null || query.length == 0) {
-            tournamentRepository.findAllTournamentsWhereUserParticipateByStatus(userId, status, pageable)
+            tournamentRepository.findAllTournamentsInWhichUserParticipatesByStatus(userId, status, pageable)
         } else {
-            tournamentRepository.findAllTournamentsWhereUserParticipateByStatusAndQuery(userId, status, convertQueryToLikeRegex(query), pageable)
+            tournamentRepository.findAllTournamentsInWhichUserParticipatesByStatusAndQuery(userId, status, convertQueryToSQLLikeRegex(query), pageable)
         }
     }
 
-    private fun convertQueryToLikeRegex(query: String) = ".*$query.*"
+    private fun convertQueryToSQLLikeRegex(query: String) = ".*$query.*"
 }
