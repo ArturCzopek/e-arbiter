@@ -71,15 +71,18 @@ GET /api/token
 
 * */*
 
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+#### Returns a current logged in user based on object from request from API Gateway
 ```
-GET /api/user
+GET /api/me
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
 
 
 ##### Responses
@@ -99,18 +102,15 @@ GET /api/user
 
 * */*
 
-#### Returns a current logged in user based on object from request from API Gateway
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
-GET /api/me
+GET /api/user
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
+|HeaderParameter|oauth_token|oauth_token|true|string||
 
 
 ##### Responses
@@ -181,34 +181,6 @@ GET /api/example
 
 * */*
 
-#### Executes code
-```
-GET /api/execute
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Hystrix demo
 ```
 GET /api/hystrix
@@ -234,6 +206,35 @@ GET /api/hystrix
 ## Tournament Module
 
 Tournament Controller
+
+#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
+```
+POST /api/add
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|tournament|tournament|true|Tournament||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Tournament|
+|201|Created|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
 
 #### Returns a page with active tournaments' details in which logged in user participates
 ```
@@ -286,35 +287,6 @@ GET /api/all/finished
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
-```
-POST /api/add
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|tournament|tournament|true|Tournament||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Tournament|
-|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
