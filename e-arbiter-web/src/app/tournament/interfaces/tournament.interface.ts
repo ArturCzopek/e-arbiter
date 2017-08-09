@@ -4,9 +4,9 @@ export interface Tournament {
   id?: string;
   ownerId: number;
   name: string;
-  description: string;
   startDate?: Date;
   endDate: Date;
+  description: string;
   publicFlag: boolean;
   joinedUsersId?: number[];
   resultsVisibleForJoinedUsers?: boolean;

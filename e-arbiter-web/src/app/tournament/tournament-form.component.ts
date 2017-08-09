@@ -24,6 +24,33 @@ declare var $: any;
           </div>
         </div>
       </div>
+      <div class="field">
+        <label>Opis</label>
+        <textarea rows="3" formControlName="description"></textarea>
+      </div>
+      <div class="pull-right inline fields">
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="publicFlag" formControlName="publicFlag" 
+                   [checked]="myForm.controls['publicFlag'].value" [value]="true">
+            <label>Publiczny</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="publicFlag" formControlName="publicFlag" 
+                   [checked]="!myForm.controls['publicFlag'].value" [value]="false">
+            <label>Prywatny</label>
+          </div>
+        </div>
+      </div>
+      <div class="pull-right inline fields">
+        <div class="ui checkbox">
+          <input type="checkbox" formControlName="resultsVisibleForJoinedUsers" 
+                 [checked]="myForm.controls['resultsVisibleForJoinedUsers'].value">
+          <label>Wyniki dostępne dla uczestników</label>
+        </div>
+      </div>
       <button type="submit">Submit</button>
     </form>
   `,
@@ -36,12 +63,17 @@ export class TournamentFormComponent implements OnInit {
 
   ngOnInit() {
     $('#calendar').calendar({
-      onChange: (date, text) => console.log(date, text)
+      onChange: (date) => {
+        this.myForm.controls.endDate.setValue(date);
+      }
     });
 
     this.myForm = this.fb.group({
       name: [''],
-      endDate: ['']
+      endDate: [''],
+      description: [''],
+      publicFlag: [true],
+      resultsVisibleForJoinedUsers: [false]
     });
   }
 
