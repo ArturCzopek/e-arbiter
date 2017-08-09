@@ -51,7 +51,9 @@ declare var $: any;
           <label>Wyniki dostępne dla uczestników</label>
         </div>
       </div>
-      <button type="submit">Submit</button>
+      <div class="ui center aligned segment">
+        <button class="ui button" type="submit">Utwórz</button>
+      </div>
     </form>
   `,
   styleUrls: ['./tournament-form.scss']
