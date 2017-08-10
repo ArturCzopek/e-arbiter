@@ -1,7 +1,8 @@
 package pl.cyganki.tournament.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import pl.cyganki.utils.modules.tournament.model.Language;
 
 import javax.validation.Valid;
@@ -10,8 +11,14 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class CodeTask extends Task {
+
+    public CodeTask() {
+        this.id = ObjectId.get().toString();
+    }
+
+    @Id
+    private String id;
 
     @Valid
     @NotNull(message = "CodeTask's list of test sets cannot be empty")

@@ -22,4 +22,8 @@ public abstract class Task {
     private String description;
 
     abstract public long getMaxPoints();
+
+    abstract public String getId();
+
+    abstract void setId(String id);
 }
