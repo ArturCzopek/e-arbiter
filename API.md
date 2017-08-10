@@ -2,15 +2,15 @@
 
 Admin Controller
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
+#### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /admin/all
+GET /admin/ping
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|DbUser array|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -24,15 +24,15 @@ GET /admin/all
 
 * */*
 
-#### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /admin/ping
+GET /admin/all
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|DbUser array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -71,18 +71,15 @@ GET /api/token
 
 * */*
 
-#### Returns a current logged in user based on object from request from API Gateway
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
-GET /api/me
+GET /api/user
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
+|HeaderParameter|oauth_token|oauth_token|true|string||
 
 
 ##### Responses
@@ -102,15 +99,18 @@ GET /api/me
 
 * */*
 
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+#### Returns a current logged in user based on object from request from API Gateway
 ```
-GET /api/user
+GET /api/me
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|HeaderParameter|oauth_token|oauth_token|true|string||
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
 
 
 ##### Responses
