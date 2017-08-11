@@ -1,6 +1,7 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Component, OnInit} from "@angular/core";
 import {Tournament} from "./interfaces/tournament.interface";
+import {Translations} from "../shared/model/calendar.model";
 
 declare var $: any;
 
@@ -65,6 +66,14 @@ export class TournamentFormComponent implements OnInit {
 
   ngOnInit() {
     $('#calendar').calendar({
+      ampm: false,
+      text: {
+        days: Translations.DAYS,
+        months: Translations.MONTHS,
+        monthsShort: Translations.MONTHS_SHORT,
+        today: Translations.TODAY,
+        now: Translations.NOW
+      },
       onChange: (date) => {
         this.myForm.controls.endDate.setValue(date);
       }
