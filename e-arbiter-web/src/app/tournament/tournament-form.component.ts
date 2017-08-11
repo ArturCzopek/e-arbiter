@@ -52,6 +52,16 @@ declare var $: any;
           <label>Wyniki dostępne dla uczestników</label>
         </div>
       </div>
+      <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
+        <div class="field">
+          <label>Hasło</label>
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
+        </div>
+        <div class="ui checkbox">
+          <input type="checkbox" [checked]="showPassword" (change)="showPassword = !showPassword" />
+          <label>Pokaż</label>
+        </div>
+      </div>
       <div class="ui center aligned segment">
         <button class="ui button" type="submit">Utwórz</button>
       </div>
@@ -61,6 +71,7 @@ declare var $: any;
 })
 export class TournamentFormComponent implements OnInit {
   public myForm: FormGroup;
+  showPassword: boolean;
 
   constructor(private fb: FormBuilder) {}
 
@@ -84,7 +95,8 @@ export class TournamentFormComponent implements OnInit {
       endDate: [''],
       description: [''],
       publicFlag: [true],
-      resultsVisibleForJoinedUsers: [false]
+      resultsVisibleForJoinedUsers: [false],
+      password: ['']
     });
   }
 
