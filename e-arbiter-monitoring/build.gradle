@@ -1,0 +1,22 @@
+jar {
+    baseName = 'e-arbiter-monitoring'
+    version = '1.0-SNAPSHOT'
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    main = 'pl.cyganki.monitoring.EArbiterMonitoringApplication'
+}
+
+bootRepackage {
+    mainClass = 'pl.cyganki.eureka.EArbiterEurekaServerApplication'
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-turbine')
+    compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+}

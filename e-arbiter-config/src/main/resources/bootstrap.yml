@@ -2,5 +2,5 @@ spring:
   application:
     name: config-module
   profiles:
-    active: test
+    active: test # comment it for dev purposes, uncomment for tests and pushing to master
   cloud.config.server.git.uri: file://${E_ARB_DEV_CFG_PATH}

@@ -1,6 +1,5 @@
 package pl.cyganki.executor.docker;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +22,5 @@ public class ExecutorController {
     @GetMapping("/example")
     public ExecutionResult example() {
         return codeRunner.test();
-    }
-
-    @GetMapping("/hystrix")
-    @HystrixCommand(fallbackMethod = "rescue")
-    @ApiOperation(value = "Hystrix demo")
-    public String hystrix() throws Exception {
-        throw new Exception();
-    }
-
-    public String rescue() {
-        return "its fucked up";
     }
 }

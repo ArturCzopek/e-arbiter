@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Profile("dev")
 @Configuration
 @EnableOAuth2Sso
-open class SecurityConfiguration(
+class SecurityConfiguration(
         @Value("\${e-arbiter.clientUrl}") var clientUrl: String,
         @Value("\${e-arbiter.proxyUrl}") var proxyUrl: String,
         @Value("\${spring.h2.console.path}") private var h2ConsoleUrl: String,
@@ -26,7 +26,7 @@ open class SecurityConfiguration(
     override fun configure(http: HttpSecurity) {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/index.html", "/login**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html").permitAll()
+                .antMatchers("/", "/index.html", "/login**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html", "/hystrix.stream**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(LoginUrlAuthenticationEntryPoint("/"))
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/#/logout")
@@ -37,7 +37,7 @@ open class SecurityConfiguration(
     }
 
     @Bean
-    open fun corsConfigurer(): WebMvcConfigurer {
+    fun corsConfigurer(): WebMvcConfigurer {
         return object : WebMvcConfigurerAdapter() {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**")
