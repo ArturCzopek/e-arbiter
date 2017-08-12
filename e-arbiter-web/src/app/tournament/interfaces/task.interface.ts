@@ -2,7 +2,9 @@ import {Language} from "./language.enum";
 import {Question} from "./question.interface";
 import {CodeTaskTestSet} from "./codetasktestset.interface";
 
-export interface Task {}
+export interface Task {
+  description: string;
+}
 
 export interface CodeTask extends Task {
   codeTaskTestSets: CodeTaskTestSet[];

@@ -8,7 +8,7 @@ export interface Tournament {
   endDate: Date;
   description: string;
   publicFlag: boolean;
-  joinedUsersId?: number[];
+  joinedUsersIds?: number[];
   resultsVisibleForJoinedUsers?: boolean;
   password?: string;
   tasks: Task[];
