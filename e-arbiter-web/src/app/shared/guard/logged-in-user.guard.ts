@@ -1,23 +1,30 @@
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
 import {Observable} from "rxjs/Observable";
-import {environment} from "../../../environments/environment";
+import {RouteService} from "../service/route.service";
 
 @Injectable()
-export class LoggedInUserGuard implements CanActivate {
+export class LoggedInUserGuard implements CanActivate, CanActivateChild {
 
-  constructor(private router: Router, private userService: AuthService) {
+  constructor(private routeService: RouteService, private userService: AuthService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.checkIfCanActivatePageForLoggedInUser();
+  }
 
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.checkIfCanActivatePageForLoggedInUser();
+  }
+
+  private checkIfCanActivatePageForLoggedInUser(): boolean {
     if (this.userService.getLoggedInUser() !== null) {
       return true;
     }
 
-    this.router.navigate([environment.client.mainUrl]);
+    this.routeService.goToLoginPage();
     return false;
   }
-
 }

@@ -1,0 +1,4 @@
+@mixin h-style($h-selector) {
+  font-size: $h1-font-size - 1.5 * ($h-selector - 1);
+  margin-bottom: $base-space;
+}

@@ -10,25 +10,31 @@ import {LoggedInUserGuard} from "./shared/guard/logged-in-user.guard";
 import {LoggedOutUserGuard} from "./shared/guard/logged-out-user.guard";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {LogoutComponent} from "./logout.component";
-import {MainComponent} from "./main.component";
+import {LoginComponent} from "./login.component";
+import {RouteService} from "./shared/service/route.service";
+import {DevelopmentModeGuard} from "./shared/guard/development-mode.guard";
+import {NotFoundComponent} from "./not-found.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     LogoutComponent,
-    MainComponent
+    NotFoundComponent
   ],
   imports: [
+    AppRouting,
     BrowserModule,
-    FormsModule,
-    HttpModule,
     DashboardModule,
-    AppRouting
+    FormsModule,
+    HttpModule
   ],
   providers: [
     AuthService,
+    DevelopmentModeGuard,
     LoggedInUserGuard,
-    LoggedOutUserGuard
+    LoggedOutUserGuard,
+    RouteService
   ],
   bootstrap: [
     AppComponent

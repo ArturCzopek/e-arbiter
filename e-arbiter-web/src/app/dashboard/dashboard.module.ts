@@ -4,23 +4,29 @@ import {HttpModule} from "@angular/http";
 
 import {CommonModule} from "@angular/common";
 import {DashboardComponent} from "./dashboard.component";
-import {UserDataComponent} from "./user-data.component";
+import {DevelopmentCardComponent} from "./development-mode/development-card.component";
 import {HeaderComponent} from "./header.component";
 import {DashboardRouting} from "./dashboard.routing";
-import {TournamentModule} from "../tournament/tournament.module";
+import {MainPanelModule} from "./main-panel/main-panel.module";
+import {AdminPanelModule} from "./admin-panel/admin-panel.module";
+import {ActiveTournamentsPanelModule} from "./active-tournaments-panel/active-tournaments-panel.module";
+import {TournamentManagementPanelModule} from "./tournament-management-panel/tournament-management-panel.module";
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UserDataComponent,
+    DevelopmentCardComponent,
     HeaderComponent
   ],
   imports: [
+    ActiveTournamentsPanelModule,
+    AdminPanelModule,
     CommonModule,
+    DashboardRouting,
     FormsModule,
     HttpModule,
-    DashboardRouting,
-    TournamentModule
+    MainPanelModule,
+    TournamentManagementPanelModule
   ],
   exports: [
     DashboardComponent

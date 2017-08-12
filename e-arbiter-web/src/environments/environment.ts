@@ -16,7 +16,7 @@ export const environment = {
       meUrl:  'http://localhost:8080/auth/api/me',
       loginUrl: 'http://localhost:8090/login'   // login by routing seems to not work currently, TODO: #48 @ trello
     },
-    proxy: {
+    api: {
       url: 'http://localhost:8080'
     },
   },
@@ -24,7 +24,11 @@ export const environment = {
     mainUrl: '/main',
     dashboard: {
       url: '/dashboard',
-      dataUrl: '/dashboard/data'
+      mainPanelUrl: '/dashboard/main',
+      activeTournamentsPanelUrl: '/dashboard/active',
+      managementPanelUrl: '/dashboard/management',
+      adminPanelUrl: '/dashboard/admin',
+      developmentPanelUrl: '/dashboard/development'
     }
   }
 };

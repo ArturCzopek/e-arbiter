@@ -19,9 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "arb",
       "styles": [
-        "styles.css",
         "../node_modules/semantic-ui-css/semantic.css",
-        "../node_modules/semantic-ui-calendar/dist/calendar.css"
+        "../node_modules/semantic-ui-calendar/dist/calendar.css",
+        "./app/styles/main.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
