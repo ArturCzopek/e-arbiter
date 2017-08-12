@@ -100,7 +100,7 @@ export class TournamentFormComponent implements OnInit {
     });
   }
 
-  private save(tournament: Tournament) {
+  save(tournament: Tournament) {
     console.log(tournament);
   }
 }
