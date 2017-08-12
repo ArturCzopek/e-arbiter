@@ -18,7 +18,7 @@
   ],
   "tasks": [
     {
-      "_class": "pl.cyganki.tournament.model.CodeTask",
+      "@type": "CodeTask",
       "name": "Big big sth again",
       "description": "Do you like it?",
       "codeTaskTestSets": [
@@ -49,7 +49,7 @@
       "timeoutInMs": 500
     },
     {
-      "_class": "pl.cyganki.tournament.model.QuizTask",
+      "@type": "QuizTask",
       "name": "Quiz fur dumis",
       "description": "Still retard? Let's see it",
       "questions": [

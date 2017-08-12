@@ -8,7 +8,7 @@
   "status": "DRAFT",
   "tasks": [
     {
-      "_class": "pl.cyganki.tournament.model.CodeTask",
+      "@type": "CodeTask",
       "name": "Big big sth",
       "description": "Sample CodeTask description. Just for testing purposes.",
       "codeTaskTestSets": [
@@ -39,7 +39,7 @@
       "timeoutInMs": 50
     },
     {
-      "_class": "pl.cyganki.tournament.model.QuizTask",
+      "@type": "QuizTask",
       "name": "Sample Quiz",
       "description": "This quiz checks if you are a retard",
       "questions": [
