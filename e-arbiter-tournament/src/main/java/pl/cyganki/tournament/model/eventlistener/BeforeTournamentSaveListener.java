@@ -1,12 +1,15 @@
 package pl.cyganki.tournament.model.eventlistener;
 
 import com.mongodb.DBObject;
+import com.netflix.discovery.converters.Auto;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
 import org.springframework.stereotype.Component;
 import pl.cyganki.tournament.model.Tournament;
+import pl.cyganki.tournament.service.HashingService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -16,8 +19,6 @@ import java.security.NoSuchAlgorithmException;
 
 @Component
 public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tournament> {
-
-    private static String PASSWORD_ENCODE_TYPE = "MD5";
 
     @Value("${e-arbiter.salt}")
     private int[] salts;
@@ -48,32 +49,10 @@ public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tou
         else
             salt = integersToByte(salts);
 
-        String securePassword = getSecurePassword(passwordToHash, salt);
+        String securePassword = HashingService.getSecurePassword(passwordToHash, salt);
 
         source.setPassword(securePassword);
         dbObject.put("password", securePassword);
-    }
-
-    private static String getSecurePassword(String passwordToHash, byte[] salt) {
-        String generatedPassword = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance(PASSWORD_ENCODE_TYPE);
-            md.update(salt);
-            byte[] bytes = md.digest(passwordToHash.getBytes());
-            StringBuilder sb = new StringBuilder();
-
-            for(int i=0; i< bytes.length ;i++) {
-                int widePosition = 0xff;
-                int moveIndex = 0x100;
-                sb.append(Integer.toString((bytes[i] & widePosition) + moveIndex, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return generatedPassword;
     }
 
     private static byte [] integersToByte(int [] salts) {

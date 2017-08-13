@@ -3,7 +3,6 @@ package pl.cyganki.tournament.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
@@ -41,7 +40,8 @@ public class SampleDataLoader implements ApplicationRunner {
                 "   \"name\":\"Sample Tournament\",\n" +
                 "   \"description\":\"This is an example of how Tournament's JSON representation looks like.\",\n" +
                 "   \"endDate\":\"2012-04-23T18:25:43.511\",\n" +
-                "   \"publicFlag\":true,\n" +
+                "   \"publicFlag\":false,\n" +
+                "   \"password\":\"sekretne_haselko\",\n" +
                 "   \"tasks\":[  \n" +
                 "      {  \n" +
                 "         \"@type\":\"CodeTask\",\n" +

@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
+import pl.cyganki.tournament.service.HashingService;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -24,7 +25,6 @@ import static org.mockito.Mockito.when;
 public class TournamentTest {
 
     Tournament tournament;
-
 
     // test is probably ok
     // however, when I run it separately, it works
@@ -411,6 +411,31 @@ public class TournamentTest {
         assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
+    @Test
+    public void shouldMatchHashedPassword() {
+        // given
+        String hashedPassword;
+
+        // when
+        hashedPassword = HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+
+        // then
+        assertEquals(HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt), hashedPassword);
+    }
+
+    @Test
+    public void shouldNotMatchDifferentHashedPassword() {
+        // given
+        String hashedPassword;
+        String difference = "diff";
+
+        // when
+        hashedPassword = HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+
+        // then
+        assertNotEquals(HashingService.getSecurePassword(TestData.PASSWORD + difference, TestData.salt), hashedPassword);
+    }
+
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForSettingPasswordForActiveTournament() {
         // given
@@ -697,6 +722,7 @@ public class TournamentTest {
         final static String TASK_ID = "11";
         final static String SECOND_TASK_ID = "22";
         final static List<Task> TASKS = new ArrayList<>(Arrays.asList(getMockTask(TASK_ID), getMockTask(SECOND_TASK_ID)));    // remove is unsupported for list from Arrays.asList
+        final static byte[] salt = new byte[] {1, 2, 3, 4};
 
         public static Task getMockTask(String id) {
             Task task = mock(Task.class);
