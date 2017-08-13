@@ -4,6 +4,7 @@ import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
 import mu.KLogging
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestMethod
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getRequest
@@ -24,8 +25,8 @@ class UserFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
             "/rest-api"
     )
 
-    //
-    override fun shouldFilter() = excludedPaths.all { !getRequest().requestURI.contains(it) }
+    // request with OPTIONS has not proper headers so we can mustn't filter it in this way
+    override fun shouldFilter() = excludedPaths.all { !getRequest().requestURI.contains(it) } && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)
 
     override fun filterType() = FilterType.PRE.value
 

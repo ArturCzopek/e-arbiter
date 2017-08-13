@@ -28,6 +28,4 @@ public class CodeTask extends Task {
     public long getMaxPoints() {
         return codeTaskTestSets.size();
     }
-
-
 }

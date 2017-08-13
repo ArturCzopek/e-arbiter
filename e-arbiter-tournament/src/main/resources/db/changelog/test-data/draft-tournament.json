@@ -2,13 +2,13 @@
   "ownerId": 2,
   "name": "Sample Tournament",
   "description": "This is an example of how Tournament's JSON representation looks like.",
-  "endDate": {"$date": "2018-04-10T18:15:00.000Z"},
+  "endDate": "2018-04-10T18:15:00.00",
   "publicFlag": true,
   "resultsVisibleForJoinedUsers": true,
   "status": "DRAFT",
   "tasks": [
     {
-      "@type": "CodeTask",
+      "type": "CodeTask",
       "name": "Big big sth",
       "description": "Sample CodeTask description. Just for testing purposes.",
       "codeTaskTestSets": [
@@ -39,7 +39,7 @@
       "timeoutInMs": 50
     },
     {
-      "@type": "QuizTask",
+      "type": "QuizTask",
       "name": "Sample Quiz",
       "description": "This quiz checks if you are a retard",
       "questions": [

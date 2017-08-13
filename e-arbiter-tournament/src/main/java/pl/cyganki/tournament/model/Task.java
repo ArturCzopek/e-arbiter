@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CodeTask.class, name = "CodeTask"),
         @JsonSubTypes.Type(value = QuizTask.class, name = "QuizTask")
@@ -27,6 +27,4 @@ public abstract class Task {
     private String description;
 
     abstract public long getMaxPoints();
-
-
 }
