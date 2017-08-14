@@ -411,31 +411,6 @@ public class TournamentTest {
         assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    @Test
-    public void shouldMatchHashedPassword() {
-        // given
-        String hashedPassword;
-
-        // when
-        hashedPassword = HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
-
-        // then
-        assertEquals(HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt), hashedPassword);
-    }
-
-    @Test
-    public void shouldNotMatchDifferentHashedPassword() {
-        // given
-        String hashedPassword;
-        String difference = "diff";
-
-        // when
-        hashedPassword = HashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
-
-        // then
-        assertNotEquals(HashingService.getSecurePassword(TestData.PASSWORD + difference, TestData.salt), hashedPassword);
-    }
-
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForSettingPasswordForActiveTournament() {
         // given

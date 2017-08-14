@@ -10,7 +10,7 @@ public class HashingService {
 
     private static String PASSWORD_ENCODE_TYPE = "MD5";
 
-    public static String getSecurePassword(String passwordToHash, byte[] salt) {
+    public String getSecurePassword(String passwordToHash, byte[] salt) {
         String generatedPassword = null;
 
         try {
@@ -32,4 +32,9 @@ public class HashingService {
         return generatedPassword;
     }
 
+    public boolean checkPassword(String passwordToCheck, String hashedPassword, byte[] salt) {
+        String hashedPasswordToCheck = getSecurePassword(passwordToCheck, salt);
+
+        return hashedPasswordToCheck.equals(hashedPassword);
+    }
 }

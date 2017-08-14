@@ -20,10 +20,18 @@ import java.security.NoSuchAlgorithmException;
 @Component
 public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tournament> {
 
-    @Value("${e-arbiter.salt}")
-    private int[] salts;
 
-    private byte[] salt;
+    private HashingService hashingService;
+
+    @Autowired
+    public BeforeTournamentSaveListener(HashingService hashingService) {
+        this.hashingService = hashingService;
+    }
+
+    @Value("${e-arbiter.salt:1,2}")
+    private int[] saltAsInts;
+
+    private byte[] saltAsBytes;
 
     @Override
     public void onBeforeSave(BeforeSaveEvent<Tournament> event) {
@@ -42,22 +50,18 @@ public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tou
 
         String passwordToHash = source.getPassword();
 
-        if (salts == null) {
-            // if we do not provide salts in configuration file we just choose a random two numbers
-            salts = new int []{1, 2};
-        }
-        else
-            salt = integersToByte(salts);
+        saltAsBytes = integersToByte(saltAsInts);
 
-        String securePassword = HashingService.getSecurePassword(passwordToHash, salt);
+        String securePassword = hashingService.getSecurePassword(passwordToHash, saltAsBytes);
 
         source.setPassword(securePassword);
         dbObject.put("password", securePassword);
     }
 
-    private static byte [] integersToByte(int [] salts) {
+    private byte [] integersToByte(int [] salts) {
         try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream(salts.length * 4);
+            int numberOfBits = 4;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(salts.length * numberOfBits);
             DataOutputStream dos = new DataOutputStream(bos);
             for (int i = 0; i < salts.length; i++) {
                 dos.writeInt(salts[i]);
