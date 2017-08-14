@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.model;
+package pl.cyganki.tournament.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +9,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.cyganki.tournament.EArbiterTournamentApplication;
-import pl.cyganki.tournament.service.HashingService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -29,10 +28,10 @@ public class HashingServiceTest {
         String hashedPassword;
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
 
         // then
-        assertEquals(hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt), hashedPassword);
+        assertEquals(hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT), hashedPassword);
     }
 
     @Test
@@ -42,10 +41,10 @@ public class HashingServiceTest {
         String difference = "diff";
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
 
         // then
-        assertNotEquals(hashingService.getSecurePassword(TestData.PASSWORD + difference, TestData.salt), hashedPassword);
+        assertNotEquals(hashingService.getSecurePassword(TestData.PASSWORD + difference, TestData.SALT), hashedPassword);
     }
 
     @Test
@@ -54,10 +53,10 @@ public class HashingServiceTest {
         String hashedPassword;
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
 
         // then
-        assertEquals(hashingService.checkPassword(TestData.PASSWORD, hashedPassword, TestData.salt), true);
+        assertEquals(hashingService.checkPassword(TestData.PASSWORD, hashedPassword, TestData.SALT), true);
     }
 
     @Test
@@ -67,10 +66,10 @@ public class HashingServiceTest {
         String difference = "diff";
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
 
         // then
-        assertEquals(hashingService.checkPassword(TestData.PASSWORD + difference, hashedPassword, TestData.salt), false);
+        assertEquals(hashingService.checkPassword(TestData.PASSWORD + difference, hashedPassword, TestData.SALT), false);
     }
 
     @Test
@@ -80,8 +79,8 @@ public class HashingServiceTest {
         String secondHash;
 
         // when
-        firstHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
-        secondHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.salt);
+        firstHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        secondHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
 
         // then
         assertEquals(firstHash, secondHash);
@@ -89,7 +88,6 @@ public class HashingServiceTest {
 
     private static class TestData {
         final static String PASSWORD = "Test123";
-        final static byte[] salt = new byte[] {1, 2, 3, 4};
+        final static byte[] SALT = new byte[] {1, 2, 3, 4};
     }
-
 }

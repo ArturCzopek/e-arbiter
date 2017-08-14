@@ -1,5 +1,6 @@
 package pl.cyganki.tournament.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -62,6 +63,7 @@ public class Tournament {
     @Setter(AccessLevel.NONE)
     private boolean resultsVisibleForJoinedUsers;
 
+    @JsonIgnore
     @Setter(AccessLevel.NONE)
     private String password;
 

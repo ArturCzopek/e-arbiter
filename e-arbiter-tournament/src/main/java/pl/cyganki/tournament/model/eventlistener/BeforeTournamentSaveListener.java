@@ -1,7 +1,6 @@
 package pl.cyganki.tournament.model.eventlistener;
 
 import com.mongodb.DBObject;
-import com.netflix.discovery.converters.Auto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,12 +13,9 @@ import pl.cyganki.tournament.service.HashingService;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Component
 public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tournament> {
-
 
     private HashingService hashingService;
 
@@ -58,11 +54,12 @@ public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tou
         dbObject.put("password", securePassword);
     }
 
-    private byte [] integersToByte(int [] salts) {
+    private byte[] integersToByte(int[] salts) {
         try {
-            int numberOfBits = 4;
-            ByteArrayOutputStream bos = new ByteArrayOutputStream(salts.length * numberOfBits);
+            final int bitsPerSaltInt = 4;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(salts.length * bitsPerSaltInt);
             DataOutputStream dos = new DataOutputStream(bos);
+
             for (int i = 0; i < salts.length; i++) {
                 dos.writeInt(salts[i]);
             }
@@ -72,6 +69,4 @@ public class BeforeTournamentSaveListener extends AbstractMongoEventListener<Tou
             throw new RuntimeException(e);
         }
     }
-
 }
-
