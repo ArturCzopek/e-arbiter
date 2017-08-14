@@ -6,7 +6,7 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import {Observable} from "rxjs/Observable";
 import {environment} from "../../../environments/environment";
-import {User} from "../model/user.model";
+import {User} from "../interface/user.interface";
 
 declare var window: any;
 

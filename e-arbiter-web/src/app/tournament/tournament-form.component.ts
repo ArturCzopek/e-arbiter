@@ -1,6 +1,6 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Component, OnInit} from "@angular/core";
-import {Tournament} from "./interfaces/tournament.interface";
+import {Tournament} from "./interface/tournament.interface";
 import {Translations} from "../shared/model/calendar.model";
 
 declare var $: any;
