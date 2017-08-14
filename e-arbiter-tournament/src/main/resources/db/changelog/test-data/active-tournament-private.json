@@ -5,6 +5,7 @@
   "startDate": "2017-09-01T18:00:00.000",
   "endDate": "2018-01-10T18:15:00.000",
   "publicFlag": false,
+  "password": "sekretne_haslo",
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
   "joinedUsersIds": [

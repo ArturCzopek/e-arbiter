@@ -173,7 +173,6 @@ public class Tournament {
     }
 
     public void setPassword(String password) {
-        checkTournamentStatus(AllowedStatuses.DRAFT);
         this.password = password;
     }
 

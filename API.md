@@ -2,28 +2,6 @@
 
 Admin Controller
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
-```
-GET /admin/all
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|DbUser array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
 GET /admin/ping
@@ -46,8 +24,52 @@ GET /admin/ping
 
 * */*
 
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
+```
+GET /admin/all
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|DbUser array|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 
 Auth Controller
+
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+```
+GET /api/token
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
 
 #### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
@@ -64,28 +86,6 @@ GET /api/user
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
-```
-GET /api/token
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -207,35 +207,6 @@ GET /api/hystrix
 
 Tournament Controller
 
-#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
-```
-POST /api/add
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|tournament|tournament|true|Tournament||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Tournament|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Returns a page with active tournaments' details in which logged in user participates
 ```
 GET /api/all/active
@@ -287,6 +258,35 @@ GET /api/all/finished
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
+```
+POST /api/add
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|tournament|tournament|true|Tournament||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Tournament|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

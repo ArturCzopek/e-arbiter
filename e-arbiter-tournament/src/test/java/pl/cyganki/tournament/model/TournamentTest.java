@@ -4,7 +4,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
-import pl.cyganki.tournament.service.HashingService;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -411,8 +410,8 @@ public class TournamentTest {
         assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForSettingPasswordForActiveTournament() {
+    @Test
+    public void shouldSetPasswordForActiveTournament() {
         // given
         tournament = MockTournament.getActive();
 
@@ -420,11 +419,11 @@ public class TournamentTest {
         tournament.setPassword(TestData.PASSWORD);
 
         // then
-        assertNotEquals(TestData.PASSWORD, tournament.getPassword());
+        assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForSettingPasswordForFinishedTournament() {
+    @Test
+    public void shouldSetPasswordForFinishedTournament() {
         // given
         tournament = MockTournament.getFinished();
 
@@ -432,7 +431,7 @@ public class TournamentTest {
         tournament.setPassword(TestData.PASSWORD);
 
         // then
-        assertNotEquals(TestData.PASSWORD, tournament.getPassword());
+        assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
     // activate
