@@ -20,10 +20,12 @@
       "prefix": "arb",
       "styles": [
         "styles.css",
-        "../node_modules/semantic-ui-css/semantic.css"
+        "../node_modules/semantic-ui-css/semantic.css",
+        "../node_modules/semantic-ui-calendar/dist/calendar.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/semantic-ui-calendar/dist/calendar.js",
         "../node_modules/semantic-ui-css/semantic.js"
       ],
       "environmentSource": "environments/environment.ts",

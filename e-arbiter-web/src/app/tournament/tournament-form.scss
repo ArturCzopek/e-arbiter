@@ -1,0 +1,16 @@
+form {
+  background-color: white;
+  text-align: left;
+
+  textarea {
+    resize: none;
+  }
+
+  .pull-right {
+    justify-content: flex-end;
+  }
+
+  .pull-center {
+    justify-content: center;
+  }
+}
