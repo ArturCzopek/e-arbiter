@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
+import pl.cyganki.tournament.service.HashingService;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -24,7 +25,6 @@ import static org.mockito.Mockito.when;
 public class TournamentTest {
 
     Tournament tournament;
-
 
     // test is probably ok
     // however, when I run it separately, it works

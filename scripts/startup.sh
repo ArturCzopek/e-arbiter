@@ -13,8 +13,8 @@ function pingService {
 # We cannot run other modules without config server
 
 ./gradlew bootRun -p e-arbiter-config &
-pingService $E_ARB_CFG_PORT "Config Server"
-echo "Config server is working! Port: $E_ARB_CFG_PORT"
+ pingService $E_ARB_CFG_PORT "Config Server"
+ echo "Config server is working! Port: $E_ARB_CFG_PORT"
 
 # Next, we should start eureka. However, there is a problem with
 # adding controllers to eureka (they are not visible...).
