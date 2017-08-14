@@ -28,10 +28,10 @@ public class HashingServiceTest {
         String hashedPassword;
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD);
 
         // then
-        assertEquals(hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT), hashedPassword);
+        assertEquals(hashingService.getSecurePassword(TestData.PASSWORD), hashedPassword);
     }
 
     @Test
@@ -41,10 +41,10 @@ public class HashingServiceTest {
         String difference = "diff";
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD);
 
         // then
-        assertNotEquals(hashingService.getSecurePassword(TestData.PASSWORD + difference, TestData.SALT), hashedPassword);
+        assertNotEquals(hashingService.getSecurePassword(TestData.PASSWORD + difference), hashedPassword);
     }
 
     @Test
@@ -53,10 +53,10 @@ public class HashingServiceTest {
         String hashedPassword;
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD);
 
         // then
-        assertEquals(hashingService.checkPassword(TestData.PASSWORD, hashedPassword, TestData.SALT), true);
+        assertEquals(hashingService.checkPassword(TestData.PASSWORD, hashedPassword), true);
     }
 
     @Test
@@ -66,10 +66,10 @@ public class HashingServiceTest {
         String difference = "diff";
 
         // when
-        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        hashedPassword = hashingService.getSecurePassword(TestData.PASSWORD);
 
         // then
-        assertEquals(hashingService.checkPassword(TestData.PASSWORD + difference, hashedPassword, TestData.SALT), false);
+        assertEquals(hashingService.checkPassword(TestData.PASSWORD + difference, hashedPassword), false);
     }
 
     @Test
@@ -79,8 +79,8 @@ public class HashingServiceTest {
         String secondHash;
 
         // when
-        firstHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
-        secondHash = hashingService.getSecurePassword(TestData.PASSWORD, TestData.SALT);
+        firstHash = hashingService.getSecurePassword(TestData.PASSWORD);
+        secondHash = hashingService.getSecurePassword(TestData.PASSWORD);
 
         // then
         assertEquals(firstHash, secondHash);
@@ -88,6 +88,5 @@ public class HashingServiceTest {
 
     private static class TestData {
         final static String PASSWORD = "Test123";
-        final static byte[] SALT = new byte[] {1, 2, 3, 4};
     }
 }
