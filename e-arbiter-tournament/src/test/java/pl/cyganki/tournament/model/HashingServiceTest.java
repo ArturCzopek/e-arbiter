@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotEquals;
 public class HashingServiceTest {
 
     @Autowired
-    private HashingService hashingService = new HashingService();
+    private HashingService hashingService;
 
     @Test
     public void shouldMatchHashedPassword() {

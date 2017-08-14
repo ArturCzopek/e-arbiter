@@ -697,7 +697,6 @@ public class TournamentTest {
         final static String TASK_ID = "11";
         final static String SECOND_TASK_ID = "22";
         final static List<Task> TASKS = new ArrayList<>(Arrays.asList(getMockTask(TASK_ID), getMockTask(SECOND_TASK_ID)));    // remove is unsupported for list from Arrays.asList
-        final static byte[] salt = new byte[] {1, 2, 3, 4};
 
         public static Task getMockTask(String id) {
             Task task = mock(Task.class);
