@@ -62,7 +62,15 @@ declare var $: any;
           <label>Pokaż</label>
         </div>
       </div>
-      <div class="button-container">
+      <div class="pull-right inline fields space-below-20">
+        <div class="field">
+          <button class="ui teal button" type="button">Dodaj zadanie programistyczne</button>
+        </div>
+        <div class="field">
+          <button class="ui teal button" type="button">Dodaj quiz</button>
+        </div>
+      </div>
+      <div class="button-container space-above-40">
         <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
