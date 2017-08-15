@@ -1,0 +1,31 @@
+.ui.teal.inverted.fixed.menu .ui.container {
+  .header__bar {
+    height: 50px;
+  }
+
+  .header__link {
+    font-size: 1.2rem;
+  }
+
+  .header__link--dropdown {
+    margin-bottom: 0;
+  }
+
+  .header__link--dropdown-item {
+    color: $main-color;
+    cursor: pointer;
+    display: block;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+    padding: 0.78571429em 1.14285714em; // from semantic ui
+
+    &:hover {
+      background-color: darken(white, 5%);
+    }
+  }
+
+  .header__title {
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+}

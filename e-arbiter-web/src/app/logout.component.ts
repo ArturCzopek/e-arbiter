@@ -1,22 +1,23 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {RouteService} from "./shared/service/route.service";
 
 @Component({
   selector: 'arb-logout',
   template: `
-    <div class="ui text container">
-      <h1 class="ui inverted header">e-Arbiter</h1>
-      <h2>Zostałeś wylogowany</h2>
-    </div>`,
-  styleUrls: ['./app.scss']
+    <div class="ui container full-page-view">
+      <h1>e-Arbiter</h1>
+      <h3>Zostałeś wylogowany</h3>
+    </div>`
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router) {
+  private readonly redirectTimeoutInMs = 3000;
+
+  constructor(private routeService: RouteService) {
 
   }
 
-  ngOnInit() {
-    setTimeout(() => this.router.navigate(['/main']), 3000);
+  ngOnInit(): void {
+    setTimeout(() => this.routeService.goToLoginPage(), this.redirectTimeoutInMs);
   }
 }

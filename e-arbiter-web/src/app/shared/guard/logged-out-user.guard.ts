@@ -1,26 +1,23 @@
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
-import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
 import "rxjs/observable/of";
+import {RouteService} from "../service/route.service";
 
 @Injectable()
 export class LoggedOutUserGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private routeService: RouteService, private authService: AuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
 
-    if (!this.authService.getLoggedInUser() && !localStorage.getItem(environment.authToken)) {
+    if (!this.authService.getLoggedInUser() && !this.authService.hasAuthToken()) {
       return true;
     }
 
-    console.log('Logout failed!', this.authService, localStorage.getItem(environment.authToken));
-
-    this.router.navigate([environment.client.dashboard.url]);
+    this.routeService.goToDashboard();
     return false;
   }
-
 }

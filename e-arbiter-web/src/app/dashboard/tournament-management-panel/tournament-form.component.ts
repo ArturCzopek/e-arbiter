@@ -1,15 +1,15 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Component, OnInit} from "@angular/core";
+import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
-import {Translations} from "../shared/model/calendar.model";
 
 declare var $: any;
 
 @Component({
-  selector: 'tournament-form',
+  selector: 'arb-tournament-form',
   template: `
     <form [formGroup]="myForm" class="ui form" (ngSubmit)="save(myForm.value)">
-      <h4 class="ui dividing header">Tworzenie Turnieju - Szablon</h4>
+      <h2 class="ui dividing header">Tworzenie Turnieju - Szablon</h2>
       <div class="two fields">
         <div class="field">
           <label>Tytuł</label>
@@ -32,14 +32,14 @@ declare var $: any;
       <div class="pull-right inline fields">
         <div class="field">
           <div class="ui radio checkbox">
-            <input type="radio" name="publicFlag" formControlName="publicFlag" 
+            <input type="radio" name="publicFlag" formControlName="publicFlag"
                    [checked]="myForm.controls['publicFlag'].value" [value]="true">
             <label>Publiczny</label>
           </div>
         </div>
         <div class="field">
           <div class="ui radio checkbox">
-            <input type="radio" name="publicFlag" formControlName="publicFlag" 
+            <input type="radio" name="publicFlag" formControlName="publicFlag"
                    [checked]="!myForm.controls['publicFlag'].value" [value]="false">
             <label>Prywatny</label>
           </div>
@@ -47,7 +47,7 @@ declare var $: any;
       </div>
       <div class="pull-right inline fields">
         <div class="ui checkbox">
-          <input type="checkbox" formControlName="resultsVisibleForJoinedUsers" 
+          <input type="checkbox" formControlName="resultsVisibleForJoinedUsers"
                  [checked]="myForm.controls['resultsVisibleForJoinedUsers'].value">
           <label>Wyniki dostępne dla uczestników</label>
         </div>
@@ -58,22 +58,22 @@ declare var $: any;
           <input [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
         </div>
         <div class="ui checkbox">
-          <input type="checkbox" [checked]="showPassword" (change)="showPassword = !showPassword" />
+          <input type="checkbox" [checked]="showPassword" (change)="showPassword = !showPassword"/>
           <label>Pokaż</label>
         </div>
       </div>
-      <div class="ui center aligned segment">
-        <button class="ui button" type="submit">Utwórz</button>
+      <div class="button-container">
+        <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
-  `,
-  styleUrls: ['./tournament-form.scss']
+  `
 })
 export class TournamentFormComponent implements OnInit {
   public myForm: FormGroup;
   showPassword: boolean;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     $('#calendar').calendar({

@@ -54,13 +54,8 @@ export class AuthService {
   public getLoggedInUser() {
     return this.user;
   }
-
-  public getUserFromServerUsingOtherModule(): Observable<any> {
-    return this.http.get(`${environment.server.proxy.url}/exec/api/execute`, this.prepareAuthOptions()).map(res => res.json());
-  }
-
   public executeSampleCode(): Observable<any> {
-    return this.http.get(`${environment.server.proxy.url}/exec/api/example`, this.prepareAuthOptions()).map(res => res.json());
+    return this.http.get(`${environment.server.api.url}/exec/api/example`, this.prepareAuthOptions()).map(res => res.json());
   }
 
   public getMeInfo(): Observable<any> {
@@ -86,6 +81,10 @@ export class AuthService {
 
   public getUserImgLink(): string {
     return `${environment.githubUrl}/${this.getLoggedInUser().name}.png`;
+  }
+
+  public hasAuthToken(): boolean {
+    return (localStorage.getItem(environment.authToken) || this.getTokenFromCookie()) ? true : false;
   }
 
   private getUserFromServer(): any {
