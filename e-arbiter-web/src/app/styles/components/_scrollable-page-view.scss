@@ -1,0 +1,19 @@
+// for components with navbar
+// use with .ui.container
+
+.scrollable-page-view {
+  align-items: center;
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: $header-height;
+
+  > * {
+    width: 100%;
+    padding: 2vh 0;
+  }
+}

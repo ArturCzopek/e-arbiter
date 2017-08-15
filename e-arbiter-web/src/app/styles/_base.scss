@@ -28,6 +28,15 @@ a {
   color: $main-color;
 }
 
+form {
+  text-align: left;
+
+  textarea {
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+    resize: none !important;
+  }
+}
+
 ::selection {
   background: $main-lighten-color;
 }

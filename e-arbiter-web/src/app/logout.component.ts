@@ -4,7 +4,7 @@ import {RouteService} from "./shared/service/route.service";
 @Component({
   selector: 'arb-logout',
   template: `
-    <div class="full-page-view">
+    <div class="ui container full-page-view">
       <h1>e-Arbiter</h1>
       <h3>Zostałeś wylogowany</h3>
     </div>`

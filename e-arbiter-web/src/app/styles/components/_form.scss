@@ -1,16 +1,18 @@
 form {
-  background-color: white;
-  text-align: left;
-
-  textarea {
-    resize: none;
-  }
-
   .pull-right {
     justify-content: flex-end;
   }
 
   .pull-center {
     justify-content: center;
+  }
+
+  .button-container {
+    padding: 0 40%;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
   }
 }

@@ -1,11 +1,14 @@
+// for components without navbar
+// use with .ui.container
+
 .full-page-view {
   align-items: center;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   height: 100vh;
   justify-content: space-around;
-  padding: 12vh 10vh;
-  width: 100vw;
+  padding-bottom: 8vh;
+  padding-top: 8vh;
 }
 
 .full-page-view__subcard {

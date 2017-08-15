@@ -10,7 +10,7 @@ echo "Branch: "$TRAVIS_BRANCH", pull request: "$TRAVIS_PULL_REQUEST
 ./gradlew -p e-arbiter-config bootRun -Dspring.profiles.active=test &
 sleep 75s
 
-gradlew_output=$(./gradlew build); gradlew_return_code=$?
+gradlew_output=$(./gradlew clean build -i); gradlew_return_code=$?
 
 echo "$gradlew_output";
 

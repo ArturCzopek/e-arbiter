@@ -5,7 +5,7 @@ import {RouteService} from "./shared/service/route.service";
 @Component({
   selector: 'arb-login',
   template: `
-    <div class="full-page-view">
+    <div class="ui container full-page-view">
       <h1>e-Arbiter</h1>
       <div *ngIf="!authService.getLoggedInUser(); else goToPanel" class="full-page-view__subcard">
         <h3>Nie jesteś zalogowany</h3>
