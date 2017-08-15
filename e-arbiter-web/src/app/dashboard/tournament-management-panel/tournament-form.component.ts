@@ -64,7 +64,7 @@ declare var $: any;
       </div>
       <div class="pull-right inline fields space-below-20">
         <div class="field">
-          <button class="ui teal button" type="button">Dodaj zadanie programistyczne</button>
+          <button class="ui teal button" type="button" (click)="myModal.show()">Dodaj zadanie programistyczne</button>
         </div>
         <div class="field">
           <button class="ui teal button" type="button">Dodaj quiz</button>
@@ -74,6 +74,11 @@ declare var $: any;
         <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
+    <sm-modal title="Hello from Modal" class="basic" #myModal>
+      <modal-content>
+        Hello from modal!
+      </modal-content>
+    </sm-modal>
   `
 })
 export class TournamentFormComponent implements OnInit {

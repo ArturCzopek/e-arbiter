@@ -4,6 +4,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {TournamentManagementPanelComponent} from "./tournament-management-panel.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TournamentFormComponent} from "./tournament-form.component";
+import {NgSemanticModule} from "ng-semantic";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {TournamentFormComponent} from "./tournament-form.component";
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgSemanticModule
   ],
   exports: [
     TournamentManagementPanelComponent
