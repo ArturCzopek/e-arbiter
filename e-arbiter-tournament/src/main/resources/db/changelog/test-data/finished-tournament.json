@@ -1,0 +1,70 @@
+{
+  "ownerId": 1,
+  "name": "Finished Tournament",
+  "description": "Example finished Tournament",
+  "startDate": "2017-08-01T18:00:00.000",
+  "endDate": "2017-08-05T18:15:00.000",
+  "publicFlag": true,
+  "resultsVisibleForJoinedUsers": true,
+  "status": "FINISHED",
+  "joinedUsersIds": [
+    3,
+    4
+  ],
+  "tasks": [
+    {
+      "type": "CodeTask",
+      "name": "Big big sth again",
+      "description": "Do you like it?",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": "24",
+          "parameters": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "expectedResult": "120",
+          "parameters": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        }
+      ],
+      "languages": [
+        "JAVA"
+      ],
+      "timeoutInMs": 500
+    },
+    {
+      "type": "QuizTask",
+      "name": "Quiz fur dumis",
+      "description": "Still retard? Let's see it",
+      "questions": [
+        {
+          "content": "2 + 2?",
+          "answers": [
+            {
+              "content": "4",
+              "correct": true
+            },
+            {
+              "content": "5",
+              "correct": false
+            },
+            {
+              "content": "6",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

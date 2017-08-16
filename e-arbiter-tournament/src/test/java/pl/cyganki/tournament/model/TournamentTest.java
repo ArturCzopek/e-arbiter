@@ -4,7 +4,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
-import pl.cyganki.tournament.service.HashingService;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -411,8 +410,8 @@ public class TournamentTest {
         assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForSettingPasswordForActiveTournament() {
+    @Test
+    public void shouldSetPasswordForActiveTournament() {
         // given
         tournament = MockTournament.getActive();
 
@@ -420,11 +419,11 @@ public class TournamentTest {
         tournament.setPassword(TestData.PASSWORD);
 
         // then
-        assertNotEquals(TestData.PASSWORD, tournament.getPassword());
+        assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForSettingPasswordForFinishedTournament() {
+    @Test
+    public void shouldSetPasswordForFinishedTournament() {
         // given
         tournament = MockTournament.getFinished();
 
@@ -432,7 +431,7 @@ public class TournamentTest {
         tournament.setPassword(TestData.PASSWORD);
 
         // then
-        assertNotEquals(TestData.PASSWORD, tournament.getPassword());
+        assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
     // activate
@@ -559,7 +558,7 @@ public class TournamentTest {
     public void shouldAddTaskForDraftTournament() {
         // given
         tournament = MockTournament.getDraft();
-        Task taskToAdd = TestData.getMockTask(TestData.TASK_ID);
+        Task taskToAdd = TestData.getMockTask(TestData.TASK_MAX_POINTS);
 
         // when
         int tasksSize = tournament.getTasks().size();
@@ -574,7 +573,7 @@ public class TournamentTest {
     public void shouldThrowExceptionForAddingTaskToActiveTournament() {
         // given
         tournament = MockTournament.getActive();
-        Task taskToAdd = TestData.getMockTask(TestData.TASK_ID);
+        Task taskToAdd = TestData.getMockTask(TestData.TASK_MAX_POINTS);
 
         // when
         int tasksSize = tournament.getTasks().size();
@@ -589,7 +588,7 @@ public class TournamentTest {
     public void shouldThrowExceptionForAddingTaskToFinishedTournament() {
         // given
         tournament = MockTournament.getFinished();
-        Task taskToAdd = TestData.getMockTask(TestData.TASK_ID);
+        Task taskToAdd = TestData.getMockTask(TestData.TASK_MAX_POINTS);
 
         // when
         int tasksSize = tournament.getTasks().size();
@@ -607,11 +606,10 @@ public class TournamentTest {
         tournament.setTasks(TestData.TASKS);
 
         // when
-        Task foundTask = tournament.getTask(TestData.TASK_ID);
+        Task foundTask = tournament.getTask(TestData.TASK_INDEX);
 
         // then
         assertNotNull(foundTask);
-        assertEquals(TestData.TASK_ID, foundTask.getId());
     }
 
     @Test
@@ -622,7 +620,7 @@ public class TournamentTest {
 
         // when
         int tasksSize = tournament.getTasks().size();
-        tournament.removeTask(TestData.TASK_ID);
+        tournament.removeTask(TestData.TASK_INDEX);
 
         // then
         assertEquals(tasksSize - 1, tournament.getTasks().size());
@@ -636,7 +634,7 @@ public class TournamentTest {
 
         // when
         int tasksSize = tournament.getTasks().size();
-        tournament.removeTask(TestData.TASK_ID);
+        tournament.removeTask(TestData.TASK_INDEX);
 
         // then
         assertEquals(tasksSize, tournament.getTasks().size());
@@ -650,7 +648,7 @@ public class TournamentTest {
 
         // when
         int tasksSize = tournament.getTasks().size();
-        tournament.removeTask(TestData.TASK_ID);
+        tournament.removeTask(TestData.TASK_INDEX);
 
         // then
         assertEquals(tasksSize, tournament.getTasks().size());
@@ -666,23 +664,21 @@ public class TournamentTest {
         String newDescription = "Bla bla bla";
 
         Task firstVersionOfTaskToUpdate = new CodeTask();
-        firstVersionOfTaskToUpdate.setId(TestData.TASK_ID);
         firstVersionOfTaskToUpdate.setDescription(firstDescription);
 
         tournament.addTask(firstVersionOfTaskToUpdate);
 
         Task taskToUpdate = new CodeTask();
-        taskToUpdate.setId(TestData.TASK_ID);
         taskToUpdate.setDescription(newDescription);
 
         // when
-        Task firstVersionFromList = tournament.getTask(TestData.TASK_ID);
-        tournament.updateTask(taskToUpdate);
-        Task updatedTask = tournament.getTask(TestData.TASK_ID);
+        Task firstVersionFromList = tournament.getTask(TestData.TASK_INDEX);
+        tournament.updateTask(taskToUpdate, TestData.TASK_INDEX);
+        Task updatedTask = tournament.getTask(TestData.TASK_INDEX);
 
         // then
         assertNotEquals(firstVersionFromList.getDescription(), updatedTask.getDescription());
-        assertEquals(firstVersionFromList.getId(), updatedTask.getId());
+        assertEquals(updatedTask, taskToUpdate);
     }
 
     private static class TestData {
@@ -694,14 +690,14 @@ public class TournamentTest {
         final static boolean PUBLIC_FLAG = true;
         final static boolean RESULTS_VISIBLE = true;
         final static String PASSWORD = "Test123";
-        final static String TASK_ID = "11";
-        final static String SECOND_TASK_ID = "22";
-        final static List<Task> TASKS = new ArrayList<>(Arrays.asList(getMockTask(TASK_ID), getMockTask(SECOND_TASK_ID)));    // remove is unsupported for list from Arrays.asList
+        final static int TASK_INDEX = 0;
+        final static long TASK_MAX_POINTS = 10;
+        final static long SECOND_TASK_MAX_POINTS = 20;
+        final static List<Task> TASKS = new ArrayList<>(Arrays.asList(getMockTask(TASK_MAX_POINTS), getMockTask(SECOND_TASK_MAX_POINTS)));    // remove is unsupported for list from Arrays.asList
 
-        public static Task getMockTask(String id) {
+        public static Task getMockTask(long maxPoints) {
             Task task = mock(Task.class);
-            when(task.getId()).thenReturn(id);
-            when(task.getMaxPoints()).thenReturn(Long.valueOf(id)); // id == points for simplify it
+            when(task.getMaxPoints()).thenReturn(maxPoints);
             return task;
         }
     }

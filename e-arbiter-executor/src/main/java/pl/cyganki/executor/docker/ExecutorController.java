@@ -4,32 +4,20 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.executor.code.ExecutionResult;
 import pl.cyganki.executor.code.docker.DockerCodeRunner;
-import pl.cyganki.utils.modules.AuthModuleInterface;
-import pl.cyganki.utils.security.dto.User;
 
 @RestController
 @RequestMapping("/api")
 public class ExecutorController {
 
-    private final AuthModuleInterface authModule;
     private final DockerCodeRunner codeRunner;
 
     @Autowired
-    public ExecutorController(AuthModuleInterface authModule,
-                              DockerCodeRunner codeRunner) {
-        this.authModule = authModule;
+    public ExecutorController(DockerCodeRunner codeRunner) {
         this.codeRunner = codeRunner;
-    }
-
-    @GetMapping("/execute")
-    @ApiOperation(value = "Executes code")
-    public User executeCode(@RequestHeader("oauth_token") String token) {
-        return authModule.getUser(token);
     }
 
     @GetMapping("/example")

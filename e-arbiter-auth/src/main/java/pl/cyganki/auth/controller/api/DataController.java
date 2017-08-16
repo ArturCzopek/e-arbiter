@@ -1,4 +1,4 @@
-package pl.cyganki.auth.controller;
+package pl.cyganki.auth.controller.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;

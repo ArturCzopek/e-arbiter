@@ -1,7 +1,7 @@
-package pl.cyganki.auth.database.repository
+package pl.cyganki.auth.repository
 
 import org.springframework.data.repository.CrudRepository
-import pl.cyganki.auth.database.entity.DbRole
+import pl.cyganki.auth.model.DbRole
 
 interface RoleRepository: CrudRepository<DbRole, Long> {
 

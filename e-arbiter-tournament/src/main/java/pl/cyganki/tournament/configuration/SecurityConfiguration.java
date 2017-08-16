@@ -1,4 +1,4 @@
-package pl.cyganki.executor.configuration;
+package pl.cyganki.tournament.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@Profile({"dev","prod"})
+@Profile({"dev", "prod"})
 @Slf4j
 public class SecurityConfiguration {
 
