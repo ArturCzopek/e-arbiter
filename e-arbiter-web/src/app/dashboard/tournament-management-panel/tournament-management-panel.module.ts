@@ -5,11 +5,13 @@ import {TournamentManagementPanelComponent} from "./tournament-management-panel.
 import {NgSemanticModule} from "ng-semantic";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TournamentFormComponent} from "./tournament-form.component";
+import {TaskModalComponent} from "./task-modal.component";
 
 @NgModule({
   declarations: [
     TournamentFormComponent,
-    TournamentManagementPanelComponent
+    TournamentManagementPanelComponent,
+    TaskModalComponent
   ],
   imports: [
     CommonModule,
