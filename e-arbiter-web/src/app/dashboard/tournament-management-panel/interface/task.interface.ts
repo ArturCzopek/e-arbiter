@@ -4,6 +4,7 @@ import {CodeTaskTestSet} from "./code-task-test-set.interface";
 
 export interface Task {
   description: string;
+  name: string;
 }
 
 export interface CodeTask extends Task {
@@ -13,6 +14,5 @@ export interface CodeTask extends Task {
 }
 
 export interface QuizTask extends Task {
-  name: string;
   questions: Question[];
 }

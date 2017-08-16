@@ -74,7 +74,7 @@ declare var $: any;
         <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
-    <sm-modal title="Hello from Modal" class="basic" #myModal>
+    <sm-modal title="Hello from Modal" #myModal>
       <modal-content>
         Hello from modal!
       </modal-content>
