@@ -4,11 +4,11 @@ import {CodeTaskTestSet} from "./code-task-test-set.interface";
 
 export const TaskTypes = [
   {
-    value: 'QuizTask',
+    value: 'CodeTask',
     display: 'Zadanie programistyczne'
   },
   {
-    value: 'CodeTask',
+    value: 'QuizTask',
     display: 'Quiz'
   }
 ];
