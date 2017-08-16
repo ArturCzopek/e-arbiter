@@ -1,7 +1,9 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
+import {Task, TaskTypes} from "./interface/task.interface";
+import {SemanticModalComponent} from "ng-semantic";
 
 declare var $: any;
 
@@ -64,26 +66,52 @@ declare var $: any;
       </div>
       <div class="pull-right inline fields space-below-20">
         <div class="field">
-          <button class="ui teal button" type="button" (click)="myModal.show()">Dodaj zadanie programistyczne</button>
-        </div>
-        <div class="field">
-          <button class="ui teal button" type="button">Dodaj quiz</button>
+          <button class="ui teal button" type="button" (click)="addTask()">Dodaj zadanie</button>
         </div>
       </div>
       <div class="button-container space-above-40">
         <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
-    <sm-modal title="Hello from Modal" #myModal>
-      <modal-content>
-        Hello from modal!
+    
+    <!-- MODAL -->
+    <sm-modal title="Dodaj zadanie" #taskModal>
+      <modal-content *ngIf="managedTask">
+        <form #f="ngForm" class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label>Nazwa</label>
+              <input type="text" name="name" [(ngModel)]="managedTask.name">
+            </div>
+            <div class="field">
+              <label>Typ</label>
+              <select name="type" [(ngModel)]="managedTask.type">
+                <option *ngFor="let type of taskTypes" [value]="type.value">{{ type.display }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Opis</label>
+            <textarea rows="4" name="description" [(ngModel)]="managedTask.description"></textarea>
+          </div>
+        </form>
       </modal-content>
+      <modal-actions>
+        <div class="ui buttons">
+          <div class="ui cancel button">Odrzuć</div>
+          <div class="ui ok button primary">Zapisz</div>
+        </div>
+      </modal-actions>
     </sm-modal>
   `
 })
 export class TournamentFormComponent implements OnInit {
-  public myForm: FormGroup;
+  myForm: FormGroup;
   showPassword: boolean;
+  taskTypes = TaskTypes;
+
+  @ViewChild("taskModal") taskModal: SemanticModalComponent;
+  managedTask: Task;
 
   constructor(private fb: FormBuilder) {
   }
@@ -115,5 +143,17 @@ export class TournamentFormComponent implements OnInit {
 
   save(tournament: Tournament) {
     console.log(tournament);
+  }
+
+  addTask() {
+    // initialize model (by default it's CodeTask)
+    this.managedTask = {
+      type: TaskTypes[0].value, name: '', description: ''
+    };
+
+    this.taskModal.show({
+      closable: false,
+      onApprove: () => console.log(this.managedTask)
+    });
   }
 }
