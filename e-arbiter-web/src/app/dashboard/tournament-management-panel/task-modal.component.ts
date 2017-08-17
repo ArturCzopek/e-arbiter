@@ -25,6 +25,22 @@ import {SemanticModalComponent} from "ng-semantic/ng-semantic";
             <label>Opis</label>
             <textarea rows="4" name="description" [(ngModel)]="task.description"></textarea>
           </div>
+          <div *ngIf="task.type === 'CodeTask'" class="two fields">
+            <div class="field">
+              <label>Jezyki programowania</label>
+              <sm-select 
+                placeholder="Wybierz..."
+                class="fluid search multiple"
+                (onChange)="task.languages = $event"
+              >
+                <option *ngFor="let language of languages" [value]="language">{{ language }}</option>
+              </sm-select>
+            </div>
+            <div class="field">
+              <label>Timeout (ms)</label>
+              <input type="number" name="timeoutInMs" [(ngModel)]="task.timeoutInMs"/>
+            </div>
+          </div>
         </form>
       </modal-content>
       <modal-actions>
@@ -42,7 +58,9 @@ export class TaskModalComponent {
 
   @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
   task: Task;
+
   taskTypes = TaskModel.taskTypes;
+  languages = TaskModel.languages;
 
   constructor(private fb: FormBuilder) {}
 
@@ -56,6 +74,7 @@ export class TaskModalComponent {
   }
 
   private addToFormArray(task: Task) {
+    console.log(task);
     if (this.isValid(task)) {
       this.tasks.push(
         this.fb.group({

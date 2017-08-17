@@ -1,4 +1,3 @@
-import {Language} from "./language.enum";
 import {Question} from "./question.interface";
 import {CodeTaskTestSet} from "./code-task-test-set.interface";
 
@@ -13,6 +12,7 @@ const TaskModel = {
       display: 'Quiz'
     }
   ],
+  languages: ['JAVA', 'PYTHON', 'C11', 'CPP'],
   createEmptyTask: () => {
     return {
       type: TaskModel.taskTypes[0].value,
@@ -31,7 +31,7 @@ export interface Task {
   name: string;
   description: string;
   codeTaskTestSets?: CodeTaskTestSet[];
-  languages?: Language[];
+  languages?: string[];
   timeoutInMs?: number;
   questions?: Question[];
 }
