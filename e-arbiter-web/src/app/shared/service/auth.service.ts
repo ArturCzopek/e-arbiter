@@ -7,11 +7,13 @@ import "rxjs/add/observable/throw";
 import {Observable} from "rxjs/Observable";
 import {environment} from "../../../environments/environment";
 import {User} from "../interface/user.interface";
+import {ActivatedRoute} from "@angular/router";
 
 declare var window: any;
 
 @Injectable()
 export class AuthService {
+
   private user: User = null;
 
   constructor(private http: Http) {
@@ -24,98 +26,32 @@ export class AuthService {
       return;
     }
 
-    // if we want to log in user, we use received token,
-    // otherwise, we check if user was logged in earlier by getting token from storage
-    const token = this.getTokenFromCookie() || localStorage.getItem(environment.authToken);
+    // we need to check if token is in localstorage
+    // it has to be there, even if user has token from redirect (login component will set it in storage)
+    const token = this.getTokenFromLocalStorage();
 
-    // we want to log new/earlier user
-    if (token) {
-      // maybe it is new token, so (re)set
-      localStorage.setItem(environment.authToken, token);
 
-      // try to log in user with token from storage
-      this.getUserFromServer();
-    } else {
-      // No token (maybe storage was cleaned by user), check if it's on server
-      this.getToken()
+    if (token) {                          // we want to log new/earlier user
+      this.setToken(token);               // maybe it is new token, so (re)set
+      this.getUserFromServer();           // try to log in user with token from storage
+    } else {                              // No token (maybe storage was cleaned by user), check if it's on server
+      this.getTokenFromServer()
         .map(res => res.json())
-        // no token, so user have to log in
-        .catch(this.handleMissingToken)
+        .catch(this.handleMissingToken)   // no token, so user have to log in by clicking log in button and redirecting to server
         .first()
         .subscribe(
           token => {
-            localStorage.setItem(environment.authToken, token);
+            this.setToken(token);         // there is a valid token for this user so we can try to get his data from server
             this.getUserFromServer();
           }
         );
     }
   }
 
-  public getLoggedInUser() {
-    return this.user;
-  }
-  public executeSampleCode(): Observable<any> {
-    return this.http.get(`${environment.server.api.url}/exec/api/example`, this.prepareAuthOptions()).map(res => res.json());
-  }
-
-  public getMeInfo(): Observable<any> {
-    return this.http.get(environment.server.auth.meUrl, this.prepareAuthOptions()).map(res => res.json());
-  }
-
   public logOut() {
-    localStorage.removeItem(environment.authToken);
+    this.clearToken();
     this.user = null;
     window.location = environment.server.auth.logoutUrl;
-  }
-
-  public getTokenFromCookie(): string {
-    let token: string;
-    const cookiesFromRegex = document.cookie.match(new RegExp(`${environment.authToken}=([^;]+)`));
-
-    if (cookiesFromRegex && cookiesFromRegex.length >= 2) {
-      token = cookiesFromRegex[1];
-    }
-
-    return token;
-  }
-
-  public getUserImgLink(): string {
-    return `${environment.githubUrl}/${this.getLoggedInUser().name}.png`;
-  }
-
-  public hasAuthToken(): boolean {
-    return (localStorage.getItem(environment.authToken) || this.getTokenFromCookie()) ? true : false;
-  }
-
-  private getUserFromServer(): any {
-    this.http.get(`${environment.server.auth.userUrl}`, this.prepareAuthOptions())
-      .map(res => res.json())
-      // token is invalid
-      .catch(this.handleInvalidToken)
-      .first()
-      .subscribe(
-        user => {
-          this.user = user;
-          this.removeAuthTokenFromCookies();
-        }
-      );
-  }
-
-  private getToken(): Observable<any> {
-    return this.http.get(`${environment.server.auth.tokenUrl}`);
-  }
-
-  private handleInvalidToken() {
-    localStorage.removeItem(environment.authToken);
-    return Observable.throw('invalid token');
-  }
-
-  private handleMissingToken() {
-    return Observable.throw('Not found token, log in by button');
-  }
-
-  private removeAuthTokenFromCookies() {
-    document.cookie = `${environment.authToken}=; Max-age=0`
   }
 
   public prepareAuthOptions(): RequestOptions {
@@ -125,4 +61,39 @@ export class AuthService {
     options.headers = headers;
     return options;
   }
+
+  public getTokenFromRouteParams = (route: ActivatedRoute): string => route.snapshot.params[environment.authToken];
+
+  public getTokenFromLocalStorage = (): string => localStorage.getItem(environment.authToken);
+
+  public setToken = (token: string) => localStorage.setItem(environment.authToken, token);
+
+  public getLoggedInUser = (): User => this.user;
+
+  public getMeInfo = (): Observable<any> => this.http.get(environment.server.auth.meUrl, this.prepareAuthOptions()).map(res => res.json());
+
+  public getUserImgLink = (): string => `${environment.githubUrl}/${this.getLoggedInUser().name}.png`;
+
+  private getUserFromServer(): any {
+    this.http.get(`${environment.server.auth.userUrl}`, this.prepareAuthOptions())
+      .map(res => res.json())
+      .catch(this.handleInvalidToken)      // token is invalid
+      .first()
+      .subscribe(
+        user => {
+          this.user = user;
+        }
+      );
+  }
+
+  private getTokenFromServer = (): Observable<any> => this.http.get(`${environment.server.auth.tokenUrl}`);
+
+  private clearToken = () => localStorage.removeItem(environment.authToken);
+
+  private handleInvalidToken() {
+    this.clearToken();
+    return Observable.throw('Invalid token');
+  }
+
+  private handleMissingToken = () => Observable.throw('Not found token, log in by button');
 }

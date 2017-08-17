@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  authToken: 'oauth_token',
+  authToken: 'oauth-token',
   githubUrl: 'http://github.com',
   server: {
     auth: {
@@ -21,7 +21,7 @@ export const environment = {
     },
   },
   client: {
-    mainUrl: '/main',
+    loginUrl: '/login',
     dashboard: {
       url: '/dashboard',
       mainPanelUrl: '/dashboard/main',

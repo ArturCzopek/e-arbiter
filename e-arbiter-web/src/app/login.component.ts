@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthService} from "./shared/service/auth.service";
 import {RouteService} from "./shared/service/route.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'arb-login',
@@ -13,7 +14,7 @@ import {RouteService} from "./shared/service/route.service";
           <i class="github icon"></i>Zaloguj się
         </button>
       </div>
-
+      
       <ng-template #goToPanel class="full-page-view__subcard">
         <img *ngIf="this.authService.getLoggedInUser()"
              class="ui small centered circular image" 
@@ -28,12 +29,18 @@ import {RouteService} from "./shared/service/route.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public authService: AuthService, private routeService: RouteService) {
+  constructor(public authService: AuthService, private routeService: RouteService, private route: ActivatedRoute) {
 
   }
 
-  ngOnInit(): void {
-    if (this.authService.hasAuthToken()) {
+  public ngOnInit(): void {
+
+    const tokenFromRouteParams = this.authService.getTokenFromRouteParams(this.route);
+    const tokenFromLocalStorage = this.authService.getTokenFromLocalStorage();
+
+    if (tokenFromRouteParams && tokenFromRouteParams.length > 0) {
+      this.logInWithTokenFromRouteParam(tokenFromRouteParams);
+    } else if (tokenFromLocalStorage && tokenFromLocalStorage.length > 0) {
       this.authService.logIn();
     }
   }
@@ -44,5 +51,12 @@ export class LoginComponent implements OnInit {
 
   public goToDashboard() {
     this.routeService.goToDashboard();
+  }
+
+  private logInWithTokenFromRouteParam(tokenFromRouteParams: string) {
+    if (tokenFromRouteParams.length > 0) {
+      this.authService.setToken(tokenFromRouteParams);
+      this.routeService.goToLoginPage();
+    }
   }
 }

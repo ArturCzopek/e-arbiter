@@ -13,7 +13,7 @@ export class LoggedOutUserGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
 
-    if (!this.authService.getLoggedInUser() && !this.authService.hasAuthToken()) {
+    if (!this.authService.getLoggedInUser() && !this.authService.getTokenFromLocalStorage()) {
       return true;
     }
 
