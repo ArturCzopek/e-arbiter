@@ -2,16 +2,29 @@ import {Language} from "./language.enum";
 import {Question} from "./question.interface";
 import {CodeTaskTestSet} from "./code-task-test-set.interface";
 
-export const TaskTypes = [
-  {
-    value: 'CodeTask',
-    display: 'Zadanie programistyczne'
-  },
-  {
-    value: 'QuizTask',
-    display: 'Quiz'
+const TaskModel = {
+  taskTypes: [
+    {
+      value: 'CodeTask',
+      display: 'Zadanie programistyczne'
+    },
+    {
+      value: 'QuizTask',
+      display: 'Quiz'
+    }
+  ],
+  createEmptyTask: () => {
+    return {
+      type: TaskModel.taskTypes[0].value,
+      name: '',
+      description: '',
+      codeTaskTestSets: [],
+      questions: [],
+      timeoutInMs: 0,
+      languages: []
+    };
   }
-];
+};
 
 export interface Task {
   type: string;
@@ -22,3 +35,5 @@ export interface Task {
   timeoutInMs?: number;
   questions?: Question[];
 }
+
+export default TaskModel;
