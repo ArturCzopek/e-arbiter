@@ -2,6 +2,7 @@ import {Component, Input, ViewChild} from "@angular/core";
 import TaskModel, {Task} from "app/dashboard/tournament-management-panel/interface/task.interface";
 import {FormArray, FormBuilder} from "@angular/forms";
 import {SemanticModalComponent} from "ng-semantic/ng-semantic";
+import {TaskService} from "./task.service";
 
 @Component({
   selector: 'arb-task-modal',
@@ -23,7 +24,7 @@ import {SemanticModalComponent} from "ng-semantic/ng-semantic";
           </div>
           <div class="field">
             <label>Opis</label>
-            <textarea rows="4" name="description" [(ngModel)]="task.description"></textarea>
+            <textarea rows="3" name="description" [(ngModel)]="task.description"></textarea>
           </div>
           <div *ngIf="task.type === 'CodeTask'" class="two fields">
             <div class="field">
@@ -41,6 +42,10 @@ import {SemanticModalComponent} from "ng-semantic/ng-semantic";
               <input type="number" name="timeoutInMs" [(ngModel)]="task.timeoutInMs"/>
             </div>
           </div>
+          <div class="field">
+            <label>{{ task.type === 'CodeTask' ? 'Dane testowe' : 'Pytania testowe' }}</label>
+            <textarea rows="5" name="taskData" [(ngModel)]="taskData"></textarea>
+          </div>
         </form>
       </modal-content>
       <modal-actions>
@@ -50,7 +55,8 @@ import {SemanticModalComponent} from "ng-semantic/ng-semantic";
         </div>
       </modal-actions>
     </sm-modal>
-  `
+  `,
+  providers: [TaskService]
 })
 export class TaskModalComponent {
 
@@ -58,24 +64,26 @@ export class TaskModalComponent {
 
   @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
   task: Task;
+  taskData: string;
 
   taskTypes = TaskModel.taskTypes;
   languages = TaskModel.languages;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private taskService: TaskService) {}
 
   public addTask() {
     this.task = TaskModel.createEmptyTask();
 
     this.innerTaskModal.show({
       closable: false,
+      observeChanges: true,
       onApprove: () => this.addToFormArray(this.task)
     });
   }
 
   private addToFormArray(task: Task) {
     console.log(task);
-    if (this.isValid(task)) {
+    if (this.parseTaskData(task, this.taskData)) {
       this.tasks.push(
         this.fb.group({
           type: [task.type],
@@ -90,8 +98,8 @@ export class TaskModalComponent {
     }
   }
 
-  private isValid(task: Task): boolean {
-    return true;
+  private parseTaskData(task: Task, taskData: string): boolean {
+    return this.taskService.parseTaskData(task, taskData);
   }
 
 }
