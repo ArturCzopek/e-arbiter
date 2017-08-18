@@ -26,7 +26,8 @@ class UserFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
     )
 
     // request with OPTIONS has not proper headers so we can mustn't filter it in this way
-    override fun shouldFilter() = excludedPaths.all { !getRequest().requestURI.contains(it) } && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)
+    override fun shouldFilter() = excludedPaths.all { !getRequest().requestURI.contains(it) }
+            && !RequestMethod.OPTIONS.toString().equals(getRequest().method, ignoreCase = true)
 
     override fun filterType() = FilterType.PRE.value
 

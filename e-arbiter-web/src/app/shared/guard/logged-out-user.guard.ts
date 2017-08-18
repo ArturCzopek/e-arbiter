@@ -2,7 +2,6 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
 import {Observable} from "rxjs/Observable";
-import "rxjs/observable/of";
 import {RouteService} from "../service/route.service";
 
 @Injectable()
@@ -13,7 +12,7 @@ export class LoggedOutUserGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
 
-    if (!this.authService.getLoggedInUser() && !this.authService.getTokenFromLocalStorage()) {
+    if (!this.authService.isLoggedInUser() && !this.authService.getTokenFromLocalStorage()) {
       return true;
     }
 

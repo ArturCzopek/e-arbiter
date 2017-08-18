@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   template: `
     <div class="ui container full-page-view">
       <h1>e-Arbiter</h1>
-      <div *ngIf="!authService.getLoggedInUser(); else goToPanel" class="full-page-view__subcard">
+      <div *ngIf="!authService.isLoggedInUser(); else goToPanel" class="full-page-view__subcard">
         <h3>Nie jesteś zalogowany</h3>
         <button (click)="loginUser()" class="ui teal button huge">
           <i class="github icon"></i>Zaloguj się
@@ -16,10 +16,8 @@ import {ActivatedRoute} from "@angular/router";
       </div>
       
       <ng-template #goToPanel class="full-page-view__subcard">
-        <img *ngIf="this.authService.getLoggedInUser()"
-             class="ui small centered circular image" 
-             src="{{authService.getUserImgLink()}}">
-        <h3>Witaj, {{authService.getLoggedInUser().name}}</h3>
+        <img class="ui small centered circular image" src="{{authService.getUserImgLink()}}">
+        <h3>Witaj, {{authService.getLoggedInUserName()}}</h3>
         <button (click)="goToDashboard()" class="ui teal button huge">
           <i class="play icon"></i>Przejdź do aplikacji
         </button>
