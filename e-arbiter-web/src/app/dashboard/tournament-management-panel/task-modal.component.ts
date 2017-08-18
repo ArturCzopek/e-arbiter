@@ -44,7 +44,7 @@ import {TaskService} from "./task.service";
           </div>
           <div class="field">
             <label>{{ task.type === 'CodeTask' ? 'Dane testowe' : 'Pytania testowe' }}</label>
-            <textarea rows="5" name="taskData" [(ngModel)]="taskData"></textarea>
+            <textarea rows="5" name="taskData" [(ngModel)]="task.strData"></textarea>
           </div>
         </form>
       </modal-content>
@@ -64,7 +64,6 @@ export class TaskModalComponent {
 
   @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
   task: Task;
-  taskData: string;
 
   taskTypes = TaskModel.taskTypes;
   languages = TaskModel.languages;
@@ -83,7 +82,7 @@ export class TaskModalComponent {
 
   private addToFormArray(task: Task) {
     console.log(task);
-    if (this.parseTaskData(task, this.taskData)) {
+    if (this.constituteTask(task)) {
       this.tasks.push(
         this.fb.group({
           type: [task.type],
@@ -98,8 +97,8 @@ export class TaskModalComponent {
     }
   }
 
-  private parseTaskData(task: Task, taskData: string): boolean {
-    return this.taskService.parseTaskData(task, taskData);
+  private constituteTask(task: Task): boolean {
+    return this.taskService.constituteTask(task);
   }
 
 }

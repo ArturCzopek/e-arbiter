@@ -5,19 +5,28 @@ import {CodeTaskTestSet} from "./interface/code-task-test-set.interface";
 @Injectable()
 export class TaskService {
 
-  public parseTaskData(task: Task, taskData: string): boolean {
-    switch (task.type) {
-      case 'CodeTask': return this.parseCodeTaskData(task, taskData);
-      case 'QuizTask': return this.parseQuizTaskData(task, taskData);
-      default:
-        throw new Error(task.type + ' is not a valid task type');
+  public constituteTask(task: Task): boolean {
+    if (task.type === 'CodeTask') {
+      return this.constituteCodeTask(task);
     }
+
+    return false;
   }
 
-  private parseCodeTaskData(task: Task, taskData: string): boolean {
+  private constituteCodeTask(task: Task): boolean {
+    if (task.strData) {
+      task.codeTaskTestSets = this.parseCodeStrData(task.strData);
+    } else {
+      task.strData = this.buildCodeStrData(task.codeTaskTestSets);
+    }
+
+    return true;
+  }
+
+  private parseCodeStrData(strData: string): CodeTaskTestSet[] {
     const codeTaskTestSets: CodeTaskTestSet[] = [];
 
-    const lines = taskData.split(/\n/);
+    const lines = strData.split(/\n/);
     const cases = lines.map(line => line.match(/(?:[^\s"]+|"[^"]*")+/g));
 
     cases.forEach(c => codeTaskTestSets.push({
@@ -25,13 +34,26 @@ export class TaskService {
       parameters: c.slice(0, c.length - 1)
     }));
 
-    task.codeTaskTestSets = codeTaskTestSets;
-
-    return true;
+    return codeTaskTestSets;
   }
 
-  private parseQuizTaskData(task: Task, taskData: string): boolean {
-    return true;
+  private buildCodeStrData(codeTaskTestSets: CodeTaskTestSet[]): string {
+    const surroundWithQuotes = str => '"' + str + '"';
+
+    // add quotes for args with spaces
+    codeTaskTestSets.forEach(testSet => {
+      testSet.parameters = testSet.parameters
+        .map(p => p.includes(' ') ? surroundWithQuotes(p) : p);
+
+      if (testSet.expectedResult.includes(' ')) {
+        testSet.expectedResult = surroundWithQuotes(testSet.expectedResult);
+      }
+    });
+
+    const lines = codeTaskTestSets.map(
+      testSet => testSet.parameters.join(' ') + ' ' + testSet.expectedResult);
+
+    return lines.join('\n');
   }
 
 }

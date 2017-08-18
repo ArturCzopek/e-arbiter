@@ -21,7 +21,8 @@ const TaskModel = {
       codeTaskTestSets: [],
       questions: [],
       timeoutInMs: 0,
-      languages: []
+      languages: [],
+      strData: ''
     };
   }
 };
@@ -34,6 +35,7 @@ export interface Task {
   languages?: string[];
   timeoutInMs?: number;
   questions?: Question[];
+  strData?: string;
 }
 
 export default TaskModel;
