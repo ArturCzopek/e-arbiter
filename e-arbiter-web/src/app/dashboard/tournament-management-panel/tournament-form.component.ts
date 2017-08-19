@@ -63,7 +63,22 @@ declare var $: any;
           <label>Pokaż</label>
         </div>
       </div>
-      <div class="pull-right inline fields space-below-20">
+      <div *ngIf="myForm.controls['tasks']['controls'].length > 0" class="three fields">
+        <div class="field">
+          <div class="ui middle aligned divided list">
+            <div *ngFor="let taskControl of myForm.controls['tasks']['controls']; let i = index" class="item task-item">
+              <div class="right floated content">
+                <i class="minus icon" (click)="myForm.controls['tasks'].removeAt(i)"></i>
+                <i class="edit icon" (click)="taskModal.editTask(taskControl.value)"></i>
+              </div>
+              <div class="content">
+                <div>{{ taskControl.value.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pull-right inline fields">
         <div class="field">
           <button class="ui teal button" type="button" (click)="taskModal.addTask()">Dodaj zadanie</button>
         </div>

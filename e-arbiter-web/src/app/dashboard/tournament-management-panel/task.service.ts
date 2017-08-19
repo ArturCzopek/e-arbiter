@@ -38,18 +38,6 @@ export class TaskService {
   }
 
   private buildCodeStrData(codeTaskTestSets: CodeTaskTestSet[]): string {
-    const surroundWithQuotes = str => '"' + str + '"';
-
-    // add quotes for args with spaces
-    codeTaskTestSets.forEach(testSet => {
-      testSet.parameters = testSet.parameters
-        .map(p => p.includes(' ') ? surroundWithQuotes(p) : p);
-
-      if (testSet.expectedResult.includes(' ')) {
-        testSet.expectedResult = surroundWithQuotes(testSet.expectedResult);
-      }
-    });
-
     const lines = codeTaskTestSets.map(
       testSet => testSet.parameters.join(' ') + ' ' + testSet.expectedResult);
 

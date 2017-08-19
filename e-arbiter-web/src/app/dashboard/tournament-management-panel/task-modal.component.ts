@@ -1,8 +1,9 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import TaskModel, {Task} from "app/dashboard/tournament-management-panel/interface/task.interface";
 import {FormArray, FormBuilder} from "@angular/forms";
-import {SemanticModalComponent} from "ng-semantic/ng-semantic";
+import {SemanticModalComponent} from "ng-semantic";
 import {TaskService} from "./task.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'arb-task-modal',
@@ -72,28 +73,41 @@ export class TaskModalComponent {
 
   public addTask() {
     this.task = TaskModel.createEmptyTask();
+    this.showModal(this.task);
+  }
 
+  public editTask(task: Task) {
+    this.constituteTask(task);
+
+    this.task = { ...task };
+    this.showModal(this.task, task);
+  }
+
+  private showModal(task: Task, originalTask?: Task) {
     this.innerTaskModal.show({
       closable: false,
       observeChanges: true,
-      onApprove: () => this.addToFormArray(this.task)
+      onApprove: () => this.addToFormArray(this.task, originalTask)
     });
   }
 
-  private addToFormArray(task: Task) {
-    console.log(task);
+  private addToFormArray(task: Task, originalTask?: Task) {
     if (this.constituteTask(task)) {
-      this.tasks.push(
-        this.fb.group({
-          type: [task.type],
-          name: [task.name],
-          description: [task.description],
-          codeTaskTestSets: [task.codeTaskTestSets],
-          questions: [task.questions],
-          timeoutInMs: [task.timeoutInMs],
-          languages: [task.languages]
-        })
-      );
+      if (originalTask) {
+        _.assign(originalTask, task);
+      } else {
+        this.tasks.push(
+          this.fb.group({
+            type: [task.type],
+            name: [task.name],
+            description: [task.description],
+            codeTaskTestSets: [task.codeTaskTestSets],
+            questions: [task.questions],
+            timeoutInMs: [task.timeoutInMs],
+            languages: [task.languages]
+          })
+        );
+      }
     }
   }
 
