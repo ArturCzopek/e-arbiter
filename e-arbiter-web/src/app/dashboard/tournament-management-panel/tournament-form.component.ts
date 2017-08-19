@@ -53,18 +53,9 @@ declare var $: any;
           <label>Wyniki dostępne dla uczestników</label>
         </div>
       </div>
-      <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
+      <div *ngIf="myForm.controls['tasks']['controls'].length > 0" class="four fields">
         <div class="field">
-          <label>Hasło</label>
-          <input [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
-        </div>
-        <div class="ui checkbox">
-          <input type="checkbox" [checked]="showPassword" (change)="showPassword = !showPassword"/>
-          <label>Pokaż</label>
-        </div>
-      </div>
-      <div *ngIf="myForm.controls['tasks']['controls'].length > 0" class="three fields">
-        <div class="field">
+          <label>Zadania</label>
           <div class="ui middle aligned divided list">
             <div *ngFor="let taskControl of myForm.controls['tasks']['controls']; let i = index" class="item task-item">
               <div class="right floated content">
@@ -81,6 +72,16 @@ declare var $: any;
       <div class="pull-right inline fields">
         <div class="field">
           <button class="ui teal button" type="button" (click)="taskModal.addTask()">Dodaj zadanie</button>
+        </div>
+      </div>
+      <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
+        <div class="field">
+          <label>Hasło</label>
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
+        </div>
+        <div class="ui checkbox">
+          <input type="checkbox" [checked]="showPassword" (change)="showPassword = !showPassword"/>
+          <label>Pokaż</label>
         </div>
       </div>
       <div class="button-container space-above-40">
