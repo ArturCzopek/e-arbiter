@@ -4,8 +4,8 @@ import com.netflix.zuul.ZuulFilter
 import mu.KLogging
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-import pl.cyganki.gateway.filter.utils.FilterRegex
 import org.springframework.web.bind.annotation.RequestMethod
+import pl.cyganki.gateway.filter.utils.FilterRegex
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getLoggedInUserAuthToken
