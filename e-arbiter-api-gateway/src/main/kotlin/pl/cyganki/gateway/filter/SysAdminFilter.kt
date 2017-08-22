@@ -3,10 +3,12 @@ package pl.cyganki.gateway.filter
 import com.netflix.zuul.ZuulFilter
 import mu.KLogging
 import org.springframework.stereotype.Component
+import pl.cyganki.gateway.filter.utils.FilterRegex
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getRequest
 import pl.cyganki.gateway.utils.unauthorizeRequest
+import java.util.regex.Pattern
 
 /**
  * Filter responsible for checking if user is a SysAdmin
@@ -15,7 +17,7 @@ import pl.cyganki.gateway.utils.unauthorizeRequest
 @Component
 class SysAdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    override fun shouldFilter() = getRequest().requestURI.contains("/sysadmin")
+    override fun shouldFilter() = Pattern.matches(FilterRegex.SYS_ADMIN_PATH, getRequest().requestURI)
 
     override fun filterType() = FilterType.PRE.value
 

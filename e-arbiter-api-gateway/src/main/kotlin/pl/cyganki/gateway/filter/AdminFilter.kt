@@ -3,16 +3,18 @@ package pl.cyganki.gateway.filter
 import com.netflix.zuul.ZuulFilter
 import mu.KLogging
 import org.springframework.stereotype.Component
+import pl.cyganki.gateway.filter.utils.FilterRegex
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getRequest
 import pl.cyganki.gateway.utils.unauthorizeRequest
+import java.util.regex.Pattern
 
 
 @Component
 class AdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    override fun shouldFilter() = getRequest().requestURI.contains("/admin")
+    override fun shouldFilter() = Pattern.matches(FilterRegex.ADMIN_PATH, getRequest().requestURI)
 
     override fun filterType() = FilterType.PRE.value
 
