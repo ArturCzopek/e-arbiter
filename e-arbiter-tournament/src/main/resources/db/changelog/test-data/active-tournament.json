@@ -1,62 +1,901 @@
 {
-  "ownerId": 1,
-  "name": "Active Tournament",
-  "description": "Example ACTIVE Tournament",
-  "startDate": "2017-08-01T18:00:00.000",
-  "endDate": "2018-04-10T18:15:00.000",
+  "ownerId": 7,
+  "name": "Est cillum enim nulla aute voluptate eu.",
+  "description": "Cupidatat quis exercitation voluptate duis cupidatat in velit eiusmod reprehenderit dolor eu nulla. Laboris irure ut aliqua sunt id laboris incididunt est culpa. Tempor proident aliqua adipisicing velit. Cillum anim proident ullamco deserunt amet ea anim do fugiat reprehenderit eiusmod non dolor. Cupidatat ipsum enim aliqua occaecat anim ex eu ad nulla officia. Dolore id eu consectetur fugiat nulla ullamco culpa anim aute sunt consequat non adipisicing.",
+  "startDate": "2017-08-08T01:35:33",
+  "endDate": "2017-10-14T07:26:15",
   "publicFlag": true,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
+  "password": null,
   "joinedUsersIds": [
-    2,
-    3
+    9,
+    3,
+    16,
+    14,
+    12,
+    18,
+    17
   ],
   "tasks": [
     {
+      "name": "jiejrinewirnewnrew0",
+      "description": "jiejrinewirnewnrewjiejrinewirnewnrew0jiejrinewirnewnrewjiejrinewirnewnrew0jiejrinewirnewnrewjiejrinewirnewnrew0",
       "type": "CodeTask",
-      "name": "Big big sth again",
-      "description": "Do you like it?",
       "codeTaskTestSets": [
         {
-          "expectedResult": "24",
+          "expectedResult": "38",
           "parameters": [
-            "1",
-            "2",
-            "3",
+            "11",
+            "7",
+            "15",
+            "3"
+          ]
+        },
+        {
+          "expectedResult": "54",
+          "parameters": [
+            "15",
+            "14",
+            "14",
+            "8"
+          ]
+        },
+        {
+          "expectedResult": "66",
+          "parameters": [
+            "13",
+            "15",
+            "14",
+            "8"
+          ]
+        },
+        {
+          "expectedResult": "83",
+          "parameters": [
+            "9",
+            "8",
+            "9",
+            "13"
+          ]
+        },
+        {
+          "expectedResult": "22",
+          "parameters": [
+            "9",
+            "8",
+            "5",
+            "5"
+          ]
+        }
+      ],
+      "languages": [
+        "CPP"
+      ],
+      "timeoutInMs": 954
+    },
+    {
+      "name": "jiejrinewirnewnrew1",
+      "description": "jiejrinewirnewnrewjiejrinewirnewnrew1jiejrinewirnewnrewjiejrinewirnewnrew1jiejrinewirnewnrewjiejrinewirnewnrew1",
+      "type": "CodeTask",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": "35",
+          "parameters": [
+            "5",
+            "5",
+            "8",
             "4"
           ]
         },
         {
-          "expectedResult": "120",
+          "expectedResult": "46",
           "parameters": [
-            "1",
-            "2",
-            "3",
+            "6",
+            "13",
+            "14",
+            "6"
+          ]
+        },
+        {
+          "expectedResult": "24",
+          "parameters": [
             "4",
-            "5"
+            "6",
+            "10",
+            "10"
+          ]
+        },
+        {
+          "expectedResult": "59",
+          "parameters": [
+            "9",
+            "15",
+            "8",
+            "14"
+          ]
+        },
+        {
+          "expectedResult": "27",
+          "parameters": [
+            "5",
+            "12",
+            "14",
+            "13"
           ]
         }
       ],
       "languages": [
         "JAVA"
       ],
-      "timeoutInMs": 500
+      "timeoutInMs": 1951
     },
     {
+      "name": "jiejrinewirnewnrew2",
+      "description": "jiejrinewirnewnrewjiejrinewirnewnrew2jiejrinewirnewnrewjiejrinewirnewnrew2jiejrinewirnewnrewjiejrinewirnewnrew2",
       "type": "QuizTask",
-      "name": "Quiz fur dumis",
-      "description": "Still retard? Let's see it",
       "questions": [
         {
-          "content": "2 + 2?",
+          "content": "jiwenri0",
           "answers": [
             {
-              "content": "4",
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri1",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
               "correct": true
             },
             {
-              "content": "5",
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
               "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri2",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri3",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri4",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri5",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri6",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri7",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri8",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri9",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jiejrinewirnewnrew3",
+      "description": "jiejrinewirnewnrewjiejrinewirnewnrew3jiejrinewirnewnrewjiejrinewirnewnrew3jiejrinewirnewnrewjiejrinewirnewnrew3",
+      "type": "QuizTask",
+      "questions": [
+        {
+          "content": "jiwenri0",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri1",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri2",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri3",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri4",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri5",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri6",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri7",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri8",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri9",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jiejrinewirnewnrew4",
+      "description": "jiejrinewirnewnrewjiejrinewirnewnrew4jiejrinewirnewnrewjiejrinewirnewnrew4jiejrinewirnewnrewjiejrinewirnewnrew4",
+      "type": "QuizTask",
+      "questions": [
+        {
+          "content": "jiwenri0",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri1",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri2",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri3",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri4",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri5",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri6",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri7",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "jiwenri8",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "jiwenri9",
+          "answers": [
+            {
+              "content": "iojiwenr0",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr1",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr2",
+              "correct": true
+            },
+            {
+              "content": "iojiwenr3",
+              "correct": false
+            },
+            {
+              "content": "iojiwenr4",
+              "correct": true
             }
           ]
         }
