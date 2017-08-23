@@ -14,7 +14,7 @@ import pl.cyganki.auth.service.UserService
  */
 @RestController
 @RequestMapping("/inner/user")
-class InnerUserDataController(val userService: UserService) {
+class InnerUserDataController(private val userService: UserService) {
 
     @GetMapping("/name/{id}")
     @ApiOperation("Returns a name of user by passed user id. Used for fetching information about tournament. There always should be user because passed id is from module where existing user's id is stored")

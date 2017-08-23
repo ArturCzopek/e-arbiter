@@ -18,7 +18,7 @@ import pl.cyganki.gateway.utils.getResponse
  * Filter responsible for clean-up after user logout
  */
 @Component
-class LogoutFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
+class LogoutFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun shouldFilter() = Pattern.matches(FilterRegex.AUTH_LOGOUT_PATH, getRequest().requestURI)
             && RequestMethod.POST.toString().equals(getRequest().method, ignoreCase = true)

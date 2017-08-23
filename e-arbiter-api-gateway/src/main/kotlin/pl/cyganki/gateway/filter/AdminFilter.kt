@@ -13,7 +13,7 @@ import java.util.regex.Pattern
 
 
 @Component
-class AdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
+class AdminFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun shouldFilter() = Pattern.matches(FilterRegex.ADMIN_PATH, getRequest().requestURI)
             && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)

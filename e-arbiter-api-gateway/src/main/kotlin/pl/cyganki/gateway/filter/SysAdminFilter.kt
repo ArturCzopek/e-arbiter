@@ -16,7 +16,7 @@ import java.util.regex.Pattern
  * If not, this event is written to logs and request is invalid
  */
 @Component
-class SysAdminFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
+class SysAdminFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
     override fun shouldFilter() = Pattern.matches(FilterRegex.SYS_ADMIN_PATH, getRequest().requestURI)
             && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)

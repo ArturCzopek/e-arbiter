@@ -18,9 +18,9 @@ import java.util.regex.Pattern
  * If you want to disable filter for specified paths, you can add it to excludedPathsRegexes list as a regex
  */
 @Component
-class UserFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
+class UserFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    val excludedPathsRegexes = listOf(
+    private val excludedPathsRegexes = listOf(
             FilterRegex.AUTH_LOGOUT_PATH,
             FilterRegex.AUTH_USER_PATH,
             FilterRegex.AUTH_TOKEN_PATH,

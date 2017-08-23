@@ -10,7 +10,7 @@ object FilterRegex {
      * - match "/inner" path
      * - match any sign (0 or more)
      */
-    val INNER_PATH = "(?i)\\w+/inner\\S*"
+    val INNER_PATH = "(?i)/\\w+/inner\\S*"
 
     /**
      * This regex says:
@@ -19,7 +19,7 @@ object FilterRegex {
      * - match "/admin" path
      * - match any sign (0 or more)
      */
-    val ADMIN_PATH = "(?i)\\w+/admin\\S*"
+    val ADMIN_PATH = "(?i)/\\w+/admin\\S*"
 
     /**
      * This regex says:
@@ -28,7 +28,7 @@ object FilterRegex {
      * - match "/sysadmin" path
      * - match any sign (0 or more)
      */
-    val SYS_ADMIN_PATH = "(?i)\\w+/sysadmin\\S*"
+    val SYS_ADMIN_PATH = "(?i)/\\w+/sysadmin\\S*"
 
     /**
      * This regex says:
@@ -36,7 +36,7 @@ object FilterRegex {
      * - match "auth/api/logout" path
      * - match any sign (0 or more)
      */
-    val AUTH_LOGOUT_PATH = "(?i)auth/api/logout\\S*"
+    val AUTH_LOGOUT_PATH = "(?i)/auth/api/logout\\S*"
 
     /**
      * This regex says:
@@ -44,15 +44,15 @@ object FilterRegex {
      * - match "auth/api/user" path
      * - match any sign (0 or more)
      */
-    val AUTH_USER_PATH = "(?i)auth/api/user\\S*"
+    val AUTH_USER_PATH = "(?i)/auth/api/user\\S*"
 
     /**
      * This regex says:
      * - case insensitive
-     * - match "auth/api/user" path
+     * - match "auth/api/token" path
      * - match any sign (0 or more)
      */
-    val AUTH_TOKEN_PATH = "(?i)auth/api/user\\S*"
+    val AUTH_TOKEN_PATH = "(?i)/auth/api/token\\S*"
 
 
     /**
@@ -62,5 +62,5 @@ object FilterRegex {
      * - match "/inner/" path
      * - match any sign (0 or more)
      */
-    val REST_API_PATH = "(?i)\\w+/rest-api\\S*"
+    val REST_API_PATH = "(?i)/\\w+/rest-api\\S*"
 }
