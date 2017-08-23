@@ -44,4 +44,22 @@ public class TournamentController {
     public Page<TournamentPreview> getFinishedTournamentsInWhichUserParticipates(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
         return tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(user.getId(), pageable, query);
     }
+
+    @GetMapping("/all/newest")
+    @ApiOperation("Returns a page with the newest tournaments in which user does not participate")
+    public Page<TournamentPreview> getActiveNewestTournamentsInWhichUserDoesNotParticipate(User user, Pageable pageable) {
+        return tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
+    }
+
+    @GetMapping("/all/popular")
+    @ApiOperation("Returns a page with the most popular tournaments in which user does not participate")
+    public Page<TournamentPreview> getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(User user, Pageable pageable) {
+        return tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
+    }
+
+    @GetMapping("/all/ending")
+    @ApiOperation("Returns a page with almost ended tournaments in which user does not participate")
+    public Page<TournamentPreview> getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(User user, Pageable pageable) {
+        return tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
+    }
 }
