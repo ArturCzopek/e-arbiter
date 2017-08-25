@@ -22,23 +22,65 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
-    // here we can define particular send methods and their html template processing for each case:
-    // tournament is finished
-    // owner extends a deadline
-    // admin sends a message to all users
-
-    public String buildEmail(String message) {
+    private String buildFinishedTournamentEmail(String userName, String tournamentName) {
         Context context = new Context();
-        context.setVariable("message", message);
-        return templateEngine.process("emailTemplate", context);
+        context.setVariable("userName", userName);
+        context.setVariable("tournamentName", tournamentName);
+        return templateEngine.process("FinishedTournamentEmailTemplate", context);
     }
 
-    public void sendEmail(String recipient, String message) {
+    private String buildExtendTournamentEmail(String userName, String tournamentName, String newDeadline) {
+        Context context = new Context();
+        context.setVariable("userName", userName);
+        context.setVariable("tournamentName", tournamentName);
+        context.setVariable("newDeadline", newDeadline);
+        return templateEngine.process("ExtendTournamentEmailTemplate", context);
+    }
+
+    private String buildAdminBroadcastEmail(String userName, String tournamentName, String message) {
+        Context context = new Context();
+        context.setVariable("userName", userName);
+        context.setVariable("tournamentName", tournamentName);
+        context.setVariable("message", message);
+        return templateEngine.process("AdminBroadcastEmailTemplate", context);
+    }
+
+    public void sendFinishedTournamentEmail(String recipient, String userName, String tournamentName) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter email subject");
-            String content = buildEmail(message);
+            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament expiry");
+            String content = buildFinishedTournamentEmail(userName, tournamentName);
+            messageHelper.setText(content, true);
+        };
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            // runtime exception
+        }
+    }
+
+    public void sendExtendTournamentEmail(String recipient, String userName, String tournamentName, String newDeadline) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament deadline extension");
+            String content = buildExtendTournamentEmail(userName, tournamentName, newDeadline);
+            messageHelper.setText(content, true);
+        };
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            // runtime exception
+        }
+    }
+
+    public void sendAdminBroadcastEmail(String recipient, String userName, String tournamentName, String message) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament admin message");
+            String content = buildAdminBroadcastEmail(userName, tournamentName, message);
             messageHelper.setText(content, true);
         };
         try {
