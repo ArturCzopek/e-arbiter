@@ -11,6 +11,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
 
     @Query("{" +
                 "$and: [" +
+                    "{ 'ownerId': { $ne: ?0 } }," +
                     "{ 'joinedUsersIds': ?0 }," +
                     "{ 'status': ?1 }" +
                 "]" +
@@ -20,6 +21,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
     // $options: 'i' means case insensitive
     @Query("{" +
                 "$and: [" +
+                    "{ 'ownerId': { $ne: ?0 } }," +
                     "{ 'joinedUsersIds': ?0 }," +
                     "{ 'status': ?1 }," +
                     "{ " +
@@ -35,8 +37,8 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
 
     @Query("{" +
                 "$and: [" +
-                    "{ 'joinedUsersIds': {$ne: ?0} }," +    // user is not in tournament
-                    "{ 'ownerId': {$ne: ?0} }," +           // also, user is not an owner
+                    "{ 'joinedUsersIds': { $ne: ?0 } }," +  // user is not in tournament
+                    "{ 'ownerId': { $ne: ?0 } }," +         // also, user is not an owner
                     "{ 'status': 'ACTIVE' }," +             // tournament must be active
                     "{ 'publicFlag': true }" +              // and public
                 "]" +
