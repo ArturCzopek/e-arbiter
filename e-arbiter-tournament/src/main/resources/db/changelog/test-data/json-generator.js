@@ -1,19 +1,23 @@
 // it is a retarded code with "fake" functions which are called by www.json-generator.com
-// be careful with dates, sometimes enddate for finished tournament may be weird...
-// also, it would be good to replace task contents by yourself
-[
-    '{{repeat(20)}}',
+// be careful with dates, sometimes enddate for finished tournament may be weird... also, start date for draft should be null
+// also, generate separately quiz tasks and code tasks, {{repeat}} doesnt work well in this case
+// check correct flag for quiz task, sometims there is only 'falses'
+
+// insert without 'var gen =' line, its only for preventing IJ showing errors
+var gen =
     {
         'ownerId': '{{integer(1, 8)}}',
-        'name': '{{lorem(1)}}',
-        'description': '{{lorem(6)}}',
-        'startDate': '{{date(new Date(2017, 6, 1), new Date(2017, 8, 1), "YYYY-MM-ddThh:mm:ss")}}',
-        'endDate': '{{date(new Date(2017, 8, 2), new Date(2017, 10, 1), "YYYY-MM-ddThh:mm:ss")}}',
+        'name': '{{lorem(6, "words")}}',
+        'description': '{{lorem(3)}}',
+        'startDate': '{{date(new Date(2017, 4, 1), new Date(2017, 6, 1), "YYYY-MM-ddThh:mm:ss")}}', // specify it for your needs, null for draft
+        // 'startDate': null,
+        'endDate': '{{date(new Date(2017, 6, 2), new Date(2017, 8, 1), "YYYY-MM-ddThh:mm:ss")}}',
+        // 'endDate': '{{date(new Date(2017, 11, 2), new Date(2017, 12, 1), "YYYY-MM-ddThh:mm:ss")}}', // specify it for your needs
         'publicFlag': '{{bool()}}',
         'resultsVisibleForJoinedUsers': '{{bool()}}',
-        'status': '{{random("DRAFT", "ACTIVE", "FINISHED")}}',
+        'status': 'FINISHED', // specify it for your needs
         'password': function () {
-            if (!this.publicFlag) return "testPassword";
+            if (!this.publicFlag) return "password" + Math.floor(Math.random() * (89324 - 1 + 1)) + 1;
             return null;
         },
         'joinedUsersIds': function () {
@@ -35,71 +39,61 @@
 
             return usersList;
         },
-        'tasks': function () {
-            var tasksAmount = Math.floor(Math.random() * (5 - 2 + 1)) + 2;
-
-            var taskList = [];
-            var languages = ["CPP", "C11", "JAVA", "PYTHON"];
-
-            for (var i = 0; i < tasksAmount; i++) {
-
-                var task = {
-                    name: 'jiejrinewirnewnrew' + i,
-                    description: 'jiejrinewirnewnrewjiejrinewirnewnrew' + i + 'jiejrinewirnewnrewjiejrinewirnewnrew' + i + 'jiejrinewirnewnrewjiejrinewirnewnrew' + i
-                };
-
-
-                var isCodeTask = Math.random() >= 0.5;
-                if (isCodeTask) {
-                    task.type = "CodeTask";
-
-                    var codeTaskTestSets = [];
-
-                    for (var j = 0; j < 5; j++) {
-                        var expectedResult = Math.floor(Math.random() * (100 - 1 + 1)) + 5;
-                        var parameters = [];
-
-                        for (var k = 0; k < 4; k++) {
-                            var param = Math.floor(Math.random() * (15 - 3 + 1)) + 3;
-                            parameters.push("" + param);
-                        }
-
-                        var testSet = {
-                            expectedResult: "" + expectedResult,
-                            parameters: parameters
-                        };
-
-                        codeTaskTestSets.push(testSet);
+        'tasks': [
+            '{{repeat(0, 10)}}', // code task first
+            {
+                'type': 'CodeTask',
+                'name': '{{lorem(5, "words")}}',
+                'description': '{{lorem(2)}}',
+                'codeTaskTestSets': [
+                    '{{repeat(1,6)}}',
+                    {
+                        'expectedResult': '' + '{{integer(50, 300)}}',
+                        'parameters': [
+                            '{{repeat(1,5)}}',
+                            '{{integer(-30, 30)}}'
+                        ]
                     }
-
-                    task.codeTaskTestSets = codeTaskTestSets;
-                    task.languages = [languages[Math.floor(Math.random() * languages.length)]];
-                    task.timeoutInMs = Math.floor(Math.random() * (2000 - 5 + 1)) + 5;
-                } else {
-                    task.type = "QuizTask";
-
-                    var questionsList = [];
-
-                    for (var j = 0; j < 10; j++) {
-                        var question = {};
-                        question.content = 'jiwenri' + j;
-
-                        var answersList = [];
-                        for (var k = 0; k < 5; k++) {
-                            answersList.push({content: 'iojiwenr' + k, correct: Math.random() >= 0.5})
+                ],
+                'languages': function () {
+                    var amount = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+                    var languages = ["CPP", "C11", "JAVA", "PYTHON"];
+                    var languagesToReturn = [];
+                    for (var i = 0; i < amount; i++) {
+                        var currentLanguageToAdd = Math.floor(Math.random() * (4 - 1 + 1)) + 0;
+                        if (languagesToReturn.indexOf(languages[currentLanguageToAdd]) === -1) {
+                            languagesToReturn.push(languages[currentLanguageToAdd]);
                         }
-
-                        question.answers = answersList;
-                        questionsList.push(question);
                     }
-
-                    task.questions = questionsList;
-                }
-
-                taskList.push(task);
+                    return languagesToReturn;
+                },
+                'timeoutInMs': '{{random(50, 5000)}}'
             }
-
-            return taskList;
-        }
+        ]
     }
-]
+
+// generate it separately and add by yourself to task array,
+// 'var quizTasks =' not needed, array start does but insert to existing array without array signs later
+// this is only for 'repeat' function
+var quizTasks =
+    [
+        '{{repeat(0, 10)}}', // quiz tasks now
+        {
+            'type': 'QuizTask',
+            'name': '{{lorem(5, "words")}}',
+            'description': '{{lorem(2)}}',
+            'questions': [
+                '{{repeat(1, 5)}}',
+                {
+                    'content': '{{lorem(20, "words")}}',
+                    'answers': [
+                        '{{repeat(2, 5)}}',
+                        {
+                            'content': '{{lorem(5, "words")}}',
+                            'correct': '{{bool()}}'
+                        }
+                    ]
+                }
+            ]
+        }
+    ]

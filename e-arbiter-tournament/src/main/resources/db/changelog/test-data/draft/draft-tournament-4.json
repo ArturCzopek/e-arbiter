@@ -1,0 +1,215 @@
+{
+  "ownerId": 4,
+  "name": "culpa minim sunt pariatur nisi voluptate",
+  "description": "Duis elit occaecat elit duis mollit dolor eu elit ad. Ea adipisicing officia dolore in aute nulla laboris deserunt minim elit fugiat in ex. Ut culpa pariatur aliquip qui anim do qui sit sint adipisicing id elit dolor occaecat.",
+  "startDate": null,
+  "endDate": "2017-11-27T09:30:02",
+  "publicFlag": false,
+  "resultsVisibleForJoinedUsers": false,
+  "status": "DRAFT",
+  "password": "password575851",
+  "joinedUsersIds": [],
+  "tasks": [
+    {
+      "type": "CodeTask",
+      "name": "officia consectetur ex cupidatat anim",
+      "description": "In amet dolore ut proident enim incididunt cillum. Velit incididunt ad nostrud in.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 74,
+          "parameters": [
+            -2,
+            -29,
+            6,
+            25
+          ]
+        },
+        {
+          "expectedResult": 72,
+          "parameters": [
+            -24
+          ]
+        }
+      ],
+      "languages": [
+        "JAVA",
+        "C11",
+        "CPP"
+      ],
+      "timeoutInMs": 5000
+    },
+    {
+      "type": "CodeTask",
+      "name": "tempor in ea excepteur quis",
+      "description": "Amet consectetur minim nostrud ut est nostrud ex ad enim in. Labore in proident officia commodo sit cillum incididunt et dolore ut anim deserunt proident et.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 137,
+          "parameters": [
+            -10,
+            23,
+            10
+          ]
+        },
+        {
+          "expectedResult": 255,
+          "parameters": [
+            20,
+            -23
+          ]
+        },
+        {
+          "expectedResult": 100,
+          "parameters": [
+            20,
+            -23,
+            19
+          ]
+        },
+        {
+          "expectedResult": 187,
+          "parameters": [
+            27,
+            28,
+            -27
+          ]
+        }
+      ],
+      "languages": [
+        "CPP",
+        "C11"
+      ],
+      "timeoutInMs": 50
+    },
+    {
+      "type": "CodeTask",
+      "name": "ipsum non nulla labore sunt",
+      "description": "Reprehenderit labore sunt occaecat occaecat culpa. Pariatur excepteur irure anim Lorem aliqua cillum consequat enim eiusmod sit ex eu.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 161,
+          "parameters": [
+            18
+          ]
+        },
+        {
+          "expectedResult": 52,
+          "parameters": [
+            -30
+          ]
+        },
+        {
+          "expectedResult": 132,
+          "parameters": [
+            5,
+            -19,
+            -28,
+            18
+          ]
+        },
+        {
+          "expectedResult": 295,
+          "parameters": [
+            -28,
+            -10,
+            12
+          ]
+        },
+        {
+          "expectedResult": 65,
+          "parameters": [
+            28,
+            -9,
+            -10
+          ]
+        }
+      ],
+      "languages": [
+        "C11",
+        "CPP",
+        "PYTHON"
+      ],
+      "timeoutInMs": 5000
+    },
+    {
+      "type": "CodeTask",
+      "name": "deserunt id veniam nisi aliquip",
+      "description": "Sunt aute nulla irure qui amet. Ipsum non laboris id labore commodo ipsum aliqua.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 150,
+          "parameters": [
+            -12
+          ]
+        },
+        {
+          "expectedResult": 185,
+          "parameters": [
+            4,
+            -30,
+            13
+          ]
+        },
+        {
+          "expectedResult": 131,
+          "parameters": [
+            24,
+            -14,
+            12,
+            -2
+          ]
+        },
+        {
+          "expectedResult": 61,
+          "parameters": [
+            2
+          ]
+        },
+        {
+          "expectedResult": 300,
+          "parameters": [
+            8,
+            -17
+          ]
+        },
+        {
+          "expectedResult": 222,
+          "parameters": [
+            6,
+            -20,
+            -26
+          ]
+        }
+      ],
+      "languages": [
+        "CPP",
+        "PYTHON"
+      ],
+      "timeoutInMs": 5000
+    },
+    {
+      "type": "QuizTask",
+      "name": "laboris adipisicing ipsum velit eu",
+      "description": "Ullamco enim in laborum adipisicing laborum est nostrud elit exercitation fugiat. Officia sint ullamco eu excepteur aute esse duis dolore sunt id do ex cupidatat.",
+      "questions": [
+        {
+          "content": "sint commodo amet commodo adipisicing nulla dolore in id eiusmod ut eiusmod sint labore irure voluptate labore dolore laboris esse",
+          "answers": [
+            {
+              "content": "excepteur aliqua laborum culpa adipisicing",
+              "correct": false
+            },
+            {
+              "content": "anim adipisicing qui occaecat commodo",
+              "correct": true
+            },
+            {
+              "content": "eu anim aute in cillum",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
