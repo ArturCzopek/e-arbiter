@@ -43,6 +43,11 @@ class TournamentPreviewsFetcherTest {
         tournamentPreviewsFetcher = TournamentPreviewsFetcher(tournamentRepository, authModule)
     }
 
+
+    /**
+     * getActiveTournamentsInWhichUserParticipates
+     */
+
     @Test
     fun `should return all active user's tournaments in which user participates in one page`() {
         // given
@@ -87,10 +92,12 @@ class TournamentPreviewsFetcherTest {
         // then
         Assert.assertEquals(6, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertTrue(foundTournamentsPage.content[0].name > foundTournamentsPage.content[1].name)
-        Assert.assertTrue(foundTournamentsPage.content[1].name > foundTournamentsPage.content[2].name)
-        Assert.assertTrue(foundTournamentsPage.content[0].name > foundTournamentsPage.content[3].name)
-        Assert.assertTrue(foundTournamentsPage.content[3].name > foundTournamentsPage.content[5].name)
+
+        for (i in 0..4) {
+            for (j in i+1..5) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name > foundTournamentsPage.content[j].name)
+            }
+        }
 
         foundTournamentsPage.content
                 .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
@@ -107,10 +114,11 @@ class TournamentPreviewsFetcherTest {
         // then
         Assert.assertEquals(6, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertTrue(foundTournamentsPage.content[0].name < foundTournamentsPage.content[1].name)
-        Assert.assertTrue(foundTournamentsPage.content[1].name < foundTournamentsPage.content[2].name)
-        Assert.assertTrue(foundTournamentsPage.content[0].name < foundTournamentsPage.content[3].name)
-        Assert.assertTrue(foundTournamentsPage.content[3].name < foundTournamentsPage.content[5].name)
+        for (i in 0..4) {
+            for (j in i+1..5) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name < foundTournamentsPage.content[j].name)
+            }
+        }
 
         foundTournamentsPage.content
                 .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
@@ -132,6 +140,11 @@ class TournamentPreviewsFetcherTest {
         Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
         Assert.assertEquals(tournamentToFindName, foundTournamentsPage.content[0].name)
     }
+
+
+    /**
+     * getFinishedTournamentsInWhichUserParticipates
+     */
 
     @Test
     fun `should return all finished user's tournaments in which user participates in one page`() {
@@ -178,10 +191,12 @@ class TournamentPreviewsFetcherTest {
         Assert.assertEquals(5, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
 
-        Assert.assertTrue(foundTournamentsPage.content[0].name > foundTournamentsPage.content[1].name)
-        Assert.assertTrue(foundTournamentsPage.content[1].name > foundTournamentsPage.content[2].name)
-        Assert.assertTrue(foundTournamentsPage.content[0].name > foundTournamentsPage.content[3].name)
-        Assert.assertTrue(foundTournamentsPage.content[3].name > foundTournamentsPage.content[4].name)
+        for (i in 0..3) {
+            for (j in i+1..4) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name > foundTournamentsPage.content[j].name)
+            }
+        }
+
         foundTournamentsPage.content
                 .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
@@ -197,10 +212,12 @@ class TournamentPreviewsFetcherTest {
         // then
         Assert.assertEquals(5, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertTrue(foundTournamentsPage.content[0].name < foundTournamentsPage.content[1].name)
-        Assert.assertTrue(foundTournamentsPage.content[1].name < foundTournamentsPage.content[2].name)
-        Assert.assertTrue(foundTournamentsPage.content[0].name < foundTournamentsPage.content[3].name)
-        Assert.assertTrue(foundTournamentsPage.content[3].name < foundTournamentsPage.content[4].name)
+
+        for (i in 0..3) {
+            for (j in i+1..4) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name < foundTournamentsPage.content[j].name)
+            }
+        }
         foundTournamentsPage.content
                 .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
         foundTournamentsPage.content
@@ -225,6 +242,90 @@ class TournamentPreviewsFetcherTest {
         Assert.assertEquals(tournamentToFindDescription, foundTournamentsPage.content[0].description)
         foundTournamentsPage.content
                 .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+    }
+
+
+    /**
+     * getActiveNewestTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public newest active tournaments in which user does not participate (ordered by start date desc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        for (i in 0..2) {
+            for (j in i+1..3) {
+                Assert.assertTrue(foundTournamentsPage.content[i].startDate!! > foundTournamentsPage.content[j].startDate)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+    }
+
+
+    /**
+     * getActiveMostPopularTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public most popular active tournaments in which user does not participate (ordered by joined users amount desc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        for (i in 0..2) {
+            for (j in i+1..3) {
+                Assert.assertTrue(foundTournamentsPage.content[i].users >= foundTournamentsPage.content[j].users)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+    }
+
+
+    /**
+     * getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public nearest end active tournaments in which user does not participate (ordered by date asc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        for (i in 0..2) {
+            for (j in i+1..3) {
+                Assert.assertTrue(foundTournamentsPage.content[i].endDate!! < foundTournamentsPage.content[j].endDate)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
     }
 
     inner class MockAuthModule : AuthModuleInterface {

@@ -4,10 +4,10 @@
   "description": "Non ea ea ipsum laborum nostrud officia ut enim ex eiusmod aute aliqua. Esse ut commodo proident labore magna nostrud aliqua ea consequat ex ex anim fugiat officia. Nulla pariatur ut proident nulla ullamco ipsum ex et.",
   "startDate": "2017-07-05T06:10:10",
   "endDate": "2017-12-18T12:28:22",
-  "publicFlag": false,
+  "publicFlag": true,
   "resultsVisibleForJoinedUsers": false,
   "status": "ACTIVE",
-  "password": "password282501",
+  "password": null,
   "joinedUsersIds": [
     10,
     14,

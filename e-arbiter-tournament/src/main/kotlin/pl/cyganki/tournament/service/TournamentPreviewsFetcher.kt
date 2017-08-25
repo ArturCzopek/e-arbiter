@@ -24,19 +24,20 @@ class TournamentPreviewsFetcher(
     fun getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
         val newestSort = Sort(Sort.Direction.DESC, "startDate")
         val pageRequest = PageRequest(pageable.pageNumber, pageable.pageSize, newestSort)
-        return getTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+        return getPublicTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
     }
 
     fun getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
-        val mostPopularSort = Sort(Sort.Direction.DESC, "joinedUsersIds.size")
+        TODO("Find solution for better sorting")
+        val mostPopularSort = Sort(Sort.Direction.DESC, "length(joinedUsersIds)")
         val pageRequest = PageRequest(pageable.pageNumber, pageable.pageSize, mostPopularSort)
-        return getTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+        return getPublicTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
     }
 
     fun getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
         val almostEndedSort = Sort("endDate")
         val pageRequest = PageRequest(pageable.pageNumber, pageable.pageSize, almostEndedSort)
-        return getTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+        return getPublicTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
     }
 
     private fun getTournamentsInWhichUserParticipatesByStatus(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<TournamentPreview> {
@@ -54,7 +55,7 @@ class TournamentPreviewsFetcher(
         }
     }
 
-    private fun getTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
+    private fun getPublicTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
         val tournaments = tournamentRepository.findAllPublicActiveTournamentsInWhichUserDoesNotParticipate(userId, pageable)
         return tournaments.map {
             TournamentPreview(
@@ -64,7 +65,9 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size
+                    it.joinedUsersIds.size,
+                    it.startDate,
+                    it.endDate
             )
         }
     }

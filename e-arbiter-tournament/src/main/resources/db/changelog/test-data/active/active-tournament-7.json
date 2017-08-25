@@ -4,10 +4,10 @@
   "description": "Est ipsum aliqua duis eu qui consequat sit et ut cillum aute. Adipisicing proident aliqua ut anim id excepteur officia deserunt. Elit id Lorem dolor amet commodo proident adipisicing reprehenderit aliqua.",
   "startDate": "2017-08-10T05:32:16",
   "endDate": "2017-12-26T05:46:26",
-  "publicFlag": false,
+  "publicFlag": true,
   "resultsVisibleForJoinedUsers": false,
   "status": "ACTIVE",
-  "password": "password490301",
+  "password": null,
   "joinedUsersIds": [
     12,
     8,
