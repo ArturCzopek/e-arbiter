@@ -30,7 +30,9 @@ export declare let SEMANTIC_DIRECTIVES: Array<any>;
 import {NgModule} from "@angular/core";
 
 @NgModule({
-
+  declarations: [
+    NgSemanticModule
+  ]
 })
 export declare class NgSemanticModule {
 }
