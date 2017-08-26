@@ -3,7 +3,7 @@
   "version": "1.0.0-SNAPSHOT",
   "license": "MIT",
   "scripts": {
-    "postinstall": "cp ng-semantic.d.ts node_modules/ng-semantic/ng-semantic.d.ts",
+    "postinstall": "cp ./ng-semantic.d.ts ./node_modules/ng-semantic/ng-semantic.d.ts",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
