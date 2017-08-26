@@ -27,7 +27,7 @@ import * as _ from "lodash";
             <label>Opis</label>
             <textarea rows="3" name="description" [(ngModel)]="task.description"></textarea>
           </div>
-          <div *ngIf="task.type === 'CodeTask'" class="two fields">
+          <div *ngIf="task.type === taskTypes[0].value" class="two fields">
             <div class="field">
               <label>Jezyki programowania</label>
               <sm-select 
@@ -44,7 +44,7 @@ import * as _ from "lodash";
             </div>
           </div>
           <div class="field">
-            <label>{{ task.type === 'CodeTask' ? 'Dane testowe' : 'Pytania testowe' }}</label>
+            <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}</label>
             <textarea rows="5" name="taskData" [(ngModel)]="task.strData"></textarea>
           </div>
         </form>
@@ -52,7 +52,7 @@ import * as _ from "lodash";
       <modal-actions>
         <div class="ui buttons">
           <div class="ui cancel button">Odrzuć</div>
-          <div class="ui ok button primary">Zapisz</div>
+          <div class="ui ok teal button">Zapisz</div>
         </div>
       </modal-actions>
     </sm-modal>
@@ -76,11 +76,11 @@ export class TaskModalComponent {
     this.showModal(this.task);
   }
 
-  public editTask(task: Task) {
-    this.constituteTask(task);
+  public editTask(originalTask: Task) {
+    this.constituteTask(originalTask);
 
-    this.task = { ...task };
-    this.showModal(this.task, task);
+    this.task = { ...originalTask };
+    this.showModal(this.task, originalTask);
   }
 
   private showModal(task: Task, originalTask?: Task) {

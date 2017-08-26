@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
-import {Task} from "./interface/task.interface";
+import {default as TaskModel, Task} from "./interface/task.interface";
 import {CodeTaskTestSet} from "./interface/code-task-test-set.interface";
 
 @Injectable()
 export class TaskService {
 
   public constituteTask(task: Task): boolean {
-    if (task.type === 'CodeTask') {
+    if (task.type === TaskModel.taskTypes[0].value) {
       return this.constituteCodeTask(task);
     }
 
@@ -27,6 +27,7 @@ export class TaskService {
     const codeTaskTestSets: CodeTaskTestSet[] = [];
 
     const lines = strData.split(/\n/);
+    // a case is a sequence of characters surrounded by quotes or whitespaces
     const cases = lines.map(line => line.match(/(?:[^\s"]+|"[^"]*")+/g));
 
     cases.forEach(c => codeTaskTestSets.push({
