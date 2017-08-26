@@ -49,7 +49,7 @@ public class EmailService {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament expiry");
+            messageHelper.setSubject("E-arbiter - wygaśnięcie turnieju " + tournamentName);
             String content = buildFinishedTournamentEmail(userName, tournamentName);
             messageHelper.setText(content, true);
         };
@@ -64,7 +64,7 @@ public class EmailService {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament deadline extension");
+            messageHelper.setSubject("E-arbiter - przedłużenie terminu zakończenia turnieju " + tournamentName);
             String content = buildExtendTournamentEmail(userName, tournamentName, newDeadline);
             messageHelper.setText(content, true);
         };
@@ -79,7 +79,7 @@ public class EmailService {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter " + tournamentName +  " tournament admin message");
+            messageHelper.setSubject("E-arbiter - wiadomość od admina turnieju " + tournamentName);
             String content = buildAdminBroadcastEmail(userName, tournamentName, message);
             messageHelper.setText(content, true);
         };

@@ -39,7 +39,7 @@ public class EmailController {
     @RequestMapping("/adminBroadcast")
     public String adminBroadcast() {
         try {
-            emailService.sendAdminBroadcastEmail("k2nder@gmail.com", "test userinio", "test tournamentinio", "Test message to all users.");
+            emailService.sendAdminBroadcastEmail("k2nder@gmail.com", "test userinio", "test tournamentinio", "Wiadomość testowa do wszystkich uczestników.");
             return "Admin broadcast email has been sent!";
         }catch(Exception ex) {
             return "Error while trying to send admin broadcast email: " + ex;
