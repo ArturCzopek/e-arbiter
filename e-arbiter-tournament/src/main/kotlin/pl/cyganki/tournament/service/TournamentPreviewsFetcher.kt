@@ -1,9 +1,6 @@
 package pl.cyganki.tournament.service
 
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
+import org.springframework.data.domain.*
 import org.springframework.stereotype.Service
 import pl.cyganki.tournament.model.Tournament
 import pl.cyganki.tournament.model.TournamentStatus
@@ -28,10 +25,29 @@ class TournamentPreviewsFetcher(
     }
 
     fun getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
-        TODO("Find solution for better sorting")
-        val mostPopularSort = Sort(Sort.Direction.DESC, "length(joinedUsersIds)")
-        val pageRequest = PageRequest(pageable.pageNumber, pageable.pageSize, mostPopularSort)
-        return getPublicTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+        val tournaments = tournamentRepository.findAllPublicActiveTournamentsInWhichUserDoesNotParticipate(userId)
+        tournaments.sortByDescending { it.joinedUsersIds.size }
+        val firstElement = pageable.pageNumber * pageable.pageSize
+        val lastElementByPageable = (pageable.pageSize * (pageable.pageNumber + 1)) - 1         // pageable indexing from 0
+        val lastElement = if (lastElementByPageable < tournaments.size - 1) lastElementByPageable else tournaments.size - 1    // we don't want to outofbound exception
+
+        val tournamentPreviews = tournaments
+                .filterIndexed { index, _ -> (firstElement..lastElement).contains(index) }  // if there is empty page, there range will be empty too
+                .map {
+                    TournamentPreview(
+                            it.id,
+                            authModuleInterface.getUserNameById(it.ownerId),
+                            it.name,
+                            it.description,
+                            it.isPublicFlag,
+                            it.status,
+                            it.joinedUsersIds.size,
+                            it.startDate,
+                            it.endDate
+                    )
+                }
+
+        return PageImpl(tournamentPreviews, pageable, tournaments.size.toLong())
     }
 
     fun getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
@@ -56,7 +72,7 @@ class TournamentPreviewsFetcher(
     }
 
     private fun getPublicTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
-        val tournaments = tournamentRepository.findAllPublicActiveTournamentsInWhichUserDoesNotParticipate(userId, pageable)
+        val tournaments = tournamentRepository.findPublicActiveTournamentsInWhichUserDoesNotParticipate(userId, pageable)
         return tournaments.map {
             TournamentPreview(
                     it.id,
@@ -74,9 +90,9 @@ class TournamentPreviewsFetcher(
 
     private fun getTournamentDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
         return if (query == null || query.isEmpty()) {
-            tournamentRepository.findAllTournamentsInWhichUserParticipatesByStatus(userId, status, pageable)
+            tournamentRepository.findTournamentsInWhichUserParticipatesByStatus(userId, status, pageable)
         } else {
-            tournamentRepository.findAllTournamentsInWhichUserParticipatesByStatusAndQuery(userId, status, convertQueryToSQLLikeRegex(query), pageable)
+            tournamentRepository.findTournamentsInWhichUserParticipatesByStatusAndQuery(userId, status, convertQueryToSQLLikeRegex(query), pageable)
         }
     }
 
