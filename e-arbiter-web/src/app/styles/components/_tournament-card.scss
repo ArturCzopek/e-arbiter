@@ -1,0 +1,15 @@
+.task-item {
+  .content {
+    font-size: 15px;
+    line-height: 20px;
+    vertical-align: middle;
+
+    .icon {
+      cursor: pointer;
+
+      &:hover {
+        color: teal;
+      }
+    }
+  }
+}

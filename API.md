@@ -49,6 +49,37 @@ GET /admin/ping
 
 Auth Controller
 
+#### Returns a current logged in user based on object from request from API Gateway
+```
+GET /api/me
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Returns a token for current logged in user. Token is widely used in app to authenticate user.
 ```
 GET /api/token
@@ -99,37 +130,6 @@ GET /api/user
 
 * */*
 
-#### Returns a current logged in user based on object from request from API Gateway
-```
-GET /api/me
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 
 Data Controller
 
@@ -159,28 +159,6 @@ GET /api/data/clientUrl
 
 Executor Controller
 
-#### example
-```
-GET /api/example
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|ExecutionResult|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Executes code
 ```
 GET /api/execute
@@ -196,6 +174,28 @@ GET /api/execute
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|User|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### example
+```
+GET /api/example
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|ExecutionResult|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -235,7 +235,7 @@ GET /api/hystrix
 
 Tournament Controller
 
-#### Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description
+#### addTournament
 ```
 POST /api/add
 ```
@@ -264,19 +264,15 @@ POST /api/add
 
 * */*
 
-## Tournament Results Module
-
-Results Controller
-
-#### getAllResults
+#### test
 ```
-GET /api/all
+GET /api/test
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|Result array|
+|200|OK|Tournament array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -290,3 +286,4 @@ GET /api/all
 
 * */*
 
+null
