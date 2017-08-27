@@ -23,7 +23,7 @@ else
 fi
 
 cd e-arbiter-web;
-ng_output=$(ng build --env=dev --base-href "https://arturczopek.github.io/e-arbiter/" -aot); ng_return_code=$?
+ng_output=$(ng build --env=dev --base-href "https://arturczopek.github.io/e-arbiter/"); ng_return_code=$?
 
 # TODO uncomment, you know when..:)
 # - ng test --watch=false
