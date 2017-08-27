@@ -114,7 +114,18 @@ export class TaskModalComponent {
     const taskParser: TaskParser =
       this.taskTypes.find(tt => tt.value === task.type).parser;
 
-    return taskParser.constituteTask(task);
+    try {
+      if (task.strData) {
+        taskParser.parseStateFromStrData(task);
+      } else {
+        taskParser.buildStrDataFromState(task);
+      }
+    } catch (err) {
+      // TODO: as part of validation - handle parsing errors
+      return false;
+    }
+
+    return true
   }
 
 }

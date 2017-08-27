@@ -1,25 +1,16 @@
 import {TaskParser} from "./task-parser";
 import {Task} from "../interface/task.interface";
-import {Question} from "../interface/question.interface";
 import {Answer} from "../interface/answer.interface";
 
 export class QuizTaskParser implements TaskParser {
-  constituteTask(task: Task): boolean {
-    if (task.strData) {
-      task.questions = this.parseQuizStrData(task.strData);
-    } else {
-      task.strData = this.buildQuizStrData(task.questions);
-    }
 
-    return true;
-  }
-
-  private parseQuizStrData(strData: string): Question[] {
+  public parseStateFromStrData(task: Task): void {
     // each question is represented as a separate paragraph
     // and all such paragraphs are delimited by '---'
-    const paragraphs = strData.split(/^---$/m);
+    const paragraphs = task.strData.split(/^---$/m);
 
-    return paragraphs.map(p => {
+    task.questions = paragraphs.map(p => {
+      // a single line 'ODPOWIEDZI' separates content from answers
       const contentAndQuestions = p.split(/^ODPOWIEDZI$/m);
       return {
         content: contentAndQuestions[0].trim(),
@@ -34,17 +25,17 @@ export class QuizTaskParser implements TaskParser {
             }
           })
       }
-    })
+    });
   }
 
-  private buildQuizStrData(questions: Question[]): string {
+  public buildStrDataFromState(task: Task): void {
     const answersToString = (answers: Answer[]): string => {
       return answers.map(a => 'ODP.' + (a.correct ? ' >>> ' : ' ') + a.content).join('\n');
     };
 
-    const paragraphs = questions.map(
+    const paragraphs = task.questions.map(
       q => q.content + '\nODPOWIEDZI\n' + answersToString(q.answers));
 
-    return paragraphs.join('\n---\n');
+    task.strData = paragraphs.join('\n---\n');
   }
 }

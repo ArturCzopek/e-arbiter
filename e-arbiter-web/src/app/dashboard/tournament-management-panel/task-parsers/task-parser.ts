@@ -1,5 +1,6 @@
 import {Task} from "../interface/task.interface";
 
-export abstract class TaskParser {
-  public abstract constituteTask(task: Task): boolean;
+export interface TaskParser {
+  parseStateFromStrData(task: Task): void;
+  buildStrDataFromState(task: Task): void;
 }

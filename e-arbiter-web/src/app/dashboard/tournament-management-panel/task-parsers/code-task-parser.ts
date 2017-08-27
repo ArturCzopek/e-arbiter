@@ -4,20 +4,10 @@ import {CodeTaskTestSet} from "../interface/code-task-test-set.interface";
 
 export class CodeTaskParser implements TaskParser {
 
-  constituteTask(task: Task): boolean {
-    if (task.strData) {
-      task.codeTaskTestSets = this.parseCodeStrData(task.strData);
-    } else {
-      task.strData = this.buildCodeStrData(task.codeTaskTestSets);
-    }
-
-    return true;
-  }
-
-  private parseCodeStrData(strData: string): CodeTaskTestSet[] {
+  public parseStateFromStrData(task: Task): void {
     const codeTaskTestSets: CodeTaskTestSet[] = [];
 
-    const lines = strData.split(/\n/);
+    const lines = task.strData.split(/\n/);
     // a case is a sequence of characters surrounded by quotes or whitespaces
     const cases = lines.map(line => line.match(/(?:[^\s"]+|"[^"]*")+/g));
 
@@ -26,13 +16,13 @@ export class CodeTaskParser implements TaskParser {
       parameters: c.slice(0, c.length - 1)
     }));
 
-    return codeTaskTestSets;
+    task.codeTaskTestSets = codeTaskTestSets;
   }
 
-  private buildCodeStrData(codeTaskTestSets: CodeTaskTestSet[]): string {
-    const lines = codeTaskTestSets.map(
+  public buildStrDataFromState(task: Task): void {
+    const lines = task.codeTaskTestSets.map(
       testSet => testSet.parameters.join(' ') + ' ' + testSet.expectedResult);
 
-    return lines.join('\n');
+    task.strData = lines.join('\n');
   }
 }
