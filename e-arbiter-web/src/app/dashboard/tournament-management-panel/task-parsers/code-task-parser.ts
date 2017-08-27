@@ -1,19 +1,10 @@
-import {Injectable} from "@angular/core";
-import {default as TaskModel, Task} from "./interface/task.interface";
-import {CodeTaskTestSet} from "./interface/code-task-test-set.interface";
+import {TaskParser} from "./task-parser";
+import {Task} from "../interface/task.interface";
+import {CodeTaskTestSet} from "../interface/code-task-test-set.interface";
 
-@Injectable()
-export class TaskService {
+export class CodeTaskParser implements TaskParser {
 
-  public constituteTask(task: Task): boolean {
-    if (task.type === TaskModel.taskTypes[0].value) {
-      return this.constituteCodeTask(task);
-    }
-
-    return false;
-  }
-
-  private constituteCodeTask(task: Task): boolean {
+  constituteTask(task: Task): boolean {
     if (task.strData) {
       task.codeTaskTestSets = this.parseCodeStrData(task.strData);
     } else {
@@ -44,5 +35,4 @@ export class TaskService {
 
     return lines.join('\n');
   }
-
 }
