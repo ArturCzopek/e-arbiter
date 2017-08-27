@@ -33,6 +33,7 @@ before_script:
  - npm install -g angular-cli-ghpages
  - cd e-arbiter-web
  - npm install
+ - npm fixSemantic
  - cd $TRAVIS_BUILD_DIR
 
 cache:
