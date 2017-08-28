@@ -95,7 +95,7 @@ export class AuthService {
   private getUserFromServer(): any {
     this.http.get(`${environment.server.auth.userUrl}`, this.prepareAuthOptions())
       .map(res => res.json())
-      .catch(this.handleInvalidToken)      // token is invalid
+      .catch(this.handleInvalidToken.bind(this))      // token is invalid
       .first()
       .subscribe(
         user => {
