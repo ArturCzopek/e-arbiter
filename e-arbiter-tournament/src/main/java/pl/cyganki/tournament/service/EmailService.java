@@ -51,7 +51,7 @@ public class EmailService {
         try {
             javaMailSender.send(messagePreparator);
         } catch (MailException e) {
-            // runtime exception
+            log.warn(e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class EmailService {
         try {
             javaMailSender.send(messagePreparator);
         } catch (MailException e) {
-            // runtime exception
+            log.warn(e.getMessage());
         }
     }
 
