@@ -3,6 +3,7 @@ package pl.cyganki.gateway.filter
 import com.netflix.zuul.ZuulFilter
 import mu.KLogging
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestMethod
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getRequest
@@ -10,12 +11,13 @@ import pl.cyganki.gateway.utils.getResponse
 
 
 /**
- * Filter responsible for logging whole request through API Gateway
+ * Filter responsible for logging all requests through API Gateway (except OPTIONS type)
  */
 @Component
 class LoggerFilter(val userSessionCache: UserSessionCache): ZuulFilter() {
 
-    override fun shouldFilter() = true
+    // do not log OPTIONS request. It is not worth of it because we don't have token there and we cannot write a user name
+    override fun shouldFilter() = !RequestMethod.OPTIONS.toString().equals(getRequest().method, ignoreCase = true)
 
     override fun filterType() = FilterType.POST.value
 

@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
-import pl.cyganki.utils.GlobalValues
 
 @Profile("dev")
 @Configuration
@@ -30,8 +29,8 @@ open class SecurityConfiguration(
                 .antMatchers("/", "/index.html", "/login**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(LoginUrlAuthenticationEntryPoint("/"))
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/logout")
-                .invalidateHttpSession(true).deleteCookies(GlobalValues.AUTH_TOKEN)
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/#/logout")
+                .invalidateHttpSession(true)
                 .and().csrf().disable().headers().frameOptions().disable()
 
         logger.info("Configured dev security")
