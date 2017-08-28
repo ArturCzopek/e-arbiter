@@ -1,5 +1,6 @@
 package pl.cyganki.tournament.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,9 +9,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import pl.cyganki.utils.security.dto.User;
 
 
 @Service
+@Slf4j
 public class EmailService {
 
     private JavaMailSender javaMailSender;
@@ -22,16 +25,67 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
-    private String buildFinishedTournamentEmail(String userName, String tournamentName) {
+    public void sendFinishedTournamentEmail(String recipient, String tournamentName) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject("e-Arbiter - wygaśnięcie turnieju " + tournamentName);
+            String content = buildFinishedTournamentEmail(tournamentName);
+            messageHelper.setText(content, true);
+        };
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            log.warn(e.getMessage());
+        }
+    }
+
+    public void sendExtendTournamentEmail(String recipient, String tournamentName, String newDeadline) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject("e-Arbiter - przedłużenie terminu zakończenia turnieju " + tournamentName);
+            String content = buildExtendTournamentEmail(tournamentName, newDeadline);
+            messageHelper.setText(content, true);
+        };
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            // runtime exception
+        }
+    }
+
+    public void sendAdminBroadcastEmail(String recipient, User user, String tournamentName, String message) {
+
+        if (user.getRoles().stream().noneMatch(role -> "admin".equalsIgnoreCase(role.getName()))) {
+            throw new SecurityException("User " + user.getName() + " cannot send an admin email!");
+        }
+
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject("e-Arbiter - wiadomość od admina turnieju " + tournamentName);
+            String content = buildAdminBroadcastEmail(user.getName(), tournamentName, message);
+            messageHelper.setText(content, true);
+        };
+
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            // runtime exception
+        }
+    }
+
+    private String buildFinishedTournamentEmail(String tournamentName) {
         Context context = new Context();
-        context.setVariable("userName", userName);
+        context.setVariable("userName", "e-Arbiter");
         context.setVariable("tournamentName", tournamentName);
         return templateEngine.process("FinishedTournamentEmailTemplate", context);
     }
 
-    private String buildExtendTournamentEmail(String userName, String tournamentName, String newDeadline) {
+    private String buildExtendTournamentEmail(String tournamentName, String newDeadline) {
         Context context = new Context();
-        context.setVariable("userName", userName);
+        context.setVariable("userName", "e-Arbiter");
         context.setVariable("tournamentName", tournamentName);
         context.setVariable("newDeadline", newDeadline);
         return templateEngine.process("ExtendTournamentEmailTemplate", context);
@@ -44,50 +98,4 @@ public class EmailService {
         context.setVariable("message", message);
         return templateEngine.process("AdminBroadcastEmailTemplate", context);
     }
-
-    public void sendFinishedTournamentEmail(String recipient, String userName, String tournamentName) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter - wygaśnięcie turnieju " + tournamentName);
-            String content = buildFinishedTournamentEmail(userName, tournamentName);
-            messageHelper.setText(content, true);
-        };
-        try {
-            javaMailSender.send(messagePreparator);
-        } catch (MailException e) {
-            // runtime exception
-        }
-    }
-
-    public void sendExtendTournamentEmail(String recipient, String userName, String tournamentName, String newDeadline) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter - przedłużenie terminu zakończenia turnieju " + tournamentName);
-            String content = buildExtendTournamentEmail(userName, tournamentName, newDeadline);
-            messageHelper.setText(content, true);
-        };
-        try {
-            javaMailSender.send(messagePreparator);
-        } catch (MailException e) {
-            // runtime exception
-        }
-    }
-
-    public void sendAdminBroadcastEmail(String recipient, String userName, String tournamentName, String message) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(recipient);
-            messageHelper.setSubject("E-arbiter - wiadomość od admina turnieju " + tournamentName);
-            String content = buildAdminBroadcastEmail(userName, tournamentName, message);
-            messageHelper.setText(content, true);
-        };
-        try {
-            javaMailSender.send(messagePreparator);
-        } catch (MailException e) {
-            // runtime exception
-        }
-    }
-
 }

@@ -25,5 +25,4 @@ dependencies {
     compile('org.projectlombok:lombok:' + lombokVersion)
     compile('org.springframework.boot:spring-boot-starter-mail')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
