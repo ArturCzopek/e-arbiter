@@ -26,10 +26,10 @@ public class TournamentController {
         this.tournamentPreviewsFetcher = tournamentPreviewsFetcher;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
-    public Tournament addTournament(@RequestBody @Valid Tournament tournament) {
-        // TODO create service with adding user id etc
+    public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
+        tournament.setOwnerId(user.getId());
         return tournamentRepository.save(tournament);
     }
 

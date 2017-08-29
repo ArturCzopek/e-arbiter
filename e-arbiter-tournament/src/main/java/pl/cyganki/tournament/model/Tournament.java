@@ -31,8 +31,6 @@ public class Tournament {
     @Id
     private String id;
 
-    // todo: allows nulls there. Owner Id should be fetched from request object and set then
-    @NotNull(message = "Tournament's 'ownerId' cannot be empty")
     private Long ownerId;
 
     @NotNull(message = "Tournament's 'name' cannot be empty")
@@ -58,7 +56,7 @@ public class Tournament {
 
     private String password;
 
-    protected TournamentStatus status = TournamentStatus.DRAFT;
+    protected TournamentStatus status;
 
     @Valid
     @NotNull(message = "Tournament's task list cannot be empty")
@@ -174,6 +172,10 @@ public class Tournament {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setStatus(TournamentStatus status) {
+        this.status = status;
     }
 
     public void activate() {
