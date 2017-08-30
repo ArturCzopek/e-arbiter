@@ -100,18 +100,15 @@ POST /api/logout
 
 * */*
 
-#### Returns a current logged in user based on object from request from API Gateway
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
 ```
-GET /api/me
+GET /api/user
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
+|HeaderParameter|oauth-token|oauth-token|true|string||
 
 
 ##### Responses
@@ -131,15 +128,18 @@ GET /api/me
 
 * */*
 
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+#### Returns a current logged in user based on object from request from API Gateway
 ```
-GET /api/user
+GET /api/me
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|HeaderParameter|oauth-token|oauth-token|true|string||
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
 
 
 ##### Responses
@@ -188,15 +188,15 @@ GET /api/data/clientUrl
 
 Executor Controller
 
-#### example
+#### Hystrix demo
 ```
-GET /api/example
+GET /api/hystrix
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|ExecutionResult|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -210,15 +210,15 @@ GET /api/example
 
 * */*
 
-#### Hystrix demo
+#### example
 ```
-GET /api/hystrix
+GET /api/example
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|ExecutionResult|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -265,9 +265,9 @@ POST /api/add
 
 * */*
 
-#### Returns a page with active tournaments' details in which logged in user participates
+#### Returns a page with finished tournaments' details in which logged in user participates
 ```
-GET /api/all/active
+GET /api/all/finished
 ```
 
 ##### Parameters
@@ -297,9 +297,9 @@ GET /api/all/active
 
 * */*
 
-#### Returns a page with finished tournaments' details in which logged in user participates
+#### Returns a page with active tournaments' details in which logged in user participates
 ```
-GET /api/all/finished
+GET /api/all/active
 ```
 
 ##### Parameters
