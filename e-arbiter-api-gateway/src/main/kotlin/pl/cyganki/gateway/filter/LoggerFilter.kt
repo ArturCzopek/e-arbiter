@@ -14,7 +14,7 @@ import pl.cyganki.gateway.utils.getResponse
  * Filter responsible for logging all requests through API Gateway (except OPTIONS type)
  */
 @Component
-class LoggerFilter(val userSessionCache: UserSessionCache): ZuulFilter() {
+class LoggerFilter(private val userSessionCache: UserSessionCache): ZuulFilter() {
 
     // do not log OPTIONS request. It is not worth of it because we don't have token there and we cannot write a user name
     override fun shouldFilter() = !RequestMethod.OPTIONS.toString().equals(getRequest().method, ignoreCase = true)

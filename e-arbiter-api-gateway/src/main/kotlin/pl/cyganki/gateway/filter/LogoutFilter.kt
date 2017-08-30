@@ -5,10 +5,12 @@ import mu.KLogging
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMethod
+import pl.cyganki.gateway.filter.utils.FilterRegex
 import pl.cyganki.gateway.service.UserSessionCache
 import pl.cyganki.gateway.utils.FilterType
 import pl.cyganki.gateway.utils.getLoggedInUserAuthToken
 import pl.cyganki.gateway.utils.getRequest
+import java.util.regex.Pattern
 import pl.cyganki.gateway.utils.getResponse
 
 
@@ -16,14 +18,11 @@ import pl.cyganki.gateway.utils.getResponse
  * Filter responsible for clean-up after user logout
  */
 @Component
-class LogoutFilter(val userSessionCache: UserSessionCache) : ZuulFilter() {
+class LogoutFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    val checkLogoutUrl = "/auth/api/logout"
-
-    override fun shouldFilter() =
-            getRequest().requestURI.contains(checkLogoutUrl)
-                    && RequestMethod.POST.toString().equals(getRequest().method, ignoreCase = true)
-                    && HttpStatus.OK.value() == getResponse().status
+    override fun shouldFilter() = Pattern.matches(FilterRegex.AUTH_LOGOUT_PATH, getRequest().requestURI)
+            && RequestMethod.POST.toString().equals(getRequest().method, ignoreCase = true)
+            && HttpStatus.OK.value() == getResponse().status
 
     override fun filterType() = FilterType.POST.value
 
