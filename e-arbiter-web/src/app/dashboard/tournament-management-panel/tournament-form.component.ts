@@ -1,4 +1,4 @@
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
@@ -15,11 +15,15 @@ declare var $: any;
     <form [formGroup]="myForm" class="ui form" (ngSubmit)="save(myForm.value)">
       <h2 class="ui dividing header">Tworzenie Turnieju - Szablon</h2>
       <div class="two fields">
-        <div class="field">
-          <label>Tytuł</label>
+        <div class="field" [ngClass]="{ 'error' : isControlInvalidAndTouched('name') }">
+          <label>Nazwa</label>
           <input type="text" formControlName="name"/>
+          <div
+            *ngIf="isControlInvalidAndTouched('name')"
+            class="ui basic red pointing prompt label"
+          >Nazwa turnieju powinna być długości od 3 do 64 znaków.</div>
         </div>
-        <div class="field">
+        <div class="field" [ngClass]="{ 'error' : isControlInvalidAndTouched('endDate') }">
           <label>Do kiedy</label>
           <div class="ui calendar" id="calendar">
             <div class="ui input left icon">
@@ -27,6 +31,10 @@ declare var $: any;
               <input type="text" formControlName="endDate">
             </div>
           </div>
+          <div
+            *ngIf="isControlInvalidAndTouched('endDate')"
+            class="ui basic red pointing prompt label"
+          >Data zakończenia turnieju jest wymagana.</div>
         </div>
       </div>
       <div class="field">
@@ -78,7 +86,7 @@ declare var $: any;
         </div>
       </div>
       <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
-        <div class="field">
+        <div class="field" [ngClass]="{ 'error' : isControlInvalidAndTouched('password') }">
           <label>Hasło</label>
           <input [type]="showPassword ? 'text' : 'password'" formControlName="password"/>
         </div>
@@ -88,7 +96,7 @@ declare var $: any;
         </div>
       </div>
       <div class="button-container space-above-40">
-        <button class="ui teal button huge" type="submit">Utwórz</button>
+        <button [disabled]="!myForm.valid" class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
     
@@ -123,15 +131,35 @@ export class TournamentFormComponent implements OnInit {
     });
 
     this.myForm = this.fb.group({
-      name: [''],
-      endDate: [''],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
+      endDate: ['', Validators.required],
       description: [''],
       publicFlag: [true],
       resultsVisibleForJoinedUsers: [false],
       password: [''],
       status: [TournamentStatus.DRAFT],
-      tasks: this.fb.array([])
+      tasks: this.fb.array([], Validators.compose([Validators.required, Validators.minLength(1)]))
     });
+
+    this.myForm.get('publicFlag').valueChanges
+      .subscribe(publicFlag => this.onPublicFlagChange(publicFlag));
+  }
+
+  isControlInvalidAndTouched(controlName: string): boolean {
+    return !this.myForm.controls[controlName].valid &&
+      this.myForm.controls[controlName].touched;
+  }
+
+  private onPublicFlagChange(publicFlag: boolean): void {
+    const passwordControl = this.myForm.get('password');
+
+    if (!publicFlag) {
+      passwordControl.setValidators([Validators.required]);
+    } else {
+      passwordControl.setValidators([]);
+    }
+
+    passwordControl.updateValueAndValidity();
   }
 
   save(tournament: Tournament) {
