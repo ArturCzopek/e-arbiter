@@ -13,7 +13,7 @@ import java.util.List;
 public class Question {
 
     @NotNull(message = "Question's 'content' cannot be empty")
-    @Size(min = 3, max = 64, message = "Question's 'content' must be of length between 3 and 64 characters")
+    @Size(min = 3, max = 200, message = "Question's 'content' must be of length between 3 and 64 characters")
     private String content;
 
     @Valid

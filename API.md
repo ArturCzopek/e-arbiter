@@ -2,28 +2,6 @@
 
 Admin Controller
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
-```
-GET /admin/all
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|DbUser array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
 GET /admin/ping
@@ -46,18 +24,15 @@ GET /admin/ping
 
 * */*
 
-
-Auth Controller
-
-#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /api/token
+GET /admin/all
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|DbUser array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -71,22 +46,52 @@ GET /api/token
 
 * */*
 
-#### Endpoint for CHECKING if user can be logged out (it doesn't logout!). It allows API Gateway to clear user from cache on the gateway level. Returns ok if is user's token to be logged out
+
+Auth Controller
+
+#### Returns a current logged in user based on object from request from API Gateway
 ```
-POST /api/logout
+GET /api/me
 ```
 
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|HeaderParameter|oauth-token|oauth-token|false|string||
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+
+#### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+
+```
+GET /api/token
+```
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|string|
-|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -108,38 +113,7 @@ GET /api/user
 ##### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|HeaderParameter|oauth-token|oauth-token|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a current logged in user based on object from request from API Gateway
-```
-GET /api/me
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
+|HeaderParameter|oauth_token|oauth_token|true|string||
 
 
 ##### Responses
@@ -232,6 +206,30 @@ GET /api/example
 
 * */*
 
+
+#### Hystrix demo
+```
+GET /api/hystrix
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+
 ## Tournament Module
 
 Tournament Controller
@@ -265,9 +263,10 @@ POST /api/add
 
 * */*
 
-#### Returns a page with finished tournaments' details in which logged in user participates
+
+#### Returns a page with active tournaments' details in which logged in user participates
 ```
-GET /api/all/finished
+GET /api/all/active
 ```
 
 ##### Parameters
@@ -297,9 +296,9 @@ GET /api/all/finished
 
 * */*
 
-#### Returns a page with active tournaments' details in which logged in user participates
+#### Returns a page with finished tournaments' details in which logged in user participates
 ```
-GET /api/all/active
+GET /api/all/finished
 ```
 
 ##### Parameters

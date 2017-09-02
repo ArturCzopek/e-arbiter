@@ -1,0 +1,289 @@
+{
+  "ownerId": 2,
+  "name": "nisi cupidatat aliqua deserunt Lorem eu",
+  "description": "Mollit labore adipisicing nulla commodo cupidatat esse eu elit adipisicing in laborum velit fugiat. Labore ad excepteur laboris enim est magna voluptate. Magna esse excepteur nisi officia.",
+  "startDate": "2017-05-30T06:58:37",
+  "endDate": "2017-07-24T10:39:13",
+  "publicFlag": true,
+  "resultsVisibleForJoinedUsers": false,
+  "status": "FINISHED",
+  "password": null,
+  "joinedUsersIds": [
+    3,
+    19,
+    10,
+    6,
+    14,
+    4
+  ],
+  "tasks": [
+    {
+      "type": "CodeTask",
+      "name": "est anim cupidatat deserunt pariatur",
+      "description": "Mollit culpa consequat dolor qui laboris qui consequat deserunt aliquip. Amet labore eu anim dolor qui consequat amet amet consequat Lorem exercitation dolore.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 145,
+          "parameters": [
+            -19,
+            10,
+            -14,
+            -27,
+            25
+          ]
+        },
+        {
+          "expectedResult": 253,
+          "parameters": [
+            15,
+            -25,
+            -26,
+            -16
+          ]
+        },
+        {
+          "expectedResult": 233,
+          "parameters": [
+            -12,
+            -3,
+            -26,
+            3
+          ]
+        },
+        {
+          "expectedResult": 108,
+          "parameters": [
+            10,
+            14
+          ]
+        },
+        {
+          "expectedResult": 56,
+          "parameters": [
+            19,
+            -7,
+            -10,
+            25
+          ]
+        },
+        {
+          "expectedResult": 252,
+          "parameters": [
+            -10
+          ]
+        }
+      ],
+      "languages": [
+        "JAVA",
+        "PYTHON"
+      ],
+      "timeoutInMs": 5000
+    },
+    {
+      "type": "CodeTask",
+      "name": "nisi cupidatat cupidatat laborum tempor",
+      "description": "Nisi et incididunt aliquip consectetur mollit ut. Irure ullamco ex veniam excepteur qui.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 251,
+          "parameters": [
+            10,
+            27,
+            -2,
+            -29
+          ]
+        },
+        {
+          "expectedResult": 270,
+          "parameters": [
+            -17,
+            -2,
+            20,
+            3,
+            1
+          ]
+        },
+        {
+          "expectedResult": 248,
+          "parameters": [
+            27,
+            24,
+            9,
+            -27,
+            15
+          ]
+        },
+        {
+          "expectedResult": 260,
+          "parameters": [
+            14,
+            -7,
+            14,
+            22,
+            19
+          ]
+        }
+      ],
+      "languages": [
+        "CPP"
+      ],
+      "timeoutInMs": 50
+    },
+    {
+      "type": "CodeTask",
+      "name": "sit sint anim anim voluptate",
+      "description": "Ut commodo aliquip veniam irure id fugiat tempor sit occaecat exercitation. Do ipsum pariatur mollit anim ad pariatur ea proident ullamco ad adipisicing non aliqua magna.",
+      "codeTaskTestSets": [
+        {
+          "expectedResult": 142,
+          "parameters": [
+            -27,
+            -14
+          ]
+        },
+        {
+          "expectedResult": 126,
+          "parameters": [
+            -4,
+            24,
+            -9,
+            -19
+          ]
+        }
+      ],
+      "languages": [
+        "PYTHON"
+      ],
+      "timeoutInMs": 5000
+    },
+    {
+      "type": "QuizTask",
+      "name": "elit ad consectetur exercitation aliquip",
+      "description": "Ut aute labore laborum excepteur. Sunt sunt aliqua fugiat adipisicing magna ut id irure et adipisicing qui enim nostrud.",
+      "questions": [
+        {
+          "content": "voluptate quis commodo magna duis quis Lorem aliquip minim qui elit velit anim in reprehenderit proident ex est ullamco non",
+          "answers": [
+            {
+              "content": "cillum nisi cillum quis veniam",
+              "correct": false
+            },
+            {
+              "content": "enim dolore laboris quis cillum",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "exercitation laboris Lorem aliqua eiusmod nulla elit ad nostrud et veniam esse aliquip nisi laborum mollit commodo consectetur cillum ad",
+          "answers": [
+            {
+              "content": "ex eiusmod cupidatat mollit enim",
+              "correct": true
+            },
+            {
+              "content": "aute nostrud fugiat officia exercitation",
+              "correct": false
+            },
+            {
+              "content": "sit cupidatat aute mollit pariatur",
+              "correct": false
+            },
+            {
+              "content": "pariatur dolor ipsum enim nulla",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "ullamco ex elit Lorem ex aute veniam pariatur sunt proident aliqua nisi mollit sit cillum sint ullamco elit ad est",
+          "answers": [
+            {
+              "content": "laboris velit esse aute non",
+              "correct": true
+            },
+            {
+              "content": "ullamco mollit proident amet sunt",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "incididunt quis minim magna sint cupidatat cillum labore commodo veniam aliquip tempor nostrud consectetur ex dolore culpa sint anim nostrud",
+          "answers": [
+            {
+              "content": "sit deserunt eu in mollit",
+              "correct": true
+            },
+            {
+              "content": "consequat ad ad Lorem consectetur",
+              "correct": true
+            },
+            {
+              "content": "voluptate aliquip ex elit id",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "laboris irure ea nisi amet ullamco anim do duis anim anim ullamco cupidatat quis officia minim nulla aliquip aute consectetur",
+          "answers": [
+            {
+              "content": "et sit et quis consectetur",
+              "correct": true
+            },
+            {
+              "content": "culpa velit irure aute quis",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "enim id laboris ex amet",
+      "description": "Esse qui minim ex amet ad incididunt. Amet veniam minim veniam amet sint duis mollit enim laborum dolore pariatur et enim officia.",
+      "questions": [
+        {
+          "content": "esse consectetur qui occaecat ea culpa elit magna et veniam duis reprehenderit ipsum dolor sint qui veniam sint elit laboris",
+          "answers": [
+            {
+              "content": "pariatur minim aute deserunt exercitation",
+              "correct": false
+            },
+            {
+              "content": "officia ex elit in sint",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "mollit et incididunt qui ipsum culpa tempor magna cillum velit eiusmod officia duis velit nisi laboris sit tempor ipsum exercitation",
+          "answers": [
+            {
+              "content": "ad deserunt excepteur velit dolore",
+              "correct": true
+            },
+            {
+              "content": "laborum mollit esse nisi duis",
+              "correct": false
+            },
+            {
+              "content": "culpa in excepteur fugiat minim",
+              "correct": true
+            },
+            {
+              "content": "aliqua nostrud eu nostrud pariatur",
+              "correct": false
+            },
+            {
+              "content": "labore eiusmod amet fugiat esse",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

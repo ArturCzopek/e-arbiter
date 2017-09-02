@@ -35,13 +35,18 @@ class TournamentPreviewsFetcherTest {
     @Autowired
     lateinit var tournamentRepository: TournamentRepository
 
-    val userId = 3L
+    private val userId = 3L
 
     @Before
     fun `set up`() {
         authModule = MockAuthModule()
         tournamentPreviewsFetcher = TournamentPreviewsFetcher(tournamentRepository, authModule)
     }
+
+
+    /**
+     * getActiveTournamentsInWhichUserParticipates
+     */
 
     @Test
     fun `should return all active user's tournaments in which user participates in one page`() {
@@ -52,27 +57,28 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
-        Assert.assertEquals(2, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(6, foundTournamentsPage.totalElements)
+        Assert.assertEquals(6, foundTournamentsPage.numberOfElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[1].status)
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
     }
 
     @Test
     fun `should return one page active user's tournament in which user participates and information about two available pages`() {
         // given
-        val pageRequest = PageRequest(0, 1)
+        val pageRequest = PageRequest(0, 4)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
-        Assert.assertEquals(1, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(6, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
         Assert.assertEquals(2, foundTournamentsPage.totalPages)
         Assert.assertFalse(foundTournamentsPage.isLast)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
     }
 
     @Test
@@ -84,11 +90,17 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
+        Assert.assertEquals(6, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[1].status)
-        Assert.assertTrue(foundTournamentsPage.content[0].name.compareTo(foundTournamentsPage.content[1].name) > 0)
+
+        for (i in 0..4) {
+            for (j in i + 1..5) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name > foundTournamentsPage.content[j].name)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
     }
 
     @Test
@@ -100,18 +112,24 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
+        Assert.assertEquals(6, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[1].status)
-        Assert.assertTrue(foundTournamentsPage.content[0].name.compareTo(foundTournamentsPage.content[1].name) < 0)
+        for (i in 0..4) {
+            for (j in i + 1..5) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name < foundTournamentsPage.content[j].name)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
     }
 
     @Test
     fun `should return one active user's tournaments in which user participates by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val query = "Private!"  // in this case, it should be found in name
+        val tournamentToFindName = "in est culpa tempor non consequat"
+        val query = tournamentToFindName.substring(1, 11)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, query)
@@ -120,8 +138,13 @@ class TournamentPreviewsFetcherTest {
         Assert.assertEquals(1, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
         Assert.assertEquals(TournamentStatus.ACTIVE, foundTournamentsPage.content[0].status)
-        Assert.assertEquals("Active Tournament - private!", foundTournamentsPage.content[0].name)
+        Assert.assertEquals(tournamentToFindName, foundTournamentsPage.content[0].name)
     }
+
+
+    /**
+     * getFinishedTournamentsInWhichUserParticipates
+     */
 
     @Test
     fun `should return all finished user's tournaments in which user participates in one page`() {
@@ -132,27 +155,28 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
-        Assert.assertEquals(2, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(5, foundTournamentsPage.totalElements)
+        Assert.assertEquals(5, foundTournamentsPage.numberOfElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[1].status)
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
 
     @Test
     fun `should return one page finished user's tournament in which user participates and information about two available pages`() {
         // given
-        val pageRequest = PageRequest(1, 1)
+        val pageRequest = PageRequest(1, 4)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
+        Assert.assertEquals(5, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.numberOfElements)
         Assert.assertEquals(2, foundTournamentsPage.totalPages)
         Assert.assertFalse(foundTournamentsPage.isFirst)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[0].status)
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
 
     @Test
@@ -164,11 +188,17 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
+        Assert.assertEquals(5, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[1].status)
-        Assert.assertTrue(foundTournamentsPage.content[0].name.compareTo(foundTournamentsPage.content[1].name) > 0)
+
+        for (i in 0..3) {
+            for (j in i + 1..4) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name > foundTournamentsPage.content[j].name)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
 
     @Test
@@ -180,18 +210,27 @@ class TournamentPreviewsFetcherTest {
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
-        Assert.assertEquals(2, foundTournamentsPage.totalElements)
+        Assert.assertEquals(5, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[0].status)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[1].status)
-        Assert.assertTrue(foundTournamentsPage.content[0].name.compareTo(foundTournamentsPage.content[1].name) < 0)
+
+        for (i in 0..3) {
+            for (j in i + 1..4) {
+                Assert.assertTrue(foundTournamentsPage.content[i].name < foundTournamentsPage.content[j].name)
+            }
+        }
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
 
     @Test
     fun `should return one finished user's tournaments in which user participates by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val query = "haha"  // in this case, it should be found in description
+        val tournamentToFindName = "dolore Lorem non commodo cupidatat non"
+        val tournamentToFindDescription = "Occaecat deserunt occaecat consequat pariatur consectetur qui elit veniam nostrud veniam magna ex duis."
+        val query = tournamentToFindDescription.substring(5)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, query)
@@ -199,10 +238,215 @@ class TournamentPreviewsFetcherTest {
         // then
         Assert.assertEquals(1, foundTournamentsPage.totalElements)
         Assert.assertEquals(1, foundTournamentsPage.totalPages)
-        Assert.assertEquals(TournamentStatus.FINISHED, foundTournamentsPage.content[0].status)
-        Assert.assertEquals("Finished Tournament - private!", foundTournamentsPage.content[0].name)
-        Assert.assertEquals("UHAHAHAHHAHA", foundTournamentsPage.content[0].description)
+        Assert.assertEquals(tournamentToFindName, foundTournamentsPage.content[0].name)
+        Assert.assertEquals(tournamentToFindDescription, foundTournamentsPage.content[0].description)
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
     }
+
+
+    /**
+     * getActiveNewestTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public newest active tournaments in which user does not participate (ordered by start date desc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        (0..2).forEach { i ->
+            (i + 1..3).forEach { j ->
+                Assert.assertTrue(foundTournamentsPage.content[i].startDate!! > foundTournamentsPage.content[j].startDate)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+    }
+
+    @Test
+    fun `should return valid second (last) page with oldest active tournament in which user does not participate`() {
+        // given
+        val firstPageRequest = PageRequest(0, 3)
+        val lastPageRequest = PageRequest(1, 3)
+
+        // when
+        val firstTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
+        val lastTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, lastPageRequest)
+
+        // then
+        Assert.assertEquals(4, firstTournamentsPage.totalElements)
+        Assert.assertEquals(3, firstTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, firstTournamentsPage.totalPages)
+
+        Assert.assertEquals(4, lastTournamentsPage.totalElements)
+        Assert.assertEquals(1, lastTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, lastTournamentsPage.totalPages)
+        Assert.assertTrue(lastTournamentsPage.isLast)
+
+        Assert.assertEquals(TournamentStatus.ACTIVE, lastTournamentsPage.content[0].status)
+
+        firstTournamentsPage.content
+                .forEach { Assert.assertTrue(it.startDate!! > lastTournamentsPage.content[0].startDate) }
+    }
+
+    @Test
+    fun `should return empty page for 'too large' page size request for newest tournaments`() {
+        // given
+        val pageRequest = PageRequest(3, 20)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(0, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+    }
+
+    /**
+     * getActiveMostPopularTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public most popular active tournaments in which user does not participate (ordered by joined users amount desc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        (0..2).forEach { i ->
+            (i + 1..3).forEach { j ->
+                Assert.assertTrue(foundTournamentsPage.content[i].users >= foundTournamentsPage.content[j].users)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+    }
+
+    @Test
+    fun `should return valid second (last) page with the least popular active tournament in which user does not participate`() {
+        // given
+        val firstPageRequest = PageRequest(0, 3)
+        val lastPageRequest = PageRequest(1, 3)
+
+        // when
+        val firstTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
+        val lastTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, lastPageRequest)
+
+        // then
+        Assert.assertEquals(4, firstTournamentsPage.totalElements)
+        Assert.assertEquals(3, firstTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, firstTournamentsPage.totalPages)
+
+        Assert.assertEquals(4, lastTournamentsPage.totalElements)
+        Assert.assertEquals(1, lastTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, lastTournamentsPage.totalPages)
+        Assert.assertTrue(lastTournamentsPage.isLast)
+
+        Assert.assertEquals(TournamentStatus.ACTIVE, lastTournamentsPage.content[0].status)
+
+        firstTournamentsPage.content
+                .forEach { Assert.assertTrue(it.users > lastTournamentsPage.content[0].users) }
+    }
+
+    @Test
+    fun `should return empty page for 'too large' page size request for the most popular tournaments`() {
+        // given
+        val pageRequest = PageRequest(3, 20)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(0, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+    }
+
+
+    /**
+     * getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate
+     */
+
+    @Test
+    fun `should return public the nearest end active tournaments in which user does not participate (ordered by date asc)`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(4, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+
+        (0..2).forEach { i ->
+            (i + 1..3).forEach { j ->
+                Assert.assertTrue(foundTournamentsPage.content[i].endDate!! < foundTournamentsPage.content[j].endDate)
+            }
+        }
+
+        foundTournamentsPage.content
+                .forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+    }
+
+    @Test
+    fun `should return valid second (last) page with the latest end date active tournament in which user does not participate`() {
+        // given
+        val firstPageRequest = PageRequest(0, 3)
+        val lastPageRequest = PageRequest(1, 3)
+
+        // when
+        val firstTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
+        val lastTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, lastPageRequest)
+
+        // then
+        Assert.assertEquals(4, firstTournamentsPage.totalElements)
+        Assert.assertEquals(3, firstTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, firstTournamentsPage.totalPages)
+
+        Assert.assertEquals(4, lastTournamentsPage.totalElements)
+        Assert.assertEquals(1, lastTournamentsPage.numberOfElements)
+        Assert.assertEquals(2, lastTournamentsPage.totalPages)
+        Assert.assertTrue(lastTournamentsPage.isLast)
+
+        Assert.assertEquals(TournamentStatus.ACTIVE, lastTournamentsPage.content[0].status)
+
+        firstTournamentsPage.content
+                .forEach { Assert.assertTrue(it.endDate!! < lastTournamentsPage.content[0].endDate) }
+    }
+
+    @Test
+    fun `should return empty page for 'too large' page size request for the nearest end tournaments`() {
+        // given
+        val pageRequest = PageRequest(3, 20)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
+
+        // then
+        Assert.assertEquals(4, foundTournamentsPage.totalElements)
+        Assert.assertEquals(0, foundTournamentsPage.numberOfElements)
+        Assert.assertEquals(1, foundTournamentsPage.totalPages)
+    }
+
 
     inner class MockAuthModule : AuthModuleInterface {
         override fun getToken() = throw UnsupportedOperationException("This mock shouldn't call this method")

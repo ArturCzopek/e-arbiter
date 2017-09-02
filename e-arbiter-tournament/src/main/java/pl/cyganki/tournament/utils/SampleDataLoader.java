@@ -39,23 +39,37 @@ public class SampleDataLoader implements ApplicationRunner {
         mongoTemplate.getDb().dropDatabase();
 
         try {
-            insertTournament("draft-tournament");
-            insertTournament("active-tournament");
-            insertTournament("active-tournament-private");
-            insertTournament("finished-tournament");
-            insertTournament("finished-tournament-private");
+            insertTournament("draft", 10);
+            insertTournament("active", 10);
+            insertTournament("finished", 10);
             log.info("Dropped Tournaments table and created new tournaments");
         } catch (Exception e) {
             log.error("Cannot insert test tournaments! {}", e.getMessage());
         }
     }
 
-    private void insertTournament(String tournamentFileName) throws IOException {
-        InputStream tournamentsStream = TypeReference.class.getResourceAsStream("/db/changelog/test-data/" + tournamentFileName + ".json");
-        Scanner s = new Scanner(tournamentsStream).useDelimiter("\\A");
-        String tournamentsJSON = s.hasNext() ? s.next() : "";
-        Tournament tournament = mapper.readValue(tournamentsJSON, Tournament.class);
+    private void insertTournament(String tournamentFolderName, int tournamentsToInsert) throws IOException {
 
-        tournamentRepository.save(tournament);
+        for (int i = 1; i <= tournamentsToInsert; i++) {
+            InputStream tournamentStream;
+            try {
+                String jsonPath = "/db/changelog/test-data/" + tournamentFolderName + "/" + tournamentFolderName + "-tournament-" + i + ".json";
+                tournamentStream = TypeReference.class.getResourceAsStream(jsonPath);
+            } catch (NullPointerException e) {
+                // there is less files. Just break and let us know about it
+                log.warn("There is less tournaments than expected. Expected: {}, found: {}", tournamentsToInsert, i - 1);
+                break;
+            }
+
+            Scanner s = new Scanner(tournamentStream).useDelimiter("\\A");
+            String tournamentsJSON = s.hasNext() ? s.next() : "";
+
+            try {
+                Tournament tournament = mapper.readValue(tournamentsJSON, Tournament.class);
+                tournamentRepository.save(tournament);
+            } catch (Exception e) {
+                throw new RuntimeException("Cannot insert tournament. Current index: " + i + ", folder: " + tournamentFolderName + "; " + e.getMessage());
+            }
+        }
     }
 }

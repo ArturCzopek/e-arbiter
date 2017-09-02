@@ -1,0 +1,470 @@
+{
+  "ownerId": 2,
+  "name": "officia minim dolore aliqua nisi ipsum",
+  "description": "Veniam incididunt elit cillum voluptate exercitation sunt et aliquip consectetur ipsum nisi. Officia anim laborum sit labore qui occaecat aliquip ut nisi laborum. Nisi deserunt voluptate voluptate culpa labore mollit amet labore deserunt eu incididunt exercitation labore.",
+  "startDate": "2017-05-10T06:11:04",
+  "endDate": "2017-07-19T01:16:38",
+  "publicFlag": true,
+  "resultsVisibleForJoinedUsers": false,
+  "status": "FINISHED",
+  "password": null,
+  "joinedUsersIds": [
+    17,
+    20,
+    7,
+    16,
+    9,
+    6,
+    4,
+    15,
+    11,
+    8
+  ],
+  "tasks": [
+    {
+      "type": "QuizTask",
+      "name": "irure sit irure labore consectetur",
+      "description": "Quis duis sit ipsum reprehenderit nostrud excepteur cupidatat exercitation occaecat. Proident cillum ea aliqua dolor tempor velit fugiat dolore.",
+      "questions": [
+        {
+          "content": "officia minim incididunt nisi quis in pariatur nisi esse et amet incididunt dolor esse dolor pariatur mollit sint pariatur amet",
+          "answers": [
+            {
+              "content": "deserunt fugiat veniam cupidatat voluptate",
+              "correct": true
+            },
+            {
+              "content": "culpa eu deserunt deserunt elit",
+              "correct": false
+            },
+            {
+              "content": "sit nostrud sint magna irure",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "magna minim amet consectetur eiusmod anim officia ut aute ex incididunt nostrud exercitation culpa nisi ullamco elit nisi reprehenderit ipsum",
+          "answers": [
+            {
+              "content": "commodo nulla magna irure ea",
+              "correct": false
+            },
+            {
+              "content": "laborum proident in incididunt ullamco",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "eu et aute quis pariatur ipsum quis ullamco veniam reprehenderit cupidatat velit reprehenderit ipsum incididunt adipisicing est ea sit id",
+          "answers": [
+            {
+              "content": "reprehenderit velit irure sit ullamco",
+              "correct": false
+            },
+            {
+              "content": "ea nostrud incididunt laborum veniam",
+              "correct": false
+            },
+            {
+              "content": "culpa enim dolor et id",
+              "correct": false
+            },
+            {
+              "content": "minim laborum ipsum laborum eu",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "ut non ullamco anim velit veniam non sunt esse anim eu irure dolore eiusmod et sunt non et nulla id",
+          "answers": [
+            {
+              "content": "fugiat quis ex pariatur sunt",
+              "correct": true
+            },
+            {
+              "content": "amet magna reprehenderit id adipisicing",
+              "correct": false
+            },
+            {
+              "content": "dolore cupidatat exercitation in esse",
+              "correct": true
+            },
+            {
+              "content": "cillum sit adipisicing aute anim",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "eu ea dolore ut reprehenderit aliqua est id nostrud nisi dolor aliqua tempor sunt anim adipisicing officia nostrud aliqua proident",
+          "answers": [
+            {
+              "content": "aliquip magna amet deserunt minim",
+              "correct": false
+            },
+            {
+              "content": "dolor exercitation nostrud in voluptate",
+              "correct": true
+            },
+            {
+              "content": "aute esse Lorem incididunt ea",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "irure enim laborum nulla in",
+      "description": "Est laboris velit officia ex ut. Minim quis qui velit veniam ipsum.",
+      "questions": [
+        {
+          "content": "dolore et et in laborum do eiusmod culpa irure magna sit voluptate proident duis ipsum eu excepteur veniam aute reprehenderit",
+          "answers": [
+            {
+              "content": "labore duis qui elit ullamco",
+              "correct": true
+            },
+            {
+              "content": "deserunt ullamco proident incididunt commodo",
+              "correct": false
+            },
+            {
+              "content": "laborum ipsum cillum amet nulla",
+              "correct": false
+            },
+            {
+              "content": "deserunt dolor ipsum voluptate tempor",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "nostrud id mollit reprehenderit proident duis enim anim ad nisi laboris commodo tempor magna aute fugiat id enim laborum eiusmod",
+          "answers": [
+            {
+              "content": "culpa consectetur incididunt consequat labore",
+              "correct": true
+            },
+            {
+              "content": "mollit eu pariatur mollit magna",
+              "correct": true
+            },
+            {
+              "content": "officia labore velit deserunt enim",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "qui sit officia pariatur ea",
+      "description": "In eu ut consectetur veniam occaecat laborum cupidatat. In amet consectetur consectetur elit ad pariatur et exercitation sint exercitation in excepteur.",
+      "questions": [
+        {
+          "content": "fugiat irure esse officia qui consectetur commodo nisi do ad laboris officia pariatur in est aliqua occaecat proident aute minim",
+          "answers": [
+            {
+              "content": "dolor aliquip sint minim est",
+              "correct": true
+            },
+            {
+              "content": "occaecat non ad ex reprehenderit",
+              "correct": false
+            },
+            {
+              "content": "tempor duis incididunt Lorem consectetur",
+              "correct": false
+            },
+            {
+              "content": "Lorem elit ad ad nisi",
+              "correct": true
+            }
+          ]
+        },
+        {
+          "content": "elit non sint ipsum aute ullamco pariatur et fugiat tempor est non deserunt in proident occaecat ad consectetur eiusmod officia",
+          "answers": [
+            {
+              "content": "officia laboris ad reprehenderit duis",
+              "correct": false
+            },
+            {
+              "content": "adipisicing culpa commodo elit in",
+              "correct": true
+            },
+            {
+              "content": "deserunt pariatur sit exercitation sint",
+              "correct": true
+            },
+            {
+              "content": "officia amet laboris cillum id",
+              "correct": false
+            },
+            {
+              "content": "ad Lorem non quis minim",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "commodo incididunt reprehenderit anim ea ea quis quis id cillum id proident aliqua Lorem sint est laboris ea dolore nulla",
+          "answers": [
+            {
+              "content": "dolor irure excepteur ipsum veniam",
+              "correct": true
+            },
+            {
+              "content": "tempor dolore ut culpa nulla",
+              "correct": false
+            },
+            {
+              "content": "adipisicing laboris Lorem commodo Lorem",
+              "correct": false
+            },
+            {
+              "content": "cillum occaecat do ut laboris",
+              "correct": false
+            },
+            {
+              "content": "elit incididunt eiusmod sunt est",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "non reprehenderit do reprehenderit voluptate irure tempor reprehenderit Lorem dolore excepteur ad ut consequat culpa laborum proident cupidatat excepteur velit",
+          "answers": [
+            {
+              "content": "dolor Lorem adipisicing proident dolore",
+              "correct": true
+            },
+            {
+              "content": "in voluptate nulla sunt aute",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "veniam ullamco sunt esse anim",
+      "description": "Pariatur ipsum consequat ipsum officia aute reprehenderit nulla enim. Cillum magna reprehenderit ut do.",
+      "questions": [
+        {
+          "content": "elit ex minim ea laborum tempor cupidatat veniam velit velit nostrud amet magna dolor fugiat aute minim fugiat occaecat quis",
+          "answers": [
+            {
+              "content": "Lorem ad nisi id aute",
+              "correct": false
+            },
+            {
+              "content": "cupidatat cillum ut est irure",
+              "correct": true
+            },
+            {
+              "content": "do ut anim sit sit",
+              "correct": false
+            },
+            {
+              "content": "esse nulla labore laboris cupidatat",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "pariatur nisi deserunt laborum quis sint excepteur exercitation irure incididunt officia tempor velit cupidatat anim nostrud incididunt aute minim ex",
+          "answers": [
+            {
+              "content": "reprehenderit excepteur nisi minim est",
+              "correct": true
+            },
+            {
+              "content": "excepteur sunt amet elit et",
+              "correct": false
+            },
+            {
+              "content": "et ipsum aliqua magna qui",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "magna nulla velit qui sit",
+      "description": "Dolor eiusmod amet magna est commodo ut ullamco enim ex est adipisicing do Lorem minim. Cupidatat nostrud duis non commodo occaecat.",
+      "questions": [
+        {
+          "content": "ipsum deserunt occaecat sint Lorem in esse consequat non occaecat non nulla sit est voluptate eiusmod Lorem commodo cillum quis",
+          "answers": [
+            {
+              "content": "sunt pariatur aute sunt nisi",
+              "correct": true
+            },
+            {
+              "content": "veniam minim in minim cillum",
+              "correct": true
+            },
+            {
+              "content": "magna proident nisi aliquip sit",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "amet consectetur ad et dolor",
+      "description": "Enim cillum sint commodo reprehenderit voluptate sit esse sit ad. Cupidatat dolore qui reprehenderit aliquip ex dolore cupidatat non non incididunt est cillum eu voluptate.",
+      "questions": [
+        {
+          "content": "dolore eu ea elit aute sunt nulla est do labore amet enim incididunt ipsum deserunt cupidatat incididunt occaecat cupidatat irure",
+          "answers": [
+            {
+              "content": "excepteur ea aliquip ullamco id",
+              "correct": false
+            },
+            {
+              "content": "ut irure eiusmod elit nisi",
+              "correct": false
+            },
+            {
+              "content": "amet commodo non cupidatat esse",
+              "correct": true
+            },
+            {
+              "content": "laborum laboris dolor anim sunt",
+              "correct": false
+            },
+            {
+              "content": "cillum nisi mollit culpa dolore",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "irure commodo dolore in ut adipisicing sint mollit Lorem velit commodo nostrud sit ipsum ex aute voluptate anim ex occaecat",
+          "answers": [
+            {
+              "content": "ad cupidatat officia ad enim",
+              "correct": false
+            },
+            {
+              "content": "labore duis ad laboris ex",
+              "correct": true
+            },
+            {
+              "content": "voluptate mollit tempor culpa est",
+              "correct": true
+            },
+            {
+              "content": "velit Lorem ex do irure",
+              "correct": true
+            },
+            {
+              "content": "elit nisi proident sunt eu",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "velit anim consectetur mollit ipsum eiusmod amet aliqua aute nisi commodo ut Lorem incididunt exercitation nulla quis commodo ad sint",
+          "answers": [
+            {
+              "content": "proident exercitation culpa dolor consectetur",
+              "correct": false
+            },
+            {
+              "content": "elit occaecat eiusmod anim anim",
+              "correct": false
+            },
+            {
+              "content": "ullamco labore enim voluptate Lorem",
+              "correct": false
+            },
+            {
+              "content": "occaecat laborum commodo reprehenderit est",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "QuizTask",
+      "name": "elit ipsum sunt veniam proident",
+      "description": "Irure cillum ipsum qui sunt in sint irure. Ex nisi magna proident nisi cillum minim.",
+      "questions": [
+        {
+          "content": "dolor adipisicing pariatur excepteur duis aliquip ipsum commodo elit incididunt ea consequat culpa amet ea sit dolore minim elit eu",
+          "answers": [
+            {
+              "content": "excepteur amet incididunt exercitation laborum",
+              "correct": true
+            },
+            {
+              "content": "veniam non nulla consectetur sunt",
+              "correct": true
+            },
+            {
+              "content": "consequat non deserunt qui anim",
+              "correct": true
+            },
+            {
+              "content": "est anim nulla dolore fugiat",
+              "correct": false
+            },
+            {
+              "content": "ipsum sunt fugiat culpa amet",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "excepteur mollit eiusmod cillum quis incididunt incididunt ex id eu nisi amet sint ut ex duis ad tempor ea exercitation",
+          "answers": [
+            {
+              "content": "sint veniam amet non proident",
+              "correct": false
+            },
+            {
+              "content": "consequat esse pariatur duis proident",
+              "correct": true
+            },
+            {
+              "content": "consectetur quis tempor do esse",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "content": "sunt dolore duis proident ipsum laboris irure consequat duis enim velit consequat aliquip pariatur non labore pariatur cupidatat exercitation Lorem",
+          "answers": [
+            {
+              "content": "labore quis tempor officia laboris",
+              "correct": false
+            },
+            {
+              "content": "occaecat occaecat sit Lorem sit",
+              "correct": false
+            },
+            {
+              "content": "Lorem ullamco ut amet aliqua",
+              "correct": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

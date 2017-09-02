@@ -22,18 +22,18 @@ import pl.cyganki.auth.EArbiterAuthApplication
 class UserServiceTest {
 
     @Autowired
-    lateinit var userService: UserService
+    private lateinit var userService: UserService
 
     @Test
     fun `should return a name for user with a valid id`() {
         // given
-        val ids = (1L..4L)  // 1, 2, 3 , 4
+        val ids = (1L..5L)  // 1, 2, 3, 4
 
         // when
         val foundNames = ids.map { userService.getUserNameById(it) }
 
         // then
-        val expectedNames = listOf("TestowyUser", "UserLol", "ArturCzopek", "TestTest")
+        val expectedNames = listOf("TestowyUser", "UserLol", "ArturCzopek", "Gabriel", "Miracle")
 
         (0 until expectedNames.size).forEach {
             assertEquals(expectedNames[it], foundNames[it])
