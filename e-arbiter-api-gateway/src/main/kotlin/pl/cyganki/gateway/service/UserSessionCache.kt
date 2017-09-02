@@ -1,5 +1,6 @@
 package pl.cyganki.gateway.service
 
+import mu.KLogging
 import org.springframework.stereotype.Service
 import pl.cyganki.gateway.utils.getLoggedInUserAuthToken
 import pl.cyganki.utils.GlobalValues
@@ -15,25 +16,41 @@ import pl.cyganki.utils.security.dto.User
 @Service
 class UserSessionCache(val authModule: AuthModuleInterface) {
 
-    private var user: User? = null
+    private val users: MutableMap<String, User> = hashMapOf()   // this map stores current logged in user. User is identified by token
 
     fun getLoggedInUser(): User? {
 
+        val token = getLoggedInUserAuthToken()
+
         // we don't store user there, so we need to fetch all data from auth module
-        if (user == null) {
-            user = authModule.getUser(getLoggedInUserAuthToken())
+        if (users[token] == null) {
+            try {
+                val user = authModule.getUser(token)
+                setUser(token, user)
+            } catch (e: Exception) {
+                logger.warn("Cannot get user with token: $token, ${e.message}")
+                return null
+            }
         }
 
-        return user
+        return users[token]
     }
 
-    fun getNameOfCurrentLoggedInUser() = user?.name ?: "NOT LOGGED IT"
+    fun getNameOfCurrentLoggedInUser() = getUserNameByToken(getLoggedInUserAuthToken())
 
-    fun clearUser() {
-        this.user = null
+    fun getUserNameByToken(token: String) = users[token]?.name ?: "NOT LOGGED IT"
+
+    fun clearUser(token: String) {
+        users.remove(token)
     }
 
-    fun isLoggedInUserSysAdmin() = user?.roles?.any { it.name == GlobalValues.SYS_ADMIN_ROLE_NAME } ?: false
+    fun setUser(token: String, user: User) {
+        users[token] = user
+    }
 
-    fun isLoggedInUserAdmin() = user?.roles?.any { it.name == GlobalValues.ADMIN_ROLE_NAME } ?: false
+    fun isLoggedInUserSysAdmin() = users[getLoggedInUserAuthToken()]?.roles?.any { it.name == GlobalValues.SYS_ADMIN_ROLE_NAME } ?: false
+
+    fun isLoggedInUserAdmin() = users[getLoggedInUserAuthToken()]?.roles?.any { it.name == GlobalValues.ADMIN_ROLE_NAME } ?: false
+
+    companion object: KLogging()
 }

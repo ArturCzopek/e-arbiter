@@ -1,16 +1,14 @@
 package pl.cyganki.auth.controller.api;
 
 import io.swagger.annotations.ApiOperation;
+import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import pl.cyganki.auth.service.AuthService;
 import pl.cyganki.utils.GlobalValues;
@@ -57,6 +55,18 @@ public class AuthController {
         } catch (ClassCastException | NullPointerException ex) {
             // no user or anonymous user, return forbidden status
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
+    @PostMapping("/logout")
+    @ApiOperation("Endpoint for CHECKING if user can be logged out (it doesn't logout!). It allows API Gateway to clear user from cache on the gateway level. Returns ok if is user's token to be logged out")
+    public ResponseEntity<String> logoutUser(@RequestHeader(value = GlobalValues.AUTH_TOKEN, required = false) String token) {
+        boolean isToken = !StringUtils.isNullOrEmpty(token);
+
+        if (isToken) {
+            return ResponseEntity.ok("Can logout");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot logout");
         }
     }
 }

@@ -13,7 +13,7 @@ export class RouteService {
   }
 
   public goToLoginPage() {
-    this.router.navigate([environment.client.mainUrl]);
+    this.router.navigate([environment.client.loginUrl]);
   }
 
   public goToDashboard() {

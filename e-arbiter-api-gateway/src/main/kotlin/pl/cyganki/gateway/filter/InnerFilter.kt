@@ -11,34 +11,24 @@ import pl.cyganki.gateway.utils.getRequest
 import pl.cyganki.gateway.utils.unauthorizeRequest
 import java.util.regex.Pattern
 
-/**
- * Filter responsible for checking if user is a SysAdmin
- * If not, this event is written to logs and request is invalid
- */
-@Component
-class SysAdminFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    override fun shouldFilter() = Pattern.matches(FilterRegex.SYS_ADMIN_PATH, getRequest().requestURI)
+@Component
+class InnerFilter(private val userSessionCache: UserSessionCache): ZuulFilter() {
+
+    override fun shouldFilter() = Pattern.matches(FilterRegex.INNER_PATH, getRequest().requestURI)
             && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)
 
     override fun filterType() = FilterType.PRE.value
 
-    override fun filterOrder() = 3
+    override fun filterOrder() = 2
 
     override fun run(): Any? {
-
         val userName = userSessionCache.getNameOfCurrentLoggedInUser()
 
-        if (userSessionCache.isLoggedInUserSysAdmin()) {
-            logger.info("[$userName] - has a sysadmin role")
-        } else {
-            // proper path will be printed by LoggerFilter.kt
-            logger.warn("[$userName] - tried to get by sysadmin path!")
-            unauthorizeRequest()
-        }
-
+        logger.warn("[$userName] - Tried to use inner path!!")
+        unauthorizeRequest()
         return null
     }
 
-    companion object : KLogging()
+    companion object: KLogging()
 }

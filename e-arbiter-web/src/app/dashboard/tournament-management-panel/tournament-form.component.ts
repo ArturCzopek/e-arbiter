@@ -1,7 +1,8 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
+import {TaskModalComponent} from "./task-modal.component";
 
 declare var $: any;
 
@@ -52,6 +53,27 @@ declare var $: any;
           <label>Wyniki dostępne dla uczestników</label>
         </div>
       </div>
+      <div *ngIf="myForm.controls['tasks']['controls'].length > 0" class="four fields">
+        <div class="field">
+          <label>Zadania</label>
+          <div class="ui middle aligned divided list">
+            <div *ngFor="let taskControl of myForm.controls['tasks']['controls']; let i = index" class="item task-item">
+              <div class="right floated content">
+                <i class="minus icon" (click)="myForm.controls['tasks'].removeAt(i)"></i>
+                <i class="edit icon" (click)="taskModal.editTask(taskControl.value)"></i>
+              </div>
+              <div class="content">
+                <div>{{ taskControl.value.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pull-right inline fields">
+        <div class="field">
+          <button class="ui teal button" type="button" (click)="taskModal.addTask()">Dodaj zadanie</button>
+        </div>
+      </div>
       <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
         <div class="field">
           <label>Hasło</label>
@@ -62,15 +84,20 @@ declare var $: any;
           <label>Pokaż</label>
         </div>
       </div>
-      <div class="button-container">
+      <div class="button-container space-above-40">
         <button class="ui teal button huge" type="submit">Utwórz</button>
       </div>
     </form>
+    
+    <!-- MODAL -->
+    <arb-task-modal #taskModal [tasks]="myForm.controls['tasks']"></arb-task-modal>
   `
 })
 export class TournamentFormComponent implements OnInit {
-  public myForm: FormGroup;
+  myForm: FormGroup;
   showPassword: boolean;
+
+  @ViewChild("taskModal") taskModal: TaskModalComponent;
 
   constructor(private fb: FormBuilder) {
   }
@@ -96,7 +123,8 @@ export class TournamentFormComponent implements OnInit {
       description: [''],
       publicFlag: [true],
       resultsVisibleForJoinedUsers: [false],
-      password: ['']
+      password: [''],
+      tasks: this.fb.array([])
     });
   }
 

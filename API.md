@@ -80,10 +80,13 @@ GET /api/me
 
 * */*
 
+
 #### Returns a token for current logged in user. Token is widely used in app to authenticate user.
+
 ```
 GET /api/token
 ```
+
 
 ##### Responses
 |HTTP Code|Description|Schema|
@@ -159,6 +162,28 @@ GET /api/data/clientUrl
 
 Executor Controller
 
+#### Hystrix demo
+```
+GET /api/hystrix
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### example
 ```
 GET /api/example
@@ -181,6 +206,7 @@ GET /api/example
 
 * */*
 
+
 #### Hystrix demo
 ```
 GET /api/hystrix
@@ -202,6 +228,7 @@ GET /api/hystrix
 ##### Produces
 
 * */*
+
 
 ## Tournament Module
 
@@ -235,6 +262,7 @@ POST /api/add
 ##### Produces
 
 * */*
+
 
 #### Returns a page with active tournaments' details in which logged in user participates
 ```
