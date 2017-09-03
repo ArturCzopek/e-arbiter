@@ -15,6 +15,7 @@ import {RouteService} from "./shared/service/route.service";
 import {DevelopmentModeGuard} from "./shared/guard/development-mode.guard";
 import {NotFoundComponent} from "./not-found.component";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {ModalService} from "./shared/service/modal.service";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     LoggedInUserGuard,
     LoggedOutUserGuard,
     RouteService,
+    ModalService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [

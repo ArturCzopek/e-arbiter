@@ -282,7 +282,7 @@ public class TournamentTest {
         tournament.addUser(TestData.USER_ID);
 
         // then
-        assertTrue(tournament.getJoinedUsersIds().isEmpty()); // // for draft list is empty at first
+        assertTrue(tournament.getJoinedUsersIds().isEmpty()); // for draft list is empty at first
     }
 
     @Test
@@ -323,7 +323,7 @@ public class TournamentTest {
         tournament.removeUser(TestData.USER_ID);
 
         // then
-        assertTrue(tournament.getJoinedUsersIds().isEmpty()); // // for draft list is empty at first
+        assertTrue(tournament.getJoinedUsersIds().isEmpty()); // for draft list is empty at first
     }
 
     @Test

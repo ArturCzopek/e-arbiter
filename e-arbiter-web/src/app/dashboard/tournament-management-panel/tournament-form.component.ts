@@ -3,6 +3,9 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
 import {TaskModalComponent} from "./task-modal.component";
+import {TournamentService} from "./tournament.service";
+import {TournamentStatus} from "./interface/tournament-status";
+import {ModalService} from "../../shared/service/modal.service";
 
 declare var $: any;
 
@@ -99,7 +102,9 @@ export class TournamentFormComponent implements OnInit {
 
   @ViewChild("taskModal") taskModal: TaskModalComponent;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private tournamentService: TournamentService,
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -112,8 +117,8 @@ export class TournamentFormComponent implements OnInit {
         today: Translations.TODAY,
         now: Translations.NOW
       },
-      onChange: (date) => {
-        this.myForm.controls.endDate.setValue(date);
+      onChange: (date: Date) => {
+        this.myForm.controls.endDate.setValue(date.toISOString().replace('Z', ''));
       }
     });
 
@@ -124,11 +129,20 @@ export class TournamentFormComponent implements OnInit {
       publicFlag: [true],
       resultsVisibleForJoinedUsers: [false],
       password: [''],
+      status: [TournamentStatus.DRAFT],
       tasks: this.fb.array([])
     });
   }
 
   save(tournament: Tournament) {
-    console.log(tournament);
+    const ms = this.modalService;
+
+    // TODO: as part of validation, handle error responses in a better way
+    // remember that validation alerts should be in polish there
+    this.tournamentService.saveTournament(tournament)
+      .subscribe(
+        (data) => ms.showAlert('Adding successful.'),
+        (err) => ms.showAlert('Couldn\'t add tournament.')
+      );
   }
 }

@@ -21,6 +21,10 @@ export const environment = {
       meUrl:  `${devData.serverUrl}/auth/api/me`,
       loginUrl: `${devData.authUrl}/login`   // login by routing seems to not work currently, TODO: #48 @ trello
     },
+    tournament: {
+      url: devData.serverUrl,
+      saveUrl: `${devData.serverUrl}/tournament/api/save`
+    },
     api: {
       url: `${devData.serverUrl}`
     },
