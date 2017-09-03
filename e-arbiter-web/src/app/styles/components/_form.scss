@@ -1,4 +1,11 @@
 form {
+
+  &.ui.form.no-margin-below {
+    .fields {
+      margin-bottom: 0;
+    }
+  }
+
   .pull-right {
     justify-content: flex-end;
   }
@@ -18,5 +25,15 @@ form {
 
   .space-above-40 {
     margin-top: 40px;
+  }
+
+  .fields {
+    .field.narrow {
+      width: 50%;
+    }
+
+    .field.broad {  // wide is already in semantic and sucks
+      width: 150%;
+    }
   }
 }

@@ -19,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 open class SecurityConfiguration(
         @Value("\${e-arbiter.clientUrl}") var clientUrl: String,
         @Value("\${e-arbiter.proxyUrl}") var proxyUrl: String,
-        @Value("\${spring.h2.console.path}") var h2ConsoleUrl: String,
-        @Value("\${e-arbiter.swagger.path}") var swaggerUrl: String     // we need to precede it later by "/" because addres to it by prop is without "/"
+        @Value("\${spring.h2.console.path}") private var h2ConsoleUrl: String,
+        @Value("\${e-arbiter.swagger.path}") private var swaggerUrl: String     // we need to precede it later by "/" because address to it by prop is without "/"
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
