@@ -138,6 +138,7 @@ export class TournamentFormComponent implements OnInit {
     const ms = this.modalService;
 
     // TODO: as part of validation, handle error responses in a better way
+    // remember that validation alerts should be in polish there
     this.tournamentService.saveTournament(tournament)
       .subscribe(
         (data) => ms.showAlert('Adding successful.'),

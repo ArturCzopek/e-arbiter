@@ -30,6 +30,7 @@ public class TournamentController {
     @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
     public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
         tournament.setOwnerId(user.getId());
+        // TODO: consider moving it to separate service. Repository shouldn't be in this layer @Czopo
         return tournamentRepository.save(tournament);
     }
 
