@@ -4,7 +4,7 @@ import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
 import {TaskModalComponent} from "./task-modal.component";
 import {TournamentService} from "./tournament.service";
-import {TournamentStatus} from "./interface/tournament-status";
+import {TournamentStatus} from "../../shared/interface/tournament-status.enum";
 import {ModalService} from "../../shared/service/modal.service";
 
 declare var $: any;

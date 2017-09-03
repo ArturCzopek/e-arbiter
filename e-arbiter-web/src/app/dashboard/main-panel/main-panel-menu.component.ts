@@ -1,13 +1,14 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild} from "@angular/core";
+import {TournamentStatus} from "../../shared/interface/tournament-status.enum";
 
 @Component({
   selector: 'arb-main-panel-menu',
   template: `
     <div class="ui secondary menu">
-      <a #active class="item header__link" (click)="changeTab('active')">
+      <a #active class="item header__link" (click)="changeToActiveTab()">
         Aktywne
       </a>
-      <a #finished class="item header__link" (click)="changeTab('finished')">
+      <a #finished class="item header__link" (click)="changeToFinishedTab()">
         Zakończone
       </a>
       <div class="right menu">
@@ -30,43 +31,51 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Rende
 })
 export class MainPanelMenuComponent implements AfterViewInit {
 
-  @Input() currentTab: string;
+  @Input() tournamentsStatus: TournamentStatus;
   @Input() query: string;
   @Input() tournamentsPerPage: number;
 
-  @Output() onTabChange: EventEmitter<string> = new EventEmitter();
+  @Output() onStatusChange: EventEmitter<TournamentStatus> = new EventEmitter();
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('active') activeLink: ElementRef;
   @ViewChild('finished') finishedLink: ElementRef;
 
 
-  constructor(private renderer: Renderer2) {
-
-  }
-
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
+
     const emitChange = false;
-    this.changeTab(this.currentTab, emitChange);
+
+    if (this.tournamentsStatus === TournamentStatus.ACTIVE) {
+      this.changeToActiveTab(emitChange);
+    } else {
+      this.changeToFinishedTab(emitChange);
+    }
   }
 
-  public changeTab(tabName: string, emitChange: boolean = true) {
-    this.currentTab = tabName;
+  public changeToActiveTab(emitChange: boolean = true) {
+    this.tournamentsStatus = TournamentStatus.ACTIVE;
 
-    if (this.currentTab === 'active') {
-      this.renderer.addClass(this.activeLink.nativeElement, 'active');
-      this.renderer.removeClass(this.finishedLink.nativeElement, 'active');
-    } else {
-      this.renderer.addClass(this.finishedLink.nativeElement, 'active');
-      this.renderer.removeClass(this.activeLink.nativeElement, 'active');
-    }
+    this.renderer.addClass(this.activeLink.nativeElement, 'active');
+    this.renderer.removeClass(this.finishedLink.nativeElement, 'active');
 
     if (emitChange) {
-      this.onTabChange.emit(tabName);
+      this.onStatusChange.emit(this.tournamentsStatus);
     }
   }
 
+  public changeToFinishedTab(emitChange: boolean = true) {
+    this.tournamentsStatus = TournamentStatus.FINISHED;
+
+    this.renderer.addClass(this.finishedLink.nativeElement, 'active');
+    this.renderer.removeClass(this.activeLink.nativeElement, 'active');
+
+    if (emitChange) {
+      this.onStatusChange.emit(this.tournamentsStatus);
+    }
+  }
 
   public emitSearch(tournamentsPerPage: number, query: string) {
     this.onSearch.emit({tournamentsPerPage, query})
