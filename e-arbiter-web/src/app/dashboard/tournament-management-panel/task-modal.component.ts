@@ -56,13 +56,33 @@ import {TaskParser} from "./task-parsers/task-parser";
             </div>
           </div>
           <div class="field" #taskData [ngClass]="{ 'error' : strData.invalid && strData.touched }">
-            <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}</label>
+            <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}<i class="help circle icon" (click)="myPopup.show($event, {position: 'right center', on: 'hover'})"></i></label>
             <textarea rows="5" name="taskData" [(ngModel)]="task.strData" #strData="ngModel" required></textarea>
             <div
               *ngIf="strData.invalid && strData.touched"
               class="ui basic red pointing prompt label"
             >Pole wymagane.</div>
           </div>
+          <sm-popup #myPopup>
+            <div class="ui card">
+              <div class="content">
+                <div class="header">Pomoc</div>
+                <div class="meta">Definiowanie zadania</div>
+                <div *ngIf="task.type === taskTypes[0].value" class="description">
+                  Każda linia powinna definiować osoby przypadek testowy w formacie
+                  <code>arg_1 arg_2 ... arg_n oczekiwana_wartość</code>. Jeżeli argument 
+                  zawiera spacje, należy umieścić go w cudzysłowie.
+                </div>
+                <div *ngIf="task.type === taskTypes[1].value" class="description">
+                  Każde pytanie składa się z dwóch części: definicji treści pytania i definicji odpowiedzi.
+                  Treść pytania od odpowiedzi musi oddzielać linia zawierająca pojedyncze 
+                  słowo <code>ODPOWIEDZI</code>. Każda odpowiedź definiowana jest w osobnej linii 
+                  i zaczyna się od ciągu znaków <code>ODP.</code>. Odpowiedź prawidłowa zaczyna się od
+                  <code>ODP. >>></code>. Kolejne pytania oddzielane są linią zawierającą ciąg znaków <code>---</code>.
+                </div>
+              </div>
+            </div>
+          </sm-popup>
         </form>
       </modal-content>
       <modal-actions>
