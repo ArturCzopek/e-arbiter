@@ -11,12 +11,12 @@ export class QuizTaskParser implements TaskParser {
 
     task.questions = paragraphs.map(p => {
       // a single line 'ODPOWIEDZI' separates content from answers
-      const contentAndQuestions = p.split(/^ODPOWIEDZI$/m);
-      return {
-        content: contentAndQuestions[0].trim(),
-        answers: contentAndQuestions[1]
+      const contentAndAnswers = p.split(/^ODPOWIEDZI$/m);
+      const question = {
+        content: contentAndAnswers[0].trim(),
+        answers: contentAndAnswers[1]
           .split(/^ODP\./m)
-          .filter(a => a && a !== '\n')
+          .filter(a => a && a !== '\n' && a.trim())
           .map(a => {
             const isCorrect = a.trim().startsWith('>>>');
             return {
@@ -24,7 +24,13 @@ export class QuizTaskParser implements TaskParser {
               correct: isCorrect
             }
           })
+      };
+
+      if (question.answers.length < 2) {
+        throw new Error('Each question should have at least two answers.');
       }
+
+      return question;
     });
   }
 

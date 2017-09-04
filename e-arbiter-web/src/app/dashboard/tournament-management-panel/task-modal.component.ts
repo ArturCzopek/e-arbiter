@@ -1,18 +1,16 @@
-import {Component, Input, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, Renderer2, ViewChild} from "@angular/core";
 import TaskModel, {Task} from "app/dashboard/tournament-management-panel/interface/task.interface";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SemanticModalComponent} from "ng-semantic";
 import * as _ from "lodash";
 import {TaskParser} from "./task-parsers/task-parser";
 
-declare var $: any;
-
 @Component({
   selector: 'arb-task-modal',
   template: `
     <sm-modal title="Dodaj zadanie" #innerTaskModal>
       <modal-content *ngIf="task">
-        <form #f="ngForm" class="ui form">
+        <form #form="ngForm" class="ui form">
           <div class="two fields">
             <div class="field" [ngClass]="{ 'error' : name.invalid && name.touched }">
               <label>Nazwa</label>
@@ -57,7 +55,7 @@ declare var $: any;
               >Timeout jest wymagany.</div>
             </div>
           </div>
-          <div class="field task-data" [ngClass]="{ 'error' : strData.invalid && strData.touched }">
+          <div class="field" #taskData [ngClass]="{ 'error' : strData.invalid && strData.touched }">
             <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}</label>
             <textarea rows="5" name="taskData" [(ngModel)]="task.strData" #strData="ngModel" required></textarea>
             <div
@@ -82,12 +80,13 @@ export class TaskModalComponent {
   task: Task;
 
   @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
-  @ViewChild("f") f: FormGroup;
+  @ViewChild("form") form: FormGroup;
+  @ViewChild("taskData") taskData: ElementRef;
 
   taskTypes = TaskModel.taskTypes;
   languages = TaskModel.languages;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
 
   public addTask() {
     this.task = TaskModel.createEmptyTask();
@@ -105,13 +104,13 @@ export class TaskModalComponent {
     this.innerTaskModal.show({
       closable: false,
       observeChanges: true,
-      onDeny: () => this.f.reset(),
+      onDeny: () => this.form.reset(),
       onApprove: () => this.addToFormArray(this.task, originalTask)
     });
   }
 
   private addToFormArray(task: Task, originalTask?: Task) {
-    if (this.f.invalid) {
+    if (this.form.invalid) {
       return false;
     }
 
@@ -131,11 +130,11 @@ export class TaskModalComponent {
           })
         );
       }
-      this.f.reset();
+      this.form.reset();
       return true;
     }
 
-    $('.task-data').attr('class', 'field error');
+    this.renderer.addClass(this.taskData.nativeElement, 'error');
     return false;
   }
 
