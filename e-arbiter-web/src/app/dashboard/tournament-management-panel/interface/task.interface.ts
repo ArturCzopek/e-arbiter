@@ -24,8 +24,8 @@ const TaskModel = {
       description: '',
       codeTaskTestSets: [],
       questions: [],
-      timeoutInMs: 0,
-      languages: [],
+      timeoutInMs: 1000,
+      languages: ['C11'],
       strData: ''
     };
   }

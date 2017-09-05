@@ -1,6 +1,6 @@
-import {Component, Input, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, Renderer2, ViewChild} from "@angular/core";
 import TaskModel, {Task} from "app/dashboard/tournament-management-panel/interface/task.interface";
-import {FormArray, FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SemanticModalComponent} from "ng-semantic";
 import * as _ from "lodash";
 import {TaskParser} from "./task-parsers/task-parser";
@@ -10,11 +10,15 @@ import {TaskParser} from "./task-parsers/task-parser";
   template: `
     <sm-modal title="Dodaj zadanie" #innerTaskModal>
       <modal-content *ngIf="task">
-        <form #f="ngForm" class="ui form">
+        <form #form="ngForm" class="ui form">
           <div class="two fields">
-            <div class="field">
+            <div class="field" [ngClass]="{ 'error' : name.invalid && name.touched }">
               <label>Nazwa</label>
-              <input type="text" name="name" [(ngModel)]="task.name">
+              <input type="text" name="name" [(ngModel)]="task.name" #name="ngModel" required minlength="3" maxlength="64">
+              <div
+                *ngIf="name.invalid && name.touched"
+                class="ui basic red pointing prompt label"
+              >Nazwa turnieju powinna być długości od 3 do 64 znaków.</div>
             </div>
             <div class="field">
               <label>Typ</label>
@@ -23,36 +27,48 @@ import {TaskParser} from "./task-parsers/task-parser";
               </select>
             </div>
           </div>
-          <div class="field">
+          <div class="field" [ngClass]="{ 'error' : description.invalid && description.touched }">
             <label>Opis</label>
-            <textarea rows="3" name="description" [(ngModel)]="task.description"></textarea>
+            <textarea rows="3" name="description" [(ngModel)]="task.description" #description="ngModel" required></textarea>
+            <div
+              *ngIf="description.invalid && description.touched"
+              class="ui basic red pointing prompt label"
+            >Opis zadania jest wymagany.</div>
           </div>
           <div *ngIf="task.type === taskTypes[0].value" class="two fields">
             <div class="field">
               <label>Jezyki programowania</label>
-              <sm-select 
+              <sm-select
                 placeholder="Wybierz..."
-                class="fluid search multiple"
-                (onChange)="task.languages = $event"
+                [model]="task.languages[0]"
+                class="fluid search multiple disabled"
               >
                 <option *ngFor="let language of languages" [value]="language">{{ language }}</option>
               </sm-select>
             </div>
-            <div class="field">
+            <div class="field" [ngClass]="{ 'error' : timeoutInMs.invalid && timeoutInMs.touched }">
               <label>Timeout (ms)</label>
-              <input type="number" name="timeoutInMs" [(ngModel)]="task.timeoutInMs"/>
+              <input type="number" name="timeoutInMs" [(ngModel)]="task.timeoutInMs" #timeoutInMs="ngModel" required/>
+              <div
+                *ngIf="timeoutInMs.invalid && timeoutInMs.touched"
+                class="ui basic red pointing prompt label"
+              >Timeout jest wymagany.</div>
             </div>
           </div>
-          <div class="field">
+          <div class="field" #taskData [ngClass]="{ 'error' : strData.invalid && strData.touched }">
             <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}</label>
-            <textarea rows="5" name="taskData" [(ngModel)]="task.strData"></textarea>
+            <textarea rows="5" name="taskData" [(ngModel)]="task.strData" #strData="ngModel" required></textarea>
+            <div
+              *ngIf="strData.invalid && strData.touched"
+              class="ui basic red pointing prompt label"
+            >Pole wymagane.</div>
           </div>
         </form>
       </modal-content>
       <modal-actions>
         <div class="ui buttons">
-          <div class="ui cancel button">Odrzuć</div>
-          <div class="ui ok teal button">Zapisz</div>
+          <button class="ui cancel button">Odrzuć</button>
+          <button type="submit" class="ui ok teal button">Zapisz</button>
         </div>
       </modal-actions>
     </sm-modal>
@@ -61,14 +77,16 @@ import {TaskParser} from "./task-parsers/task-parser";
 export class TaskModalComponent {
 
   @Input() tasks: FormArray;
+  task: Task;
 
   @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
-  task: Task;
+  @ViewChild("form") form: FormGroup;
+  @ViewChild("taskData") taskData: ElementRef;
 
   taskTypes = TaskModel.taskTypes;
   languages = TaskModel.languages;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
 
   public addTask() {
     this.task = TaskModel.createEmptyTask();
@@ -86,11 +104,16 @@ export class TaskModalComponent {
     this.innerTaskModal.show({
       closable: false,
       observeChanges: true,
+      onDeny: () => this.form.reset(),
       onApprove: () => this.addToFormArray(this.task, originalTask)
     });
   }
 
   private addToFormArray(task: Task, originalTask?: Task) {
+    if (this.form.invalid) {
+      return false;
+    }
+
     if (this.constituteTask(task)) {
       if (originalTask) {
         _.assign(originalTask, task);
@@ -107,7 +130,12 @@ export class TaskModalComponent {
           })
         );
       }
+      this.form.reset();
+      return true;
     }
+
+    this.renderer.addClass(this.taskData.nativeElement, 'error');
+    return false;
   }
 
   private constituteTask(task: Task): boolean {
@@ -121,7 +149,6 @@ export class TaskModalComponent {
         taskParser.buildStrDataFromState(task);
       }
     } catch (err) {
-      // TODO: as part of validation - handle parsing errors
       return false;
     }
 
