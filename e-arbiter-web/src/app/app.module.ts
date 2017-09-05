@@ -16,6 +16,7 @@ import {DevelopmentModeGuard} from "./shared/guard/development-mode.guard";
 import {NotFoundComponent} from "./not-found.component";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {ModalService} from "./shared/service/modal.service";
+import {TournamentPreviewService} from "./shared/service/tournament-preview.service";
 
 @NgModule({
   declarations: [
@@ -36,8 +37,9 @@ import {ModalService} from "./shared/service/modal.service";
     DevelopmentModeGuard,
     LoggedInUserGuard,
     LoggedOutUserGuard,
-    RouteService,
     ModalService,
+    RouteService,
+    TournamentPreviewService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [

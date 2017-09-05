@@ -6,7 +6,7 @@ import {NgSemanticModule} from "ng-semantic/ng-semantic";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TournamentFormComponent} from "./tournament-form.component";
 import {TaskModalComponent} from "./task-modal.component";
-import {TournamentService} from "./tournament.service";
+import {TournamentManagementService} from "./tournament-management.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import {TournamentService} from "./tournament.service";
     TournamentManagementPanelComponent
   ],
   providers: [
-    TournamentService
+    TournamentManagementService
   ]
 })
 export class TournamentManagementPanelModule {
