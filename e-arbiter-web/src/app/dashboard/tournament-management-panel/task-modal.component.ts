@@ -64,21 +64,41 @@ import {TaskParser} from "./task-parsers/task-parser";
             >Pole wymagane.</div>
           </div>
           <sm-popup #myPopup>
-            <div class="ui card">
+            <div class="ui fluid card">
               <div class="content">
                 <div class="header">Pomoc</div>
                 <div class="meta">Definiowanie zadania</div>
                 <div *ngIf="task.type === taskTypes[0].value" class="description">
-                  Każda linia powinna definiować osoby przypadek testowy w formacie
-                  <code>arg_1 arg_2 ... arg_n oczekiwana_wartość</code>. Jeżeli argument 
-                  zawiera spacje, należy umieścić go w cudzysłowie.
+                  Każda linia powinna definiować osoby przypadek testowy w formacie:<br/><br/>
+                  <code>arg_1 arg_2 ... arg_n oczekiwana_wartość</code><br/><br/>
+                  Jeżeli argument zawiera spacje, należy umieścić go w cudzysłowie.<br/><br/>
+                  Przykład:<br/><br/>
+                  <code>ala ma kota "ala ma kota"</code><br/>
+                  <code>1 2 3 4 24</code><br/>
                 </div>
                 <div *ngIf="task.type === taskTypes[1].value" class="description">
                   Każde pytanie składa się z dwóch części: definicji treści pytania i definicji odpowiedzi.
-                  Treść pytania od odpowiedzi musi oddzielać linia zawierająca pojedyncze 
-                  słowo <code>ODPOWIEDZI</code>. Każda odpowiedź definiowana jest w osobnej linii 
-                  i zaczyna się od ciągu znaków <code>ODP.</code>. Odpowiedź prawidłowa zaczyna się od
-                  <code>ODP. >>></code>. Kolejne pytania oddzielane są linią zawierającą ciąg znaków <code>---</code>.
+                  Treść pytania od odpowiedzi musi oddzielać linia zawierająca pojedyncze słowo<br/><br/>
+                  <code>ODPOWIEDZI</code><br/><br/> 
+                  Każda odpowiedź definiowana jest w osobnej linii i zaczyna się od ciągu znaków <br/><br/>
+                  <code>ODP.</code><br/><br/>
+                  Odpowiedź prawidłowa zaczyna się od<br/><br/>
+                  <code>ODP. >>></code><br/><br/>
+                  Kolejne pytania oddzielane są linią zawierającą ciąg znaków<br/><br/>
+                  <code>---</code><br/><br/>
+                  Przykład:<br/><br/>
+                  <code>Stolica Polski to:<br/>
+                    ODPOWIEDZI<br/>
+                    ODP.Kraków<br/>
+                    ODP. >>>Warszawa<br/>
+                    ODP.Gdańsk<br/>
+                    ---<br/>
+                    Miasto posiadające ponad 300 tys mieszkańców:<br/>
+                    ODPOWIEDZI<br/>
+                    ODP.>>>Kraków<br/>
+                    ODP.>>>Warszawa<br/>
+                    ODP.Kozia wólka<br/>
+                  </code>
                 </div>
               </div>
             </div>
