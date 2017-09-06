@@ -1,0 +1,54 @@
+.tournament-card {
+  display: flex;
+  flex-direction: column;
+  padding: $tournament-card-spacing;
+  margin: 0 auto;
+}
+
+arb-tour-prev-card + arb-tour-prev-card {
+  border-top: 1px solid lightgrey;
+}
+
+.tournament-card__title-container {
+  display: flex;
+  height: $tournament-card-section-height;
+  justify-content: space-between;
+}
+
+.tournament-card__subtitle {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.tournament-card__subtitle__text {
+  color: gray;
+  margin: 0;
+}
+
+.tournament-card__main-container {
+  display: flex;
+  height: $tournament-card-big-section-height;
+  justify-content: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tournament-card__footer {
+  align-items: center;
+  display: flex;
+  height: $tournament-card-section-height;
+  justify-content: space-between;
+}
+
+.tournament-card__footer__info {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 90%;
+}
+
+.tournament-card__footer__info__text {
+  margin: 0;
+}

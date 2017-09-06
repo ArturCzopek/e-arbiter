@@ -17,6 +17,7 @@ import {NotFoundComponent} from "./not-found.component";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {ModalService} from "./shared/service/modal.service";
 import {TournamentPreviewService} from "./shared/service/tournament-preview.service";
+import {DateService} from "./shared/service/date.service";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {TournamentPreviewService} from "./shared/service/tournament-preview.serv
   ],
   providers: [
     AuthService,
+    DateService,
     DevelopmentModeGuard,
     LoggedInUserGuard,
     LoggedOutUserGuard,

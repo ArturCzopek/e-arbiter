@@ -17,9 +17,10 @@ import {EMPTY_PAGE, Page} from "../../shared/interface/page.interface";
         ></arb-main-panel-menu>
         <div class="ui active centered loader massive" *ngIf="isLoading; else tournamentsList"></div>
         <ng-template #tournamentsList>
-          <div *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById">
-              <arb-tour-prev-card [tournamentPreview]="tournament"></arb-tour-prev-card>
-          </div>
+            <arb-tour-prev-card 
+              *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById"
+              [tournamentPreview]="tournament"
+            ></arb-tour-prev-card>
           <div class="ui red message" *ngIf="errorMessage?.length > 0">{{errorMessage}}</div>
         </ng-template>
     </div>`

@@ -1,4 +1,5 @@
 import {TournamentStatus} from "./tournament-status.enum";
+import {LocalDateTime} from "./local-date-time.interface";
 
 export interface TournamentPreview {
   id: string,
@@ -8,5 +9,5 @@ export interface TournamentPreview {
   publicFlag: boolean,
   status: TournamentStatus,
   users: number,
-  endDate: Date
+  endDate: LocalDateTime
 }

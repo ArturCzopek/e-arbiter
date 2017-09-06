@@ -1,6 +1,7 @@
 
-import {Component, Input} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from "@angular/core";
 import {TournamentPreview} from "../interface/tournament-preview.interface";
+import {DateService} from "../service/date.service";
 
 @Component({
   selector: 'arb-tour-prev-card',
@@ -11,8 +12,8 @@ import {TournamentPreview} from "../interface/tournament-preview.interface";
                 <h4>{{tournamentPreview.name}}</h4>
             </div>
             <div class="tournament-card__subtitle">
-                <p>{{tournamentPreview.endDate}}</p>
-                <p>{{tournamentPreview.status}}</p>
+                <p class="tournament-card__subtitle__text">Deadline: {{endDate}}</p>
+                <p class="tournament-card__subtitle__text">{{accessibilityStatus}}</p>
             </div>
         </div>
         <div class="tournament-card__main-container">
@@ -20,18 +21,32 @@ import {TournamentPreview} from "../interface/tournament-preview.interface";
         </div>
         <div class="tournament-card__footer">
             <div class="tournament-card__footer__info">
-                <p>Liczba uczestników: {{tournamentPreview.users}}</p>
-                <p>Autor: {{tournamentPreview.ownerName}}</p>
+                <p class="tournament-card__footer__info__text">Liczba uczestników: {{tournamentPreview.users}}</p>
+                <p class="tournament-card__footer__info__text">Autor: <strong>{{tournamentPreview.ownerName}}</strong></p>
             </div>
-            <button class="ui teal button" type="button" (click)="goToDetails()">Przejdź do turnieju</button>
+            <button class="ui teal large button" type="button" (click)="goToDetails()">Przejdź do turnieju</button>
         </div>
     </div>
   `
 })
-export class TournamentPreviewCardComponent {
+export class TournamentPreviewCardComponent implements OnInit, AfterViewInit{
   @Input() tournamentPreview: TournamentPreview;
 
+  public endDate: string;
+  public accessibilityStatus: string;
+
+  constructor(private dateService: DateService, private changeDetector: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.endDate = this.dateService.parseLocalDateTimeToString(this.tournamentPreview.endDate);
+    this.accessibilityStatus = (this.tournamentPreview.publicFlag) ? "Turniej publiczny" : "Turniej prywatny";
+  }
+
+  ngAfterViewInit(): void {
+    this.changeDetector.detach();
+  }
+
   public goToDetails() {
-    console.log("Go to ", this.tournamentPreview.id);
+    console.log("Go to", this.tournamentPreview.id);
   }
 }
