@@ -58,7 +58,7 @@ export class MainPanelComponent implements OnInit {
   public findTournaments(queryData: any) {
     const {pageSize, query} = queryData;
 
-    if (pageSize != this.pageSize) {
+    if (pageSize != this.pageSize || query != this.query) {
       this.currentPage = 1;
     }
 
