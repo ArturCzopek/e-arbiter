@@ -9,6 +9,10 @@ arb-tour-prev-card + arb-tour-prev-card {
   border-top: 1px solid lightgrey;
 }
 
+arb-tour-prev-card:last-of-type {
+  margin-bottom: $footer-height / 2;
+}
+
 .tournament-card__title-container {
   display: flex;
   height: $tournament-card-section-height;

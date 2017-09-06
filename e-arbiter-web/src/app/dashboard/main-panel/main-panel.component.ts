@@ -21,13 +21,14 @@ import {EMPTY_PAGE, Page} from "../../shared/interface/page.interface";
               *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById"
               [tournamentPreview]="tournament"
             ></arb-tour-prev-card>
-          <div class="ui red message" *ngIf="errorMessage?.length > 0">{{errorMessage}}</div>
+            <div class="ui red message" *ngIf="errorMessage?.length > 0">{{errorMessage}}</div>
+            <arb-pagination [page]="tournamentsPage" (onPageChange)="changePage($event)"></arb-pagination>
         </ng-template>
     </div>`
 })
 export class MainPanelComponent implements OnInit {
 
-  public pageNumber: number = 1;
+  public currentPage: number = 1;
   public pageSize: number = 5;
   public query: string = "";
   public tournamentsStatus = TournamentStatus.ACTIVE;
@@ -45,11 +46,22 @@ export class MainPanelComponent implements OnInit {
   public changeStatus(tournamentStatus: TournamentStatus) {
     this.tournamentsStatus = tournamentStatus;
     this.query = "";
+    this.currentPage = 1;
+    this.loadProperTournaments();
+  }
+
+  public changePage(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.loadProperTournaments();
   }
 
   public findTournaments(queryData: any) {
     const {pageSize, query} = queryData;
+
+    if (pageSize != this.pageSize) {
+      this.currentPage = 1;
+    }
+
     this.pageSize = pageSize;
     this.query = query;
     this.loadProperTournaments();
@@ -70,7 +82,7 @@ export class MainPanelComponent implements OnInit {
   private loadActiveTournaments(): void {
     this.isLoading = true;
 
-    this.tournamentPreviewService.getUserActiveTournaments(this.pageNumber, this.pageSize, this.query)
+    this.tournamentPreviewService.getUserActiveTournaments(this.currentPage, this.pageSize, this.query)
       .subscribe(
         page => {
           this.errorMessage = "";
@@ -85,7 +97,7 @@ export class MainPanelComponent implements OnInit {
   }
 
   private loadClosedTournaments(): void {
-    this.tournamentPreviewService.getUserClosedTournaments(this.pageNumber, this.pageSize, this.query)
+    this.tournamentPreviewService.getUserClosedTournaments(this.currentPage, this.pageSize, this.query)
       .subscribe(
         page => {
           this.errorMessage = "";

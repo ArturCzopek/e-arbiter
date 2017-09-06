@@ -17,3 +17,14 @@
     padding: 2vh 0;
   }
 }
+
+.fixed-footer {
+  align-items: center;
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  height: $footer-height;
+  padding: $footer-space;
+  position: fixed;
+}

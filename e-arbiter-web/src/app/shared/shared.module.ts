@@ -1,18 +1,19 @@
 import {NgModule} from "@angular/core";
 import {TournamentPreviewCardComponent} from "./component/tournament-preview-card.component";
 import {CommonModule} from "@angular/common";
-import {MomentModule} from "angular2-moment";
+import {PaginationComponent} from "./component/pagination.component";
 
 @NgModule({
   declarations: [
-    TournamentPreviewCardComponent
+    TournamentPreviewCardComponent,
+    PaginationComponent,
   ],
   imports: [
-    CommonModule,
-    MomentModule
+    CommonModule
   ],
   exports: [
-    TournamentPreviewCardComponent
+    TournamentPreviewCardComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule {
