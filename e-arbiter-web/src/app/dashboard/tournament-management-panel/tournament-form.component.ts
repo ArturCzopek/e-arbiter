@@ -126,7 +126,7 @@ export class TournamentFormComponent implements OnInit {
         now: Translations.NOW
       },
       onChange: (date: Date) => {
-        this.myForm.controls.endDate.setValue(date.toISOString().replace('Z', ''));
+        this.myForm.controls.endDate.setValue(date ? date.toISOString().replace('Z', '') : '');
       }
     });
 
