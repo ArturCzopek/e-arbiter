@@ -17,7 +17,7 @@ import {DateService} from "../service/date.service";
             </div>
         </div>
         <div class="tournament-card__main-container">
-            <p>{{tournamentPreview.description}}</p>
+            <p class="tournament-card__main-container__text">{{tournamentPreview.description}}</p>
         </div>
         <div class="tournament-card__footer">
             <div class="tournament-card__footer__info">

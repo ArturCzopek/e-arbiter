@@ -30,8 +30,10 @@ arb-tour-prev-card + arb-tour-prev-card {
   display: flex;
   height: $tournament-card-big-section-height;
   justify-content: flex-start;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.tournament-card__main-container__text {
+  text-align: justify;
 }
 
 .tournament-card__footer {
