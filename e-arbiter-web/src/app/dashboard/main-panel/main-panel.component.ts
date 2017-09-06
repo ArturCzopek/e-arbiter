@@ -15,11 +15,13 @@ import {EMPTY_PAGE, Page} from "../../shared/interface/page.interface";
           (onStatusChange)="changeStatus($event)" 
           (onSearch)="findTournaments($event)"
         ></arb-main-panel-menu>
-        <div *ngFor="let tournament of tournamentsPage?.content">
-            <div>
-                <p>{{tournament | json}}</p>
-            </div>
-        </div>
+        <div class="ui active centered loader massive" *ngIf="isLoading; else tournamentsList"></div>
+        <ng-template #tournamentsList>
+          <div *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById">
+              <arb-tour-prev-card [tournamentPreview]="tournament"></arb-tour-prev-card>
+          </div>
+          <div class="ui red message" *ngIf="errorMessage?.length > 0">{{errorMessage}}</div>
+        </ng-template>
     </div>`
 })
 export class MainPanelComponent implements OnInit {
@@ -29,6 +31,8 @@ export class MainPanelComponent implements OnInit {
   public query: string = "";
   public tournamentsStatus = TournamentStatus.ACTIVE;
   public tournamentsPage: Page<TournamentPreview> = EMPTY_PAGE;
+  public isLoading = true;
+  public errorMessage: string = "";
 
   constructor(private tournamentPreviewService: TournamentPreviewService) {
   }
@@ -50,6 +54,10 @@ export class MainPanelComponent implements OnInit {
     this.loadProperTournaments();
   }
 
+  public trackById(index: number, tournament: TournamentPreview): string {
+    return tournament.id;
+  }
+
   private loadProperTournaments() {
     if (this.tournamentsStatus === TournamentStatus.ACTIVE) {
       this.loadActiveTournaments()
@@ -59,18 +67,34 @@ export class MainPanelComponent implements OnInit {
   }
 
   private loadActiveTournaments(): void {
+    this.isLoading = true;
+
     this.tournamentPreviewService.getUserActiveTournaments(this.pageNumber, this.pageSize, this.query)
       .subscribe(
-        page => this.tournamentsPage = page,
-        error => console.log("Cannot load tournaments")
+        page => {
+          this.errorMessage = "";
+          this.tournamentsPage = page;
+        },
+        error => {
+            this.errorMessage = "Nie udało się załadować turniejów. Spróbuj jeszcze raz. W razie dalszych problemów, skontaktuj się z administratorem.";
+            this.tournamentsPage = EMPTY_PAGE;
+        },
+        () => this.isLoading = false
       );
   }
 
   private loadClosedTournaments(): void {
     this.tournamentPreviewService.getUserClosedTournaments(this.pageNumber, this.pageSize, this.query)
       .subscribe(
-        page => this.tournamentsPage = page,
-        error => console.log("Cannot load tournaments")
+        page => {
+          this.errorMessage = "";
+          this.tournamentsPage = page;
+        },
+        error => {
+          this.errorMessage = "Nie udało się załadować turniejów. Spróbuj jeszcze raz. W razie dalszych problemów, skontaktuj się z administratorem.";
+          this.tournamentsPage = EMPTY_PAGE;
+        },
+        () => this.isLoading = false
       );
   }
 }
