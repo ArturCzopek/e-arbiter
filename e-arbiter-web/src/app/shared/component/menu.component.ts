@@ -9,7 +9,7 @@ import {MenuElement} from '../model/menu-element.model';
         *ngFor="let element of menuElements; trackBy: trackByValue"
         (click)="changeMenuElement(element)"
         class="item header__link"
-      >{{item.label}}</a>
+      >{{element.label}}</a>
       <div class="right menu">
         <div class="item">
           <form (keyup.enter)="emitSearch(pageSize, query)" class="ui form no-margin-below">
