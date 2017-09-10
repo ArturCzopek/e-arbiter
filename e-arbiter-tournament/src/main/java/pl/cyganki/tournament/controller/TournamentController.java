@@ -63,4 +63,22 @@ public class TournamentController {
     public Page<TournamentPreview> getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(User user, Pageable pageable) {
         return tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
     }
+
+    @GetMapping("/management/draft")
+    @ApiOperation("Returns a page with draft tournaments which were created by user")
+    public Page<TournamentPreview> getDraftTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
+        return tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(user.getId(), pageable, query);
+    }
+
+    @GetMapping("/management/active")
+    @ApiOperation("Returns a page with active tournaments which were created by user")
+    public Page<TournamentPreview> getActiveTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
+        return tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(user.getId(), pageable, query);
+    }
+
+    @GetMapping("/management/finished")
+    @ApiOperation("Returns a page with finished tournaments which were created by user")
+    public Page<TournamentPreview> getFinishedTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
+        return tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(user.getId(), pageable, query);
+    }
 }

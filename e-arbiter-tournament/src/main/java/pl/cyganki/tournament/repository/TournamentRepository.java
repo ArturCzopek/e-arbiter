@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface TournamentRepository extends MongoRepository<Tournament, Long> {
 
+    // @formatter:off
     @Query("{" +
                 "$and: [" +
                     "{ 'ownerId': { $ne: ?0 } }," +
@@ -62,5 +63,29 @@ public interface TournamentRepository extends MongoRepository<Tournament, Long> 
                 "]" +
             "}")
     List<Tournament> findAllPublicActiveTournamentsInWhichUserDoesNotParticipate(long userId);
+
+    @Query("{" +
+                "$and: [" +
+                    "{ 'ownerId': ?0 }," +
+                    "{ 'status': ?1 }" +
+                "]" +
+            "}")
+    Page<Tournament> findTournamentsCreatedByUserByStatus(long userId, TournamentStatus status, Pageable pageable);
+
+    @Query("{" +
+                "$and: [" +
+                    "{ 'ownerId': ?0 }," +
+                    "{ 'status': ?1 }," +
+                    "{ " +
+                        "$or: [" +
+                            "{ 'name': {$regex: ?2, $options: 'i'} }," +
+                            "{ 'description': {$regex: ?2, $options: 'i'} }" +
+                        "]" +
+                    "}" +
+                "]" +
+            "}")
+    Page<Tournament> findTournamentsCreatedByUserByStatusAndQuery(long userId, TournamentStatus status, String query, Pageable pageable);
+
+    // @formatter:on
 }
 
