@@ -3,8 +3,8 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {Translations} from "../../shared/model/calendar.model";
 import {Tournament} from "./interface/tournament.interface";
 import {TaskModalComponent} from "./task-modal.component";
-import {TournamentService} from "./tournament.service";
-import {TournamentStatus} from "./interface/tournament-status";
+import {TournamentManagementService} from "./tournament-management.service";
+import {TournamentStatus} from "../../shared/interface/tournament-status.enum";
 import {ModalService} from "../../shared/service/modal.service";
 
 declare var $: any;
@@ -111,7 +111,7 @@ export class TournamentFormComponent implements OnInit {
   @ViewChild("taskModal") taskModal: TaskModalComponent;
 
   constructor(private fb: FormBuilder,
-              private tournamentService: TournamentService,
+              private tournamentManagementService: TournamentManagementService,
               private modalService: ModalService) {
   }
 
@@ -167,7 +167,7 @@ export class TournamentFormComponent implements OnInit {
 
     // TODO: as part of validation, handle error responses in a better way
     // remember that validation alerts should be in polish there
-    this.tournamentService.saveTournament(tournament)
+    this.tournamentManagementService.saveTournament(tournament)
       .subscribe(
         (data) => ms.showAlert('Adding successful.'),
         (err) => ms.showAlert('Couldn\'t add tournament.')

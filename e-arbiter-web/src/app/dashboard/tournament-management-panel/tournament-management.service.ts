@@ -6,7 +6,7 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class TournamentService {
+export class TournamentManagementService {
 
   constructor(private http: Http, private authService: AuthService) {}
 

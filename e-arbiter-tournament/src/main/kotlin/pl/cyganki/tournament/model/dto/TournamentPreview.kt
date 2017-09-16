@@ -11,6 +11,5 @@ data class TournamentPreview(
         val publicFlag: Boolean,
         val status: TournamentStatus,
         val users: Int,
-        val startDate: LocalDateTime? = null,
-        val endDate: LocalDateTime? = null
+        val endDate: LocalDateTime
 )

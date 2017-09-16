@@ -42,7 +42,6 @@ class TournamentPreviewsFetcher(
                             it.isPublicFlag,
                             it.status,
                             it.joinedUsersIds.size,
-                            it.startDate,
                             it.endDate
                     )
                 }
@@ -66,7 +65,8 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size
+                    it.joinedUsersIds.size,
+                    it.endDate
             )
         }
     }
@@ -82,7 +82,6 @@ class TournamentPreviewsFetcher(
                     it.isPublicFlag,
                     it.status,
                     it.joinedUsersIds.size,
-                    it.startDate,
                     it.endDate
             )
         }
