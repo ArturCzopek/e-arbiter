@@ -9,7 +9,7 @@ import {HeaderComponent} from "./header.component";
 import {DashboardRouting} from "./dashboard.routing";
 import {MainPanelModule} from "./main-panel/main-panel.module";
 import {AdminPanelModule} from "./admin-panel/admin-panel.module";
-import {ActiveTournamentsPanelModule} from "./active-tournaments-panel/active-tournaments-panel.module";
+import {ActiveTournamentsModule} from "./active-tournaments-panel/active-tournaments.module";
 import {TournamentManagementPanelModule} from "./tournament-management-panel/tournament-management-panel.module";
 
 @NgModule({
@@ -19,7 +19,7 @@ import {TournamentManagementPanelModule} from "./tournament-management-panel/tou
     HeaderComponent
   ],
   imports: [
-    ActiveTournamentsPanelModule,
+    ActiveTournamentsModule,
     AdminPanelModule,
     CommonModule,
     DashboardRouting,

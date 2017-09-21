@@ -22,7 +22,7 @@ import {DateService} from "../service/date.service";
         <div class="tournament-card__footer">
             <div class="tournament-card__footer__info">
                 <p class="tournament-card__footer__info__text">Liczba uczestników: {{tournamentPreview.users}}</p>
-                <p class="tournament-card__footer__info__text">Autor: <strong>{{tournamentPreview.ownerName}}</strong></p>
+                <p class="tournament-card__footer__info__text">Autor: <strong><a target="_blank" href="https://github.com/{{tournamentPreview.ownerName}}">{{tournamentPreview.ownerName}}</a></strong></p>
             </div>
             <button class="ui teal large button" type="button" (click)="goToDetails()">Przejdź do turnieju</button>
         </div>

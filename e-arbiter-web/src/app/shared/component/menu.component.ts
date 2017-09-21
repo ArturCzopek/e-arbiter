@@ -12,8 +12,8 @@ import {MenuElement} from '../model/menu-element.model';
       >{{element.label}}</a>
       <div class="right menu">
         <div class="item">
-          <form (keyup.enter)="emitSearch(pageSize, query)" class="ui form no-margin-below">
-            <div class="fields">
+          <form (keyup.enter)="emitSearch(pageSize, query)" class="ui form no-margin-below" [ngClass]="querySearchEnabled ? '' : 'corner-tiny-form'">
+            <div [ngClass]="querySearchEnabled ? 'fields' : 'one field'">
               <div class="field narrow">
                 <input
                   type="number"
@@ -23,7 +23,7 @@ import {MenuElement} from '../model/menu-element.model';
                   [(ngModel)]="pageSize"
                   [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="field broad ui icon input">
+              <div *ngIf="querySearchEnabled" class="field broad ui icon input">
                 <input
                   type="text"
                   placeholder="Szukaj turniejów..."
@@ -40,9 +40,10 @@ import {MenuElement} from '../model/menu-element.model';
 })
 export class MenuComponent implements AfterViewInit {
 
-  @Input() query: string;
+  @Input() query = '';
   @Input() pageSize: number;
   @Input() menuElements: MenuElement[] = [];
+  @Input() querySearchEnabled = true;
 
   @Output() onTabChange: EventEmitter<any> = new EventEmitter();
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
