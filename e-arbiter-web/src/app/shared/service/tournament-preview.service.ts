@@ -23,7 +23,7 @@ export class TournamentPreviewService {
       .map(res => res.json());
   }
 
-  public getUserClosedTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
+  public getUserFinishedTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
 
     return this.http.get(
       `${environment.server.tournament.allTournamentsUrl}/finished?page=${pageNumber - 1}&size=${pageSize}&query=${query}`,
@@ -57,6 +57,36 @@ export class TournamentPreviewService {
 
     return this.http.get(
       `${environment.server.tournament.allTournamentsUrl}/ending?page=${pageNumber - 1}&size=${pageSize}`,
+      this.authService.prepareAuthOptions()
+    )
+      .first()
+      .map(res => res.json());
+  }
+
+  public getDraftManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
+
+    return this.http.get(
+      `${environment.server.tournament.managementTournamentsUrl}/draft?page=${pageNumber - 1}&size=${pageSize}&query=${query}`,
+      this.authService.prepareAuthOptions()
+    )
+      .first()
+      .map(res => res.json());
+  }
+
+  public getActiveManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
+
+    return this.http.get(
+      `${environment.server.tournament.managementTournamentsUrl}/active?page=${pageNumber - 1}&size=${pageSize}&query=${query}`,
+      this.authService.prepareAuthOptions()
+    )
+      .first()
+      .map(res => res.json());
+  }
+
+  public getFinishedManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
+
+    return this.http.get(
+      `${environment.server.tournament.managementTournamentsUrl}/finished?page=${pageNumber - 1}&size=${pageSize}&query=${query}`,
       this.authService.prepareAuthOptions()
     )
       .first()

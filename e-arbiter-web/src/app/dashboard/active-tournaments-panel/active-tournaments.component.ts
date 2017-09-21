@@ -22,8 +22,8 @@ import {ActiveTournamentSort} from './model/active-tournament-sort.enum';
           *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById"
           [tournamentPreview]="tournament"
         ></arb-tour-prev-card>
-        <div class="ui green message" *ngIf="tournamentsPage?.content.length === 0 && errorMessage.length === 0">
-          Wygląda na to, że nie masz żadnych turniejów w tej kategorii
+        <div class="ui yellow message" *ngIf="tournamentsPage?.content.length === 0 && errorMessage.length === 0">
+          Wygląda na to, że nie ma turniejów spełniających Twoje kryteria
         </div>
         <div class="ui red message" *ngIf="errorMessage.length > 0">
           {{errorMessage}}

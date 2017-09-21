@@ -20,6 +20,10 @@ export class RouteService {
     this.router.navigate([environment.client.dashboard.url]);
   }
 
+  public goToTournamentForm() {
+    this.router.navigate([`${environment.client.dashboard.managementPanelUrl}/new`])
+  }
+
   public goToLoginServerPage() {
     window.location = `${environment.server.auth.loginUrl}`;
   }

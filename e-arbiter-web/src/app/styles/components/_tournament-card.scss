@@ -13,6 +13,10 @@ arb-tour-prev-card:last-of-type {
   margin-bottom: $footer-height / 2;
 }
 
+arb-tour-prev-card + .main-button-container {
+  margin-top: 0 !important;
+}
+
 .tournament-card__title-container {
   display: flex;
   height: $tournament-card-section-height;
