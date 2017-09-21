@@ -105,7 +105,8 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size
+                    it.joinedUsersIds.size,
+                    it.endDate
             )
         }
     }
