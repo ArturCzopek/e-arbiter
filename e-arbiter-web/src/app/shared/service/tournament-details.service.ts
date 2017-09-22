@@ -22,7 +22,7 @@ export class TournamentDetailsService {
         setTimeout(() => observer.next(
           new TmpTournamentDetails(
             id,
-            'TestowyUser',
+            'KonradOnieszczuk',
             'Testowy publiczny turniej, uczestnicze, aktywny',
             new TmpAccessDetails(true, false, true, true),
             TournamentStatus.ACTIVE,
@@ -75,7 +75,7 @@ export class TournamentDetailsService {
         setTimeout(() => observer.next(
           new TmpTournamentDetails(
             id,
-            'TestowyUser',
+            'MaciejMarczak',
             'Testowy publiczny turniej, uczestnicze, zakonczony',
             new TmpAccessDetails(true, false, true, true),
             TournamentStatus.FINISHED,
@@ -128,7 +128,7 @@ export class TournamentDetailsService {
         setTimeout(() => observer.next(
           new TmpTournamentDetails(
             id,
-            'TestowyUser',
+            'ArturCzopek',
             'Testowy prywatny turniej aktywny, uczestnicze',
             new TmpAccessDetails(false, false, true, true),
             TournamentStatus.ACTIVE,
@@ -181,7 +181,7 @@ export class TournamentDetailsService {
         setTimeout(() => observer.next(
           new TmpTournamentDetails(
             id,
-            'TestowyUser',
+            'ArturCzopek',
             'Testowy prywatny turniej, uczestnicze, zakonczony',
             new TmpAccessDetails(false, false, true, true),
             TournamentStatus.FINISHED,

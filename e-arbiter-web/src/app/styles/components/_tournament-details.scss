@@ -7,15 +7,11 @@
   margin-bottom: 4vh;
 }
 
-arb-tour-details-task-list {
-  width: 66%;
-}
-
 .tournament-details-card__tasks-panel {
   display: flex;
   flex-direction: column;
   padding: $tournament-details-subcard-spacing;
-  width: 100%;
+  width: 66%;
 }
 
 .tournament-details-card__tasks-panel__tasks-list {
@@ -25,13 +21,9 @@ arb-tour-details-task-list {
   justify-content: center;
 }
 
-arb-tour-details-task-prev {
-  width: 90%;
-}
-
 // there is another breaking BEM because these components are from semantic
 .tournament-details-card__tasks-panel__tasks-list__task {
-  width: 100%;
+  width: 90%;
 
   sm-accordion sm-accordion-item {
     .title {
@@ -73,19 +65,15 @@ arb-tour-details-task-prev {
   }
 }
 
-arb-tour-details-task-prev + arb-tour-details-task-prev {
+.tournament-details-card__tasks-panel__tasks-list__task + .tournament-details-card__tasks-panel__tasks-list__task {
   border-top: 1px solid lightgray;
-}
-
-arb-tour-details-stats {
-  width: 33%;
 }
 
 .tournament-details-card__stats-panel {
   display: flex;
   flex-direction: column;
   padding: $tournament-details-subcard-spacing;
-  width: 100%;
+  width: 33%;
 }
 
 .tournament-details-card__stats-panel__stat {
