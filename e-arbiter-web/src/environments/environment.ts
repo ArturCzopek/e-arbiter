@@ -36,6 +36,7 @@ export const environment = {
     dashboard: {
       url: '/dashboard',
       mainPanelUrl: '/dashboard/main',
+      tournamentUrl: '/dashboard/tournament',
       activeTournamentsPanelUrl: '/dashboard/active',
       managementPanelUrl: '/dashboard/management',
       adminPanelUrl: '/dashboard/admin',
