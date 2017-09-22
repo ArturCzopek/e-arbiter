@@ -19,6 +19,7 @@ import {ModalService} from './shared/service/modal.service';
 import {TournamentPreviewService} from './shared/service/tournament-preview.service';
 import {DateService} from './shared/service/date.service';
 import {PageCounterService} from './shared/service/page-counter.service';
+import {TournamentDetailsService} from "./shared/service/tournament-details.service";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {PageCounterService} from './shared/service/page-counter.service';
     PageCounterService,
     RouteService,
     TournamentPreviewService,
+    TournamentDetailsService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [
