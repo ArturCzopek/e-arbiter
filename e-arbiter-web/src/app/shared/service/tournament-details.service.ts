@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {TmpTournamentDetails, TournamentDetails} from '../interface/tournament-details.interface';
+import {TmpTournamentDetails, TournamentDetails} from '../../dashboard/main-panel/interface/tournament-details.interface';
 import {Observable} from 'rxjs/Observable';
-import {TmpAccessDetails} from '../interface/access-details.interface';
+import {TmpAccessDetails} from '../../dashboard/main-panel/interface/access-details.interface';
 import {TournamentStatus} from '../interface/tournament-status.enum';
 import {TmpLocalDateTime} from '../interface/local-date-time.interface';
 import {TmpTaskPreview} from '../interface/task-preview.interface';

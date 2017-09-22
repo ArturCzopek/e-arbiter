@@ -1,7 +1,7 @@
-import {LocalDateTime} from './local-date-time.interface';
+import {LocalDateTime} from '../../../shared/interface/local-date-time.interface';
 import {AccessDetails} from './access-details.interface';
-import {TournamentStatus} from './tournament-status.enum';
-import {TaskPreview} from './task-preview.interface';
+import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
+import {TaskPreview} from '../../../shared/interface/task-preview.interface';
 
 export interface TournamentDetails {
   id: string,
