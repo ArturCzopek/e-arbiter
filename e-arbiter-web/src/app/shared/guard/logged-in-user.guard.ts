@@ -7,7 +7,7 @@ import {RouteService} from '../service/route.service';
 @Injectable()
 export class LoggedInUserGuard implements CanActivate, CanActivateChild {
 
-  constructor(private routeService: RouteService, private userService: AuthService) {}
+  constructor(private routeService: RouteService, private authService: AuthService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     return this.checkIfCanActivatePageForLoggedInUser();
@@ -18,7 +18,7 @@ export class LoggedInUserGuard implements CanActivate, CanActivateChild {
   }
 
   private checkIfCanActivatePageForLoggedInUser(): boolean {
-    if (this.userService.isLoggedInUser()) {
+    if (this.authService.isLoggedInUser()) {
       return true;
     }
 

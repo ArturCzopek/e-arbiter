@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {TaskPreview} from '../../shared/interface/task-preview.interface';
 import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
 import * as _ from 'lodash';
@@ -14,13 +14,14 @@ import * as _ from 'lodash';
           </accordion-title>
           <accordion-content>
             <p>{{taskPreview.description}}</p>
-            <div class="accordion-content-footer">
+            <div *ngIf="canSeeTaskFooter" class="accordion-content-footer">
               <p>Podejścia: {{taskPreview.userAttempts}}/{{convertAttempts()}}</p>
               <p>Punkty: {{taskPreview.pointsReceived}}/{{taskPreview.maxPoints}}</p>
               <button
-                [ngClass]="!canExecuteTask() ? 'ui button medium teal disabled' : 'ui button medium teal'"
+                [ngClass]="canExecuteTask() ? 'ui button medium teal' : 'ui button medium teal disabled'"
                 (click)="executeTask()"
               >
+                <i class="terminal icon"></i>
                 Wykonaj zadanie
               </button>
             </div>
@@ -31,9 +32,17 @@ import * as _ from 'lodash';
 
   `
 })
-export class TournamentDetailsTaskPreviewComponent {
+export class TournamentDetailsTaskPreviewComponent implements AfterViewInit {
   @Input() taskPreview: TaskPreview;
   @Input() status: TournamentStatus;
+  @Input() canSeeTaskFooter: boolean;
+
+  constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.cdr.detach(), 500);
+  }
 
   public convertAttempts(): string {
     return `${(_.isNumber(this.taskPreview.maxAttempts)) ? this.taskPreview.maxAttempts : '-' }`;

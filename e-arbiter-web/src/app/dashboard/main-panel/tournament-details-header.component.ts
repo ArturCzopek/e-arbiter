@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {TournamentDetails} from './interface/tournament-details.interface';
 
 @Component({
@@ -15,13 +15,23 @@ import {TournamentDetails} from './interface/tournament-details.interface';
         </div>
       </div>
       <div class="tournament-card__main-container--full">
-        <p class="tournament-card__main-container__text">{{tournamentDetails?.description}}</p>
+        <p class="tournament-card__main-container__text">
+          {{(canSeeHeaderData) ? tournamentDetails?.description : 'Nie masz uprawnień, aby widzieć opis turnieju'}}</p>
       </div>
     </div>
   `
 })
-export class TournamentDetailsHeaderComponent {
+export class TournamentDetailsHeaderComponent implements AfterViewInit {
   @Input() tournamentDetails: TournamentDetails;
   @Input() accessibilityStatus: boolean;
   @Input() endDate: string;
+  @Input() canSeeHeaderData: boolean;
+
+
+  constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.cdr.detach(), 500);
+  }
 }
