@@ -40,7 +40,16 @@ arb-tour-prev-card + .main-button-container {
   justify-content: flex-start;
 }
 
+.tournament-card__main-container--full {
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  justify-content: flex-start;
+  min-height: $tournament-card-big-section-height;
+  padding-bottom: 1rem;
+}
+
 .tournament-card__main-container__text {
+  font-size: $paragraph-larger-size;
   text-align: justify;
 }
 

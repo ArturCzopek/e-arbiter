@@ -5,6 +5,7 @@ $main-lighten-color: lighten($main-color, 50%);
 // Font sizes
 $base-font-size: 1.4rem;
 $h1-font-size: 6.5rem;
+$paragraph-larger-size: 1.1rem;
 
 // Dimensions
 $header-height: 47px;
@@ -19,3 +20,7 @@ $footer-space: ($footer-height/4) 0;
 $tournament-card-spacing: 0.8rem;
 $tournament-card-section-height: 4rem;
 $tournament-card-big-section-height: 1.5 * $tournament-card-section-height;
+
+// Tournament details
+$tournament-details-spacing: 0.2rem;
+$tournament-details-subcard-spacing: 0.5rem;

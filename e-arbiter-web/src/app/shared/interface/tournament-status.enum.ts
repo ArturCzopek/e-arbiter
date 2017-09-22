@@ -1,3 +1,3 @@
 export enum TournamentStatus {
-  DRAFT, ACTIVE, FINISHED
+  DRAFT = 'Szkic', ACTIVE = 'Aktywny', FINISHED = 'Zakończony'
 }
