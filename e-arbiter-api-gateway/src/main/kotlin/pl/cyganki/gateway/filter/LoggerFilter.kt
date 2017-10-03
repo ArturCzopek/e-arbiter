@@ -21,7 +21,7 @@ class LoggerFilter(private val userSessionCache: UserSessionCache): ZuulFilter()
 
     override fun filterType() = FilterType.POST.value
 
-    override fun filterOrder() = 2
+    override fun filterOrder() = 99
 
     override fun run(): Any? {
         val userName = userSessionCache.getNameOfCurrentLoggedInUser()

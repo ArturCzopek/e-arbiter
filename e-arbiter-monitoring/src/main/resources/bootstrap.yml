@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: monitoring
+  profiles:
+    active: dev
+  cloud.config.uri: ${E_ARB_HOST}:${E_ARB_CFG_PORT}
