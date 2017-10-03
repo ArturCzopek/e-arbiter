@@ -9,11 +9,19 @@ declare var $: any;
   template: `
     <div class="ui teal inverted fixed menu">
       <div class="ui container">
-        <a href="{{dashboardUrl}}" class="item header__title">e-Arbiter</a>
-        <a [routerLink]="[mainPanelUrl]" routerLinkActive="active" class="item header__link">Dashboard</a>
-        <a [routerLink]="[activeTournamentsPanelUrl]" routerLinkActive="active" class="item header__link">Aktywne turnieje</a>
-        <a [routerLink]="[tournamentManagementPanelUrl]" routerLinkActive="active" class="item header__link">Zarządzaj turniejami</a>
-        <a [routerLink]="[developmentPanelUrl]" routerLinkActive="active" class="item header__link">Development card</a>
+        <a href="#{{dashboardUrl}}" class="item header__title">e-Arbiter</a>
+        <a [routerLink]="[mainPanelUrl]" routerLinkActive="active" class="item header__link">
+          Dashboard
+        </a>
+        <a [routerLink]="[activeTournamentsPanelUrl]" routerLinkActive="active" class="item header__link">
+          Aktywne turnieje
+        </a>
+        <a [routerLink]="[tournamentManagementPanelUrl]" routerLinkActive="active" class="item header__link">
+          Zarządzaj turniejami
+        </a>
+        <a [routerLink]="[developmentPanelUrl]" routerLinkActive="active" class="item header__link">
+          Development card
+        </a>
         <div class="ui simple dropdown item right ">
           <img *ngIf="authService.isLoggedInUser()"
                class="ui avatar image"
@@ -21,9 +29,16 @@ declare var $: any;
           <p class="header__link header__link--dropdown">{{authService.getLoggedInUserName()}}</p>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="header__link header__link--dropdown-item">To nic nie robi :)</a>
-            <a *ngIf="authService.isLoggedInUserAdmin()" [routerLink]="[adminPanelUrl]" class="header__link header__link--dropdown-item">Panel administratora</a>
-            <a class="header__link header__link--dropdown-item" (click)="authService.logOut()">Wyloguj się</a>
+            <a class="header__link header__link--dropdown-item">
+              To nic nie robi :)
+            </a>
+            <a *ngIf="authService.isLoggedInUserAdmin()" [routerLink]="[adminPanelUrl]"
+               class="header__link header__link--dropdown-item">
+              Panel administratora
+            </a>
+            <a class="header__link header__link--dropdown-item" (click)="authService.logOut()">
+              Wyloguj się
+            </a>
           </div>
         </div>
       </div>
@@ -40,7 +55,8 @@ export class HeaderComponent implements AfterViewInit {
 
   public readonly developmentPanelUrl = environment.client.dashboard.developmentPanelUrl;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) {
+  }
 
   ngAfterViewInit(): void {
     $('.ui.dropdown')

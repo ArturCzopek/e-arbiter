@@ -16,6 +16,16 @@
     width: 100%;
     padding: 2vh 0;
   }
+
+  .main-button-container {
+    margin: 4rem 0;
+    padding: 0 35%;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
 }
 
 .fixed-footer {

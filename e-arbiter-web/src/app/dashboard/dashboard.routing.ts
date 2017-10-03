@@ -8,6 +8,7 @@ import {MainPanelComponent} from './main-panel/main-panel.component';
 import {AdminPanelComponent} from 'app/dashboard/admin-panel/admin-panel.component';
 import {ActiveTournamentsComponent} from './active-tournaments-panel/active-tournaments.component';
 import {TournamentManagementPanelComponent} from './tournament-management-panel/tournament-management-panel.component';
+import {TournamentFormComponent} from './tournament-management-panel/tournament-form.component';
 
 const dashboardRoutes: Routes = [
   {
@@ -17,6 +18,7 @@ const dashboardRoutes: Routes = [
       {path: 'main', component: MainPanelComponent},
       {path: 'active', component: ActiveTournamentsComponent},
       {path: 'management', component: TournamentManagementPanelComponent},
+      {path: 'management/new', component: TournamentFormComponent},
       {path: 'admin', component: AdminPanelComponent},
       {path: 'development', component: DevelopmentCardComponent, canActivate: [DevelopmentModeGuard]}
     ]

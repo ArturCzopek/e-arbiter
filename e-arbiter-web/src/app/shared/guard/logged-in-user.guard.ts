@@ -1,8 +1,8 @@
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from "@angular/router";
-import {Injectable} from "@angular/core";
-import {AuthService} from "../service/auth.service";
-import {Observable} from "rxjs/Observable";
-import {RouteService} from "../service/route.service";
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {AuthService} from '../service/auth.service';
+import {Observable} from 'rxjs/Observable';
+import {RouteService} from '../service/route.service';
 
 @Injectable()
 export class LoggedInUserGuard implements CanActivate, CanActivateChild {
