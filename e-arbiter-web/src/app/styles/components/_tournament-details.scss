@@ -99,3 +99,15 @@ arb-tour-details-stats {
   font-size: 1.4rem;
   padding: 1vh 0;
 }
+
+.tournament-details-action-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 3vh auto;
+  width: 50%;
+}
+
+.tournament-details-action-panel--empty {
+  display: none;
+}

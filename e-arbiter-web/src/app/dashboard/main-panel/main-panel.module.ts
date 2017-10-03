@@ -7,11 +7,13 @@ import {NgSemanticModule} from 'ng-semantic/ng-semantic';
 import {TournamentDetailsStatisticsComponent} from './tournament-details-statistics.component';
 import {TournamentDetailsTaskListComponent} from './tournament-details-task-list.component';
 import {TournamentDetailsHeaderComponent} from './tournament-details-header.component';
-import {TournamentDetailsTaskPreviewComponent} from "./tournament-details-task-preview.component";
+import {TournamentDetailsTaskPreviewComponent} from './tournament-details-task-preview.component';
+import {TournamentDetailsActionComponent} from './tournament-details-action.component';
 
 @NgModule({
   declarations: [
     MainPanelComponent,
+    TournamentDetailsActionComponent,
     TournamentDetailsComponent,
     TournamentDetailsHeaderComponent,
     TournamentDetailsStatisticsComponent,

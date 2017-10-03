@@ -25,7 +25,10 @@ import {RouteService} from '../service/route.service';
                 <p class="tournament-card__footer__info__text">Liczba uczestników: {{tournamentPreview.users}}</p>
                 <p class="tournament-card__footer__info__text">Autor: <strong><a target="_blank" href="https://github.com/{{tournamentPreview.ownerName}}">{{tournamentPreview.ownerName}}</a></strong></p>
             </div>
-            <button class="ui teal large button" type="button" (click)="goToDetails()">Przejdź do turnieju</button>
+            <button class="ui teal large button" type="button" (click)="goToDetails()">
+              <i class="tasks icon"></i>
+              Przejdź do turnieju
+            </button>
         </div>
     </div>
   `

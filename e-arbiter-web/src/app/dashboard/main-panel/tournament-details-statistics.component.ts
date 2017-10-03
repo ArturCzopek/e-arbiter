@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {TournamentDetails} from './interface/tournament-details.interface';
 
 @Component({
@@ -34,14 +34,26 @@ import {TournamentDetails} from './interface/tournament-details.interface';
         <strong class="tournament-details-card__stats-panel__stat__label">Max punktów:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.maxPoints}}</p>
       </div>
-      <div class="tournament-details-card__stats-panel__stat">
+      <div *ngIf="canSeePoints()" class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Twoje punkty:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.userPoints}}</p>
       </div>
     </div>
   `
 })
-export class TournamentDetailsStatisticsComponent {
+export class TournamentDetailsStatisticsComponent implements AfterViewInit {
   @Input() tournamentDetails: TournamentDetails;
   @Input() startDate: String;
+
+
+  constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.cdr.detach(), 500);
+  }
+
+  public canSeePoints(): boolean {
+    return this.tournamentDetails.accessDetails.participateInTournament;
+  }
 }

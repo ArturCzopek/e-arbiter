@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions} from "@angular/http";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/first";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
-import {Observable} from "rxjs/Observable";
-import {environment} from "../../../environments/environment";
-import {User} from "../interface/user.interface";
-import {ActivatedRoute} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions} from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../environments/environment';
+import {User} from '../interface/user.interface';
+import {ActivatedRoute} from '@angular/router';
 
 declare var window: any;
 
@@ -20,14 +20,14 @@ export class AuthService {
 
   public logIn() {
 
-    const token = this.getTokenFromLocalStorage();
+    let token = this.getTokenFromLocalStorage();
 
     // user is not logged in but we can do it with token which is in his browser
     if (!this.isLoggedInUser() && token) {
 
       // we need to check if token is in localstorage
       // it has to be there, even if user has token from redirect (login component will set it in storage)
-      const token = this.getTokenFromLocalStorage();
+      token = this.getTokenFromLocalStorage();
 
       if (token) {                          // we want to log new/earlier user
         this.setToken(token);               // maybe it is new token, so (re)set
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   public getLoggedInUserName(): string {
-    return (this.user) ? this.user.name : "Niezalogowany";
+    return (this.user) ? this.user.name : 'Niezalogowany';
   }
 
   public getMeInfo(): Observable<any> {
@@ -89,7 +89,7 @@ export class AuthService {
   };
 
   public isLoggedInUserAdmin(): boolean {
-    return this.user && this.user.roles.some(role => role.name.toUpperCase() === "ADMIN")
+    return this.user && this.user.roles.some(role => role.name.toUpperCase() === 'ADMIN')
   }
 
   private getUserFromServer(): any {

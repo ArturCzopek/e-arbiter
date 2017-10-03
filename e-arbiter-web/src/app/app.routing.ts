@@ -1,9 +1,9 @@
-import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
-import {NgModule} from "@angular/core";
-import {LogoutComponent} from "./logout.component";
-import {LoggedOutUserGuard} from "./shared/guard/logged-out-user.guard";
-import {LoginComponent} from "./login.component";
-import {NotFoundComponent} from "./not-found.component";
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {LogoutComponent} from './logout.component';
+import {LoggedOutUserGuard} from './shared/guard/logged-out-user.guard';
+import {LoginComponent} from './login.component';
+import {NotFoundComponent} from './not-found.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
+  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules, useHash: true})],
   exports:  [RouterModule]
 })
 export class AppRouting {

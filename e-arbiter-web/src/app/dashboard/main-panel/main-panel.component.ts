@@ -16,7 +16,9 @@ import {MenuElement} from '../../shared/model/menu-element.model';
         (onTabChange)="changeStatus($event)"
         (onSearch)="findTournaments($event)"
       ></arb-menu>
-      <div class="ui active centered loader massive" *ngIf="isLoading; else tournamentsList"></div>
+      <div class="ui active centered text loader massive" *ngIf="isLoading; else tournamentsList">
+        Ładowanie...
+      </div>
       <ng-template #tournamentsList>
         <arb-tour-prev-card
           *ngFor="let tournament of tournamentsPage?.content; trackBy: trackById"
