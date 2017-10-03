@@ -27,4 +27,8 @@ export class RouteService {
   public goToLoginServerPage() {
     window.location = `${environment.server.auth.loginUrl}`;
   }
+
+  public goToTournamentDetails(id: string) {
+    this.router.navigate([environment.client.dashboard.tournamentUrl, id])
+  }
 }

@@ -1,0 +1,101 @@
+.tournament-details-card {
+  display: flex;
+  padding: $tournament-details-spacing;
+}
+
+.tournament-details-card__subtitle {
+  margin-bottom: 4vh;
+}
+
+arb-tour-details-task-list {
+  width: 66%;
+}
+
+.tournament-details-card__tasks-panel {
+  display: flex;
+  flex-direction: column;
+  padding: $tournament-details-subcard-spacing;
+  width: 100%;
+}
+
+.tournament-details-card__tasks-panel__tasks-list {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+arb-tour-details-task-prev {
+  width: 90%;
+}
+
+// there is another breaking BEM because these components are from semantic
+.tournament-details-card__tasks-panel__tasks-list__task {
+  width: 100%;
+
+  sm-accordion sm-accordion-item {
+    .title {
+      align-items: baseline;
+      display: flex;
+      font-weight: bold;
+      justify-content: flex-start;
+    }
+
+    .content {
+      padding: 1vh 0 2vh 25px !important; // 25px for dropdown arrow spacing
+      text-align: left;                   // it prevents ugly look when collapsing/animating
+
+      &.active {
+        display: flex !important;
+        justify-content: flex-start;
+      }
+
+      accordion-content {
+        width: 100%;
+      }
+
+      .accordion-content-footer {
+        align-items: baseline;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      p {
+        font-size: $paragraph-larger-size;
+      }
+    }
+  }
+}
+
+arb-tour-details-task-prev + arb-tour-details-task-prev {
+  border-top: 1px solid lightgray;
+}
+
+arb-tour-details-stats {
+  width: 33%;
+}
+
+.tournament-details-card__stats-panel {
+  display: flex;
+  flex-direction: column;
+  padding: $tournament-details-subcard-spacing;
+  width: 100%;
+}
+
+.tournament-details-card__stats-panel__stat {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tournament-details-card__stats-panel__stat__label,
+.tournament-details-card__stats-panel__stat__value {
+  font-size: 1.4rem;
+  padding: 1vh 0;
+}

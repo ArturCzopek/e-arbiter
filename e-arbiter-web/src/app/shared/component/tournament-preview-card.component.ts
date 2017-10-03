@@ -1,7 +1,8 @@
 
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from "@angular/core";
-import {TournamentPreview} from "../interface/tournament-preview.interface";
-import {DateService} from "../service/date.service";
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {TournamentPreview} from '../interface/tournament-preview.interface';
+import {DateService} from '../service/date.service';
+import {RouteService} from '../service/route.service';
 
 @Component({
   selector: 'arb-tour-prev-card',
@@ -29,17 +30,17 @@ import {DateService} from "../service/date.service";
     </div>
   `
 })
-export class TournamentPreviewCardComponent implements OnInit, AfterViewInit{
+export class TournamentPreviewCardComponent implements OnInit, AfterViewInit {
   @Input() tournamentPreview: TournamentPreview;
 
   public endDate: string;
   public accessibilityStatus: string;
 
-  constructor(private dateService: DateService, private changeDetector: ChangeDetectorRef) {}
+  constructor(private dateService: DateService, private changeDetector: ChangeDetectorRef, private routeService: RouteService) {}
 
   ngOnInit(): void {
     this.endDate = this.dateService.parseLocalDateTimeToString(this.tournamentPreview.endDate);
-    this.accessibilityStatus = (this.tournamentPreview.publicFlag) ? "Turniej publiczny" : "Turniej prywatny";
+    this.accessibilityStatus = (this.tournamentPreview.publicFlag) ? 'Turniej publiczny' : 'Turniej prywatny';
   }
 
   ngAfterViewInit(): void {
@@ -47,6 +48,6 @@ export class TournamentPreviewCardComponent implements OnInit, AfterViewInit{
   }
 
   public goToDetails() {
-    console.log("Go to", this.tournamentPreview.id);
+    this.routeService.goToTournamentDetails(this.tournamentPreview.id);
   }
 }
