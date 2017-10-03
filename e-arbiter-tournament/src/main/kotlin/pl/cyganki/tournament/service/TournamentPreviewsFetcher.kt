@@ -55,8 +55,14 @@ class TournamentPreviewsFetcher(
         return getPublicTournamentsInWhichUserDoesNotParticipate(userId, pageRequest)
     }
 
+    fun getDraftTournamentsCreatedByUser(userId: Long, pageable: Pageable, query: String?) = getTournamentsCreatedByUserByStatus(userId, TournamentStatus.DRAFT, pageable, query)
+
+    fun getActiveTournamentsCreatedByUser(userId: Long, pageable: Pageable, query: String?) = getTournamentsCreatedByUserByStatus(userId, TournamentStatus.ACTIVE, pageable, query)
+
+    fun getFinishedTournamentsCreatedByUser(userId: Long, pageable: Pageable, query: String?) = getTournamentsCreatedByUserByStatus(userId, TournamentStatus.FINISHED, pageable, query)
+
     private fun getTournamentsInWhichUserParticipatesByStatus(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<TournamentPreview> {
-        val tournaments = getTournamentDependingOnQuery(userId, status, pageable, query)
+        val tournaments = getTournamentsDependingOnQuery(userId, status, pageable, query)
         return tournaments.map {
             TournamentPreview(
                     it.id,
@@ -87,11 +93,37 @@ class TournamentPreviewsFetcher(
         }
     }
 
-    private fun getTournamentDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
+    private fun getTournamentsCreatedByUserByStatus(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<TournamentPreview> {
+        val tournaments = getTournamentsCreatedByUserDependingOnQuery(userId, status, pageable, query)
+        val userName = authModuleInterface.getUserNameById(userId)
+
+        return tournaments.map {
+            TournamentPreview(
+                    it.id,
+                    userName,
+                    it.name,
+                    it.description,
+                    it.isPublicFlag,
+                    it.status,
+                    it.joinedUsersIds.size,
+                    it.endDate
+            )
+        }
+    }
+
+    private fun getTournamentsDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
         return if (query == null || query.isEmpty()) {
             tournamentRepository.findTournamentsInWhichUserParticipatesByStatus(userId, status, pageable)
         } else {
             tournamentRepository.findTournamentsInWhichUserParticipatesByStatusAndQuery(userId, status, convertQueryToSQLLikeRegex(query), pageable)
+        }
+    }
+
+    private fun getTournamentsCreatedByUserDependingOnQuery(userId: Long, status: TournamentStatus, pageable: Pageable, query: String?): Page<Tournament> {
+        return if (query == null || query.isEmpty()) {
+            tournamentRepository.findTournamentsCreatedByUserByStatus(userId, status, pageable)
+        } else {
+            tournamentRepository.findTournamentsCreatedByUserByStatusAndQuery(userId, status, convertQueryToSQLLikeRegex(query), pageable)
         }
     }
 

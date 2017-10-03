@@ -262,8 +262,8 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(4, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(2, numberOfElements)
             Assert.assertEquals(1, totalPages)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
@@ -272,8 +272,8 @@ class TournamentPreviewsFetcherTest {
     @Test
     fun `should return valid second (last) page with oldest active tournament in which user does not participate`() {
         // given
-        val firstPageRequest = PageRequest(0, 3)
-        val lastPageRequest = PageRequest(1, 3)
+        val firstPageRequest = PageRequest(0, 1)
+        val lastPageRequest = PageRequest(1, 1)
 
         // when
         val firstTournamentsPage = tournamentPreviewsFetcher.getActiveNewestTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
@@ -281,14 +281,14 @@ class TournamentPreviewsFetcherTest {
 
         // then
         firstTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(3, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
         }
 
 
         lastTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertTrue(isLast)
@@ -306,7 +306,7 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(0, numberOfElements)
             Assert.assertEquals(1, totalPages)
         }
@@ -326,14 +326,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(4, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(2, numberOfElements)
             Assert.assertEquals(1, totalPages)
-            (0..2).forEach { i ->
-                (i + 1..3).forEach { j ->
-                    Assert.assertTrue(content[i].users >= content[j].users)
-                }
-            }
+            Assert.assertTrue(content[0].users >= content[1].users)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
     }
@@ -341,8 +337,8 @@ class TournamentPreviewsFetcherTest {
     @Test
     fun `should return valid second (last) page with the least popular active tournament in which user does not participate`() {
         // given
-        val firstPageRequest = PageRequest(0, 3)
-        val lastPageRequest = PageRequest(1, 3)
+        val firstPageRequest = PageRequest(0, 1)
+        val lastPageRequest = PageRequest(1, 1)
 
         // when
         val firstTournamentsPage = tournamentPreviewsFetcher.getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
@@ -350,14 +346,14 @@ class TournamentPreviewsFetcherTest {
 
         // then
         firstTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(3, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             content.forEach { Assert.assertTrue(it.users > lastTournamentsPage.content[0].users) }
         }
 
         lastTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertTrue(isLast)
@@ -376,7 +372,7 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(0, numberOfElements)
             Assert.assertEquals(1, totalPages)
         }
@@ -397,14 +393,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(4, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(2, numberOfElements)
             Assert.assertEquals(1, totalPages)
-            (0..2).forEach { i ->
-                (i + 1..3).forEach { j ->
-                    Assert.assertTrue(content[i].endDate!! < content[j].endDate)
-                }
-            }
+            Assert.assertTrue(content[0].endDate!! < content[1].endDate)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
     }
@@ -412,8 +404,8 @@ class TournamentPreviewsFetcherTest {
     @Test
     fun `should return valid second (last) page with the latest end date active tournament in which user does not participate`() {
         // given
-        val firstPageRequest = PageRequest(0, 3)
-        val lastPageRequest = PageRequest(1, 3)
+        val firstPageRequest = PageRequest(0, 1)
+        val lastPageRequest = PageRequest(1, 1)
 
         // when
         val firstTournamentsPage = tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(userId, firstPageRequest)
@@ -421,14 +413,14 @@ class TournamentPreviewsFetcherTest {
 
         // then
         firstTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
-            Assert.assertEquals(3, numberOfElements)
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             content.forEach { Assert.assertTrue(it.endDate!! < lastTournamentsPage.content[0].endDate) }
         }
 
         lastTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertTrue(isLast)
@@ -446,9 +438,289 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(2, totalElements)
             Assert.assertEquals(0, numberOfElements)
             Assert.assertEquals(1, totalPages)
+        }
+    }
+
+    /**
+     * getDraftTournamentsCreatedByUser
+     */
+
+    @Test
+    fun `should return all draft tournaments created by user in one page`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(2, numberOfElements)
+            Assert.assertEquals(1, totalPages)
+            content.forEach { Assert.assertEquals(TournamentStatus.DRAFT, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all draft tournaments created by user in one page and information about two available pages`() {
+        // given
+        val pageRequest = PageRequest(0, 1)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, numberOfElements)
+            Assert.assertEquals(2, totalPages)
+            Assert.assertFalse(isLast)
+            content.forEach { Assert.assertEquals(TournamentStatus.DRAFT, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all draft tournaments created by user sorted descending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort(Sort.Direction.DESC, "name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name > content[1].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.DRAFT, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all draft tournaments created by user sorted ascending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort("name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name < content[1].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.DRAFT, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return draft tournaments created by user by query`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+        val tournamentToFindName = "culpa nostrud excepteur irure id amet"
+        val query = tournamentToFindName.substring(1, 15)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(userId, pageRequest, query)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(1, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertEquals(TournamentStatus.DRAFT, content[0].status)
+            Assert.assertEquals(tournamentToFindName, content[0].name)
+        }
+    }
+
+
+    /**
+     * getActiveTournamentsCreatedByUser
+     */
+
+    @Test
+    fun `should return all active tournaments created by user in one page`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(2, numberOfElements)
+            Assert.assertEquals(1, totalPages)
+            content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all active tournaments created by user in one page and information about two available pages`() {
+        // given
+        val pageRequest = PageRequest(0, 1)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, numberOfElements)
+            Assert.assertEquals(2, totalPages)
+            Assert.assertFalse(isLast)
+            content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all active tournaments created by user sorted descending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort(Sort.Direction.DESC, "name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name > content[1].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all active tournaments created by user sorted ascending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort("name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(2, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name < content[1].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return active tournaments created by user by query`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+        val tournamentToFindDescription = "Est ipsum aliqua duis eu qui consequat sit et ut cillum aute. Adipisicing proident aliqua ut anim id excepteur officia deserunt. Elit id Lorem dolor amet commodo proident adipisicing reprehenderit aliqua."
+        val query = tournamentToFindDescription.substring(10, 35)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(userId, pageRequest, query)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(1, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertEquals(TournamentStatus.ACTIVE, content[0].status)
+            Assert.assertEquals(tournamentToFindDescription, content[0].description)
+        }
+    }
+
+
+    /**
+     * getFinishedTournamentsCreatedByUser
+     */
+
+    @Test
+    fun `should return all finished tournaments created by user in one page`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(3, totalElements)
+            Assert.assertEquals(3, numberOfElements)
+            Assert.assertEquals(1, totalPages)
+            content.forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all finished tournaments created by user in one page and information about two available pages`() {
+        // given
+        val pageRequest = PageRequest(0, 2)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(3, totalElements)
+            Assert.assertEquals(2, numberOfElements)
+            Assert.assertEquals(2, totalPages)
+            Assert.assertFalse(isLast)
+            content.forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all finished tournaments created by user sorted descending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort(Sort.Direction.DESC, "name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(3, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name > content[1].name)
+            Assert.assertTrue(content[1].name > content[2].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return all finished tournaments created by user sorted ascending by name`() {
+        // given
+        val pageRequest = PageRequest(0, 10, Sort("name"))
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(userId, pageRequest, null)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(3, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertTrue(content[0].name < content[1].name)
+            Assert.assertTrue(content[1].name < content[2].name)
+            content.forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
+        }
+    }
+
+    @Test
+    fun `should return finished tournaments created by user by query`() {
+        // given
+        val pageRequest = PageRequest(0, 10)
+        val tournamentToFindName = "labore enim dolor sint culpa labore"
+        val query = tournamentToFindName.substring(1, 15)
+
+        // when
+        val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(userId, pageRequest, query)
+
+        // then
+        foundTournamentsPage.apply {
+            Assert.assertEquals(1, totalElements)
+            Assert.assertEquals(1, totalPages)
+            Assert.assertEquals(TournamentStatus.FINISHED, content[0].status)
+            Assert.assertEquals(tournamentToFindName, content[0].name)
         }
     }
 
