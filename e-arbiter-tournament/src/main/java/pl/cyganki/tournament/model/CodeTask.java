@@ -2,7 +2,7 @@ package pl.cyganki.tournament.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.cyganki.utils.modules.tournament.model.Language;
+import pl.cyganki.utils.model.Language;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

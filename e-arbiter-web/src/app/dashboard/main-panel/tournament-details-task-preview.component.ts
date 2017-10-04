@@ -16,7 +16,7 @@ import * as _ from 'lodash';
             <p>{{taskPreview.description}}</p>
             <div *ngIf="canSeeTaskFooter" class="accordion-content-footer">
               <p>Podejścia: {{taskPreview.userAttempts}}/{{convertAttempts()}}</p>
-              <p>Punkty: {{taskPreview.pointsReceived}}/{{taskPreview.maxPoints}}</p>
+              <p>Punkty: {{taskPreview.earnedPoints}}/{{taskPreview.maxPoints}}</p>
               <button
                 [ngClass]="canExecuteTask() ? 'ui button medium teal' : 'ui button medium teal disabled'"
                 (click)="executeTask()"

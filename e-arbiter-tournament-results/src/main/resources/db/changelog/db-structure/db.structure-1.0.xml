@@ -14,6 +14,9 @@
             <column name="tournament_id" type="text">
                 <constraints nullable="false"/>
             </column>
+            <column name="task_id" type="string">
+                <constraints nullable="false"/>
+            </column>
             <column name="result_code" type="blob">
             </column>
             <column name="language" type="ENUM ('JAVA', 'PYTHON', 'C11', 'CPP')">

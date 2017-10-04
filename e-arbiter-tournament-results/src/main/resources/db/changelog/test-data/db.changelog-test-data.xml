@@ -9,6 +9,7 @@
         <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
+            <column name="task_id" type="string"/>
             <column name="result_code" type="blob"/>
             <column name="language" type="string"/>
             <column name="execution_time" type="numeric"/>

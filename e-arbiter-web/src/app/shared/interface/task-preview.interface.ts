@@ -7,18 +7,8 @@ export interface TaskPreview {
   name: string,
   description: string,
   maxPoints: number,
-  pointsReceived?: number,
+  earnedPoints?: number,
   userAttempts?: number,
   maxAttempts?: number   // if null, there user has infinite amount of attempts
 }
 
-export class TmpTaskPreview implements TaskPreview {
-  constructor(public name: string,
-              public description: string,
-              public maxPoints: number,
-              public pointsReceived?: number,
-              public userAttempts?: number,
-              public maxAttempts?: number) {
-
-  }
-}
