@@ -8,12 +8,13 @@ import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.utils.modules.AuthModuleInterface
+import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
 @Service
 class TournamentDetailsService(
         val tournamentRepository: TournamentRepository,
         val authModuleInterface: AuthModuleInterface,
-        val tournamentDetailsModuleInterface: TournamentDetailsMo
+        val tournamentResultsModuleInterface: TournamentResultsModuleInterface
 ) {
 
     fun getTournamentDetailsForUser(userId: Long, tournamentId: String): TournamentDetails {
@@ -26,34 +27,34 @@ class TournamentDetailsService(
                 resultsVisible = tournament.isResultsVisibleForJoinedUsers
         )
 
+        var taskPreviews: List<TaskPreview>? = null
+
         if (canSeeTournamentMainDetails(accessDetails)) {
 
-            val taskPreviews: List<TaskPreview>
-
-            if (canSeeTaskFooter(accessDetails)) {
-                taskPreviews = tournament.tasks.map {
-                    TaskPreview(
-                            it.name,
-                            it.description,
-                            it.maxPoints
-                    )
-                }
+            taskPreviews = tournament.tasks.map {
+                TaskPreview(
+                        it.name,
+                        it.description,
+                        it.maxPoints,
+                        if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId, 567) else null
+                )
             }
-
-            return TournamentDetails(
-                    id = tournament.id,
-                    ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
-                    name = tournament.name,
-                    status = tournament.status,
-                    description = tournament.description,
-                    users = tournament.joinedUsersIds.size,
-                    startDate = tournament.startDate,
-                    endDate = tournament.endDate
-
-            )
         }
-    }
 
+        return TournamentDetails(
+                id = tournament.id,
+                ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
+                name = tournament.name,
+                status = tournament.status,
+                description = tournament.description,
+                users = tournament.joinedUsersIds.size,
+                startDate = tournament.startDate,
+                endDate = tournament.endDate,
+                taskPreviews = taskPreviews,
+                maxPoints = 999,
+                earnedPoints = 15
+        )
+    }
 
     // user cannot see tournament details only if: tournament is not public and user is not an owner and user does not even participate
     private fun canSeeTournamentMainDetails(accessDetails: AccessDetails): Boolean =

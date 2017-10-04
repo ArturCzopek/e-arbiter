@@ -13,6 +13,6 @@ data class TournamentDetails(
         val startDate: LocalDateTime?,
         val endDate: LocalDateTime?,
         val taskPreviews: List<TaskPreview>?,
-        val maxPoints: Float?,
-        val userPoints: Float?
+        val maxPoints: Int?,
+        val earnedPoints: Int?
 )

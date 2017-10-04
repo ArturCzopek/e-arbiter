@@ -20,5 +20,5 @@ export interface TournamentDetails {
   endDate?: LocalDateTime,
   taskPreviews?: TaskPreview[],
   maxPoints?: number,
-  userPoints?: number
+  earnedPoints?: number
 };

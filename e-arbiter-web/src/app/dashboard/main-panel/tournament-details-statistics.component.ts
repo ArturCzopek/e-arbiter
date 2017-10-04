@@ -36,7 +36,7 @@ import {TournamentDetails} from './interface/tournament-details.interface';
       </div>
       <div *ngIf="canSeePoints()" class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Twoje punkty:</strong>
-        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.userPoints}}</p>
+        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.earnedPoints}}</p>
       </div>
     </div>
   `
