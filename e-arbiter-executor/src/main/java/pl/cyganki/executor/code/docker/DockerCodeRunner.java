@@ -1,6 +1,5 @@
 package pl.cyganki.executor.code.docker;
 
-import com.google.common.io.Files;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.ContainerCreation;
 import lombok.extern.slf4j.Slf4j;
@@ -8,15 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.cyganki.executor.code.CodeRunner;
-import pl.cyganki.executor.code.ExecutionResult;
+import pl.cyganki.utils.modules.executor.model.ExecutionResult;
+import pl.cyganki.utils.modules.executor.model.ExecutionResult.Status;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 
-import static pl.cyganki.executor.code.ExecutionResult.Status;
 
 @Service
 @Slf4j

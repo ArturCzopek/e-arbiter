@@ -49,7 +49,7 @@ for line in test_data.readlines():
 
     status, output = commands.getstatusoutput(prepare_command(execute_command, args))
 
-    result = "EXPECTED: {} | ACTUAL: {} | PASSED: {}".format(expected, output, output == expected)
+    result = "#{}: PASSED: {}".format(iterations + 1, output == expected)
 
     if output == expected:
         successes += 1

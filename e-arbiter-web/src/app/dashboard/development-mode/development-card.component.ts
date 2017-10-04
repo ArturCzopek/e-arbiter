@@ -15,6 +15,7 @@ import "rxjs/add/observable/of";
             Uruchom inner request (powinien byc zablokowany, sorry)
         </button>
         <button (click)="getMeInfo()" class="ui teal medium button">/me (console)</button>
+        <button (click)="uploadCode()" class="ui teal medium button">/code (console)</button>
       </div>
     </div>`
 })
@@ -43,5 +44,11 @@ export class DevelopmentCardComponent {
       .subscribe(
         res => console.log(res)
       )
+  }
+
+  public uploadCode() {
+    this.http.post(`${environment.server.api.url}/tournament/api/task/submit`,
+      { tournamentId: '59d56e20a3f4cb2dee2f527c', taskId: '59d56e20a3f4cb2dee2f5274', program: '#include<stdio.h> int main(int argc,char *argv[]){printf("%s%s",argv[1],argv[2]);}', language: '' },
+      this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(d => console.log(d));
   }
 }

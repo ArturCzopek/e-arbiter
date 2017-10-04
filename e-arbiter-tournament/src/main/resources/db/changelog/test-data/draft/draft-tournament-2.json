@@ -18,48 +18,14 @@
         {
           "expectedResult": 106,
           "parameters": [
-            10
+            10, 6
           ]
         },
         {
-          "expectedResult": 208,
+          "expectedResult": "ala ma kota",
           "parameters": [
-            0,
-            -2
-          ]
-        },
-        {
-          "expectedResult": 124,
-          "parameters": [
-            26,
-            21,
-            -2
-          ]
-        },
-        {
-          "expectedResult": 111,
-          "parameters": [
-            12,
-            20,
-            -21,
-            18,
-            -16
-          ]
-        },
-        {
-          "expectedResult": 277,
-          "parameters": [
-            -24,
-            -9,
-            15,
-            -13,
-            -21
-          ]
-        },
-        {
-          "expectedResult": 112,
-          "parameters": [
-            -8
+            "\"ala ma \"",
+            "kota"
           ]
         }
       ],

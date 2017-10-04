@@ -22,6 +22,7 @@ buildscript {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     jcenter()
     maven { url "http://repo.spring.io/release" }
@@ -87,6 +88,7 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "http://repo.spring.io/release" }
@@ -104,7 +106,7 @@ subprojects {
         compile('org.jetbrains.kotlin:kotlin-reflect:' + kotlinVersion)
         compile('org.projectlombok:lombok:' + lombokVersion)
         compile('io.github.microutils:kotlin-logging:' + kotlinLoggerVersion)
-        compile('pl.cyganki:e-arbiter-utils:' + version)   // comment it if you're using your version of utils lib
+        compile('pl.cyganki:e-arbiter-utils:' + '1.0.5-SNAPSHOT')   // comment it if you're using your version of utils lib
 //        compile fileTree(dir: "${project.rootDir}/libs", include: ['*.jar'])    // PUSH COMMENTED!!! uncomment it if you're using your version of utils lib
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('io.springfox:springfox-staticdocs:' + swaggerVersion)
