@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
-import pl.cyganki.tournament.repository.TournamentRepository;
+import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
 import pl.cyganki.utils.security.dto.User;
 
@@ -17,21 +17,19 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class TournamentController {
 
-    private TournamentRepository tournamentRepository;
     private TournamentPreviewsFetcher tournamentPreviewsFetcher;
+    private TournamentManagementService tournamentManagementService;
 
     @Autowired
-    public TournamentController(TournamentRepository tournamentRepository, TournamentPreviewsFetcher tournamentPreviewsFetcher) {
-        this.tournamentRepository = tournamentRepository;
+    public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher, TournamentManagementService tournamentManagementService) {
         this.tournamentPreviewsFetcher = tournamentPreviewsFetcher;
+        this.tournamentManagementService = tournamentManagementService;
     }
 
     @PostMapping("/save")
     @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
     public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
-        tournament.setOwnerId(user.getId());
-        // TODO: consider moving it to separate service. Repository shouldn't be in this layer @Czopo
-        return tournamentRepository.save(tournament);
+        return tournamentManagementService.saveTournament(user.getId(), tournament);
     }
 
     @GetMapping("/all/active")
