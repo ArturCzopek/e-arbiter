@@ -25,7 +25,7 @@ public class CodeTask extends Task {
     private long timeoutInMs;
 
     @Override
-    public long getMaxPoints() {
+    public int getMaxPoints() {
         return codeTaskTestSets.size();
     }
 }

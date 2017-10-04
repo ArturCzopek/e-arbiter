@@ -62,7 +62,6 @@ class TournamentDetailsService(
         return taskPreviews
                 .map { it.maxPoints }
                 .reduce { total, taskMaxPoints -> total + taskMaxPoints }
-                .toInt()
     }
 
     private fun getEarnedPointsByUser(taskPreviews: List<TaskPreview>): Int {
@@ -70,7 +69,6 @@ class TournamentDetailsService(
                 .map { it.taskUserDetails }
                 .map { it?.earnedPoints ?: 0 }
                 .reduce { total, taskEarnedPoints -> total + taskEarnedPoints }
-                .toInt()
     }
 
     // user cannot see tournament details only if: tournament is not public and user is not an owner and user does not even participate

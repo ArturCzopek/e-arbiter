@@ -5,6 +5,6 @@ import pl.cyganki.utils.model.TaskUserDetails
 data class TaskPreview(
         val name: String,
         val description: String,
-        val maxPoints: Long,
+        val maxPoints: Int,
         val taskUserDetails: TaskUserDetails?
 )

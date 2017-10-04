@@ -691,11 +691,11 @@ public class TournamentTest {
         final static boolean RESULTS_VISIBLE = true;
         final static String PASSWORD = "Test123";
         final static int TASK_INDEX = 0;
-        final static long TASK_MAX_POINTS = 10;
-        final static long SECOND_TASK_MAX_POINTS = 20;
+        final static int TASK_MAX_POINTS = 10;
+        final static int SECOND_TASK_MAX_POINTS = 20;
         final static List<Task> TASKS = new ArrayList<>(Arrays.asList(getMockTask(TASK_MAX_POINTS), getMockTask(SECOND_TASK_MAX_POINTS)));    // remove is unsupported for list from Arrays.asList
 
-        public static Task getMockTask(long maxPoints) {
+        public static Task getMockTask(int maxPoints) {
             Task task = mock(Task.class);
             when(task.getMaxPoints()).thenReturn(maxPoints);
             return task;

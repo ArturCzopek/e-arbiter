@@ -59,5 +59,5 @@ public abstract class Task {
         this.description = description;
     }
 
-    abstract public long getMaxPoints();
+    abstract public int getMaxPoints();
 }
