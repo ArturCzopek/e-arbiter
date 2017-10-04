@@ -12,7 +12,8 @@ import pl.cyganki.utils.modules.AuthModuleInterface
 @Service
 class TournamentDetailsService(
         val tournamentRepository: TournamentRepository,
-        val authModuleInterface: AuthModuleInterface
+        val authModuleInterface: AuthModuleInterface,
+        val tournamentDetailsModuleInterface: TournamentDetailsMo
 ) {
 
     fun getTournamentDetailsForUser(userId: Long, tournamentId: String): TournamentDetails {
