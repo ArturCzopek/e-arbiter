@@ -8,11 +8,11 @@ data class TournamentDetails(
         val ownerName: String,
         val name: String,
         val status: TournamentStatus,
-        val description: String?,
-        val users: Int?,
-        val startDate: LocalDateTime?,
-        val endDate: LocalDateTime?,
-        val taskPreviews: List<TaskPreview>?,
-        val maxPoints: Int?,
-        val earnedPoints: Int?
+        val description: String? = null,
+        val users: Int? = null,
+        val startDate: LocalDateTime? = null,
+        val endDate: LocalDateTime? = null,
+        val taskPreviews: List<TaskPreview> = emptyList(),
+        val maxPoints: Int? = null,
+        val earnedPoints: Int? = null
 )

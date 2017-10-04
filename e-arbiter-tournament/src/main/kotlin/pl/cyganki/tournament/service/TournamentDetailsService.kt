@@ -27,20 +27,22 @@ class TournamentDetailsService(
                 resultsVisible = tournament.isResultsVisibleForJoinedUsers
         )
 
-        var taskPreviews: List<TaskPreview>? = null
-
-        if (canSeeTournamentMainDetails(accessDetails)) {
-
-            taskPreviews = tournament.tasks.map {
-                TaskPreview(
-                        it.name,
-                        it.description,
-                        it.maxPoints,
-                        if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId, 567) else null
-                )
-            }
+        if (!canSeeTournamentMainDetails(accessDetails)) {
+            return TournamentDetails(
+                    id = tournament.id,
+                    ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
+                    name = tournament.name,
+                    status = tournament.status
+            )
         }
-
+        var taskPreviews = tournament.tasks.map {
+            TaskPreview(
+                    it.name,
+                    it.description,
+                    it.maxPoints,
+                    if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId, null) else null
+            )
+        }
         return TournamentDetails(
                 id = tournament.id,
                 ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
@@ -51,9 +53,24 @@ class TournamentDetailsService(
                 startDate = tournament.startDate,
                 endDate = tournament.endDate,
                 taskPreviews = taskPreviews,
-                maxPoints = 999,
-                earnedPoints = 15
+                maxPoints = getTournamentMaxPoints(taskPreviews),
+                earnedPoints = if (canSeeTaskFooter(accessDetails)) getEarnedPointsByUser(taskPreviews) else null
         )
+    }
+
+    private fun getTournamentMaxPoints(taskPreviews: List<TaskPreview>): Int {
+        return taskPreviews
+                .map { it.maxPoints }
+                .reduce { total, taskMaxPoints -> total + taskMaxPoints }
+                .toInt()
+    }
+
+    private fun getEarnedPointsByUser(taskPreviews: List<TaskPreview>): Int {
+        return taskPreviews
+                .map { it.taskUserDetails }
+                .map { it?.earnedPoints ?: 0 }
+                .reduce { total, taskEarnedPoints -> total + taskEarnedPoints }
+                .toInt()
     }
 
     // user cannot see tournament details only if: tournament is not public and user is not an owner and user does not even participate
