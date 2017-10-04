@@ -1,7 +1,7 @@
 package pl.cyganki.results.model.database;
 
 import lombok.Data;
-import pl.cyganki.utils.modules.tournament.model.Language;
+import pl.cyganki.utils.model.Language;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

@@ -24,6 +24,9 @@ public abstract class Result {
     @Column(name = "tournament_id")
     private String tournamentId;
 
+    @Column(name = "task_id")
+    private String taskId;
+
     @Column(name = "earned_points")
     private String earnedPoints;
 

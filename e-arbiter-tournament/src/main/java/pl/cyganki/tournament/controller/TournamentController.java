@@ -6,7 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.Tournament;
+import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
+import pl.cyganki.tournament.service.TournamentDetailsService;
 import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
 import pl.cyganki.utils.security.dto.User;
@@ -19,11 +21,15 @@ public class TournamentController {
 
     private TournamentPreviewsFetcher tournamentPreviewsFetcher;
     private TournamentManagementService tournamentManagementService;
+    private TournamentDetailsService tournamentDetailsService;
 
     @Autowired
-    public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher, TournamentManagementService tournamentManagementService) {
+    public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher,
+                                TournamentManagementService tournamentManagementService,
+                                TournamentDetailsService tournamentDetailsService) {
         this.tournamentPreviewsFetcher = tournamentPreviewsFetcher;
         this.tournamentManagementService = tournamentManagementService;
+        this.tournamentDetailsService = tournamentDetailsService;
     }
 
     @PostMapping("/save")
@@ -78,5 +84,11 @@ public class TournamentController {
     @ApiOperation("Returns a page with finished tournaments which were created by user")
     public Page<TournamentPreview> getFinishedTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
         return tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(user.getId(), pageable, query);
+    }
+
+    @GetMapping("/details/{id}")
+    @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
+    public TournamentDetails getTournamentDetails(User user, @PathVariable("id") String tournamentId) {
+        return tournamentDetailsService.getTournamentDetailsForUser(user.getId(), tournamentId);
     }
 }
