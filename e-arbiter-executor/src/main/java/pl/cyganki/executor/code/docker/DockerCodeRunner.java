@@ -24,7 +24,6 @@ public class DockerCodeRunner implements CodeRunner {
 
     private static final Semaphore SEM =
             new Semaphore(Runtime.getRuntime().availableProcessors());
-    private static final String PATH_TO_TEST_FOLDER = "/home/maciej/Projects/compilebox/solution";
 
     private final SandboxService sandboxService;
     private final FileSystemUtils fileSystemUtils;
@@ -87,23 +86,5 @@ public class DockerCodeRunner implements CodeRunner {
     private ExecutionResult parseOutput(String output) {
         Status status = output.contains("ALL PASSED") ? Status.SUCCESS : Status.FAILURE;
         return new ExecutionResult(status, output);
-    }
-
-    // convenient method for testing purposes
-    public ExecutionResult test() {
-        File program = new File(PATH_TO_TEST_FOLDER  + "/program.c");
-        File testData = new File(PATH_TO_TEST_FOLDER + "/test_data");
-
-        ExecutionResult result = null;
-        try {
-            byte[] programBytes = Files.toByteArray(program);
-            byte[] testDataBytes = Files.toByteArray(testData);
-            result = execute(programBytes, "c", testDataBytes);
-            System.out.println(result.getOutput() + ":" + result.getStatus().name());
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        return result;
     }
 }
