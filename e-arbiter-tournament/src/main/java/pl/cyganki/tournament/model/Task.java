@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,8 +19,7 @@ import javax.validation.constraints.Size;
 })
 public abstract class Task {
 
-    @Id
-    private String id;
+    private String taskNo;
 
     @NotNull(message = "Task's 'name' cannot be empty")
     @Size(min = 3, max = 64, message = "Task's 'name' must be of length between 3 and 64 characters")
