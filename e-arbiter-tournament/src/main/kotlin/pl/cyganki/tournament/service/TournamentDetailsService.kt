@@ -26,23 +26,28 @@ class TournamentDetailsService(
             throw IllegalTournamentStatusException(TournamentStatus.DRAFT, listOf(TournamentStatus.ACTIVE, TournamentStatus.FINISHED))
         }
 
-        val accessDetails = AccessDetails(
-                publicFlag = tournament.isPublicFlag,
-                owner = tournament.ownerId == userId,
-                participateInTournament = tournament.joinedUsersIds.contains(userId),
-                resultsVisible = tournament.isResultsVisibleForJoinedUsers
-        )
-
-        if (!canSeeTournamentMainDetails(accessDetails)) {
-            return TournamentDetails(
-                    id = tournament.id,
-                    ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
-                    name = tournament.name,
-                    status = tournament.status,
-                    accessDetails = accessDetails
+        val accessDetails = tournament.run {
+            AccessDetails(
+                    isPublicFlag,
+                    ownerId == userId,
+                    joinedUsersIds.contains(userId),
+                    isResultsVisibleForJoinedUsers
             )
         }
-        var taskPreviews = tournament.tasks.map {
+
+        if (!canSeeTournamentMainDetails(accessDetails)) {
+            return tournament.run {
+                TournamentDetails(
+                        id,
+                        authModuleInterface.getUserNameById(ownerId),
+                        name,
+                        status,
+                        accessDetails
+                )
+            }
+        }
+
+        val taskPreviews = tournament.tasks.map {
             TaskPreview(
                     it.name,
                     it.description,
@@ -50,20 +55,23 @@ class TournamentDetailsService(
                     if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId).apply { maxAttempts = null } else null
             )
         }
-        return TournamentDetails(
-                id = tournament.id,
-                ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
-                name = tournament.name,
-                status = tournament.status,
-                accessDetails = accessDetails,
-                description = tournament.description,
-                users = tournament.joinedUsersIds.size,
-                startDate = tournament.startDate,
-                endDate = tournament.endDate,
-                taskPreviews = taskPreviews,
-                maxPoints = getTournamentMaxPoints(taskPreviews),
-                earnedPoints = if (canSeeTaskFooter(accessDetails)) getEarnedPointsByUser(taskPreviews) else null
-        )
+
+        return tournament.run {
+             TournamentDetails(
+                    id,
+                    authModuleInterface.getUserNameById(ownerId),
+                    name,
+                    status,
+                    accessDetails,
+                    description,
+                    joinedUsersIds.size,
+                    startDate,
+                    endDate,
+                    taskPreviews,
+                    getTournamentMaxPoints(taskPreviews),
+                    if (canSeeTaskFooter(accessDetails)) getEarnedPointsByUser(taskPreviews) else null
+            )
+        }
     }
 
     private fun getTournamentMaxPoints(taskPreviews: List<TaskPreview>): Int {

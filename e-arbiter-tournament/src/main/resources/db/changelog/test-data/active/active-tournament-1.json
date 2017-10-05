@@ -4,10 +4,10 @@
   "description": "Aliqua consequat elit laboris non Lorem qui labore reprehenderit Lorem. Id duis veniam veniam ut excepteur duis esse et dolore aliquip et magna. In ea aliquip ex duis est eu minim.",
   "startDate": "2017-08-26T01:06:23",
   "endDate": "2017-12-04T06:25:31",
-  "publicFlag": true,
+  "publicFlag": false,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
-  "password": null,
+  "password": "password123",
   "joinedUsersIds": [
     7,
     16,
