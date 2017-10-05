@@ -20,7 +20,7 @@ public class QuizTask extends Task {
     private List<Question> questions;
 
     @Override
-    public long getMaxPoints() {
+    public int getMaxPoints() {
         return questions.size();
     }
 }

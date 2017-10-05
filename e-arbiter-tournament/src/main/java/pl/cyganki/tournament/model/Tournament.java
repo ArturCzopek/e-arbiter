@@ -69,8 +69,8 @@ public class Tournament {
         final static List<TournamentStatus> DRAFT_ACTIVE = Arrays.asList(TournamentStatus.DRAFT, TournamentStatus.ACTIVE);
     }
 
-    public long getMaxPoints() {
-        return tasks.stream().mapToLong(Task::getMaxPoints).sum();
+    public int getMaxPoints() {
+        return tasks.stream().mapToInt(Task::getMaxPoints).sum();
     }
 
     public String getId() {

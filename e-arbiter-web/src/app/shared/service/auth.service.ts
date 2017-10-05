@@ -41,7 +41,7 @@ export class AuthService {
 
   public logOut(): any {
     this.http.post(environment.server.auth.logoutGatewayUrl, {}, this.prepareAuthOptions())
-      .catch(this.handleFailLogout)
+      .catch(this.handleFailLogout.bind(this))
       .first()
       .subscribe(
         ok => {

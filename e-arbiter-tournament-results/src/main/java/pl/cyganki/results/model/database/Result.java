@@ -24,18 +24,21 @@ public abstract class Result {
     @Column(name = "tournament_id")
     private String tournamentId;
 
+    @Column(name = "task_id")
+    private String taskId;
+
     @Column(name = "earned_points")
     private String earnedPoints;
 
-    public long getEarnedPoints() {
+    public int getEarnedPoints() {
         return Arrays.stream(this.earnedPoints.split(","))
-                .mapToLong(Long::parseLong)
+                .mapToInt(Integer::parseInt)
                 .sum();
     }
 
-    public List<Long> getListOfEarnedPoints() {
+    public List<Integer> getListOfEarnedPoints() {
         return Arrays.stream(this.earnedPoints.split(","))
-                .mapToLong(Long::parseLong)
+                .mapToInt(Integer::parseInt)
                 .boxed()
                 .collect(Collectors.toList());
     }

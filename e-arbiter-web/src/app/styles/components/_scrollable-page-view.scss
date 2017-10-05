@@ -26,6 +26,10 @@
       width: 100%;
     }
   }
+
+  .ui.message:first-child {
+    margin-top: 5vh;
+  }
 }
 
 .fixed-footer {

@@ -9,7 +9,7 @@ import pl.cyganki.tournament.model.TournamentStatus;
 
 import java.util.List;
 
-public interface TournamentRepository extends MongoRepository<Tournament, Long> {
+public interface TournamentRepository extends MongoRepository<Tournament, String> {
 
     // @formatter:off
     @Query("{" +

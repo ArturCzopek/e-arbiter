@@ -1,5 +1,6 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {TournamentDetails} from './interface/tournament-details.interface';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {TournamentDetails} from '../interface/tournament-details.interface';
+import {TournamentStatus} from "../../../shared/interface/tournament-status.enum";
 
 @Component({
   selector: 'arb-tour-details-stats',
@@ -15,7 +16,7 @@ import {TournamentDetails} from './interface/tournament-details.interface';
       </div>
       <div class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Status:</strong>
-        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails.status}}</p>
+        <p class="tournament-details-card__stats-panel__stat__value">{{status}}</p>
       </div>
       <div class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Liczba użytkowników:</strong>
@@ -36,17 +37,21 @@ import {TournamentDetails} from './interface/tournament-details.interface';
       </div>
       <div *ngIf="canSeePoints()" class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Twoje punkty:</strong>
-        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.userPoints}}</p>
+        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.earnedPoints}}</p>
       </div>
     </div>
   `
 })
-export class TournamentDetailsStatisticsComponent implements AfterViewInit {
+export class TournamentDetailsStatisticsComponent implements OnInit, AfterViewInit {
   @Input() tournamentDetails: TournamentDetails;
   @Input() startDate: String;
-
+  public status = '';
 
   constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    this.convertStatus();
   }
 
   ngAfterViewInit(): void {
@@ -55,5 +60,19 @@ export class TournamentDetailsStatisticsComponent implements AfterViewInit {
 
   public canSeePoints(): boolean {
     return this.tournamentDetails.accessDetails.participateInTournament;
+  }
+
+  public convertStatus(): void {
+    console.log('status before', this.tournamentDetails.status)
+
+    if (this.tournamentDetails.status === 'DRAFT') {
+      this.status = 'Szkic';
+    } else if (this.tournamentDetails.status === 'ACTIVE') {
+      this.status = 'Aktywny';
+    } else if (this.tournamentDetails.status === 'FINISHED') {
+      this.status = 'Zakończony';
+    }
+
+    console.log('status', this.status);
   }
 }

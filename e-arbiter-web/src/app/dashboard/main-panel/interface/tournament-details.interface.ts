@@ -8,7 +8,7 @@ export interface TournamentDetails {
   ownerName: string,
   name: string,
   accessDetails: AccessDetails,
-  status: TournamentStatus,
+  status: string,
 
 
   // nullable fields depending on user access to tournament
@@ -20,23 +20,5 @@ export interface TournamentDetails {
   endDate?: LocalDateTime,
   taskPreviews?: TaskPreview[],
   maxPoints?: number,
-  userPoints?: number
+  earnedPoints?: number
 };
-
-// TODO: Remove it in #84
-export class TmpTournamentDetails implements TournamentDetails {
-  constructor(public id: string,
-              public ownerName: string,
-              public name: string,
-              public accessDetails: AccessDetails,
-              public status: TournamentStatus,
-              public description?: string,
-              public users?: number,
-              public startDate?: LocalDateTime,
-              public endDate?: LocalDateTime,
-              public taskPreviews?: TaskPreview[],
-              public maxPoints?: number,
-              public userPoints?: number) {
-
-  }
-}

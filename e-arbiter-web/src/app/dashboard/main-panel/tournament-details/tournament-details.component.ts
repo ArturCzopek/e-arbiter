@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {TournamentDetailsService} from '../../shared/service/tournament-details.service';
-import {TournamentDetails} from './interface/tournament-details.interface';
+import {TournamentDetailsService} from '../../../shared/service/tournament-details.service';
+import {TournamentDetails} from '../interface/tournament-details.interface';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
-import {DateService} from '../../shared/service/date.service';
+import {DateService} from '../../../shared/service/date.service';
 
 @Component({
   selector: 'arb-tour-details',
@@ -65,18 +65,22 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
         .subscribe(
           details => {
             this.tournamentDetails = details;
-            this.endDate = (this.canSeeHeaderData()) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.endDate) : '-';
-            this.startDate = (this.canSeeHeaderData()) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.startDate) : '-';
+            this.endDate = (this.canSeeHeaderData() && this.tournamentDetails.endDate) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.endDate) : '-';
+            this.startDate = (this.canSeeHeaderData() && this.tournamentDetails.startDate) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.startDate) : '-';
             this.accessibilityStatus = (this.tournamentDetails.accessDetails.publicFlag) ? 'Turniej publiczny' : 'Turniej prywatny';
             this.errorMessage = '';
           },
-          error => this.errorMessage = 'Coś poszło nie tak! Prawdopodobnie turniej nie istnieje. ' +
-            'Jeżeli masz wątpliwości, skontaktuj się z administratorem lub właścicielem turnieju',
+          error => {
+            this.errorMessage = 'Coś poszło nie tak! Prawdopodobnie turniej nie istnieje. ' +
+              'Jeżeli masz wątpliwości, skontaktuj się z administratorem lub właścicielem turnieju';
+            this.isLoading = false;
+          },
           () => {
             this.isLoading = false
             setTimeout(() => this.cdr.detach(), 1000);  // give this feeling some time
           }
-        );
+        )
+      ;
     });
   }
 
@@ -85,6 +89,10 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   }
 
   public canSeeHeaderData(): boolean {
+    if (!this.tournamentDetails) {
+      return false;
+    }
+
     const {publicFlag, owner, participateInTournament} = this.tournamentDetails.accessDetails;
 
     if (!publicFlag && !owner && !participateInTournament) {
@@ -95,10 +103,18 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   }
 
   public canSeeTaskFooter(): boolean {
+    if (!this.tournamentDetails) {
+      return false;
+    }
+
     return this.tournamentDetails.accessDetails.participateInTournament;
   }
 
   public canSeeTournamentMainDetails(): boolean {
+    if (!this.tournamentDetails) {
+      return false;
+    }
+
     const {publicFlag, owner, participateInTournament} = this.tournamentDetails.accessDetails;
 
     if (!publicFlag && !owner && !participateInTournament) {

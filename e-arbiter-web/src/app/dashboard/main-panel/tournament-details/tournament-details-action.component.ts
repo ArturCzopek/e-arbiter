@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {TournamentDetails} from './interface/tournament-details.interface';
-import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
+import {TournamentDetails} from '../interface/tournament-details.interface';
+import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 
 @Component({
   selector: 'arb-tour-details-action',
@@ -44,7 +44,7 @@ export class TournamentDetailsActionComponent implements AfterViewInit {
   public canJoinToTournament(): boolean {
     const {owner, participateInTournament} = this.tournamentDetails.accessDetails;
 
-    if (!owner && !participateInTournament && this.tournamentDetails.status === TournamentStatus.ACTIVE) {
+    if (!owner && !participateInTournament && this.tournamentDetails.status === 'ACTIVE') {
       return true;
     }
 
@@ -54,7 +54,7 @@ export class TournamentDetailsActionComponent implements AfterViewInit {
   public canLeaveTournament(): boolean {
     const {owner, participateInTournament} = this.tournamentDetails.accessDetails;
 
-    if (!owner && participateInTournament && this.tournamentDetails.status === TournamentStatus.ACTIVE) {
+    if (!owner && participateInTournament && this.tournamentDetails.status === 'ACTIVE') {
       return true;
     }
 

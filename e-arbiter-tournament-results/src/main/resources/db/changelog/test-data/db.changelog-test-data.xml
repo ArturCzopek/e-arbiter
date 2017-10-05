@@ -5,14 +5,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="Insert test results for Result table" author="e-Arbiter">
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result.csv">
+    <changeSet id="Insert test results for Result table" author="e-Arbiter" runAlways="true">
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-01.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
+            <column name="task_id" type="string"/>
             <column name="result_code" type="blob"/>
             <column name="language" type="string"/>
             <column name="execution_time" type="numeric"/>
-            <column name="chosen_answers" type="string"/>
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>

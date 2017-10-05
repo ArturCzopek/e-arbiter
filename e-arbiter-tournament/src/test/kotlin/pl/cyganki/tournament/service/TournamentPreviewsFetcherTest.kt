@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import pl.cyganki.tournament.EArbiterTournamentApplication
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.tournament.testutils.MockAuthModule
 import pl.cyganki.utils.modules.AuthModuleInterface
-import pl.cyganki.utils.security.dto.User
 
 /**
  * Tournaments to tests are defined in proper JSONs
@@ -58,8 +58,8 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(6, totalElements)
-            Assert.assertEquals(6, numberOfElements)
+            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(5, numberOfElements)
             Assert.assertEquals(1, totalPages)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
@@ -75,7 +75,7 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(6, totalElements)
+            Assert.assertEquals(5, totalElements)
             Assert.assertEquals(4, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertFalse(isLast)
@@ -93,10 +93,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(6, totalElements)
+            Assert.assertEquals(5, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..4) {
-                for (j in i + 1..5) {
+            for (i in 0..3) {
+                for (j in i + 1..4) {
                     Assert.assertTrue(content[i].name > content[j].name)
                 }
             }
@@ -114,10 +114,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(6, totalElements)
+            Assert.assertEquals(5, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..4) {
-                for (j in i + 1..5) {
+            for (i in 0..3) {
+                for (j in i + 1..4) {
                     Assert.assertTrue(content[i].name < content[j].name)
                 }
             }
@@ -159,8 +159,8 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
-            Assert.assertEquals(5, numberOfElements)
+            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(4, numberOfElements)
             Assert.assertEquals(1, totalPages)
             content.forEach { Assert.assertEquals(TournamentStatus.FINISHED, it.status) }
         }
@@ -169,14 +169,14 @@ class TournamentPreviewsFetcherTest {
     @Test
     fun `should return one page finished user's tournament in which user participates and information about two available pages`() {
         // given
-        val pageRequest = PageRequest(1, 4)
+        val pageRequest = PageRequest(1, 3)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getFinishedTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(4, totalElements)
             Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertFalse(isFirst)
@@ -194,10 +194,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(4, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..3) {
-                for (j in i + 1..4) {
+            for (i in 0..2) {
+                for (j in i + 1..3) {
                     Assert.assertTrue(content[i].name > content[j].name)
                 }
             }
@@ -215,10 +215,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(4, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..3) {
-                for (j in i + 1..4) {
+            for (i in 0..2) {
+                for (j in i + 1..3) {
                     Assert.assertTrue(content[i].name < content[j].name)
                 }
             }
@@ -396,7 +396,7 @@ class TournamentPreviewsFetcherTest {
             Assert.assertEquals(2, totalElements)
             Assert.assertEquals(2, numberOfElements)
             Assert.assertEquals(1, totalPages)
-            Assert.assertTrue(content[0].endDate!! < content[1].endDate)
+            Assert.assertTrue(content[0].endDate < content[1].endDate)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
     }
@@ -416,7 +416,7 @@ class TournamentPreviewsFetcherTest {
             Assert.assertEquals(2, totalElements)
             Assert.assertEquals(1, numberOfElements)
             Assert.assertEquals(2, totalPages)
-            content.forEach { Assert.assertTrue(it.endDate!! < lastTournamentsPage.content[0].endDate) }
+            content.forEach { Assert.assertTrue(it.endDate < lastTournamentsPage.content[0].endDate) }
         }
 
         lastTournamentsPage.apply {
@@ -722,16 +722,5 @@ class TournamentPreviewsFetcherTest {
             Assert.assertEquals(TournamentStatus.FINISHED, content[0].status)
             Assert.assertEquals(tournamentToFindName, content[0].name)
         }
-    }
-
-
-    inner class MockAuthModule : AuthModuleInterface {
-        override fun getToken() = throw UnsupportedOperationException("This mock shouldn't call this method")
-
-        override fun getUser(token: String) = throw UnsupportedOperationException("This mock shouldn't call this method")
-
-        override fun getUserFromRequest(user: User) = throw UnsupportedOperationException("This mock shouldn't call this method")
-
-        override fun getUserNameById(id: Long) = "Test Owner"
     }
 }
