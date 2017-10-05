@@ -4,6 +4,7 @@ import {Http} from "@angular/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
+import {ModalService} from "../../shared/service/modal.service";
 
 @Component({
   selector: 'arb-dvlp',
@@ -41,7 +42,7 @@ export class DevelopmentCardComponent {
     language: ''
   };
 
-  constructor(public authService: AuthService, private http: Http) {
+  constructor(public authService: AuthService, private http: Http, private modalService: ModalService) {
 
   }
 
@@ -68,6 +69,6 @@ export class DevelopmentCardComponent {
 
   public uploadCode() {
     this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest,
-      this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(d => console.log(d));
+      this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
   }
 }
