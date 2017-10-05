@@ -3,6 +3,7 @@ package pl.cyganki.executor.controller.inner;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.executor.code.docker.DockerCodeRunner;
@@ -22,7 +23,7 @@ public class ExecutorController {
 
     @PostMapping("/execute")
     @ApiOperation("Executes given code with respect to passed test data")
-    public ExecutionResult execute(ExecutionRequest er) {
+    public ExecutionResult execute(@RequestBody ExecutionRequest er) {
         return this.codeRunner.execute(er.getProgram(), er.getExtension(), er.getTestData());
     }
 }
