@@ -23,8 +23,6 @@
             </column>
             <column name="execution_time" type="long">
             </column>
-            <column name="chosen_answers" type="text">
-            </column>
             <column name="earned_points" type="text">
             </column>
             <column name="result_type" type="ENUM ('CODE', 'QUIZ')">
