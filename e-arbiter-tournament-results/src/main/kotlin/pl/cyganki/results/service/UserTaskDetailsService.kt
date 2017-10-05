@@ -9,7 +9,7 @@ class UserTaskDetailsService(private val resultRepository: ResultRepository) {
 
     fun getTaskUserDetails(tournamentId: String, taskId: String, userId: Long): TaskUserDetails {
 
-        val userResultsForTask = resultRepository.findAllByTournamentIdAndTaskIdAndUserId(tournamentId, taskId, userId!!)
+        val userResultsForTask = resultRepository.findAllByTournamentIdAndTaskIdAndUserId(tournamentId, taskId, userId)
 
         return TaskUserDetails(
                 earnedPoints = if (userResultsForTask.isNotEmpty()) userResultsForTask.maxBy { it.earnedPoints }!!.earnedPoints else 0,
