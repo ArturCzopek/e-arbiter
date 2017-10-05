@@ -1,8 +1,10 @@
 package pl.cyganki.tournament.service
 
 import org.springframework.stereotype.Service
+import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.model.Tournament
+import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.model.dto.AccessDetails
 import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
@@ -20,6 +22,10 @@ class TournamentDetailsService(
     fun getTournamentDetailsForUser(userId: Long, tournamentId: String): TournamentDetails {
         val tournament: Tournament = tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)
 
+        if (tournament.status == TournamentStatus.DRAFT && tournament.ownerId != userId) {
+            throw IllegalTournamentStatusException(TournamentStatus.DRAFT, listOf(TournamentStatus.ACTIVE, TournamentStatus.FINISHED))
+        }
+
         val accessDetails = AccessDetails(
                 publicFlag = tournament.isPublicFlag,
                 owner = tournament.ownerId == userId,
@@ -32,7 +38,8 @@ class TournamentDetailsService(
                     id = tournament.id,
                     ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
                     name = tournament.name,
-                    status = tournament.status
+                    status = tournament.status,
+                    accessDetails = accessDetails
             )
         }
         var taskPreviews = tournament.tasks.map {
@@ -40,7 +47,7 @@ class TournamentDetailsService(
                     it.name,
                     it.description,
                     it.maxPoints,
-                    if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId, null) else null
+                    if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId).apply { maxAttempts = null } else null
             )
         }
         return TournamentDetails(
@@ -48,6 +55,7 @@ class TournamentDetailsService(
                 ownerName = authModuleInterface.getUserNameById(tournament.ownerId),
                 name = tournament.name,
                 status = tournament.status,
+                accessDetails = accessDetails,
                 description = tournament.description,
                 users = tournament.joinedUsersIds.size,
                 startDate = tournament.startDate,

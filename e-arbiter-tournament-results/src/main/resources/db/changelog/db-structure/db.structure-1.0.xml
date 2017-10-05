@@ -14,7 +14,7 @@
             <column name="tournament_id" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="task_id" type="string">
+            <column name="task_id" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="result_code" type="blob">

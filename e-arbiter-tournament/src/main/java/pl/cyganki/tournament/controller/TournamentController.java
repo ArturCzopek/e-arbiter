@@ -86,7 +86,7 @@ public class TournamentController {
         return tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(user.getId(), pageable, query);
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/user-details/{id}")
     @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
     public TournamentDetails getTournamentDetails(User user, @PathVariable("id") String tournamentId) {
         return tournamentDetailsService.getTournamentDetailsForUser(user.getId(), tournamentId);

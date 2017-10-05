@@ -8,7 +8,7 @@ export interface TournamentDetails {
   ownerName: string,
   name: string,
   accessDetails: AccessDetails,
-  status: TournamentStatus,
+  status: string,
 
 
   // nullable fields depending on user access to tournament

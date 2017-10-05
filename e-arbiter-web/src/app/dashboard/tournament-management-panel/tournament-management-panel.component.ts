@@ -114,8 +114,10 @@ export class TournamentManagementPanelComponent implements OnInit {
         error => {
           this.errorMessage = 'Nie udało się załadować turniejów. Spróbuj jeszcze raz. W razie dalszych problemów, skontaktuj się z administratorem.';
           this.tournamentsPage = EMPTY_PAGE;
+          this.isLoading = false;
         },
-        () => this.isLoading = false);
+        () => this.isLoading = false
+      );
   }
 
   private loadActiveTournaments(): void {
@@ -130,8 +132,10 @@ export class TournamentManagementPanelComponent implements OnInit {
         error => {
           this.errorMessage = 'Nie udało się załadować turniejów. Spróbuj jeszcze raz. W razie dalszych problemów, skontaktuj się z administratorem.';
           this.tournamentsPage = EMPTY_PAGE;
+          this.isLoading = false;
         },
-        () => this.isLoading = false);
+        () => this.isLoading = false
+      );
   }
 
   private loadFinishedTournaments(): void {
@@ -144,6 +148,7 @@ export class TournamentManagementPanelComponent implements OnInit {
         error => {
           this.errorMessage = 'Nie udało się załadować turniejów. Spróbuj jeszcze raz. W razie dalszych problemów, skontaktuj się z administratorem.';
           this.tournamentsPage = EMPTY_PAGE;
+          this.isLoading = false;
         },
         () => this.isLoading = false
       );

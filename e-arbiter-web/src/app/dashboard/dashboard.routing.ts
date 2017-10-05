@@ -7,7 +7,7 @@ import {DevelopmentModeGuard} from "../shared/guard/development-mode.guard";
 import {MainPanelComponent} from "./main-panel/main-panel.component";
 import {AdminPanelComponent} from "app/dashboard/admin-panel/admin-panel.component";
 import {TournamentManagementPanelComponent} from "./tournament-management-panel/tournament-management-panel.component";
-import {TournamentDetailsComponent} from "app/dashboard/main-panel/tournament-details.component";
+import {TournamentDetailsComponent} from "app/dashboard/main-panel/tournament-details/tournament-details.component";
 import {TournamentFormComponent} from "app/dashboard/tournament-management-panel/tournament-form.component";
 import {ActiveTournamentsComponent} from "./active-tournaments-panel/active-tournaments.component";
 

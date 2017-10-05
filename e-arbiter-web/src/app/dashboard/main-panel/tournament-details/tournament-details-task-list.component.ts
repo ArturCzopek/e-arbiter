@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {TaskPreview} from '../../shared/interface/task-preview.interface';
-import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
+import {TaskPreview} from '../../../shared/interface/task-preview.interface';
+import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 
 @Component({
   selector: 'arb-tour-details-task-list',
@@ -23,7 +23,7 @@ import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
 })
 export class TournamentDetailsTaskListComponent implements AfterViewInit {
   @Input() taskPreviews: TaskPreview[];
-  @Input() status: TournamentStatus;
+  @Input() status: string;
   @Input() canSeeTaskFooter: boolean;
 
 

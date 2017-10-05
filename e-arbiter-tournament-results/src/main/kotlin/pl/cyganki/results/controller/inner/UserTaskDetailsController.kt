@@ -18,7 +18,7 @@ class UserTaskDetailsController(private val userTaskDetailsService: UserTaskDeta
     @ApiOperation("Returns data for user about his progress with task by passed id")
     fun getTaskUserDetails(
             @RequestParam("taskId") taskId: String,
-            @RequestParam("userId") userId: Long,
-            @RequestParam("maxAttempts") maxAttempts: Int?
-    ): TaskUserDetails = userTaskDetailsService.getTaskUserDetails(taskId, userId, maxAttempts)
+            @RequestParam("tournamentId") tournamentId: String,
+            @RequestParam("userId") userId: Long
+    ): TaskUserDetails = userTaskDetailsService.getTaskUserDetails(tournamentId, taskId, userId)
 }

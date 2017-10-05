@@ -30,9 +30,9 @@ public abstract class Result {
     @Column(name = "earned_points")
     private String earnedPoints;
 
-    public long getEarnedPoints() {
+    public int getEarnedPoints() {
         return Arrays.stream(this.earnedPoints.split(","))
-                .mapToLong(Long::parseLong)
+                .mapToInt(Integer::parseInt)
                 .sum();
     }
 

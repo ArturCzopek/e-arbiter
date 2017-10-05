@@ -20,7 +20,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getUserFinishedTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
@@ -30,7 +31,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getNewestPublicTournaments(pageNumber: number = 1, pageSize: number = 5): Observable<Page<TournamentPreview>> {
@@ -50,7 +52,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getAlmostEndedPublicTournaments(pageNumber: number = 1, pageSize: number = 5): Observable<Page<TournamentPreview>> {
@@ -60,7 +63,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getDraftManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
@@ -70,7 +74,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getActiveManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
@@ -80,7 +85,8 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
   }
 
   public getFinishedManageTournaments(pageNumber: number = 1, pageSize: number = 5, query: string = ''): Observable<Page<TournamentPreview>> {
@@ -90,6 +96,11 @@ export class TournamentPreviewService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(this.handleFailFetchingTokens.bind(this));
+  }
+
+  private handleFailFetchingTokens() {
+    return Observable.throw(new Error('Cannot fetch tournaments with specified parameters'));
   }
 }

@@ -1,24 +1,20 @@
 package pl.cyganki.results.service
 
 import org.springframework.stereotype.Service
-import pl.cyganki.results.exception.NotFoundResultException
 import pl.cyganki.results.repository.ResultRepository
 import pl.cyganki.utils.model.TaskUserDetails
 
 @Service
 class UserTaskDetailsService(private val resultRepository: ResultRepository) {
 
-    fun getTaskUserDetails(taskId: String, userId: Long, maxAttempts: Int?): TaskUserDetails {
+    fun getTaskUserDetails(tournamentId: String, taskId: String, userId: Long): TaskUserDetails {
 
-        val userResultsForTask = resultRepository.findAllByTaskIdAndUserId(taskId, userId!!)
-
-        if (userResultsForTask.isEmpty()) throw NotFoundResultException(userId, taskId)
+        val userResultsForTask = resultRepository.findAllByTournamentIdAndTaskIdAndUserId(tournamentId, taskId, userId!!)
 
         return TaskUserDetails(
-                earnedPoints = userResultsForTask.maxBy { it.earnedPoints }!!.earnedPoints,
-                maxAttempts = maxAttempts,
+                earnedPoints = if (userResultsForTask.isNotEmpty()) userResultsForTask.maxBy { it.earnedPoints }!!.earnedPoints else 0,
                 taskId = taskId,
-                userAttempts = userResultsForTask.count()
+                userAttempts = userResultsForTask.size
         )
     }
 }

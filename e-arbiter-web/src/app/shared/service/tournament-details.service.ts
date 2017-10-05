@@ -17,6 +17,7 @@ export class TournamentDetailsService {
       this.authService.prepareAuthOptions()
     )
       .first()
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch(error => Observable.throw(new Error('Cannot fetch details for this tournament')));
   }
 }

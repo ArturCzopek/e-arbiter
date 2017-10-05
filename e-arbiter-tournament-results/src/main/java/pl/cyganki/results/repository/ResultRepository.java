@@ -8,5 +8,5 @@ import java.util.List;
 @Transactional
 public interface ResultRepository extends ResultBaseRepository<Result> {
 
-    List<Result> findAllByTaskIdAndUserId(String taskId, long userId);
+    List<Result> findAllByTournamentIdAndTaskIdAndUserId(String tournamentId, String taskId, long userId);
 }

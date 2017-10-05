@@ -8,6 +8,7 @@ data class TournamentDetails(
         val ownerName: String,
         val name: String,
         val status: TournamentStatus,
+        val accessDetails: AccessDetails,
         val description: String? = null,
         val users: Int? = null,
         val startDate: LocalDateTime? = null,

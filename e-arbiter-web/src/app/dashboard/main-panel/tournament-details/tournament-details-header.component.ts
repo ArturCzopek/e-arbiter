@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {TournamentDetails} from './interface/tournament-details.interface';
+import {TournamentDetails} from '../interface/tournament-details.interface';
 
 @Component({
   selector: 'arb-tour-details-header',

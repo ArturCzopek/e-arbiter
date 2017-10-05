@@ -57,7 +57,14 @@ import java.util.Scanner;
  * 8 -> 250 to 255
  * 9 -> 256 to 261
  * 10 -> 262 to 266
+ *
+ *
+ * The same applies to tournaments ids:
+ * DRAFT -> 1 to 10
+ * ACTIVE -> 11 to 20
+ * FINISHED -> 21 to 20
  */
+
 
 @Profile({"dev", "test"})
 @Component
@@ -70,6 +77,7 @@ public class SampleDataLoader implements ApplicationRunner {
 
     private static final String ZERO_HEX_VALUE = "000000000000000000000000";
     private static int CURRENT_NEW_TEST_TASK_ID = 1;
+    private static int CURRENT_NEW_TEST_TOURNAMENT_ID = 1;
 
     @Autowired
     public SampleDataLoader(MongoTemplate mongoTemplate, TournamentRepository tournamentRepository) {
@@ -111,7 +119,8 @@ public class SampleDataLoader implements ApplicationRunner {
 
             try {
                 Tournament tournament = mapper.readValue(tournamentsJSON, Tournament.class);
-                tournament.getTasks().forEach(task -> task.setId(getTestId()));
+                tournament.setId(getTestTournamentId());
+                tournament.getTasks().forEach(task -> task.setId(getTestTaskId()));
                 tournamentRepository.save(tournament);
             } catch (Exception e) {
                 throw new RuntimeException("Cannot insert tournament. Current index: " + i + ", folder: " + tournamentFolderName + "; " + e.getMessage());
@@ -119,8 +128,14 @@ public class SampleDataLoader implements ApplicationRunner {
         }
     }
 
-    private String getTestId() {
+    private String getTestTaskId() {
         String newId = ZERO_HEX_VALUE + CURRENT_NEW_TEST_TASK_ID++;
+        int diff = newId.length() - ZERO_HEX_VALUE.length();
+        return newId.substring(diff);
+    }
+
+    private String getTestTournamentId() {
+        String newId = ZERO_HEX_VALUE + CURRENT_NEW_TEST_TOURNAMENT_ID++;
         int diff = newId.length() - ZERO_HEX_VALUE.length();
         return newId.substring(diff);
     }

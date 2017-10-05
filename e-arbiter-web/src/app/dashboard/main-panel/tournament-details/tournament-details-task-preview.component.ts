@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
-import {TaskPreview} from '../../shared/interface/task-preview.interface';
-import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
+import {TaskPreview} from '../../../shared/interface/task-preview.interface';
+import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -15,8 +15,8 @@ import * as _ from 'lodash';
           <accordion-content>
             <p>{{taskPreview.description}}</p>
             <div *ngIf="canSeeTaskFooter" class="accordion-content-footer">
-              <p>Podejścia: {{taskPreview.userAttempts}}/{{convertAttempts()}}</p>
-              <p>Punkty: {{taskPreview.earnedPoints}}/{{taskPreview.maxPoints}}</p>
+              <p>Podejścia: {{taskPreview.taskUserDetails.userAttempts}}/{{convertAttempts()}}</p>
+              <p>Punkty: {{taskPreview.taskUserDetails.earnedPoints}}/{{taskPreview.maxPoints}}</p>
               <button
                 [ngClass]="canExecuteTask() ? 'ui button medium teal' : 'ui button medium teal disabled'"
                 (click)="executeTask()"
@@ -34,7 +34,7 @@ import * as _ from 'lodash';
 })
 export class TournamentDetailsTaskPreviewComponent implements AfterViewInit {
   @Input() taskPreview: TaskPreview;
-  @Input() status: TournamentStatus;
+  @Input() status: string;
   @Input() canSeeTaskFooter: boolean;
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -45,16 +45,17 @@ export class TournamentDetailsTaskPreviewComponent implements AfterViewInit {
   }
 
   public convertAttempts(): string {
-    return `${(_.isNumber(this.taskPreview.maxAttempts)) ? this.taskPreview.maxAttempts : '-' }`;
+    const {maxAttempts} = this.taskPreview.taskUserDetails;
+    return `${(_.isNumber(maxAttempts)) ? maxAttempts : '-' }`;
   }
 
   public canExecuteTask(): boolean {
 
-    if (this.status === TournamentStatus.FINISHED) { // tasks cannot be executed if tournament is finished
+    if (this.status === 'FINISHED') { // tasks cannot be executed if tournament is finished
       return false;
     }
 
-    const {maxAttempts, userAttempts} = this.taskPreview;
+    const {maxAttempts, userAttempts} = this.taskPreview.taskUserDetails;
 
     if (!_.isNumber(maxAttempts)) {  // no number, probably null -> inf amount of execution
       return true;
