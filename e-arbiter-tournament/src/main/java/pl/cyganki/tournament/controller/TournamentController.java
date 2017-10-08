@@ -98,14 +98,14 @@ public class TournamentController {
         return tournamentManagementService.saveTournament(user.getId(), tournament);
     }
 
-    @PostMapping("/join")
+    @PostMapping("/user-action/join")
     @ApiOperation("Endpoint for joining to an existing and active tournament.")
     public ResponseEntity<String> joinToTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
         tournamentUserActionService.joinToTournament(user.getId(), tournamentUserActionRequest);
         return ResponseEntity.ok("User has joined to tournament");
     }
 
-    @PostMapping("/leave")
+    @PostMapping("/user-action/leave")
     @ApiOperation("Endpoint for leaving from an existing and active tournament.")
     public ResponseEntity<String> leaveTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
         tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);

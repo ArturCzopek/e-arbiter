@@ -21,17 +21,9 @@ import {TournamentDetails} from '../interface/tournament-details.interface';
     </div>
   `
 })
-export class TournamentDetailsHeaderComponent implements AfterViewInit {
+export class TournamentDetailsHeaderComponent {
   @Input() tournamentDetails: TournamentDetails;
   @Input() accessibilityStatus: boolean;
   @Input() endDate: string;
   @Input() canSeeHeaderData: boolean;
-
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.cdr.detach(), 500);
-  }
 }

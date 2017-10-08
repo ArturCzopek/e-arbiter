@@ -1,9 +1,11 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TournamentDetailsService} from '../../../shared/service/tournament-details.service';
 import {TournamentDetails} from '../interface/tournament-details.interface';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
 import {DateService} from '../../../shared/service/date.service';
+import {TournamentUserActionType} from '../model/tournament-user-action.model';
+import {RouteService} from '../../../shared/service/route.service';
 
 @Component({
   selector: 'arb-tour-details',
@@ -24,6 +26,7 @@ import {DateService} from '../../../shared/service/date.service';
         ></arb-tour-details-header>
         <arb-tour-details-action
           [tournamentDetails]="tournamentDetails"
+          (onUserTournamentStatusChange)="onUserTournamentStatusChange($event)"
         ></arb-tour-details-action>
         <div class="tournament-details-card" *ngIf="canSeeTournamentMainDetails()">
           <arb-tour-details-task-list
@@ -49,43 +52,32 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   public accessibilityStatus: string;
   public params$: Subscription;
   public errorMessage = '';
+  private tournamentId = '';
 
   constructor(private tournamentDetailsService: TournamentDetailsService,
               private route: ActivatedRoute,
-              private dateService: DateService,
-              private cdr: ChangeDetectorRef) {
-
+              private routeService: RouteService,
+              private dateService: DateService) {
   }
 
   ngOnInit(): void {
     this.params$ = this.route.params.first().subscribe(params => {
       this.isLoading = true;
-      const id = params['id'];
-      this.tournamentDetailsService.getDetailsForTournament(id)
-        .subscribe(
-          details => {
-            this.tournamentDetails = details;
-            this.endDate = (this.canSeeHeaderData() && this.tournamentDetails.endDate) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.endDate) : '-';
-            this.startDate = (this.canSeeHeaderData() && this.tournamentDetails.startDate) ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.startDate) : '-';
-            this.accessibilityStatus = (this.tournamentDetails.accessDetails.publicFlag) ? 'Turniej publiczny' : 'Turniej prywatny';
-            this.errorMessage = '';
-          },
-          error => {
-            this.errorMessage = 'Coś poszło nie tak! Prawdopodobnie turniej nie istnieje. ' +
-              'Jeżeli masz wątpliwości, skontaktuj się z administratorem lub właścicielem turnieju';
-            this.isLoading = false;
-          },
-          () => {
-            this.isLoading = false
-            setTimeout(() => this.cdr.detach(), 1000);  // give this feeling some time
-          }
-        )
-      ;
+      this.tournamentId = params['id'];
+      this.loadTournamentDetails();
     });
   }
 
   ngOnDestroy(): void {
     this.params$.unsubscribe();
+  }
+
+  public onUserTournamentStatusChange(tournamentUserActionType: TournamentUserActionType) {
+    if (tournamentUserActionType === TournamentUserActionType.JOIN) {
+      this.loadTournamentDetails();
+    } else {
+      this.routeService.goToDashboard();
+    }
   }
 
   public canSeeHeaderData(): boolean {
@@ -122,5 +114,27 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
     }
 
     return true;
+  }
+
+  private loadTournamentDetails() {
+    this.tournamentDetailsService.getDetailsForTournament(this.tournamentId)
+      .subscribe(
+        details => {
+          this.tournamentDetails = details;
+          this.endDate = (this.canSeeHeaderData() && this.tournamentDetails.endDate)
+            ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.endDate) : '-';
+          this.startDate = (this.canSeeHeaderData() && this.tournamentDetails.startDate)
+            ? this.dateService.parseLocalDateTimeToString(this.tournamentDetails.startDate) : '-';
+          this.accessibilityStatus = (this.tournamentDetails.accessDetails.publicFlag) ? 'Turniej publiczny' : 'Turniej prywatny';
+          this.errorMessage = '';
+          this.isLoading = false;
+        },
+        error => {
+          this.errorMessage = 'Coś poszło nie tak! Prawdopodobnie turniej nie istnieje. ' +
+            'Jeżeli masz wątpliwości, skontaktuj się z administratorem lub właścicielem turnieju';
+          this.isLoading = false;
+        }
+      )
+    ;
   }
 }
