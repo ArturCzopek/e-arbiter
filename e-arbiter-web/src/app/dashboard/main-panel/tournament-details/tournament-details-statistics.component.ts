@@ -1,6 +1,5 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TournamentDetails} from '../interface/tournament-details.interface';
-import {TournamentStatus} from "../../../shared/interface/tournament-status.enum";
 
 @Component({
   selector: 'arb-tour-details-stats',
@@ -42,20 +41,14 @@ import {TournamentStatus} from "../../../shared/interface/tournament-status.enum
     </div>
   `
 })
-export class TournamentDetailsStatisticsComponent implements OnInit, AfterViewInit {
+export class TournamentDetailsStatisticsComponent implements OnInit {
   @Input() tournamentDetails: TournamentDetails;
   @Input() startDate: String;
   public status = '';
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
 
   ngOnInit(): void {
     this.convertStatus();
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.cdr.detach(), 500);
   }
 
   public canSeePoints(): boolean {
@@ -63,8 +56,6 @@ export class TournamentDetailsStatisticsComponent implements OnInit, AfterViewIn
   }
 
   public convertStatus(): void {
-    console.log('status before', this.tournamentDetails.status)
-
     if (this.tournamentDetails.status === 'DRAFT') {
       this.status = 'Szkic';
     } else if (this.tournamentDetails.status === 'ACTIVE') {
@@ -72,7 +63,5 @@ export class TournamentDetailsStatisticsComponent implements OnInit, AfterViewIn
     } else if (this.tournamentDetails.status === 'FINISHED') {
       this.status = 'Zakończony';
     }
-
-    console.log('status', this.status);
   }
 }

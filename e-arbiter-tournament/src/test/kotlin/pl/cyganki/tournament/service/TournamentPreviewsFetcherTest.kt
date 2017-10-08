@@ -16,6 +16,7 @@ import pl.cyganki.tournament.EArbiterTournamentApplication
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.tournament.testutils.MockAuthModule
+import pl.cyganki.tournament.utils.SampleDataLoader
 import pl.cyganki.utils.modules.AuthModuleInterface
 
 /**
@@ -35,12 +36,16 @@ class TournamentPreviewsFetcherTest {
     @Autowired
     lateinit var tournamentRepository: TournamentRepository
 
+    @Autowired
+    lateinit var sampleDataLoader: SampleDataLoader
+
     private val userId = 3L
 
     @Before
     fun `set up`() {
         authModule = MockAuthModule()
         tournamentPreviewsFetcher = TournamentPreviewsFetcher(tournamentRepository, authModule)
+        sampleDataLoader.run(null)
     }
 
 

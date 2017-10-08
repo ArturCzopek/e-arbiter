@@ -1,6 +1,5 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TaskPreview} from '../../../shared/interface/task-preview.interface';
-import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -32,16 +31,12 @@ import * as _ from 'lodash';
 
   `
 })
-export class TournamentDetailsTaskPreviewComponent implements AfterViewInit {
+export class TournamentDetailsTaskPreviewComponent {
   @Input() taskPreview: TaskPreview;
   @Input() status: string;
   @Input() canSeeTaskFooter: boolean;
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.cdr.detach(), 500);
+  constructor() {
   }
 
   public convertAttempts(): string {

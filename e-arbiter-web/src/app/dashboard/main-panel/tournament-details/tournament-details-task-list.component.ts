@@ -1,6 +1,5 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TaskPreview} from '../../../shared/interface/task-preview.interface';
-import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 
 @Component({
   selector: 'arb-tour-details-task-list',
@@ -21,17 +20,13 @@ import {TournamentStatus} from '../../../shared/interface/tournament-status.enum
     </div>
   `
 })
-export class TournamentDetailsTaskListComponent implements AfterViewInit {
+export class TournamentDetailsTaskListComponent {
   @Input() taskPreviews: TaskPreview[];
   @Input() status: string;
   @Input() canSeeTaskFooter: boolean;
 
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.cdr.detach(), 500);
+  constructor() {
   }
 
   public trackByName(index: number, task: TaskPreview): string {

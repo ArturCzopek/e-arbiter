@@ -19,7 +19,8 @@ import {ModalService} from './shared/service/modal.service';
 import {TournamentPreviewService} from './shared/service/tournament-preview.service';
 import {DateService} from './shared/service/date.service';
 import {PageCounterService} from './shared/service/page-counter.service';
-import {TournamentDetailsService} from "./shared/service/tournament-details.service";
+import {TournamentDetailsService} from './shared/service/tournament-details.service';
+import {TournamentUserActionService} from './dashboard/main-panel/service/tournament-user-action.service';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,9 @@ import {TournamentDetailsService} from "./shared/service/tournament-details.serv
     ModalService,
     PageCounterService,
     RouteService,
-    TournamentPreviewService,
     TournamentDetailsService,
+    TournamentPreviewService,
+    TournamentUserActionService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [

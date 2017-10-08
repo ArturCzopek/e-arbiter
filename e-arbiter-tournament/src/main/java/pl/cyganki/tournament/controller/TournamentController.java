@@ -4,13 +4,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.Tournament;
+import pl.cyganki.tournament.model.dto.TournamentUserActionRequest;
 import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
 import pl.cyganki.tournament.service.TournamentDetailsService;
 import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
+import pl.cyganki.tournament.service.TournamentUserActionService;
 import pl.cyganki.utils.security.dto.User;
 
 import javax.validation.Valid;
@@ -22,20 +25,17 @@ public class TournamentController {
     private TournamentPreviewsFetcher tournamentPreviewsFetcher;
     private TournamentManagementService tournamentManagementService;
     private TournamentDetailsService tournamentDetailsService;
+    private TournamentUserActionService tournamentUserActionService;
 
     @Autowired
     public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher,
                                 TournamentManagementService tournamentManagementService,
-                                TournamentDetailsService tournamentDetailsService) {
+                                TournamentDetailsService tournamentDetailsService,
+                                TournamentUserActionService tournamentUserActionService) {
         this.tournamentPreviewsFetcher = tournamentPreviewsFetcher;
         this.tournamentManagementService = tournamentManagementService;
         this.tournamentDetailsService = tournamentDetailsService;
-    }
-
-    @PostMapping("/save")
-    @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
-    public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
-        return tournamentManagementService.saveTournament(user.getId(), tournament);
+        this.tournamentUserActionService = tournamentUserActionService;
     }
 
     @GetMapping("/all/active")
@@ -90,5 +90,26 @@ public class TournamentController {
     @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
     public TournamentDetails getTournamentDetails(User user, @PathVariable("id") String tournamentId) {
         return tournamentDetailsService.getTournamentDetailsForUser(user.getId(), tournamentId);
+    }
+
+    @PostMapping("/save")
+    @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
+    public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
+        return tournamentManagementService.saveTournament(user.getId(), tournament);
+    }
+
+    @PostMapping("/user-action/join")
+    @ApiOperation("Endpoint for joining to an existing and active tournament.")
+    public ResponseEntity<String> joinToTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
+        tournamentUserActionService.joinToTournament(user.getId(), tournamentUserActionRequest);
+        return ResponseEntity.ok("User has joined to tournament");
+    }
+
+    @PostMapping("/user-action/leave")
+    @ApiOperation("Endpoint for leaving from an existing and active tournament.")
+    public ResponseEntity<String> leaveTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
+        tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);
+        return ResponseEntity.ok("User has left to tournament");
+
     }
 }

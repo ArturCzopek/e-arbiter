@@ -13,7 +13,7 @@ export class TournamentDetailsService {
 
   public getDetailsForTournament(id: string): Observable<TournamentDetails> {
     return this.http.get(
-      `${environment.server.tournament.detailsTournamentUrl}/${id}`,
+      `${environment.server.tournament.userDetailsTournamentUrl}/${id}`,
       this.authService.prepareAuthOptions()
     )
       .first()
