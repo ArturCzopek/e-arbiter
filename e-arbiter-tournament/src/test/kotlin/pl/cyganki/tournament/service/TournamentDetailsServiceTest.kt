@@ -18,6 +18,7 @@ import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.tournament.testutils.MockAuthModule
 import pl.cyganki.tournament.testutils.MockTourResModule
+import pl.cyganki.tournament.utils.SampleDataLoader
 import pl.cyganki.utils.modules.AuthModuleInterface
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
@@ -40,11 +41,15 @@ class TournamentDetailsServiceTest {
     @Autowired
     lateinit var tournamentRepository: TournamentRepository
 
+    @Autowired
+    lateinit var sampleDataLoader: SampleDataLoader
+
     @Before
     fun `set up`() {
         authModule = MockAuthModule()
         tourResModule = MockTourResModule()
         tournamentDetailsService = TournamentDetailsService(tournamentRepository, authModule, tourResModule)
+        sampleDataLoader.run(null)
     }
 
     @Test(expected = InvalidTournamentIdException::class)

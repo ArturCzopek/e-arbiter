@@ -15,6 +15,7 @@ import pl.cyganki.tournament.exception.*
 import pl.cyganki.tournament.model.dto.TournamentUserActionRequest
 import pl.cyganki.tournament.model.dto.TournamentUserActionType
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.tournament.utils.SampleDataLoader
 
 /**
  * Tournaments to tests are defined in proper JSONs
@@ -34,9 +35,13 @@ class TournamentUserActionServiceTest {
     @Autowired
     lateinit var hashingService: HashingService
 
+    @Autowired
+    lateinit var sampleDataLoader: SampleDataLoader
+
     @Before
     fun `set up`() {
         tournamentUserActionService = TournamentUserActionService(tournamentRepository, hashingService)
+        sampleDataLoader.run(null)
     }
 
     /**

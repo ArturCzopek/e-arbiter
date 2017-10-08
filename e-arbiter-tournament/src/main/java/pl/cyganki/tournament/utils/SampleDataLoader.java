@@ -99,6 +99,9 @@ public class SampleDataLoader implements ApplicationRunner {
         } catch (Exception e) {
             log.error("Cannot insert test tournaments! {}", e.getMessage());
         }
+
+        CURRENT_NEW_TEST_TASK_ID = 1;
+        CURRENT_NEW_TEST_TOURNAMENT_ID = 1;
     }
 
     private void insertTournament(String tournamentFolderName, int tournamentsToInsert) throws IOException {
