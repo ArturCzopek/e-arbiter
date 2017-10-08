@@ -48,7 +48,6 @@ class TournamentDetailsServiceTest {
     }
 
     @Test(expected = InvalidTournamentIdException::class)
-
     fun `should throw invalidTournamentIdException for id for non-existing tournament`() {
         // given
         val tournamentId = TestData.nonExistingTournamentId
