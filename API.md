@@ -2,28 +2,6 @@
 
 Admin Controller
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
-```
-GET /admin/all
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|DbUser array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
 GET /admin/ping
@@ -46,8 +24,61 @@ GET /admin/ping
 
 * */*
 
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
+```
+GET /admin/all
+```
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|DbUser array|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 
 Auth Controller
+
+#### Returns a current logged in user based on object from request from API Gateway
+```
+GET /api/me
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
 
 #### Returns a token for current logged in user. Token is widely used in app to authenticate user.
 ```
@@ -128,37 +159,6 @@ GET /api/user
 
 * */*
 
-#### Returns a current logged in user based on object from request from API Gateway
-```
-GET /api/me
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 
 Data Controller
 
@@ -184,71 +184,13 @@ GET /api/data/clientUrl
 
 * */*
 
-## Executor Module
-
-Executor Controller
-
-#### example
-```
-GET /api/example
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|ExecutionResult|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 ## Tournament Module
 
 Tournament Controller
 
-#### Returns a page with finished tournaments which were created by user
+#### Returns a page with the newest tournaments in which user does not participate
 ```
-GET /api/management/finished
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with almost ended tournaments in which user does not participate
-```
-GET /api/all/ending
+GET /api/all/newest
 ```
 
 ##### Parameters
@@ -258,38 +200,6 @@ GET /api/all/ending
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with active tournaments' details in which logged in user participates
-```
-GET /api/all/active
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
 
 
 ##### Responses
@@ -341,9 +251,9 @@ GET /api/all/finished
 
 * */*
 
-#### Returns a page with active tournaments which were created by user
+#### Returns a page with active tournaments' details in which logged in user participates
 ```
-GET /api/management/active
+GET /api/all/active
 ```
 
 ##### Parameters
@@ -373,74 +283,9 @@ GET /api/management/active
 
 * */*
 
-#### Endpoint for joining to an existing and active tournament.
+#### Returns a page with the most popular tournaments in which user does not participate
 ```
-POST /api/user-action/join
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|BodyParameter|tournamentUserActionRequest|tournamentUserActionRequest|true|TournamentUserActionRequest||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament
-```
-GET /api/user-details/{id}
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|PathParameter|id|id|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|TournamentDetails|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with the newest tournaments in which user does not participate
-```
-GET /api/all/newest
+GET /api/all/popular
 ```
 
 ##### Parameters
@@ -469,9 +314,9 @@ GET /api/all/newest
 
 * */*
 
-#### Returns a page with draft tournaments which were created by user
+#### Returns a page with finished tournaments which were created by user
 ```
-GET /api/management/draft
+GET /api/management/finished
 ```
 
 ##### Parameters
@@ -534,9 +379,9 @@ POST /api/save
 
 * */*
 
-#### Endpoint for leaving from an existing and active tournament.
+#### Returns a page with draft tournaments which were created by user
 ```
-POST /api/user-action/leave
+GET /api/management/draft
 ```
 
 ##### Parameters
@@ -546,14 +391,13 @@ POST /api/user-action/leave
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-|BodyParameter|tournamentUserActionRequest|tournamentUserActionRequest|true|TournamentUserActionRequest||
+|QueryParameter|query|query|false|string||
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
-|201|Created|No Content|
+|200|OK|Page«TournamentPreview»|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -567,9 +411,9 @@ POST /api/user-action/leave
 
 * */*
 
-#### Returns a page with the most popular tournaments in which user does not participate
+#### Returns a page with almost ended tournaments in which user does not participate
 ```
-GET /api/all/popular
+GET /api/all/ending
 ```
 
 ##### Parameters
@@ -579,6 +423,38 @@ GET /api/all/popular
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a page with active tournaments which were created by user
+```
+GET /api/management/active
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|query|query|false|string||
 
 
 ##### Responses

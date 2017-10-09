@@ -39,7 +39,7 @@ export class DevelopmentCardComponent {
     tournamentId: '',
     taskId: '',
     program: '',
-    language: ''
+    language: 'C11'
   };
 
   constructor(public authService: AuthService, private http: Http, private modalService: ModalService) {

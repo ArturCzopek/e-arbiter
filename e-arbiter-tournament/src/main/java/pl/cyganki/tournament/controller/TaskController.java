@@ -1,13 +1,12 @@
 package pl.cyganki.tournament.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pl.cyganki.tournament.model.CodeSubmitForm;
 import pl.cyganki.tournament.service.TaskService;
 import pl.cyganki.utils.modules.executor.model.ExecutionResult;
-import pl.cyganki.utils.modules.tournament.model.Language;
 import pl.cyganki.utils.security.dto.User;
 
-import javax.ws.rs.core.MultivaluedMap;
-import java.util.Map;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/task")
@@ -20,7 +19,7 @@ public class TaskController {
     }
 
     @PostMapping("/submit")
-    public ExecutionResult submitSolution(User user, @RequestBody Map<String, String> data) {
-        return taskService.submitCode(data.get("tournamentId"), data.get("taskId"), data.get("program").getBytes(), Language.C11);
+    public ExecutionResult submitCode(User user, @RequestBody @Valid CodeSubmitForm codeSubmitForm) {
+        return taskService.submitCode(user.getId(), codeSubmitForm);
     }
 }

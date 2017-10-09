@@ -14,7 +14,6 @@ import pl.cyganki.tournament.service.TournamentDetailsService;
 import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
 import pl.cyganki.tournament.service.TournamentUserActionService;
-import pl.cyganki.tournament.service.TournamentService;
 import pl.cyganki.utils.security.dto.User;
 
 import javax.validation.Valid;
@@ -111,6 +110,5 @@ public class TournamentController {
     public ResponseEntity<String> leaveTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
         tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);
         return ResponseEntity.ok("User has left to tournament");
-
     }
 }

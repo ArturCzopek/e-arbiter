@@ -28,4 +28,17 @@ public class CodeTask extends Task {
     public int getMaxPoints() {
         return codeTaskTestSets.size();
     }
+
+    public byte[] getCodeTaskData() {
+        StringBuilder sb = new StringBuilder();
+
+        for (CodeTaskTestSet testSet: getCodeTaskTestSets()) {
+            sb.append(String.join(" ", testSet.getParameters()));
+            sb.append(" ");
+            sb.append(testSet.getExpectedResult());
+            sb.append("\n");
+        }
+
+        return sb.toString().getBytes();
+    }
 }
