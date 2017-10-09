@@ -21,4 +21,28 @@ public class CodeTaskResult extends Result {
 
     @Column(name = "execution_time")
     private long executionTime;
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Blob getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(Blob resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public long getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(long executionTime) {
+        this.executionTime = executionTime;
+    }
 }

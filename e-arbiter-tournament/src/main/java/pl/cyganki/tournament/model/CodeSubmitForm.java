@@ -21,4 +21,12 @@ public class CodeSubmitForm {
 
     @NotNull(message = "Language cannot be empty")
     private Language language;
+
+    public byte[] getProgramBytes() {
+        return program.getBytes();
+    }
+
+    public String getLanguageExtension() {
+        return language.getExtension();
+    }
 }
