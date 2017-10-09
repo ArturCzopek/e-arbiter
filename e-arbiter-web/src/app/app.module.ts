@@ -21,6 +21,7 @@ import {DateService} from './shared/service/date.service';
 import {PageCounterService} from './shared/service/page-counter.service';
 import {TournamentDetailsService} from './shared/service/tournament-details.service';
 import {TournamentUserActionService} from './dashboard/main-panel/service/tournament-user-action.service';
+import {TaskService} from "./dashboard/main-panel/service/task.service";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {TournamentUserActionService} from './dashboard/main-panel/service/tourna
     TournamentDetailsService,
     TournamentPreviewService,
     TournamentUserActionService,
+    TaskService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [

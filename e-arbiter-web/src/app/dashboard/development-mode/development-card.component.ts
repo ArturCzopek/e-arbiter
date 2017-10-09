@@ -20,7 +20,7 @@ import {ModalService} from "../../shared/service/modal.service";
       <form class="ui form">
         <div class="two fields">
           <div class="field">
-            <input type="text" name="tournamendId" [(ngModel)]="submitRequest.tournamentId" placeholder="Tournament ID"/>
+            <input type="text" name="tournamentId" [(ngModel)]="submitRequest.tournamentId" placeholder="Tournament ID"/>
           </div>
           <div class="field">
             <input type="text" name="taskId" [(ngModel)]="submitRequest.taskId" placeholder="Task ID"/>

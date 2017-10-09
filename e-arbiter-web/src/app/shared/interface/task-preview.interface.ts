@@ -6,7 +6,7 @@
 import {TaskUserDetails} from './task-user-details.interface';
 
 export interface TaskPreview {
-  id: string,
+  tournamentId: string,
   name: string,
   description: string,
   maxPoints: number,

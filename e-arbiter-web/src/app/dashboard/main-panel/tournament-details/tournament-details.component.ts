@@ -128,6 +128,7 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
           this.accessibilityStatus = (this.tournamentDetails.accessDetails.publicFlag) ? 'Turniej publiczny' : 'Turniej prywatny';
           this.errorMessage = '';
           this.isLoading = false;
+          this.tournamentDetails.taskPreviews.forEach(taskPreview => taskPreview.tournamentId = this.tournamentId);
         },
         error => {
           this.errorMessage = 'Coś poszło nie tak! Prawdopodobnie turniej nie istnieje. ' +

@@ -45,7 +45,7 @@ public class TaskService {
                 .execute(new ExecutionRequest(csf.getProgramBytes(), csf.getLanguageExtension(), codeTask.getCodeTaskData()));
 
         final CodeTaskResultDto codeTaskResultDto =
-                TaskResultDtoBuilder.fromCodeTaskResult(csf, executionResult);
+                TaskResultDtoBuilder.fromCodeTaskResult(userId, csf, executionResult);
 
         this.tournamentResultsModuleInterface.saveCodeTaskResult(codeTaskResultDto);
         return executionResult;
@@ -69,15 +69,16 @@ public class TaskService {
         private static final Pattern EARNED_POINTS_PATTERN =
                 Pattern.compile("EARNED POINTS: ([^\n]+)");
 
-        private static CodeTaskResultDto fromCodeTaskResult(CodeSubmitForm csf, ExecutionResult executionResult) {
+        private static CodeTaskResultDto fromCodeTaskResult(long userId, CodeSubmitForm csf, ExecutionResult executionResult) {
             final CodeTaskResultDto codeTaskResultDto = new CodeTaskResultDto();
 
+            codeTaskResultDto.setUserId(userId);
             codeTaskResultDto.setTournamentId(csf.getTournamentId());
             codeTaskResultDto.setTaskId(csf.getTaskId());
             codeTaskResultDto.setLanguage(csf.getLanguage());
             codeTaskResultDto.setResultCode(csf.getProgram());
 
-            final Matcher matcher = EARNED_POINTS_PATTERN.matcher(csf.getProgram());
+            final Matcher matcher = EARNED_POINTS_PATTERN.matcher(executionResult.getOutput());
 
             if (matcher.find()) {
                 codeTaskResultDto.setEarnedPoints(matcher.group(1));
