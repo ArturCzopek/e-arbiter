@@ -4,6 +4,7 @@ import {Http} from "@angular/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
+import {ModalService} from "../../shared/service/modal.service";
 
 @Component({
   selector: 'arb-dvlp',
@@ -16,11 +17,32 @@ import "rxjs/add/observable/of";
         </button>
         <button (click)="getMeInfo()" class="ui teal medium button">/me (console)</button>
       </div>
+      <form class="ui form">
+        <div class="two fields">
+          <div class="field">
+            <input type="text" name="tournamentId" [(ngModel)]="submitRequest.tournamentId" placeholder="Tournament ID"/>
+          </div>
+          <div class="field">
+            <input type="text" name="taskId" [(ngModel)]="submitRequest.taskId" placeholder="Task ID"/>
+          </div>
+        </div>
+        <div class="field">
+          <textarea name="program" [(ngModel)]="submitRequest.program" placeholder="Code Solution..."></textarea>
+        </div>
+        <button (click)="uploadCode()" class="ui teal medium button">/code (console)</button>
+      </form>
     </div>`
 })
 export class DevelopmentCardComponent {
 
-  constructor(public authService: AuthService, private http: Http) {
+  submitRequest = {
+    tournamentId: '',
+    taskId: '',
+    program: '',
+    language: 'C11'
+  };
+
+  constructor(public authService: AuthService, private http: Http, private modalService: ModalService) {
 
   }
 
@@ -43,5 +65,10 @@ export class DevelopmentCardComponent {
       .subscribe(
         res => console.log(res)
       )
+  }
+
+  public uploadCode() {
+    this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest,
+      this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
   }
 }

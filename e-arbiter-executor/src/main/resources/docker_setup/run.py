@@ -41,6 +41,7 @@ if status != 0:
 
 iterations = 0
 successes = 0
+earned_points = ""
 
 # execute
 for line in test_data.readlines():
@@ -49,10 +50,18 @@ for line in test_data.readlines():
 
     status, output = commands.getstatusoutput(prepare_command(execute_command, args))
 
-    result = "EXPECTED: {} | ACTUAL: {} | PASSED: {}".format(expected, output, output == expected)
+    result = "#{}: PASSED: {}".format(iterations + 1, output == expected)
+
+    if iterations > 0:
+        earned_points += ","
 
     if output == expected:
         successes += 1
+        earned_points += "1"
+    else:
+        earned_points += "0"
+
+
     iterations += 1
 
     print result
@@ -62,4 +71,5 @@ if successes == iterations:
 else:
     print "{} FAILED".format(iterations - successes)
 
+print "EARNED POINTS: {}".format(earned_points)
 print "FINISHED"

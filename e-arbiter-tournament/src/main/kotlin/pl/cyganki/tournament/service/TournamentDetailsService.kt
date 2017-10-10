@@ -49,6 +49,7 @@ class TournamentDetailsService(
 
         val taskPreviews = tournament.tasks.map {
             TaskPreview(
+                    it.id,
                     it.name,
                     it.description,
                     it.maxPoints,

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Document(collection = "TOURNAMENTS")
@@ -202,6 +203,13 @@ public class Tournament {
 
     public Task getTask(int taskIndex) {
         return this.tasks.get(taskIndex);
+    }
+
+    public List<CodeTask> getCodeTasks() {
+        return tasks.stream()
+                .filter(CodeTask.class::isInstance)
+                .map(CodeTask.class::cast)
+                .collect(Collectors.toList());
     }
 
     public void removeTask(int taskIndex) {

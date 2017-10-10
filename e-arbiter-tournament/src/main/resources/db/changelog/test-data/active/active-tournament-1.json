@@ -21,27 +21,25 @@
       "description": "Ea enim enim commodo ea reprehenderit duis consequat adipisicing aute. Dolore irure qui fugiat laborum qui esse esse.",
       "codeTaskTestSets": [
         {
-          "expectedResult": 252,
+          "expectedResult": 25,
           "parameters": [
-            30,
-            21,
-            27,
-            27
+            2,
+            5,
+            2
           ]
         },
         {
-          "expectedResult": 211,
+          "expectedResult": "\"ala ma kota\"",
           "parameters": [
-            -5,
-            26
+            "ala",
+            "\" ma kota\""
           ]
         },
         {
           "expectedResult": 147,
           "parameters": [
-            19,
-            -7,
-            -29
+            14,
+            7
           ]
         }
       ],
