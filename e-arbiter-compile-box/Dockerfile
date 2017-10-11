@@ -1,5 +1,4 @@
-# Pull base image.
-FROM ubuntu:16.04
+FROM alpine:3.5
 
 # Install.
 RUN \

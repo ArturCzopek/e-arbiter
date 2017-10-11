@@ -1,9 +1,13 @@
 language: java
 jdk: oraclejdk8
-services: mongodb
+services:
+  - mongodb
+  - docker
 dist: trusty
 sudo: required
 install: true
+env:
+ - DOCKER_COMPOSE_VERSION=1.15.0
 
 branches:
   only:
@@ -23,6 +27,7 @@ before_install:
  - nvm install 6.9.4
  - nvm use 6.9.4
  - sudo apt-get install lynx lynx-cur
+
 
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -46,10 +51,10 @@ cache:
   - "e-arbiter-web/node_modules"
 
 script:
- - ./scripts/build.sh
+ - ./scripts/travis/build.sh
 
 after_success:
- - ./scripts/publish.sh
+ - ./scripts/travis/publish.sh
 
  # This is only for "debug" purposes on Travis. We cannot get files from there but you can't print them, for example report from test
  # You can print proper file by setting $TEST_FILE_PATH env variable in Travis which already exists

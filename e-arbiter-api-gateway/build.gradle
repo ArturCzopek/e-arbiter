@@ -1,6 +1,6 @@
 jar {
+    archiveName = 'e-arbiter-api-gateway.jar'
     baseName = 'e-arbiter-api-gateway'
-    version = '1.0-SNAPSHOT'
 }
 
 springBoot {

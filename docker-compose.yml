@@ -1,0 +1,13 @@
+version: '3.1'
+
+service:
+  config:
+    image: e-arbiter/config
+    environment:
+      E_ARB_CFG_PATH: $E_ARB_CFG_PATH   # Path to server where config local files for whole app are available
+      E_ARB_USR_PASS: $E_ARB_USR_PASS   # Password for remote user
+      E_ARB_CFG_PORT: $E_ARB_CFG_PORT   # Port where app runs
+
+volumes:
+  e-arbiter-doc-db:
+  e-arbiter-rel-db:

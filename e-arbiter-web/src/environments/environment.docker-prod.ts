@@ -1,6 +1,6 @@
 const devData = {
-  serverUrl: 'http://localhost:8080',
-  authUrl:  'http://localhost:8090'
+  serverUrl: 'http://192.168.0.1:8080',
+  authUrl:  'http://192.168.0.1:8090'
 }
 
 export const environment = {

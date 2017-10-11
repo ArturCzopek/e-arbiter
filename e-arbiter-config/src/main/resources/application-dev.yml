@@ -1,0 +1,2 @@
+logging:
+  file: ${E_ARB_DEV_LOG_PATH}/e-arbiter-config.log

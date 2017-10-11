@@ -22,8 +22,9 @@ else
     echo "Gradle build - SUCCESS";
 fi
 
-cd e-arbiter-web;
-ng_output=$(ng build --env=dev --base-href "https://arturczopek.github.io/e-arbiter/"; ng test --watch=false); ng_return_code=$?
+cd $TRAVIS_BUILD_DIR/e-arbiter-web;
+ng_output=$(ng build --env docker-dev --base-href http://192.168.0.1:4200); ng_return_code=$?
+
 
 echo "$ng_output";
 
@@ -33,6 +34,19 @@ then
     exit 1;
 else
     echo "Ng build - SUCCESS";
+fi
+
+cd $TRAVIS_BUILD_DIR;
+
+docker_output=$(./scripts/docker/dockerBuild-dev.sh); docker_return_code=$?
+
+echo "$docker_output";
+if (( docker_return_code != 0 ))
+then
+    echo "Docker build - !! FAIL !!";
+    exit 1;
+else
+    echo "Docker build - SUCCESS";
     exit 0;
 fi
 
