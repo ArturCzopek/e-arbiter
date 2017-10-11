@@ -109,6 +109,6 @@ public class TournamentController {
     @ApiOperation("Endpoint for leaving from an existing and active tournament.")
     public ResponseEntity<String> leaveTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
         tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);
-        return ResponseEntity.ok("User has left to tournament");
+        return ResponseEntity.ok("User has left tournament");
     }
 }

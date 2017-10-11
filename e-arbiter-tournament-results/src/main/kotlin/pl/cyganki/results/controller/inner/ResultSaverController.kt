@@ -8,8 +8,8 @@ import pl.cyganki.results.service.ResultService
 import pl.cyganki.utils.modules.tournamentresult.dto.CodeTaskResultDto
 
 @RestController
-@RequestMapping("/inner/results")
-class ResultController(private val resultService: ResultService) {
+@RequestMapping("/inner")
+class ResultSaverController(private val resultService: ResultService) {
 
     @PostMapping("/code/save")
     fun saveCodeTaskResult(@RequestBody codeTaskResultDto: CodeTaskResultDto): Boolean {
