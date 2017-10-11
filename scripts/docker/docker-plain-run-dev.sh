@@ -35,4 +35,6 @@ docker container run -p ${E_ARB_API_PORT}:${E_ARB_API_PORT} --name e-arbiter-api
 
 # token should be passed only by envs there!!
 docker container run -p ${E_ARB_AUTH_PORT}:${E_ARB_AUTH_PORT} --name e-arbiter-auth-dev --env E_ARB_DEV_GH_CLIENT_ID=$E_ARB_DOCK_DEV_GH_CLIENT_ID --env E_ARB_DEV_GH_CLIENT_SECRET=$E_ARB_DOCK_DEV_GH_CLIENT_SECRET --network earbiter-dev --rm earbiterinfo/e-arbiter-auth-dev:latest
+docker container run -p ${E_ARB_TRES_PORT}:${E_ARB_TRES_PORT} --name e-arbiter-tour-res-dev --network earbiter-dev --rm earbiterinfo/e-arbiter-tour-res-dev:latest
+docker container run -p ${E_ARB_TOUR_PORT}:${E_ARB_TOUR_PORT} --name e-arbiter-tournament-dev --env E_ARB_TOUR_MAIL_PASSWORD=$E_ARB_USR_PASS --network earbiter-dev --rm earbiterinfo/e-arbiter-tournament-dev:latest
 docker container run -p ${E_ARB_CLIENT_PORT}:80 --name e-arbiter-web-dev --network earbiter-dev --rm earbiterinfo/e-arbiter-web-dev:latest
