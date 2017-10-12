@@ -1,6 +1,6 @@
 version: '2.1'
 
-# You need to create earbiter-dev network. If you have one, it's ok
+# You need to create earbiter-dev network. If you have one, it's ok. If not, check guide how to do it
 # The simplest way to run it: docker-compose -f docker-compose.dev.yml up
 # For additional flags (like detach etc), use --help
 
@@ -8,29 +8,32 @@ services:
   e-arbiter-config-dev:
     image: earbiterinfo/e-arbiter-config-dev
     ports:
-    - $E_ARB_CFG_PORT:$E_ARB_CFG_PORT    # In case of publishing port, not needed generally
+    - 8096:8096
+#    - $E_ARB_CFG_PORT:$E_ARB_CFG_PORT    # In case of using another port
     restart: always
     logging:
       options:
         max-size: "10m"
         max-file: "10"
     environment:
-      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
       E_ARB_USR_NAME: e-Arbiter
       E_ARB_USR_PASS: $E_ARB_USR_PASS
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
 
-#  e-arbiter-web-dev:
-#    image: earbiterinfo/e-arbiter-web-dev
-#    ports:
-#    - $E_ARB_CLIENT_PORT:80
-#    restart: always
+  e-arbiter-web-dev:
+    image: earbiterinfo/e-arbiter-web-dev
+    ports:
+    - 4200:80
+#    - $E_ARB_CLIENT_PORT:80      # In case of using another port
+    restart: always
 #    environment:
-#      E_ARB_CLIENT_PORT: $E_ARB_CLIENT_PORT
+#      E_ARB_CLIENT_PORT: $E_ARB_CLIENT_PORT      # In case of using another port
 
   e-arbiter-eureka-dev:
     image: earbiterinfo/e-arbiter-eureka-dev
     ports:
-    - $E_ARB_EUR_PORT:$E_ARB_EUR_PORT
+    - 8761:8761
+#    - $E_ARB_EUR_PORT:$E_ARB_EUR_PORT      # In case of using another port
     depends_on:
       e-arbiter-config-dev:
         condition: service_healthy
@@ -39,108 +42,107 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    environment:
-      E_ARB_EUR_PORT: $E_ARB_EUR_PORT
-      E_ARB_CFG_PORT: $E_ARB_CFG_PORT
+#    environment:
+#      E_ARB_EUR_PORT: $E_ARB_EUR_PORT     # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT     # In case of using another port
 
-#  e-arbiter-api-gateway-dev:
-#    image: earbiterinfo/e-arbiter-api-gateway-dev
-#    ports:
-#    - $E_ARB_API_PORT:$E_ARB_API_PORT
-#    depends_on:
-#      e-arbiter-config-dev:
-#        condition: service_healthy
-#      e-arbiter-eureka-dev:
-#        condition: service_healthy
-#    restart: always
-#    logging:
-#      options:
-#        max-size: "10m"
-#        max-file: "10"
-#    environment:
-#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT
-#      E_ARB_EXEC_PORT: $E_ARB_EXEC_PORT
-#      E_ARB_TOUR_PORT: $E_ARB_TOUR_PORT
-#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT
-#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT
-#
-#  e-arbiter-auth-dev:
-#    image: earbiterinfo/e-arbiter-auth-dev
-#    ports:
-#    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT
-#    depends_on:
-#      e-arbiter-config-dev:
-#        condition: service_healthy
-#      e-arbiter-eureka-dev:
-#        condition: service_healthy
-#    restart: always
-#    logging:
-#      options:
-#        max-size: "10m"
-#        max-file: "10"
-#    environment:
-#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT
-#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT
-#      # Don't comment these below!
-#      E_ARB_DEV_GH_CLIENT_ID: $E_ARB_DOCK_DEV_GH_CLIENT_ID
-#      E_ARB_DEV_GH_CLIENT_SECRET: $E_ARB_DOCK_DEV_GH_CLIENT_SECRET
-#
-#  e-arbiter-tour-res-dev:
-#    image: earbiterinfo/e-arbiter-tour-res-dev
-#    ports:
-#    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT
-#    depends_on:
-#      e-arbiter-config-dev:
-#        condition: service_healthy
-#      e-arbiter-eureka-dev:
-#        condition: service_healthy
-#    restart: always
-#    logging:
-#      options:
-#        max-size: "10m"
-#        max-file: "10"
-#    environment:
-#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT
-#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT
-#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT
-
-  mongo:
-    image: 'mongo:3.5'
+  e-arbiter-api-gateway-dev:
+    image: earbiterinfo/e-arbiter-api-gateway-dev
     ports:
-      - $E_ARB_DEV_TOUR_MONGO_PORT:27017
-    volumes:
-      - 'mongo:/data/db'
-    environment:
-      MONGODB_USER: $E_ARB_DEV_TOUR_MONGO_USERNAME
-      MONGODB_PASS: $E_ARB_DEV_TOUR_MONGO_PASSWORD
-      MONGODB_DATABASE: "e-arbiter"
-
-  e-arbiter-tournament-dev:
-    image: earbiterinfo/e-arbiter-tournament-dev
-    ports:
-    - $E_ARB_TOUR_PORT:$E_ARB_TOUR_PORT
+    - 8080:8080
+#    - $E_ARB_API_PORT:$E_ARB_API_PORT      # In case of using another port
     depends_on:
       e-arbiter-config-dev:
         condition: service_healthy
       e-arbiter-eureka-dev:
         condition: service_healthy
-      mongo:
-        condition: service_started
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#    environment:
+#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT         # In case of using another port
+#      E_ARB_EXEC_PORT: $E_ARB_EXEC_PORT         # In case of using another port
+#      E_ARB_TOUR_PORT: $E_ARB_TOUR_PORT         # In case of using another port
+#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT         # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT           # In case of using another port
+
+  e-arbiter-auth-dev:
+    image: earbiterinfo/e-arbiter-auth-dev
+    ports:
+    - 8090:8090
+#    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT      # In case of using another port
+    depends_on:
+      e-arbiter-config-dev:
+        condition: service_healthy
+      e-arbiter-eureka-dev:
+        condition: service_healthy
     restart: always
     logging:
       options:
         max-size: "10m"
         max-file: "10"
     environment:
-      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT
-      E_ARB_CFG_PORT: $E_ARB_CFG_PORT
-      E_ARB_TOUR_PORT: $E_ARB_TOUR_PORT
+      E_ARB_DEV_GH_CLIENT_ID: $E_ARB_DOCK_DEV_GH_CLIENT_ID
+      E_ARB_DEV_GH_CLIENT_SECRET: $E_ARB_DOCK_DEV_GH_CLIENT_SECRET
+#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
+
+  e-arbiter-tour-res-dev:
+    image: earbiterinfo/e-arbiter-tour-res-dev
+    ports:
+    - 8093:8093
+#    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT      # In case of using another port
+    depends_on:
+      e-arbiter-config-dev:
+        condition: service_healthy
+      e-arbiter-eureka-dev:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#    environment:
+#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
+#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT      # In case of using another port
+#
+  e-arbiter-mongo-dev:
+    image: earbiterinfo/e-arbiter-mongo-dev
+    ports:
+    - 192.168.0.1:27017:27017
+#    - $E_ARB_DEV_TOUR_MONGO_HOST:$E_ARB_DEV_TOUR_MONGO_PORT:27017      # In case of using another port
+#    environment:
+#      MONGODB_USER: $E_ARB_DEV_TOUR_MONGO_USERNAME           # in case of using different db data
+#      MONGODB_PASS: $E_ARB_DEV_TOUR_MONGO_PASSWORD           # in case of using different db data
+#      E_ARB_DEV_TOUR_MONGO_HOST: $E_ARB_DEV_TOUR_MONGO_HOST  # in case of using different db data
+
+  e-arbiter-tournament-dev:
+    image: earbiterinfo/e-arbiter-tournament-dev
+    ports:
+    - 8092:8092
+#    - $E_ARB_TOUR_PORT:$E_ARB_TOUR_PORT      # In case of using another port
+    depends_on:
+      e-arbiter-config-dev:
+        condition: service_healthy
+      e-arbiter-eureka-dev:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
       E_ARB_TOUR_MAIL_PASSWORD: $E_ARB_USR_PASS
+#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT                               # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT                                 # In case of using another port
+#      E_ARB_TOUR_PORT: $E_ARB_TOUR_PORT                               # In case of using another port
+#      E_ARB_DEV_TOUR_MONGO_USERNAME: $E_ARB_DEV_TOUR_MONGO_USERNAME   # in case of using different db data
+#      E_ARB_DEV_TOUR_MONGO_USERNAME: $E_ARB_DEV_TOUR_MONGO_PASSWORD   # in case of using different db data
 
 networks:
   default:
     external:
       name: earbiter-dev
-
-volumes:
-  mongo:
