@@ -2,9 +2,6 @@ FROM mongo:3.4
 
 LABEL mantainer="e-Arbiter dev team <earbiterinfo@gmail.com>"
 
-ENV AUTH=yes
-ENV STORAGE_ENGINE=wiredTiger
-ENV JOURNALING=yes
 ENV MONGODB_USER="cyganki"
 ENV MONGODB_PASS="inzynier2017"
 ENV MONGODB_DATABASE="e-arbiter"

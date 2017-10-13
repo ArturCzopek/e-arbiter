@@ -38,7 +38,7 @@ fi
 
 cd $TRAVIS_BUILD_DIR;
 
-docker_output=$(./scripts/docker/dockerBuild-dev.sh); docker_return_code=$?
+docker_output=$(./scripts/docker/docker-build-dev.sh); docker_return_code=$?
 
 echo "$docker_output";
 if (( docker_return_code != 0 ))

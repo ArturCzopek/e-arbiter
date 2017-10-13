@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t e-arbiter/compilebox .
+docker pull earbiterinfo/e-arbiter-compile-box
 chmod +777 //var/run/docker.sock

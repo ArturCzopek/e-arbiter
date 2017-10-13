@@ -41,9 +41,7 @@ sleep 1
 
 # If everything went well, add a file as a flag so we know in the future to not re-create the
 # users if we're recreating the container (provided we're using some persistent storage)
-echo "=> Done!"
+echo "!! Done !!"
 touch /data/db/.mongodb_password_set
 
-echo "========================================================================"
-echo "Created user for e-Arbiter"
-echo "========================================================================"
+echo "Created user for e-Arbiter database"

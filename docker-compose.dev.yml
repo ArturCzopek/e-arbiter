@@ -1,12 +1,22 @@
 version: '2.1'
 
-# You need to create earbiter-dev network. If you have one, it's ok. If not, check guide how to do it
+# You need to create e-arbiter network. If you have one, it's ok. If not, check guide how to do it
 # The simplest way to run it: docker-compose -f docker-compose.dev.yml up
 # For additional flags (like detach etc), use --help
 
 services:
-  e-arbiter-config-dev:
-    image: earbiterinfo/e-arbiter-config-dev
+  mongo:
+    image: earbiterinfo/e-arbiter-mongo
+    ports:
+    - 192.168.0.1:27017:27017
+#    - $E_ARB_DEV_TOUR_MONGO_HOST:$E_ARB_DEV_TOUR_MONGO_PORT:27017      # In case of using another port
+#    environment:
+#      MONGODB_USER: $E_ARB_DEV_TOUR_MONGO_USERNAME           # in case of using different db data
+#      MONGODB_PASS: $E_ARB_DEV_TOUR_MONGO_PASSWORD           # in case of using different db data
+#      E_ARB_DEV_TOUR_MONGO_HOST: $E_ARB_DEV_TOUR_MONGO_HOST  # in case of using different db data
+
+  config:
+    image: earbiterinfo/e-arbiter-config
     ports:
     - 8096:8096
 #    - $E_ARB_CFG_PORT:$E_ARB_CFG_PORT    # In case of using another port
@@ -20,22 +30,13 @@ services:
       E_ARB_USR_PASS: $E_ARB_USR_PASS
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
 
-  e-arbiter-web-dev:
-    image: earbiterinfo/e-arbiter-web-dev
-    ports:
-    - 4200:80
-#    - $E_ARB_CLIENT_PORT:80      # In case of using another port
-    restart: always
-#    environment:
-#      E_ARB_CLIENT_PORT: $E_ARB_CLIENT_PORT      # In case of using another port
-
-  e-arbiter-eureka-dev:
-    image: earbiterinfo/e-arbiter-eureka-dev
+  eureka:
+    image: earbiterinfo/e-arbiter-eureka
     ports:
     - 8761:8761
 #    - $E_ARB_EUR_PORT:$E_ARB_EUR_PORT      # In case of using another port
     depends_on:
-      e-arbiter-config-dev:
+      config:
         condition: service_healthy
     restart: always
     logging:
@@ -46,15 +47,15 @@ services:
 #      E_ARB_EUR_PORT: $E_ARB_EUR_PORT     # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT     # In case of using another port
 
-  e-arbiter-api-gateway-dev:
-    image: earbiterinfo/e-arbiter-api-gateway-dev
+  api-gateway:
+    image: earbiterinfo/e-arbiter-api-gateway
     ports:
     - 8080:8080
 #    - $E_ARB_API_PORT:$E_ARB_API_PORT      # In case of using another port
     depends_on:
-      e-arbiter-config-dev:
+      config:
         condition: service_healthy
-      e-arbiter-eureka-dev:
+      eureka:
         condition: service_healthy
     restart: always
     logging:
@@ -68,15 +69,15 @@ services:
 #      E_ARB_TRES_PORT: $E_ARB_TRES_PORT         # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT           # In case of using another port
 
-  e-arbiter-auth-dev:
-    image: earbiterinfo/e-arbiter-auth-dev
+  auth:
+    image: earbiterinfo/e-arbiter-auth
     ports:
     - 8090:8090
 #    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT      # In case of using another port
     depends_on:
-      e-arbiter-config-dev:
+      config:
         condition: service_healthy
-      e-arbiter-eureka-dev:
+      eureka:
         condition: service_healthy
     restart: always
     logging:
@@ -89,45 +90,15 @@ services:
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
 
-  e-arbiter-tour-res-dev:
-    image: earbiterinfo/e-arbiter-tour-res-dev
-    ports:
-    - 8093:8093
-#    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT      # In case of using another port
-    depends_on:
-      e-arbiter-config-dev:
-        condition: service_healthy
-      e-arbiter-eureka-dev:
-        condition: service_healthy
-    restart: always
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-#    environment:
-#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
-#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
-#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT      # In case of using another port
-#
-  e-arbiter-mongo-dev:
-    image: earbiterinfo/e-arbiter-mongo-dev
-    ports:
-    - 192.168.0.1:27017:27017
-#    - $E_ARB_DEV_TOUR_MONGO_HOST:$E_ARB_DEV_TOUR_MONGO_PORT:27017      # In case of using another port
-#    environment:
-#      MONGODB_USER: $E_ARB_DEV_TOUR_MONGO_USERNAME           # in case of using different db data
-#      MONGODB_PASS: $E_ARB_DEV_TOUR_MONGO_PASSWORD           # in case of using different db data
-#      E_ARB_DEV_TOUR_MONGO_HOST: $E_ARB_DEV_TOUR_MONGO_HOST  # in case of using different db data
-
-  e-arbiter-tournament-dev:
-    image: earbiterinfo/e-arbiter-tournament-dev
+  tournament:
+    image: earbiterinfo/e-arbiter-tournament
     ports:
     - 8092:8092
 #    - $E_ARB_TOUR_PORT:$E_ARB_TOUR_PORT      # In case of using another port
     depends_on:
-      e-arbiter-config-dev:
+      config:
         condition: service_healthy
-      e-arbiter-eureka-dev:
+      eureka:
         condition: service_healthy
     restart: always
     logging:
@@ -142,7 +113,37 @@ services:
 #      E_ARB_DEV_TOUR_MONGO_USERNAME: $E_ARB_DEV_TOUR_MONGO_USERNAME   # in case of using different db data
 #      E_ARB_DEV_TOUR_MONGO_USERNAME: $E_ARB_DEV_TOUR_MONGO_PASSWORD   # in case of using different db data
 
+  tournament-results:
+    image: earbiterinfo/e-arbiter-tournament-results
+    ports:
+    - 8093:8093
+#    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT      # In case of using another port
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#    environment:
+#      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
+#      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
+#      E_ARB_TRES_PORT: $E_ARB_TRES_PORT      # In case of using another port
+#
+
+  web:
+    image: earbiterinfo/e-arbiter-web
+    ports:
+    - 4200:80
+#    - $E_ARB_CLIENT_PORT:80      # In case of using another port
+    restart: always
+#    environment:
+#      E_ARB_CLIENT_PORT: $E_ARB_CLIENT_PORT      # In case of using another port
+
 networks:
   default:
     external:
-      name: earbiter-dev
+      name: e-arbiter
