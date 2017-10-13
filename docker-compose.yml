@@ -97,7 +97,7 @@ services:
     - 8091:8091
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /compilebox/solution/:/compilebox/solution/
+      - $E_ARB_DEV_EXEC_BINDING:$E_ARB_DEV_EXEC_BINDING
 #    - $E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT      # In case of using another port
     depends_on:
       config:
@@ -109,7 +109,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-#    environment:
+    environment:
+      E_ARB_DEV_EXEC_BINDING: $E_ARB_DEV_EXEC_BINDING
 #      E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT      # In case of using another port
 
   tournament:

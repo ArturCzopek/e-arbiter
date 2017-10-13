@@ -13,9 +13,6 @@ ENV E_ARB_DEV_EXEC_BINDING=/compilebox/solution/
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
 ENV SPRING_PROFILES_ACTIVE="dev"
 
-#RUN touch /var/run/docker.sock
-#RUN chmod 777 /var/run/docker.sock
-
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
 ENV PATH=$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
@@ -38,10 +35,8 @@ RUN set -x \
 		openjdk8-jre="$JAVA_ALPINE_VERSION" \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
-ADD  ./build/libs/e-arbiter-executor.jar ./e-arbiter-executor.jar
+ADD  ./build/libs/e-arbiter-executor.jar /app/e-arbiter-executor.jar
 
-RUN ls -a
-
-CMD ["java", "-Xmx200m", "-jar", "e-arbiter-executor.jar"]
+CMD ["java", "-Xmx200m", "-jar", "/app/e-arbiter-executor.jar"]
 
 EXPOSE ${E_ARB_EXEC_PORT}
