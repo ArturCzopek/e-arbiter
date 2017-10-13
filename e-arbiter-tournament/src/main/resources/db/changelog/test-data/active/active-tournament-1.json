@@ -47,7 +47,7 @@
         "C11",
         "CPP"
       ],
-      "timeoutInMs": 5000
+      "timeoutInMs": 300000
     },
     {
       "type": "CodeTask",

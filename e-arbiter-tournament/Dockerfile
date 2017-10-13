@@ -1,13 +1,6 @@
 FROM openjdk:8-jre-alpine
 LABEL mantainer="e-Arbiter dev team <earbiterinfo@gmail.com>"
 
-#RUN \
-# chmod +x /usr/local/bin/docker-entrypoint.sh&& \
-# apt-get update && apt-get dist-upgrade -y && \
-# apt-get install psmisc -y -q && \
-# apt-get autoremove -y && apt-get clean && \
-# rm -rf /var/cache/* && rm -rf /var/lib/apt/lists/*
-
 # Default values. You can override it in start or in docker-compose
 ENV E_ARB_HOST="http://192.168.0.1"
 ENV E_ARB_CLIENT_PORT=4200

@@ -1,7 +1,8 @@
 version: '2.1'
 
 # You need to create e-arbiter network. If you have one, it's ok. If not, check guide how to do it
-# The simplest way to run it: docker-compose -f docker-compose.dev.yml up
+# The simplest way to run it: docker-compose up
+# To stop, type: docker-compose down
 # For additional flags (like detach etc), use --help
 
 services:
@@ -89,6 +90,27 @@ services:
       E_ARB_DEV_GH_CLIENT_SECRET: $E_ARB_DOCK_DEV_GH_CLIENT_SECRET
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
+
+  executor:
+    image: earbiterinfo/e-arbiter-executor
+    ports:
+    - 8091:8091
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /compilebox/solution/:/compilebox/solution/
+#    - $E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT      # In case of using another port
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#    environment:
+#      E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT      # In case of using another port
 
   tournament:
     image: earbiterinfo/e-arbiter-tournament
