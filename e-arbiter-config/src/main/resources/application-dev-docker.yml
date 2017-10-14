@@ -1,12 +1,10 @@
 spring:
   profiles: dev-docker
   cloud.config.server.git:
-    uri: ${E_ARB_TEST_CFG_PATH}
+    uri: ${E_ARB_REMOTE_CFG_PATH}
     username: ${$E_ARB_USR_NAME:e-Arbiter}
     password: ${E_ARB_USR_PASS}
+
 eureka:
   client:
     enabled: true
-
-logging:
-  file: ${E_ARB_DEV_LOG_PATH}/e-arbiter-config.log

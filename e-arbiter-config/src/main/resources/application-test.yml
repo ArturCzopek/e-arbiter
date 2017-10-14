@@ -1,13 +1,10 @@
 spring:
   profiles: test
   cloud.config.server.git:
-    uri: ${E_ARB_TEST_CFG_PATH}
-    username: e-Arbiter
+    uri: ${E_ARB_REMOTE_CFG_PATH}
+    username: ${$E_ARB_USR_NAME:e-Arbiter}
     password: ${E_ARB_USR_PASS}
+
 eureka:
   client:
     enabled: false
-
-# Test profile is used in app if we want to use remote server, but we can store logs in the same folder
-logging:
-  file: ${E_ARB_DEV_LOG_PATH}/e-arbiter-config.log

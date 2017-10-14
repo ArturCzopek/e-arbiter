@@ -1,2 +1,2 @@
-logging:
-  file: ${E_ARB_DEV_LOG_PATH}/e-arbiter-config.log
+spring:
+  cloud.config.server.git.basedir: ${E_ARB_LOCAL_CFG_PATH}
