@@ -4,6 +4,7 @@ import os
 import sys
 import commands
 import shlex
+import time
 
 # change directory
 os.chdir("solution")
@@ -37,6 +38,8 @@ for tuple in lang_commands:
 status, output = commands.getstatusoutput(compile_command)
 if status != 0:
     print output
+    print "Compilation Failed"
+    print "FINISHED"
     sys.exit()
 
 iterations = 0
@@ -44,6 +47,7 @@ successes = 0
 earned_points = ""
 
 # execute
+start_time = int(round(time.time() * 1000))
 for line in test_data.readlines():
     args = shlex.split(line)
     expected = args.pop()
@@ -66,10 +70,13 @@ for line in test_data.readlines():
 
     print result
 
+end_time = int(round(time.time() * 1000))
+
 if successes == iterations:
     print "ALL PASSED"
 else:
     print "{} FAILED".format(iterations - successes)
 
+print "EXECUTION TIME: {}".format(end_time - start_time)
 print "EARNED POINTS: {}".format(earned_points)
 print "FINISHED"

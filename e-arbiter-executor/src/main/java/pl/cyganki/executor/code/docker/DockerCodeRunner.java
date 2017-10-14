@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.cyganki.executor.code.CodeRunner;
+import pl.cyganki.utils.modules.executor.model.ExecutionRequest;
 import pl.cyganki.utils.modules.executor.model.ExecutionResult;
 import pl.cyganki.utils.modules.executor.model.ExecutionResult.Status;
 
@@ -35,12 +36,13 @@ public class DockerCodeRunner implements CodeRunner {
     }
 
     @Override
-    public ExecutionResult execute(byte[] program, String ext, byte[] testData) {
+    public ExecutionResult execute(ExecutionRequest er) {
         DockerBinding binding = dockerBinding.appendToHostDir(getUniqueName());
         String hostDir = binding.getHostDir();
 
-        fileSystemUtils.saveFile(program, "program." + ext, hostDir);
-        fileSystemUtils.saveFile(testData, "test_data", hostDir);
+        fileSystemUtils.saveFile(er.getProgram(),
+                "program." + er.getExtension(), hostDir);
+        fileSystemUtils.saveFile(er.getTestData(), "test_data", hostDir);
 
         String containerId = null;
         ExecutionResult result;
@@ -54,7 +56,7 @@ public class DockerCodeRunner implements CodeRunner {
 
             try {
                 sandboxService.startContainer(containerId);
-                result = parseOutput(sandboxService.getContainerLogs(containerId, 5 * 1000));
+                result = parseOutput(sandboxService.getContainerLogs(containerId, er.getTimeout()));
             } finally {
                 log.info("Released semaphore, stopping container...");
                 SEM.release();

@@ -23,7 +23,7 @@ public class ExecutorController {
 
     @PostMapping("/execute")
     @ApiOperation("Executes given code with respect to passed test data")
-    public ExecutionResult execute(@RequestBody ExecutionRequest er) {
-        return this.codeRunner.execute(er.getProgram(), er.getExtension(), er.getTestData());
+    public ExecutionResult execute(@RequestBody ExecutionRequest executionRequest) {
+        return this.codeRunner.execute(executionRequest);
     }
 }
