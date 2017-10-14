@@ -11,7 +11,8 @@ services:
     ports:
     - 192.168.0.1:27017:27017
 #    - $E_ARB_DEV_TOUR_MONGO_HOST:$E_ARB_DEV_TOUR_MONGO_PORT:27017      # In case of using another port
-#    environment:
+    environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
 #      MONGODB_USER: $E_ARB_DEV_TOUR_MONGO_USERNAME           # in case of using different db data
 #      MONGODB_PASS: $E_ARB_DEV_TOUR_MONGO_PASSWORD           # in case of using different db data
 #      E_ARB_DEV_TOUR_MONGO_HOST: $E_ARB_DEV_TOUR_MONGO_HOST  # in case of using different db data
@@ -27,6 +28,7 @@ services:
         max-size: "10m"
         max-file: "10"
     environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
       E_ARB_USR_NAME: e-Arbiter
       E_ARB_USR_PASS: $E_ARB_USR_PASS
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port
@@ -44,7 +46,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-#    environment:
+    environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
 #      E_ARB_EUR_PORT: $E_ARB_EUR_PORT     # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT     # In case of using another port
 
@@ -63,7 +66,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-#    environment:
+    environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT         # In case of using another port
 #      E_ARB_EXEC_PORT: $E_ARB_EXEC_PORT         # In case of using another port
 #      E_ARB_TOUR_PORT: $E_ARB_TOUR_PORT         # In case of using another port
@@ -86,6 +90,7 @@ services:
         max-size: "10m"
         max-file: "10"
     environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
       E_ARB_DEV_GH_CLIENT_ID: $E_ARB_DOCK_DEV_GH_CLIENT_ID
       E_ARB_DEV_GH_CLIENT_SECRET: $E_ARB_DOCK_DEV_GH_CLIENT_SECRET
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
@@ -110,7 +115,8 @@ services:
         max-size: "10m"
         max-file: "10"
     environment:
-      E_ARB_DEV_EXEC_BINDING: $E_ARB_DEV_EXEC_BINDING
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
+      E_ARB_EXEC_BINDING: $E_ARB_EXEC_BINDING
 #      E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT      # In case of using another port
 
   tournament:
@@ -129,6 +135,7 @@ services:
         max-size: "10m"
         max-file: "10"
     environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
       E_ARB_TOUR_MAIL_PASSWORD: $E_ARB_USR_PASS
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT                               # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT                                 # In case of using another port
@@ -151,6 +158,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    environment:
+      E_ARB_HOST: $E_ARB_DOCKER_HOST
 #    environment:
 #      E_ARB_AUTH_PORT: $E_ARB_AUTH_PORT      # In case of using another port
 #      E_ARB_CFG_PORT: $E_ARB_CFG_PORT      # In case of using another port

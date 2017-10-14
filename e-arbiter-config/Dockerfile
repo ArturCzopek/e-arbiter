@@ -7,10 +7,9 @@ RUN apk --update add curl
 ENV E_ARB_HOST="http://192.168.0.1"
 ENV E_ARB_CFG_PORT=8096
 ENV E_ARB_CFG_NAME="Config Server"
-ENV E_ARB_DEV_CFG_PATH="/app/config-files/"
-ENV E_ARB_DEV_LOG_PATH="../logs"
+ENV E_ARB_SUB_LOG_PATH="../logs"
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
-ENV E_ARB_TEST_CFG_PATH="https://github.com/ArturCzopek/e-arbiter-config"
+ENV E_ARB_remote_CFG_PATH="https://github.com/ArturCzopek/e-arbiter-config"
 ENV SPRING_PROFILES_ACTIVE="dev-docker"
 
 ADD  ./build/libs/e-arbiter-config.jar /app/e-arbiter-config.jar

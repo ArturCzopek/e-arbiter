@@ -8,11 +8,11 @@ ENV E_ARB_API_PORT=8080
 ENV E_ARB_HYS_PORT=8989
 ENV E_ARB_TRES_PORT=8093
 ENV E_ARB_CFG_PORT=8096
-ENV E_ARB_DEV_LOG_PATH="../logs"
+ENV E_ARB_SUB_LOG_PATH="../logs"
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
 ENV SPRING_PROFILES_ACTIVE="dev"
 
-ADD  ./build/libs/e-arbiter-tour-res.jar /app/e-arbiter-tour-res.jar
+ADD  ./build/libs/e-arbiter-tournament-results.jar /app/e-arbiter-tournament-results.jar
 WORKDIR app
 
 CMD ["java", "-Xmx200m", "-jar", "e-arbiter-tour-res.jar"]

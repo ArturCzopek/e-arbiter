@@ -15,7 +15,7 @@ ENV E_ARB_AUTH_PATH="/auth"
 ENV E_ARB_EXEC_PATH="/exec"
 ENV E_ARB_TOUR_PATH="/tournament"
 ENV E_ARB_TRES_PATH="/results"
-ENV E_ARB_DEV_LOG_PATH="../logs"
+ENV E_ARB_SUB_LOG_PATH="../logs"
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
 ENV SPRING_PROFILES_ACTIVE="dev"
 

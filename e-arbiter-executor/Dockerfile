@@ -8,10 +8,14 @@ ENV E_ARB_API_PORT=8080
 ENV E_ARB_EXEC_PORT=8091
 ENV E_ARB_HYS_PORT=8989
 ENV E_ARB_CFG_PORT=8096
-ENV E_ARB_DEV_LOG_PATH="../logs"
-ENV E_ARB_DEV_EXEC_BINDING=/compilebox/solution/
+ENV E_ARB_SUB_LOG_PATH="../logs"
+ENV E_ARB_EXEC_BINDING=/compilebox/solution/
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
 ENV SPRING_PROFILES_ACTIVE="dev"
+
+# We're basing on compile-box image so we need to install jdk by ourselved
+# Code below is taken from openjdk:8-jre-alpine image
+# See image: https://github.com/docker-library/openjdk/blob/b4f29ba829765552239bd18f272fcdaf09eca259/8-jre/alpine/Dockerfile
 
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre

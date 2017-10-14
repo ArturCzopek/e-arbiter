@@ -23,7 +23,7 @@ else
 fi
 
 cd $TRAVIS_BUILD_DIR/e-arbiter-web;
-ng_output=$(ng build --env docker-dev --base-href http://192.168.0.1:4200); ng_return_code=$?
+ng_output=$(ng build --env dev --base-href $E_ARB_DOCKER_HOST:$E_ARB_CLIENT_PORT); ng_return_code=$?
 
 
 echo "$ng_output";
@@ -38,7 +38,7 @@ fi
 
 cd $TRAVIS_BUILD_DIR;
 
-docker_output=$(./scripts/docker/docker-build-dev.sh); docker_return_code=$?
+docker_output=$(./scripts/docker/docker-build.sh); docker_return_code=$?
 
 echo "$docker_output";
 if (( docker_return_code != 0 ))

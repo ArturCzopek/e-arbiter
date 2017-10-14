@@ -1,6 +1,6 @@
 jar {
-    archiveName = 'e-arbiter-tour-res.jar'
-    baseName = 'e-arbiter-tour-res'
+    archiveName = 'e-arbiter-tournament-results.jar'
+    baseName = 'e-arbiter-tournament-results'
 }
 
 springBoot {

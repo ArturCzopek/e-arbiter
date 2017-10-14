@@ -184,32 +184,6 @@ GET /api/data/clientUrl
 
 * */*
 
-## Executor Module
-
-Executor Controller
-
-#### example
-```
-GET /api/example
-```
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|ExecutionResult|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 ## Tournament Module
 
 Task Controller
