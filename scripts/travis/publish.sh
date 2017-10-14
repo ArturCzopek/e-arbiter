@@ -2,14 +2,19 @@
 
 cd $TRAVIS_BUILD_DIR
 
-echo "Branch: "$TRAVIS_BRANCH" pull request: "$TRAVIS_PULL_REQUEST
+echo "=> Branch: "$TRAVIS_BRANCH" pull request: "$TRAVIS_PULL_REQUEST
 
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]
 then
-  echo "Start sonar analysis"
+  echo "=> Sonar analysis - start"
   ./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.organization=cyganki -Dsonar.login=$SONAR_TOKEN
-  echo "Start pushing docker dev images to docker hub"
-  ../docker/docker-publish.sh
+  echo "=> Sonar analysis - finish"
+  echo "=> Create Docker images - start"
+  ./scripts/docker/docker-build.sh
+  echo "=> Create Docker images - finish"
+  echo "=> Push Docker images - start"
+  ./scripts/docker/docker-publish.sh
+  echo "=> Push Docker images - finish"
 else
-  echo "No analysis and no docker images update"
+  echo "=> No analysis and docker images build and push"
 fi
