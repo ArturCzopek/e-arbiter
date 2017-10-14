@@ -39,6 +39,7 @@ before_script:
  - cd e-arbiter-web
  - npm install
  - cd $TRAVIS_BUILD_DIR
+ - e-arbiter-mongo/set_mongodb_password.sh
 
 cache:
   directories:
