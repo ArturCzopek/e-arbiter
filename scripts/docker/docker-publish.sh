@@ -2,6 +2,7 @@
 
   docker login -u earbiterinfo -p $E_ARB_USR_PASS
   docker push earbiterinfo/e-arbiter-mongo
+  docker push earbiterinfo/e-arbiter-compile-box
   docker push earbiterinfo/e-arbiter-config
   docker push earbiterinfo/e-arbiter-eureka
   docker push earbiterinfo/e-arbiter-api-gateway
