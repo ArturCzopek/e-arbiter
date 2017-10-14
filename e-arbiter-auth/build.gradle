@@ -1,6 +1,6 @@
 jar {
+    archiveName = 'e-arbiter-auth.jar'
     baseName = 'e-arbiter-auth'
-    version = '1.0-SNAPSHOT'
 }
 
 springBoot {

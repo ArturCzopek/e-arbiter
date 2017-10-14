@@ -14,7 +14,6 @@ import pl.cyganki.utils.model.TaskUserDetails
 class UserTaskDetailsController(private val userTaskDetailsService: UserTaskDetailsService) {
 
     @GetMapping(value = *arrayOf("/", ""))
-    @Cacheable(value = "task-user-details", key = "#taskId + ' ' + #userId")   // TODO: clean cache when new solution is uploaded
     @ApiOperation("Returns data for user about his progress with task by passed id")
     fun getTaskUserDetails(
             @RequestParam("taskId") taskId: String,

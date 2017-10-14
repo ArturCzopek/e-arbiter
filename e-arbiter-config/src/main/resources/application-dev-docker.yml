@@ -1,5 +1,5 @@
 spring:
-  profiles: test
+  profiles: dev-docker
   cloud.config.server.git:
     uri: ${E_ARB_REMOTE_CFG_PATH}
     username: ${$E_ARB_USR_NAME:e-Arbiter}
@@ -7,4 +7,4 @@ spring:
 
 eureka:
   client:
-    enabled: false
+    enabled: true

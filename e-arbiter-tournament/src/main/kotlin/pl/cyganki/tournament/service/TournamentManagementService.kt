@@ -16,7 +16,7 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
     fun findTournamentByIdAndJoinedUserId(tournamentId: String, userId: Long): Tournament? {
         val tournament: Tournament = findTournamentById(tournamentId)
-        val userIsEnrolled: Boolean = tournament?.joinedUsersIds.contains(userId)
+        val userIsEnrolled: Boolean = tournament.joinedUsersIds.contains(userId)
 
         return if (userIsEnrolled) tournament else null
     }

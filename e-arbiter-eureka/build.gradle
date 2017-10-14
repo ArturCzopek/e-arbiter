@@ -1,6 +1,6 @@
 jar {
+    archiveName = 'e-arbiter-eureka.jar'
     baseName = 'e-arbiter-eureka'
-    version = '1.0-SNAPSHOT'
 }
 
 springBoot {
