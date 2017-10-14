@@ -1,7 +1,6 @@
 jar {
     archiveName = 'e-arbiter-config.jar'
     baseName = 'e-arbiter-config'
-//    version = '1.0-SNAPSHOT'
 }
 
 springBoot {

@@ -36,7 +36,6 @@ out/
 
 # Folder for custom local libs
 libs/
-e-arbiter-config/config-files
 
 # Unignore
 !/gradle/wrapper/gradle-wrapper.jar

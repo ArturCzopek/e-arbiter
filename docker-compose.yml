@@ -1,10 +1,5 @@
 version: '2.1'
 
-# You need to create e-arbiter network. If you have one, it's ok. If not, check guide how to do it
-# The simplest way to run it: docker-compose up
-# To stop, type: docker-compose down
-# For additional flags (like detach etc), use --help
-
 services:
   mongo:
     image: earbiterinfo/e-arbiter-mongo
@@ -73,7 +68,7 @@ services:
   auth:
     image: earbiterinfo/e-arbiter-auth
     ports:
-    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT      # In case of using another port
+    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT
     depends_on:
       config:
         condition: service_healthy
@@ -139,7 +134,7 @@ services:
   tournament-results:
     image: earbiterinfo/e-arbiter-tournament-results
     ports:
-    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT      # In case of using another port
+    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT
     depends_on:
       config:
         condition: service_healthy

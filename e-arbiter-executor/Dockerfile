@@ -13,7 +13,7 @@ ENV E_ARB_EXEC_BINDING=/compilebox/solution/
 ENV EUREKA_URI="http://192.168.0.1:8761/eureka"
 ENV SPRING_PROFILES_ACTIVE="dev"
 
-# We're basing on compile-box image so we need to install jdk by ourselved
+# We're basing on compile-box image so we need to install jdk by ourselves
 # Code below is taken from openjdk:8-jre-alpine image
 # See image: https://github.com/docker-library/openjdk/blob/b4f29ba829765552239bd18f272fcdaf09eca259/8-jre/alpine/Dockerfile
 
