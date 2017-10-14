@@ -15,6 +15,6 @@ ENV SPRING_PROFILES_ACTIVE="dev"
 ADD  ./build/libs/e-arbiter-tournament-results.jar /app/e-arbiter-tournament-results.jar
 WORKDIR app
 
-CMD ["java", "-Xmx200m", "-jar", "e-arbiter-tour-res.jar"]
+CMD ["java", "-Xmx200m", "-jar", "e-arbiter-tournament-results.jar"]
 
 EXPOSE ${E_ARB_TRES_PORT}

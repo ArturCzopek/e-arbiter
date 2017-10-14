@@ -23,7 +23,7 @@ else
 fi
 
 cd $TRAVIS_BUILD_DIR/e-arbiter-web;
-ng_output=$(ng build --env dev --base-href $E_ARB_DOCKER_HOST:$E_ARB_CLIENT_PORT); ng_return_code=$?
+ng_output=$(ng build --env docker-dev --base-href $E_ARB_DOCKER_HOST:$E_ARB_CLIENT_PORT); ng_return_code=$?
 
 
 echo "$ng_output";
