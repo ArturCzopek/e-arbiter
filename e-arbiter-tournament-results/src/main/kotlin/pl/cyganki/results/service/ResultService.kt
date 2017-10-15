@@ -10,11 +10,10 @@ class ResultService(private val resultRepository: ResultRepository) {
     fun saveCodeTaskResult(codeTaskResultDto: CodeTaskResultDto): Boolean {
         val codeTaskResult = ResultBuilder.codeTaskResultFromDto(codeTaskResultDto)
 
-        if (this.resultRepository.save(codeTaskResult) != null) {
+        this.resultRepository.save(codeTaskResult)?.let {
             return true
         }
 
         return false
     }
-
 }

@@ -24,6 +24,10 @@ class UserTaskDetailsServiceTest {
     @Autowired
     private lateinit var userTaskDetailsService: UserTaskDetailsService
 
+    /**
+     * getTaskUserDetails
+     */
+
     @Test
     fun `should return details for task with one result from tournament in which user participates`() {
         // given
@@ -75,6 +79,84 @@ class UserTaskDetailsServiceTest {
             Assert.assertEquals(0, earnedPoints)
             Assert.assertEquals(invalidTaskId, taskId)
             Assert.assertEquals(0, userAttempts)
+        }
+    }
+
+    /**
+     * getAllTasksUserDetailsInTournament
+     */
+
+    @Test
+    fun `should return whole map with user details for tournament in which user participates`() {
+        // given
+        val tournamentId = TestData.validTournamentId
+        val tasksIds = listOf(TestData.validTaskIdWithFourResult, TestData.validTaskIdWithOneResult)
+        val userId = TestData.userId
+
+        // when
+        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+
+        // then
+        foundDetailsMap.apply {
+            Assert.assertEquals(2, size)
+            Assert.assertNotNull(get(TestData.validTaskIdWithFourResult))
+
+            get(TestData.validTaskIdWithFourResult)!!.apply {
+                Assert.assertEquals(2, earnedPoints)
+                Assert.assertEquals(TestData.validTaskIdWithFourResult, taskId)
+                Assert.assertEquals(4, userAttempts)
+            }
+
+            Assert.assertNotNull(get(TestData.validTaskIdWithOneResult))
+
+            get(TestData.validTaskIdWithOneResult)!!.apply {
+                Assert.assertEquals(1, earnedPoints)
+                Assert.assertEquals(TestData.validTaskIdWithOneResult, taskId)
+                Assert.assertEquals(1, userAttempts)
+            }
+        }
+    }
+
+    @Test
+    fun `should return empty map when task ids are not provided`() {
+        // given
+        val tournamentId = TestData.validTournamentId
+        val tasksIds = listOf<String>()
+        val userId = TestData.userId
+
+        // when
+        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+
+        // then
+        foundDetailsMap.apply {
+            Assert.assertEquals(0, size)
+        }
+    }
+
+    @Test
+    fun `should return map with empty details when user does not participate`() {
+        // given
+        val tournamentId = TestData.invalidTournamentId
+        val tasksIds = listOf(TestData.validTaskIdWithFourResult, TestData.validTaskIdWithOneResult)
+        val userId = TestData.userId
+
+        // when
+        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+
+        // then
+        foundDetailsMap.apply {
+            Assert.assertEquals(2, size)
+            get(TestData.validTaskIdWithOneResult)!!.apply {
+                Assert.assertEquals(0, earnedPoints)
+                Assert.assertEquals(TestData.validTaskIdWithOneResult, taskId)
+                Assert.assertEquals(0, userAttempts)
+            }
+
+            get(TestData.validTaskIdWithFourResult)!!.apply {
+                Assert.assertEquals(0, earnedPoints)
+                Assert.assertEquals(TestData.validTaskIdWithFourResult, taskId)
+                Assert.assertEquals(0, userAttempts)
+            }
         }
     }
 

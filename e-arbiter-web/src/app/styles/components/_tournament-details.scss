@@ -94,10 +94,17 @@ arb-tour-details-stats {
   width: 100%;
 }
 
-.tournament-details-card__stats-panel__stat__label,
-.tournament-details-card__stats-panel__stat__value {
+.tournament-details-card__stats-panel__stat--single {
+  justify-content: center;
+}
+
+[class^="tournament-details-card__stats-panel__stat__"] {
   font-size: 1.4rem;
   padding: 1vh 0;
+}
+
+.tournament-details-card__stats-panel__stat__link {
+  cursor: pointer;
 }
 
 .tournament-details-action-panel {

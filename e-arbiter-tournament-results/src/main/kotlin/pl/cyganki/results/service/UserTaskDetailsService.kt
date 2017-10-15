@@ -7,16 +7,18 @@ import pl.cyganki.utils.model.TaskUserDetails
 @Service
 class UserTaskDetailsService(private val resultRepository: ResultRepository) {
 
-    fun getTaskUserDetails(tournamentId: String, taskId: String, userId: Long): TaskUserDetails {
+    fun getTaskUserDetails(tournamentId: String, taskId: String, userId: Long) =
+            with(resultRepository.findAllByTournamentIdAndTaskIdAndUserId(tournamentId, taskId, userId)) {
+                TaskUserDetails(
+                        taskId,
+                        if (isNotEmpty()) maxBy { it.earnedPoints }!!.earnedPoints else 0,
+                        size
+                )
+            }
 
-        val userResultsForTask = resultRepository.findAllByTournamentIdAndTaskIdAndUserId(tournamentId, taskId, userId)
 
-        return userResultsForTask.run {
-            TaskUserDetails(
-                    taskId,
-                    if (isNotEmpty()) maxBy { it.earnedPoints }!!.earnedPoints else 0,
-                    size
-            )
-        }
-    }
+    fun getAllTasksUserDetailsInTournament(tournamentId: String, taskIds: List<String>, userId: Long) =
+            taskIds
+                    .map { it to this.getTaskUserDetails(tournamentId, it, userId) }
+                    .toMap()
 }

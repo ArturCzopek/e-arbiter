@@ -9,6 +9,7 @@ import pl.cyganki.tournament.model.dto.AccessDetails
 import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.utils.model.TaskUserDetails
 import pl.cyganki.utils.modules.AuthModuleInterface
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
@@ -47,18 +48,24 @@ class TournamentDetailsService(
             }
         }
 
+        val tasksUserDetails = tournamentResultsModuleInterface.getTasksUserDetails(
+                tournament.tasks.map { it.id },
+                tournament.id,
+                userId
+        )
+
         val taskPreviews = tournament.tasks.map {
             TaskPreview(
                     it.id,
                     it.name,
                     it.description,
                     it.maxPoints,
-                    if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId).apply { maxAttempts = null } else null
+                    if (canSeeTaskFooter(accessDetails)) (tasksUserDetails[it.id] ?: TaskUserDetails())?.apply { this.maxAttempts = null } else null
             )
         }
 
         return tournament.run {
-             TournamentDetails(
+            TournamentDetails(
                     id,
                     authModuleInterface.getUserNameById(ownerId),
                     name,
