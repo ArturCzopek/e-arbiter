@@ -47,18 +47,24 @@ class TournamentDetailsService(
             }
         }
 
+        val tasksUserDetails = tournamentResultsModuleInterface.getTasksUserDetails(
+                tournament.tasks.map { it.id },
+                tournament.id,
+                userId
+        )
+
         val taskPreviews = tournament.tasks.map {
             TaskPreview(
                     it.id,
                     it.name,
                     it.description,
                     it.maxPoints,
-                    if (canSeeTaskFooter(accessDetails)) tournamentResultsModuleInterface.getTaskUserDetails(it.id, tournament.id, userId).apply { maxAttempts = null } else null
+                    if (canSeeTaskFooter(accessDetails)) tasksUserDetails[it.id].apply { this!!.maxAttempts = null } else null
             )
         }
 
         return tournament.run {
-             TournamentDetails(
+            TournamentDetails(
                     id,
                     authModuleInterface.getUserNameById(ownerId),
                     name,
