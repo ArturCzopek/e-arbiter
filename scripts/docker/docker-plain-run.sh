@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker container run -p 192.168.0.1:${E_ARB_DEV_TOUR_MONGO_PORT}:27017 --name e-arbiter-mongo --network earbiter --rm earbiterinfo/e-arbiter-mongo:latest
+docker container run -p ${E_ARB_DOCKER_HOST}:${E_ARB_DEV_TOUR_MONGO_PORT}:27017 --name e-arbiter-mongo --network earbiter --rm earbiterinfo/e-arbiter-mongo:latest
 docker container run -p ${E_ARB_CFG_PORT}:${E_ARB_CFG_PORT} --name e-arbiter-config --env E_ARB_HOST=$E_ARB_DOCKER_HOST  --env E_ARB_USR_PASS=$E_ARB_USR_PASS --network e-arbiter --rm earbiterinfo/e-arbiter-config:latest
 docker container run -p ${E_ARB_EUR_PORT}:${E_ARB_EUR_PORT} --name e-arbiter-eureka --env E_ARB_HOST=$E_ARB_DOCKER_HOST  --network e-arbiter --rm earbiterinfo/e-arbiter-eureka:latest
 docker container run -p ${E_ARB_API_PORT}:${E_ARB_API_PORT} --name e-arbiter-api-gateway --env E_ARB_HOST=$E_ARB_DOCKER_HOST  --network e-arbiter --rm earbiterinfo/e-arbiter-api-gateway:latest

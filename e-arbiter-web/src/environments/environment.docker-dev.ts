@@ -4,8 +4,8 @@
 // The list of which env maps to which file can be found in '.angular-cli.json'.
 
 const devData = {
-  serverUrl: 'http://192.168.0.1:8080',
-  authUrl:  'http://192.168.0.1:8090'
+  serverUrl: 'http://192.168.44.1:8080',
+  authUrl:  'http://192.168.44.1:8090'
 }
 
 export const environment = {
