@@ -9,6 +9,7 @@ import pl.cyganki.tournament.model.dto.AccessDetails
 import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.utils.model.TaskUserDetails
 import pl.cyganki.utils.modules.AuthModuleInterface
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
@@ -59,7 +60,7 @@ class TournamentDetailsService(
                     it.name,
                     it.description,
                     it.maxPoints,
-                    if (canSeeTaskFooter(accessDetails)) tasksUserDetails[it.id].apply { this!!.maxAttempts = null } else null
+                    if (canSeeTaskFooter(accessDetails)) (tasksUserDetails[it.id] ?: TaskUserDetails())?.apply { this.maxAttempts = null } else null
             )
         }
 
