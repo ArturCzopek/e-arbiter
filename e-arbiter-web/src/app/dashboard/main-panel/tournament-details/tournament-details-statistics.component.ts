@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TournamentDetails} from '../interface/tournament-details.interface';
+import {RouteService} from "../../../shared/service/route.service";
 
 @Component({
   selector: 'arb-tour-details-stats',
@@ -38,6 +39,10 @@ import {TournamentDetails} from '../interface/tournament-details.interface';
         <strong class="tournament-details-card__stats-panel__stat__label">Twoje punkty:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.earnedPoints}}</p>
       </div>
+      <div class="tournament-details-card__stats-panel__stat tournament-details-card__stats-panel__stat--single">
+        <a *ngIf="canSeeResults()" (click)="goToResults()" class="tournament-details-card__stats-panel__stat__link">Zobacz
+          wyniki</a>
+      </div>
     </div>
   `
 })
@@ -47,12 +52,21 @@ export class TournamentDetailsStatisticsComponent implements OnInit {
   public status = '';
 
 
+  constructor(private routeService: RouteService) {
+  }
+
   ngOnInit(): void {
     this.convertStatus();
   }
 
+
   public canSeePoints(): boolean {
     return this.tournamentDetails.accessDetails.participateInTournament;
+  }
+
+  public canSeeResults(): boolean {
+    const {resultsVisible, owner, participateInTournament} = this.tournamentDetails.accessDetails;
+    return (owner || participateInTournament) && resultsVisible;
   }
 
   public convertStatus(): void {
@@ -63,5 +77,9 @@ export class TournamentDetailsStatisticsComponent implements OnInit {
     } else if (this.tournamentDetails.status === 'FINISHED') {
       this.status = 'Zakończony';
     }
+  }
+
+  public goToResults(): void {
+    this.routeService.goToTournamentResults(this.tournamentDetails.id);
   }
 }

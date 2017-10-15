@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {environment} from "../../../environments/environment";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 declare var window: any;
 
@@ -30,5 +30,9 @@ export class RouteService {
 
   public goToTournamentDetails(id: string) {
     this.router.navigate([environment.client.dashboard.tournamentUrl, id])
+  }
+
+  public goToTournamentResults(tournamentId: string) {
+    console.log('Click click, to do me')
   }
 }
