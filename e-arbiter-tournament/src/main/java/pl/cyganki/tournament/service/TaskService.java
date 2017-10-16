@@ -1,5 +1,6 @@
 package pl.cyganki.tournament.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.cyganki.tournament.model.CodeSubmitForm;
@@ -42,10 +43,10 @@ public class TaskService {
         }
 
         final ExecutionResult executionResult = executorModuleInterface
-                .execute(new ExecutionRequest(csf.getProgramBytes(), csf.getLanguageExtension(), codeTask.getCodeTaskData()));
+                .execute(new ExecutionRequest(csf.getProgramBytes(), csf.getLanguageExtension(), codeTask.getCodeTaskData(), codeTask.getTimeoutInMs()));
 
         final CodeTaskResultDto codeTaskResultDto =
-                TaskResultDtoBuilder.fromCodeTaskResult(userId, csf, executionResult);
+                TaskResultDtoBuilder.fromCodeTaskResult(userId, codeTask, csf, executionResult);
 
         this.tournamentResultsModuleInterface.saveCodeTaskResult(codeTaskResultDto);
         return executionResult;
@@ -69,7 +70,10 @@ public class TaskService {
         private static final Pattern EARNED_POINTS_PATTERN =
                 Pattern.compile("EARNED POINTS: ([^\n]+)");
 
-        private static CodeTaskResultDto fromCodeTaskResult(long userId, CodeSubmitForm csf, ExecutionResult executionResult) {
+        private static final Pattern EXECUTION_TIME_PATTERN =
+                Pattern.compile("EXECUTION TIME: (\\d+)");
+
+        private static CodeTaskResultDto fromCodeTaskResult(long userId, CodeTask codeTask, CodeSubmitForm csf, ExecutionResult executionResult) {
             final CodeTaskResultDto codeTaskResultDto = new CodeTaskResultDto();
 
             codeTaskResultDto.setUserId(userId);
@@ -78,11 +82,13 @@ public class TaskService {
             codeTaskResultDto.setLanguage(csf.getLanguage());
             codeTaskResultDto.setResultCode(csf.getProgram());
 
-            final Matcher matcher = EARNED_POINTS_PATTERN.matcher(executionResult.getOutput());
+            final Matcher pointsMatcher = EARNED_POINTS_PATTERN.matcher(executionResult.getOutput());
+            final Matcher timeMatcher = EXECUTION_TIME_PATTERN.matcher(executionResult.getOutput());
 
-            if (matcher.find()) {
-                codeTaskResultDto.setEarnedPoints(matcher.group(1));
-            }
+            codeTaskResultDto.setEarnedPoints(pointsMatcher.find() ? pointsMatcher.group(1) :
+                    StringUtils.repeat("0", ",", codeTask.getCodeTaskTestSets().size()));
+
+            codeTaskResultDto.setExecutionTime(timeMatcher.find() ? Long.parseLong(timeMatcher.group(1)) : 0);
 
             return codeTaskResultDto;
         }

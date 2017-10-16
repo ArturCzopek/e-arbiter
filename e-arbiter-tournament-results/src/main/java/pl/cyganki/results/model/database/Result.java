@@ -1,6 +1,7 @@
 package pl.cyganki.results.model.database;
 
 import lombok.Data;
+import org.apache.commons.lang.math.NumberUtils;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -32,13 +33,13 @@ public abstract class Result {
 
     public int getEarnedPoints() {
         return Arrays.stream(this.earnedPoints.split(","))
-                .mapToInt(Integer::parseInt)
+                .mapToInt(str -> NumberUtils.toInt(str, 0))
                 .sum();
     }
 
     public List<Integer> getListOfEarnedPoints() {
         return Arrays.stream(this.earnedPoints.split(","))
-                .mapToInt(Integer::parseInt)
+                .mapToInt(str -> NumberUtils.toInt(str, 0))
                 .boxed()
                 .collect(Collectors.toList());
     }

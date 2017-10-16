@@ -87,6 +87,7 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "http://repo.spring.io/release" }
