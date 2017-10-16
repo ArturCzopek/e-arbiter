@@ -15,7 +15,10 @@ export class TaskService {
       this.authService.prepareAuthOptions())
       .map(res => res.json())
       .first()
-      .subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
+      .subscribe(
+        data => this.modalService.showAlert(data.output),
+        err => this.modalService.showAlert('Błąd wykonania.')
+      );
   }
 
 }

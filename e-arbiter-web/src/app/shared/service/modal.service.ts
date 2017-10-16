@@ -12,7 +12,7 @@ export class ModalService {
   public showAlert(message: string): void {
     const modalElement =
       $(`<div class="ui small basic modal">
-            <div class="ui icon header"><i class="help icon"></i>${message}</div>
+            <div class="ui icon header" style="white-space: pre-line"><i class="help icon"></i>${message}</div>
          </div>`);
 
     this.bodyElement.append(modalElement);
