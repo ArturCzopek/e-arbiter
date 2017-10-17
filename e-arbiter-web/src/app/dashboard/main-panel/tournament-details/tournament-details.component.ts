@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {DateService} from '../../../shared/service/date.service';
 import {TournamentUserActionType} from '../model/tournament-user-action.model';
 import {RouteService} from '../../../shared/service/route.service';
+import {MainPanelStream} from '../service/main-panel.stream';
 
 @Component({
   selector: 'arb-tour-details',
@@ -53,11 +54,13 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   public params$: Subscription;
   public errorMessage = '';
   private tournamentId = '';
+  private updateTournamentDetails$: Subscription;
 
   constructor(private tournamentDetailsService: TournamentDetailsService,
               private route: ActivatedRoute,
               private routeService: RouteService,
-              private dateService: DateService) {
+              private dateService: DateService,
+              private mainPanelStream: MainPanelStream) {
   }
 
   ngOnInit(): void {
@@ -66,10 +69,14 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
       this.tournamentId = params['id'];
       this.loadTournamentDetails();
     });
+
+    this.updateTournamentDetails$ = this.mainPanelStream.getUpdateCurrentTournamentDetails()
+      .subscribe(this.loadTournamentDetails.bind(this))
   }
 
   ngOnDestroy(): void {
     this.params$.unsubscribe();
+    this.updateTournamentDetails$.unsubscribe();
   }
 
   public onUserTournamentStatusChange(tournamentUserActionType: TournamentUserActionType) {

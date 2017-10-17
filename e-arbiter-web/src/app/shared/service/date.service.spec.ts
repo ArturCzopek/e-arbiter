@@ -8,15 +8,15 @@ describe('DateService', () => {
     dateService = new DateService();
   });
 
-  it('#parseDateToString should return correct parsed date object to string (19th April 2017 15:11:00:000)', () => {
+  it('#parseDateToString should return correct parsed date object to string (19th April 2017 15:11:00.000)', () => {
     const dateToParse = new Date(2017, 3, 19, 15, 11, 0, 0);
-    const expectedParsedDate = '2017-04-19T15:11:00:000';
+    const expectedParsedDate = '2017-04-19T15:11:00.000';
     expect(dateService.parseDateToString(dateToParse)).toBe(expectedParsedDate);
   });
 
-  it('#parseDateToString should return correct parsed date object to string (1st January 2017 12:00:00:000)', () => {
+  it('#parseDateToString should return correct parsed date object to string (1st January 2017 12:00:00.000)', () => {
     const dateToParse = new Date(2017, 0, 1, 12, 0, 0, 0);
-    const expectedParsedDate = '2017-01-01T12:00:00:000';
+    const expectedParsedDate = '2017-01-01T12:00:00.000';
     expect(dateService.parseDateToString(dateToParse)).toBe(expectedParsedDate);
   });
 

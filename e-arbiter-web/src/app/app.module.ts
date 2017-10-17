@@ -21,7 +21,8 @@ import {DateService} from './shared/service/date.service';
 import {PageCounterService} from './shared/service/page-counter.service';
 import {TournamentDetailsService} from './shared/service/tournament-details.service';
 import {TournamentUserActionService} from './dashboard/main-panel/service/tournament-user-action.service';
-import {TaskService} from "./dashboard/main-panel/service/task.service";
+import {TaskService} from './dashboard/main-panel/service/task.service';
+import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {TaskService} from "./dashboard/main-panel/service/task.service";
     DevelopmentModeGuard,
     LoggedInUserGuard,
     LoggedOutUserGuard,
+    MainPanelStream,
     ModalService,
     PageCounterService,
     RouteService,

@@ -9,7 +9,7 @@ import {TournamentDetailsTaskListComponent} from './tournament-details/tournamen
 import {TournamentDetailsHeaderComponent} from './tournament-details/tournament-details-header.component';
 import {TournamentDetailsTaskPreviewComponent} from './tournament-details/tournament-details-task-preview.component';
 import {TournamentDetailsActionComponent} from './tournament-details/tournament-details-action.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
