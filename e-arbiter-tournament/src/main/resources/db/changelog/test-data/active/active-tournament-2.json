@@ -195,6 +195,7 @@
       "type": "QuizTask",
       "name": "fugiat occaecat aliquip incididunt nisi",
       "description": "Esse aute cupidatat culpa deserunt. Consectetur dolor aliqua esse duis consequat eu id fugiat cupidatat dolor.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "aute laborum consequat ex mollit ut adipisicing consequat exercitation eiusmod aliqua et id veniam dolor eu esse amet non ex",

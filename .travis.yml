@@ -34,8 +34,8 @@ before_cache:
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 before_script:
- - npm install -g @angular/cli@1.2.4
- - npm install -g angular-cli-ghpages
+ - npm install -g @angular/cli@1.4.4
+# - npm install -g angular-cli-ghpages
  - cd e-arbiter-web
  - npm install
  - cd $TRAVIS_BUILD_DIR

@@ -483,6 +483,7 @@
       "type": "QuizTask",
       "name": "ad proident eu consequat anim",
       "description": "Magna qui amet sint non in ipsum irure. Aute proident labore laborum aliquip esse culpa.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "esse reprehenderit anim eu Lorem enim amet eu consequat velit adipisicing velit nostrud reprehenderit nisi ipsum consequat cupidatat ea est",
@@ -516,6 +517,7 @@
       "type": "QuizTask",
       "name": "quis dolor non excepteur labore",
       "description": "Culpa deserunt cillum nisi magna adipisicing enim. Non occaecat id est dolor.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "exercitation officia ad duis ullamco labore excepteur fugiat pariatur sunt nulla esse pariatur anim occaecat excepteur cupidatat reprehenderit ut in",
@@ -570,6 +572,7 @@
       "type": "QuizTask",
       "name": "ipsum exercitation sunt tempor quis",
       "description": "Id magna ea sit sunt enim dolor pariatur elit. Labore sunt laborum sit minim minim tempor sit excepteur voluptate eu irure elit cillum.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "ut qui ad dolor proident amet exercitation ea et commodo aliquip cillum officia pariatur ut consequat non consequat deserunt cupidatat",
@@ -657,6 +660,7 @@
       "type": "QuizTask",
       "name": "excepteur mollit fugiat est quis",
       "description": "Qui occaecat velit aliquip culpa. Pariatur duis reprehenderit excepteur minim adipisicing laboris dolor anim.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "sunt officia nulla do incididunt ut Lorem eu consequat nulla dolore aliquip exercitation velit est do incididunt cillum et nisi",
@@ -677,6 +681,7 @@
       "type": "QuizTask",
       "name": "nulla velit quis deserunt deserunt",
       "description": "Do dolore sunt ex aute minim elit consectetur. Occaecat fugiat nulla officia sit nostrud esse fugiat veniam enim proident velit cupidatat.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "irure laboris enim adipisicing commodo adipisicing sunt sint quis dolor nisi velit ipsum anim nostrud sit cupidatat dolore quis do",

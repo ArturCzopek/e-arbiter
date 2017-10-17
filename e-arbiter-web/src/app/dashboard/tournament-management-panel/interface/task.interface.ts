@@ -1,7 +1,7 @@
 import {Question} from "./question.interface";
 import {CodeTaskTestSet} from "./code-task-test-set.interface";
-import {CodeTaskParser} from "../task-parsers/code-task-parser";
-import {QuizTaskParser} from "../task-parsers/quiz-task-parser";
+import {CodeTaskParser} from "../task-parsers/code-task.parser";
+import {QuizTaskParser} from "../task-parsers/quiz-task.parser";
 
 const TaskModel = {
   taskTypes: [
@@ -40,6 +40,7 @@ export interface Task {
   timeoutInMs?: number;
   questions?: Question[];
   strData?: string;
+  maxAttempts?: number;
 }
 
 export default TaskModel;

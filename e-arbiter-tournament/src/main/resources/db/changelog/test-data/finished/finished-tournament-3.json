@@ -304,6 +304,7 @@
       "type": "QuizTask",
       "name": "consequat nostrud commodo non sint",
       "description": "Nisi excepteur excepteur dolor labore dolore aliqua ea id labore sit enim. Adipisicing veniam et non labore ex irure irure Lorem.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "in non nulla officia duis occaecat consectetur elit ex sunt Lorem voluptate sit magna elit incididunt id ea laborum sit",
@@ -345,6 +346,7 @@
       "type": "QuizTask",
       "name": "labore consequat consectetur deserunt esse",
       "description": "Cupidatat proident eu velit aliqua anim ipsum aliqua esse. Proident dolor et et nisi consectetur nostrud irure aliqua do excepteur ipsum.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "et sint minim reprehenderit veniam nostrud amet sunt ullamco commodo id duis irure fugiat sunt nulla proident quis do ullamco",
@@ -441,6 +443,7 @@
       "type": "QuizTask",
       "name": "voluptate commodo ut non ipsum",
       "description": "Aute laborum dolor fugiat veniam. Officia officia tempor excepteur duis qui eiusmod officia aliquip enim adipisicing ipsum officia reprehenderit.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "sit sint excepteur sunt deserunt proident pariatur irure incididunt est esse nostrud ex laboris enim aliqua enim adipisicing cillum voluptate",
@@ -499,6 +502,7 @@
       "type": "QuizTask",
       "name": "tempor sint magna eu reprehenderit",
       "description": "Aliquip aliquip dolore sint dolor magna occaecat nostrud duis et voluptate exercitation laborum aliqua id. Sit ipsum Lorem cillum ea eu non id dolore proident.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "irure quis non tempor pariatur cillum consequat incididunt laborum magna laborum veniam eiusmod qui voluptate sunt duis ea exercitation ullamco",
@@ -577,6 +581,7 @@
       "type": "QuizTask",
       "name": "nulla minim exercitation elit est",
       "description": "Officia duis dolore labore nostrud excepteur sint cillum et minim. Occaecat sint eiusmod adipisicing ad tempor id aliqua ea do do ex.",
+      "maxAttempts": 3,
       "questions": [
         {
           "content": "adipisicing est laborum duis voluptate ipsum sit voluptate in adipisicing nulla proident dolore commodo anim enim nulla incididunt labore quis",
@@ -685,6 +690,7 @@
       "type": "QuizTask",
       "name": "ex sit irure aute aliquip",
       "description": "Consequat aliquip commodo aliquip deserunt ullamco incididunt incididunt tempor amet proident. Qui et cillum irure non elit nulla ad occaecat ex nulla incididunt officia id consectetur.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "aute ipsum veniam proident laborum in velit et sunt mollit anim elit magna culpa laborum magna velit irure deserunt Lorem",
@@ -705,6 +711,7 @@
       "type": "QuizTask",
       "name": "officia commodo ea proident velit",
       "description": "Pariatur est laboris et ad duis cillum. Esse nisi consequat consequat officia deserunt tempor adipisicing irure elit ad.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "commodo et et irure incididunt ullamco reprehenderit excepteur eiusmod enim do enim duis aliquip incididunt in est minim consequat nulla",
@@ -738,6 +745,7 @@
       "type": "QuizTask",
       "name": "amet ut ad aliqua laborum",
       "description": "Aliquip esse mollit amet laborum et excepteur sint sit anim excepteur. Ex ipsum magna aute velit incididunt.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "laborum ipsum nostrud occaecat dolore commodo culpa cupidatat esse quis sit mollit sint consequat nostrud Lorem aliqua elit laboris deserunt",
@@ -817,6 +825,7 @@
       "type": "QuizTask",
       "name": "incididunt dolor consectetur eiusmod culpa",
       "description": "Sit incididunt labore dolor elit incididunt proident aliqua. Labore nisi commodo cillum magna nulla.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "aute laborum consequat aliqua sunt nulla eu consectetur voluptate non tempor quis adipisicing incididunt esse proident ea anim irure labore",

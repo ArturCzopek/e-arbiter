@@ -160,6 +160,7 @@
       "type": "QuizTask",
       "name": "elit ad consectetur exercitation aliquip",
       "description": "Ut aute labore laborum excepteur. Sunt sunt aliqua fugiat adipisicing magna ut id irure et adipisicing qui enim nostrud.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "voluptate quis commodo magna duis quis Lorem aliquip minim qui elit velit anim in reprehenderit proident ex est ullamco non",
@@ -244,6 +245,7 @@
       "type": "QuizTask",
       "name": "enim id laboris ex amet",
       "description": "Esse qui minim ex amet ad incididunt. Amet veniam minim veniam amet sint duis mollit enim laborum dolore pariatur et enim officia.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "esse consectetur qui occaecat ea culpa elit magna et veniam duis reprehenderit ipsum dolor sint qui veniam sint elit laboris",

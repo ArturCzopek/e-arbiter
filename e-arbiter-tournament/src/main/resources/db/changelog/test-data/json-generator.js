@@ -82,6 +82,7 @@ var quizTasks =
             'type': 'QuizTask',
             'name': '{{lorem(5, "words")}}',
             'description': '{{lorem(2)}}',
+            'maxAttempts': '{{integer(1, 3)}}',
             'questions': [
                 '{{repeat(1, 5)}}',
                 {

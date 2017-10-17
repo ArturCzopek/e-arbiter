@@ -18,14 +18,14 @@ describe('PageCounter service', () => {
     page = new MockPage();
   });
 
-  it('should return empty list for empty page', () => {
+  it('#generatePageList should return empty list for empty page', () => {
     page = EMPTY_PAGE;
     pageList = service.generatePageList(page, maxToDisplay, offset, currentPage);
 
     expect(pageList).toEqual([]);
   });
 
-  it('should return all pages when max to display is more than current available pages', () => {
+  it('#generatePageList should return all pages when max to display is more than current available pages', () => {
     page.totalPages = 4;
 
     pageList = service.generatePageList(page, maxToDisplay, offset, currentPage);
@@ -33,7 +33,7 @@ describe('PageCounter service', () => {
     expect(pageList).toEqual([1, 2, 3, 4]);
   });
 
-  it('should return five first pages for second page selected and more possible pages', () => {
+  it('#generatePageList should return five first pages for second page selected and more possible pages', () => {
     page.totalPages = 7;
     currentPage = 2;
 
@@ -43,7 +43,7 @@ describe('PageCounter service', () => {
     expect(pageList[1]).toEqual(currentPage); // second page should be selected
   });
 
-  it('should return 2-6 pages for fourth page selected and more possible pages', () => {
+  it('#generatePageList should return 2-6 pages for fourth page selected and more possible pages', () => {
     page.totalPages = 7;
     currentPage = 4;
 
@@ -54,7 +54,7 @@ describe('PageCounter service', () => {
   });
 
 
-  it('should return last pages for 6 (7-1) selected page and 7 possible pages', () => {
+  it('#generatePageList should return last pages for 6 (7-1) selected page and 7 possible pages', () => {
     page = new MockPage();
     page.totalPages = 7;
     currentPage = page.totalPages - 1;
@@ -65,7 +65,7 @@ describe('PageCounter service', () => {
     expect(pageList[3]).toEqual(currentPage);
   });
 
-  it('should return first pages for first page selected and more possible pages', () => {
+  it('#generatePageList should return first pages for first page selected and more possible pages', () => {
     page.totalPages = 10;
     currentPage = 1;
 
@@ -75,7 +75,7 @@ describe('PageCounter service', () => {
     expect(pageList[0]).toEqual(currentPage);
   });
 
-  it('should return last pages for last page selected and more possible pages', () => {
+  it('#generatePageList should return last pages for last page selected and more possible pages', () => {
     page.totalPages = 10;
     currentPage = page.totalPages;
 

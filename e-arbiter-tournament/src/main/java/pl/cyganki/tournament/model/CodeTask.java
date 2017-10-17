@@ -1,6 +1,6 @@
 package pl.cyganki.tournament.model;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pl.cyganki.utils.model.Language;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class CodeTask extends Task {
 
@@ -23,6 +23,30 @@ public class CodeTask extends Task {
     private List<Language> languages;
 
     private long timeoutInMs;
+
+    public List<CodeTaskTestSet> getCodeTaskTestSets() {
+        return codeTaskTestSets;
+    }
+
+    public void setCodeTaskTestSets(List<CodeTaskTestSet> codeTaskTestSets) {
+        this.codeTaskTestSets = codeTaskTestSets;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
+
+    public long getTimeoutInMs() {
+        return timeoutInMs;
+    }
+
+    public void setTimeoutInMs(long timeoutInMs) {
+        this.timeoutInMs = timeoutInMs;
+    }
 
     @Override
     public int getMaxPoints() {

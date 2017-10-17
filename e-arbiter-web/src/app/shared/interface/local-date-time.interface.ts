@@ -9,14 +9,3 @@ export interface LocalDateTime {
   monthValue: number;
   year: number;
 }
-
-export class TmpLocalDateTime implements LocalDateTime {
-  constructor(public second: number,
-              public minute: number,
-              public hour: number,
-              public dayOfMonth: number,
-              public monthValue: number,
-              public year: number) {
-
-  }
-}

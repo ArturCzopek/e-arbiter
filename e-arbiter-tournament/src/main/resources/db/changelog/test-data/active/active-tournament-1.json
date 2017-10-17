@@ -297,6 +297,7 @@
       "type": "QuizTask",
       "name": "occaecat veniam adipisicing veniam laboris",
       "description": "Ipsum enim dolore aute id nostrud in dolore minim do eu mollit. Proident nostrud labore irure enim laboris in nulla aute.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "tempor duis labore amet excepteur aliquip reprehenderit id adipisicing nostrud nostrud ex enim anim quis irure consequat velit veniam ad",

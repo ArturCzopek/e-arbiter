@@ -6,6 +6,7 @@ import {TaskModalComponent} from './task-modal.component';
 import {TournamentManagementService} from './tournament-management.service';
 import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
 import {ModalService} from '../../shared/service/modal.service';
+import {DateService} from '../../shared/service/date.service';
 
 declare var $: any;
 
@@ -36,7 +37,7 @@ declare var $: any;
             <div
               *ngIf="isControlInvalidAndTouched('endDate')"
               class="ui basic red pointing prompt label"
-            >Data zakończenia turnieju jest wymagana.
+            >Data zakończenia turnieju jest wymagana i musi być późniejsza niż data obecna.
             </div>
           </div>
         </div>
@@ -117,7 +118,8 @@ export class TournamentFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private tournamentManagementService: TournamentManagementService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private dateService: DateService) {
   }
 
   ngOnInit() {
@@ -131,7 +133,13 @@ export class TournamentFormComponent implements OnInit {
         now: Translations.NOW
       },
       onChange: (date: Date) => {
-        this.myForm.controls.endDate.setValue(date ? date.toISOString().replace('Z', '') : '');
+        this.myForm.controls.endDate.setValue(this.dateService.parseDateToString(date));
+
+        if (this.dateService.isPassedDateLaterThanNow(date)) {
+          this.myForm.controls.endDate.setErrors(null);
+        } else {
+          this.myForm.controls.endDate.setErrors({'incorrect': true});
+        }
       }
     });
 

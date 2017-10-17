@@ -237,6 +237,7 @@
       "type": "QuizTask",
       "name": "officia fugiat quis nostrud mollit",
       "description": "Nisi aliquip deserunt non tempor occaecat id. Veniam ad dolore nisi nostrud nisi non mollit adipisicing excepteur do.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "duis tempor officia qui incididunt do irure consectetur ut laboris ullamco tempor velit nisi fugiat in enim aute id voluptate",
@@ -290,6 +291,7 @@
       "type": "QuizTask",
       "name": "proident do exercitation quis eu",
       "description": "Aute pariatur in labore labore reprehenderit aliquip exercitation sit nostrud culpa ut quis. Irure Lorem Lorem ipsum elit eu tempor nostrud.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "laboris elit ea reprehenderit laboris nostrud occaecat est aliquip eu laboris aliqua culpa pariatur consectetur dolor elit veniam deserunt elit",
@@ -322,6 +324,7 @@
       "type": "QuizTask",
       "name": "consequat nostrud minim voluptate laborum",
       "description": "In ea reprehenderit sint magna ex et cillum do incididunt culpa et est. Mollit magna eu consectetur excepteur aliquip.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "consequat consequat Lorem cillum officia occaecat laborum irure proident proident proident proident elit anim qui excepteur quis velit laboris commodo",
@@ -354,6 +357,7 @@
       "type": "QuizTask",
       "name": "nulla laboris duis consequat tempor",
       "description": "Mollit Lorem ut laboris amet ex enim dolore voluptate deserunt tempor est elit qui reprehenderit. Non veniam dolor sint magna tempor et culpa est deserunt dolore et proident culpa consectetur.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "deserunt magna amet cupidatat id non deserunt officia laboris enim incididunt minim eu deserunt quis est cillum deserunt consectetur sit",
@@ -378,6 +382,7 @@
       "type": "QuizTask",
       "name": "velit sit qui ea laboris",
       "description": "Proident tempor sint reprehenderit nulla non eu. Sint eu duis amet fugiat qui culpa proident.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "elit occaecat adipisicing ea ipsum nisi dolor Lorem mollit enim consequat adipisicing duis enim elit id duis in dolore veniam",
@@ -440,6 +445,7 @@
       "type": "QuizTask",
       "name": "quis pariatur ea cillum eiusmod",
       "description": "Consequat exercitation sit aliquip excepteur Lorem do ex elit consectetur anim dolore cupidatat. Non occaecat ipsum ea ut in veniam fugiat duis incididunt incididunt deserunt ad.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "velit enim sint ut ex elit Lorem elit dolore velit enim amet laboris consectetur reprehenderit enim dolor officia voluptate sit",

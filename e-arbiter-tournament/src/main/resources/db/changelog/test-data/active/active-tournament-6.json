@@ -415,6 +415,7 @@
       "type": "QuizTask",
       "name": "sint pariatur cupidatat qui magna",
       "description": "Ut excepteur sit fugiat in sunt labore culpa sint proident incididunt ea. Ad tempor fugiat cillum aliquip esse do sunt.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "adipisicing excepteur reprehenderit proident mollit cillum elit enim culpa consequat mollit sunt incididunt et esse non nisi irure magna officia",

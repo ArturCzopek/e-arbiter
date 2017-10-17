@@ -421,6 +421,7 @@
       "type": "QuizTask",
       "name": "in Lorem sunt ullamco consequat",
       "description": "Cupidatat eu quis qui aute quis. Aliquip dolor esse tempor anim nulla minim consequat amet.",
+      "maxAttempts": 3,
       "questions": [
         {
           "content": "culpa sint labore est est cillum fugiat minim cupidatat ut culpa proident non labore do laborum incididunt nulla voluptate aute",
@@ -537,6 +538,7 @@
       "type": "QuizTask",
       "name": "aliquip mollit sit magna adipisicing",
       "description": "Aliquip nulla laboris Lorem tempor voluptate elit. Anim laborum labore eiusmod cillum laborum ut quis sit sunt.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "tempor anim commodo mollit aliqua sint Lorem ad consectetur laborum sint magna in elit labore ipsum et nostrud aliquip labore",
@@ -595,6 +597,7 @@
       "type": "QuizTask",
       "name": "aute laborum minim sunt sint",
       "description": "Anim in ullamco dolore aliqua. Qui adipisicing nisi occaecat velit ipsum anim cillum incididunt excepteur incididunt ex esse.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "quis cupidatat excepteur amet voluptate labore cillum do sunt laboris irure id pariatur Lorem reprehenderit irure duis culpa amet proident",
@@ -699,6 +702,7 @@
       "type": "QuizTask",
       "name": "adipisicing minim irure irure officia",
       "description": "Excepteur tempor consectetur anim esse nulla reprehenderit pariatur consectetur qui labore reprehenderit veniam. Quis labore elit minim velit et aliqua aliqua cillum laboris anim et commodo.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "officia amet nostrud labore tempor deserunt reprehenderit culpa dolor magna irure ex laboris laboris duis ad enim consequat qui duis",

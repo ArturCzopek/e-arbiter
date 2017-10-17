@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {TaskPreview} from '../../../shared/interface/task-preview.interface';
 import * as _ from 'lodash';
-import {SemanticModalComponent} from "ng-semantic";
-import {CodeSubmitForm} from "../../../shared/interface/code-submit-form.interface";
-import {TaskService} from "../service/task.service";
+import {SemanticModalComponent} from 'ng-semantic';
+import {CodeSubmitForm} from '../../../shared/interface/code-submit-form.interface';
+import {TaskService} from '../service/task.service';
 
 @Component({
   selector: 'arb-tour-details-task-prev',
@@ -12,6 +12,8 @@ import {TaskService} from "../service/task.service";
       <sm-accordion>
         <sm-accordion-item>
           <accordion-title>
+            <!--Since only code execution can be infinite (null in details), we can determine type in this way without casting it-->
+            <i class="icon" [ngClass]="convertAttempts() === '-' ? 'code outline' :'help'"></i>
             {{taskPreview.name}}
           </accordion-title>
           <accordion-content>
@@ -52,7 +54,7 @@ import {TaskService} from "../service/task.service";
 })
 export class TournamentDetailsTaskPreviewComponent implements OnChanges {
 
-  @ViewChild("codeUploadModal") codeUploadModal: SemanticModalComponent;
+  @ViewChild('codeUploadModal') codeUploadModal: SemanticModalComponent;
 
   @Input() taskPreview: TaskPreview;
   @Input() status: string;

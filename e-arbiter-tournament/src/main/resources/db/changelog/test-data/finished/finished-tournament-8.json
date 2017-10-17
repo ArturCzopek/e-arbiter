@@ -221,6 +221,7 @@
       "type": "QuizTask",
       "name": "incididunt do duis elit elit",
       "description": "Enim labore nisi sunt laborum sint officia. Cillum aliqua nulla esse exercitation enim mollit.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "dolor cupidatat voluptate officia commodo officia reprehenderit esse aliqua aliquip proident ipsum do nisi amet deserunt eiusmod eiusmod eu dolore",
