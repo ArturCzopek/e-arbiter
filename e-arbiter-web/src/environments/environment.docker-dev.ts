@@ -9,7 +9,7 @@ const devData = {
 }
 
 export const environment = {
-  production: false,
+  production: true,
   authToken: 'oauth-token',
   githubUrl: 'http://github.com',
   server: {
