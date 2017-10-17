@@ -1,6 +1,6 @@
 package pl.cyganki.auth.service
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -33,10 +33,7 @@ class UserServiceTest {
         val foundNames = ids.map { userService.getUserNameById(it) }
 
         // then
-        val expectedNames = listOf("TestowyUser", "UserLol", "ArturCzopek", "Gabriel", "Miracle")
-
-        (0 until expectedNames.size).forEach {
-            assertEquals(expectedNames[it], foundNames[it])
-        }
+        listOf("TestowyUser", "UserLol", "ArturCzopek", "KonradOnieszczuk", "Miracle")
+                .forEachIndexed { index, name -> Assert.assertEquals(name, foundNames[index]) }
     }
 }

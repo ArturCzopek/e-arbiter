@@ -18,7 +18,7 @@ export const environment = {
     },
     tournament: {
       url: devData.serverUrl,
-      saveUrl: `${devData.serverUrl}/tournament/api/save`
+      saveUrl: `${devData.serverUrl}/tournament/api/management/save`
     },
     api: {
       url: `${devData.serverUrl}`
