@@ -1,0 +1,100 @@
+Index: docker-compose.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- docker-compose.yml	(revision 4b9a3313ca616b697400d5b5a3d14702b825427d)
++++ docker-compose.yml	(revision )
+@@ -163,6 +163,9 @@
+     - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+     - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+ 
++  compile-box:
++    image: earbiterinfo/e-arbiter-compile-box
++
+   web:
+     image: earbiterinfo/e-arbiter-web
+     ports:
+Index: e-arbiter-config/Dockerfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- e-arbiter-config/Dockerfile	(revision 4b9a3313ca616b697400d5b5a3d14702b825427d)
++++ e-arbiter-config/Dockerfile	(revision )
+@@ -17,6 +17,6 @@
+ 
+ CMD ["java", "-Xmx200m", "-jar", "e-arbiter-config.jar"]
+ 
+-HEALTHCHECK --interval=5s --timeout=10s CMD curl -v  ${E_ARB_HOST}:${E_ARB_CFG_PORT}/health || exit 1
++HEALTHCHECK --interval=45s --timeout=40s CMD curl -v  ${E_ARB_HOST}:${E_ARB_CFG_PORT}/health || exit 1
+ 
+ EXPOSE ${E_ARB_CFG_PORT}
+\ No newline at end of file
+Index: e-arbiter-eureka/Dockerfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- e-arbiter-eureka/Dockerfile	(revision 4b9a3313ca616b697400d5b5a3d14702b825427d)
++++ e-arbiter-eureka/Dockerfile	(revision )
+@@ -16,6 +16,6 @@
+ 
+ CMD ["java", "-Xmx200m", "-jar", "e-arbiter-eureka.jar"]
+ 
+-HEALTHCHECK --interval=5s --timeout=10s CMD curl -v  ${E_ARB_HOST}:${E_ARB_EUR_PORT}/health || exit 1
++HEALTHCHECK --interval=45s --timeout=40s CMD curl -v  ${E_ARB_HOST}:${E_ARB_EUR_PORT}/health || exit 1
+ 
+ EXPOSE ${E_ARB_EUR_PORT}
+\ No newline at end of file
+Index: e-arbiter-executor/Dockerfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- e-arbiter-executor/Dockerfile	(revision 4b9a3313ca616b697400d5b5a3d14702b825427d)
++++ e-arbiter-executor/Dockerfile	(revision )
+@@ -1,4 +1,4 @@
+-FROM earbiterinfo/e-arbiter-compile-box
++FROM openjdk:8-jre-alpine
+ LABEL mantainer="e-Arbiter dev team <earbiterinfo@gmail.com>"
+ 
+ # Default values. You can override it in start or in docker-compose
+@@ -13,34 +13,9 @@
+ ENV EUREKA_URI="http://192.168.44.1:8761/eureka"
+ ENV SPRING_PROFILES_ACTIVE="dev"
+ 
+-# We're basing on compile-box image so we need to install jdk by ourselves
+-# Code below is taken from openjdk:8-jre-alpine image
+-# See image: https://github.com/docker-library/openjdk/blob/b4f29ba829765552239bd18f272fcdaf09eca259/8-jre/alpine/Dockerfile
+-
+-ENV LANG=C.UTF-8
+-ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
+-ENV PATH=$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
+-
+-ENV JAVA_VERSION=8u131
+-ENV JAVA_ALPINE_VERSION=8.131.11-r2
+-
+-# add a simple script that can auto-detect the appropriate JAVA_HOME value
+-# based on whether the JDK or only the JRE is installed
+-RUN { \
+-		echo '#!/bin/sh'; \
+-		echo 'set -e'; \
+-		echo; \
+-		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
+-	} > /usr/local/bin/docker-java-home \
+-	&& chmod +x /usr/local/bin/docker-java-home
+-
+-RUN set -x \
+-	&& apk add --no-cache \
+-		openjdk8-jre="$JAVA_ALPINE_VERSION" \
+-	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
+-
+ ADD  ./build/libs/e-arbiter-executor.jar /app/e-arbiter-executor.jar
++WORKDIR app
+ 
+-CMD ["java", "-Xmx200m", "-jar", "/app/e-arbiter-executor.jar"]
++CMD ["java", "-Xmx200m", "-jar", "e-arbiter-executor.jar"]
+ 
+ EXPOSE ${E_ARB_EXEC_PORT}
+\ No newline at end of file

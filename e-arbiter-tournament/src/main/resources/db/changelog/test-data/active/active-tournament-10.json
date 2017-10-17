@@ -24,6 +24,7 @@
       "type": "QuizTask",
       "name": "nulla irure culpa occaecat incididunt",
       "description": "Esse aliqua consectetur sit exercitation deserunt eu occaecat enim aute officia eiusmod magna enim cupidatat. Proident ullamco eu commodo non do.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "eu elit eu cillum cillum pariatur non consequat velit elit irure reprehenderit Lorem incididunt enim proident anim laboris ullamco enim",

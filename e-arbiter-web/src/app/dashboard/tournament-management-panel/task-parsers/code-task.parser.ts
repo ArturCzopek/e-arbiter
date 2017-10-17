@@ -1,10 +1,10 @@
-import {TaskParser} from "./task-parser";
-import {Task} from "../interface/task.interface";
-import {CodeTaskTestSet} from "../interface/code-task-test-set.interface";
+import {TaskParser} from './task.parser';
+import {Task} from '../interface/task.interface';
+import {CodeTaskTestSet} from '../interface/code-task-test-set.interface';
 
 export class CodeTaskParser implements TaskParser {
 
-  public parseStateFromStrData(task: Task): void {
+  public parseStringDataFromTaskToTask(task: Task): Task {
     const codeTaskTestSets: CodeTaskTestSet[] = [];
 
     const lines = task.strData.split(/\n/);
@@ -12,7 +12,7 @@ export class CodeTaskParser implements TaskParser {
     const cases = lines.map(line => line.match(/(?:[^\s"]+|"[^"]*")+/g));
 
     if (cases.find(c => c.length < 2)) {
-      throw new Error('Wrong format.');
+      throw new Error('Too less arguments to execute');
     }
 
     cases.forEach(c => codeTaskTestSets.push({
@@ -21,12 +21,14 @@ export class CodeTaskParser implements TaskParser {
     }));
 
     task.codeTaskTestSets = codeTaskTestSets;
+
+    return task;
   }
 
-  public buildStrDataFromState(task: Task): void {
+  public parseTaskToString(task: Task): string {
     const lines = task.codeTaskTestSets.map(
       testSet => testSet.parameters.join(' ') + ' ' + testSet.expectedResult);
 
-    task.strData = lines.join('\n');
+    return lines.join('\n');
   }
 }

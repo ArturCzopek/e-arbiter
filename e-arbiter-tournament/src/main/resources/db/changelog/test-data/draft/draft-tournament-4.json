@@ -191,6 +191,7 @@
       "type": "QuizTask",
       "name": "laboris adipisicing ipsum velit eu",
       "description": "Ullamco enim in laborum adipisicing laborum est nostrud elit exercitation fugiat. Officia sint ullamco eu excepteur aute esse duis dolore sunt id do ex cupidatat.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "sint commodo amet commodo adipisicing nulla dolore in id eiusmod ut eiusmod sint labore irure voluptate labore dolore laboris esse",

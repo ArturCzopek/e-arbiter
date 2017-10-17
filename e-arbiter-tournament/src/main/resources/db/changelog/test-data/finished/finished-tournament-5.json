@@ -382,6 +382,7 @@
       "type": "QuizTask",
       "name": "enim tempor proident et dolore",
       "description": "Qui non dolor ad non. Esse adipisicing do quis do esse veniam commodo adipisicing fugiat pariatur ipsum aliqua.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "sit commodo aliqua anim ullamco deserunt ad velit id labore id id tempor amet culpa et ipsum veniam enim ea",
@@ -477,6 +478,7 @@
       "type": "QuizTask",
       "name": "sit eu in nisi sint",
       "description": "Consequat voluptate anim occaecat ex deserunt nulla aliqua elit labore enim aute. Ea aliqua commodo irure sint fugiat.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "minim veniam adipisicing laboris labore nisi non aliquip cillum do dolore deserunt consectetur officia aliquip ex nulla aliqua ipsum tempor",
@@ -564,6 +566,7 @@
       "type": "QuizTask",
       "name": "elit laborum adipisicing nostrud nisi",
       "description": "Excepteur proident Lorem occaecat proident reprehenderit tempor minim eu officia ad amet duis. Tempor aute consequat sit et cupidatat in do culpa sit anim.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "deserunt aute nostrud eiusmod nisi do minim laboris non laboris qui magna sit adipisicing duis Lorem nulla quis dolor aliquip",
@@ -596,6 +599,7 @@
       "type": "QuizTask",
       "name": "sint magna irure magna cillum",
       "description": "Duis incididunt amet qui et labore elit irure velit est nulla qui irure aliqua. Laboris ullamco sit id occaecat amet nulla est ut laboris sint excepteur fugiat duis.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "proident consectetur mollit incididunt est laboris anim minim velit magna enim laboris velit dolore laboris cupidatat labore commodo tempor voluptate",
@@ -667,6 +671,7 @@
       "type": "QuizTask",
       "name": "sunt irure nisi non aliquip",
       "description": "Pariatur non pariatur ad commodo ad do qui in anim qui consequat. Incididunt sunt proident labore aliquip ullamco nisi in est eu excepteur culpa consequat occaecat tempor.",
+      "maxAttempts": 3,
       "questions": [
         {
           "content": "nulla ullamco ullamco adipisicing commodo amet nulla voluptate proident mollit ex aliquip veniam quis enim ut proident esse commodo ea",
@@ -733,6 +738,7 @@
       "type": "QuizTask",
       "name": "excepteur est non nulla ullamco",
       "description": "Duis mollit do aliquip in sint qui nulla duis nulla eiusmod. Lorem consectetur consectetur laboris ad occaecat officia exercitation anim pariatur commodo.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "pariatur pariatur proident anim incididunt ex reprehenderit pariatur velit voluptate consequat deserunt ex sit deserunt ut aliquip reprehenderit aute aliqua",
@@ -845,6 +851,7 @@
       "type": "QuizTask",
       "name": "eiusmod magna deserunt velit eiusmod",
       "description": "Deserunt aute fugiat aute consectetur eiusmod ullamco velit velit dolor cupidatat veniam consectetur sit. Exercitation qui cillum enim cillum ullamco id reprehenderit nostrud deserunt veniam proident reprehenderit ea ipsum.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "ad dolore aliqua magna ipsum elit aute in culpa irure ea ut laboris magna tempor cillum eu eu velit fugiat",
@@ -865,6 +872,7 @@
       "type": "QuizTask",
       "name": "sit magna reprehenderit nisi irure",
       "description": "Proident nisi adipisicing dolor ullamco aliqua deserunt est magna laborum cupidatat duis reprehenderit. Ut ut aliquip occaecat ex aute aliquip.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "ex nulla quis ullamco ad cupidatat anim consectetur labore occaecat laborum consectetur qui est dolore nulla dolor enim quis ullamco",
@@ -893,6 +901,7 @@
       "type": "QuizTask",
       "name": "commodo consectetur labore tempor elit",
       "description": "Nisi dolore laboris et cupidatat ea cupidatat enim deserunt. Mollit aliqua irure nostrud deserunt ad consectetur.",
+      "maxAttempts": 2,
       "questions": [
         {
           "content": "nulla occaecat culpa in incididunt sunt nostrud sit eu do quis id et mollit aliquip quis non sunt anim consequat",
@@ -981,6 +990,7 @@
       "type": "QuizTask",
       "name": "sint commodo ullamco ipsum duis",
       "description": "Nostrud ullamco dolore duis pariatur. Non tempor commodo occaecat elit pariatur pariatur nostrud fugiat sunt nisi sit amet amet eu.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "aute fugiat consectetur commodo pariatur voluptate tempor consequat voluptate enim do officia cillum enim eiusmod minim exercitation veniam laboris laboris",

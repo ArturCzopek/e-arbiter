@@ -177,6 +177,7 @@
       "type": "QuizTask",
       "name": "enim eu enim et reprehenderit",
       "description": "Commodo eiusmod id pariatur commodo pariatur duis. Magna labore deserunt cupidatat incididunt nulla adipisicing ut consequat consequat.",
+      "maxAttempts": 1,
       "questions": [
         {
           "content": "elit elit deserunt incididunt ex aute eiusmod velit tempor adipisicing eu sint duis laborum irure reprehenderit laboris ex sit consectetur",

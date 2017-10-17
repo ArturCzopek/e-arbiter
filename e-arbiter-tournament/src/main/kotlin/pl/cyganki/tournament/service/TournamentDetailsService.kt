@@ -3,6 +3,8 @@ package pl.cyganki.tournament.service
 import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
+import pl.cyganki.tournament.model.QuizTask
+import pl.cyganki.tournament.model.Task
 import pl.cyganki.tournament.model.Tournament
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.model.dto.AccessDetails
@@ -60,7 +62,7 @@ class TournamentDetailsService(
                     it.name,
                     it.description,
                     it.maxPoints,
-                    if (canSeeTaskFooter(accessDetails)) (tasksUserDetails[it.id] ?: TaskUserDetails())?.apply { this.maxAttempts = null } else null
+                    getTaskUserDetails(it, tasksUserDetails, canSeeTaskFooter(accessDetails))
             )
         }
 
@@ -80,6 +82,19 @@ class TournamentDetailsService(
                     if (canSeeTaskFooter(accessDetails)) getEarnedPointsByUser(taskPreviews) else null
             )
         }
+    }
+
+    private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean): TaskUserDetails? {
+        val taskUserDetails: TaskUserDetails?
+
+        if (canSeeTaskFooter) {
+            taskUserDetails = (tasksUserDetails[task.id] ?: TaskUserDetails())
+            taskUserDetails.maxAttempts = (task as? QuizTask)?.maxAttempts
+        } else {
+            taskUserDetails = null
+        }
+
+        return taskUserDetails
     }
 
     private fun getTournamentMaxPoints(taskPreviews: List<TaskPreview>): Int {

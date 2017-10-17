@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, Renderer2, ViewChild} from "@angular/core";
-import TaskModel, {Task} from "app/dashboard/tournament-management-panel/interface/task.interface";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {SemanticModalComponent} from "ng-semantic";
-import * as _ from "lodash";
-import {TaskParser} from "./task-parsers/task-parser";
+import {Component, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
+import TaskModel, {Task} from 'app/dashboard/tournament-management-panel/interface/task.interface';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {SemanticModalComponent} from 'ng-semantic';
+import * as _ from 'lodash';
+import {TaskParser} from './task-parsers/task.parser';
 
 @Component({
   selector: 'arb-task-modal',
@@ -77,17 +77,26 @@ import {TaskParser} from "./task-parsers/task-parser";
                   <code>1 2 3 4 24</code><br/>
                 </div>
                 <div *ngIf="task.type === taskTypes[1].value" class="description">
+                  Każde zadanie typu quiz składa się z pytań oraz maksymalnej ilości wykonań danego zadania przez użytkownika.
+                  Maksymalna ilość prób użytkownika powinna być zdefiniowana w pierwszej linii poprzez wpisanie słowa <code>PROBY</code> (bez polskich znaków znaki),
+                  A następnie po znaku spacji powinna być wpisana ilość prób większa od 0.
+                  W następnej linii, należy wpisać ciąg znaków <code>---</code> (3 pauzy).<br/>
+                  Przykładowo, gdy użytkownik może wykonać w zadaniu tylko jedną próbę:<br/><br/>
+                  <code>
+                    PROBY 1<br/>
+                    ---<br/>
+                  </code><br/>
+                  W nastepnych liniach należy zdefiniować pytania dla zadania.
                   Każde pytanie składa się z dwóch części: definicji treści pytania i definicji odpowiedzi.
-                  Treść pytania od odpowiedzi musi oddzielać linia zawierająca pojedyncze słowo<br/><br/>
-                  <code>ODPOWIEDZI</code><br/><br/> 
-                  Każda odpowiedź definiowana jest w osobnej linii i zaczyna się od ciągu znaków <br/><br/>
-                  <code>ODP.</code><br/><br/>
-                  Odpowiedź prawidłowa zaczyna się od<br/><br/>
-                  <code>ODP. >>></code><br/><br/>
-                  Kolejne pytania oddzielane są linią zawierającą ciąg znaków<br/><br/>
-                  <code>---</code><br/><br/>
+                  Treść pytania od odpowiedzi musi oddzielać linia zawierająca pojedyncze słowo <code>ODPOWIEDZI</code>
+                  Każda odpowiedź definiowana jest w osobnej linii i zaczyna się od ciągu znaków <code>ODP.</code>.
+                  Odpowiedź prawidłowa zaczyna się od <code>ODP. >>></code>.
+                  Kolejne pytania oddzielane są linią zawierającą ciąg znaków <code>---</code> (3 pauzy).<br/>
                   Przykład:<br/><br/>
-                  <code>Stolica Polski to:<br/>
+                  <code>
+                    PROBY 3<br/>
+                    ---<br/>
+                    Stolica Polski to:<br/>
                     ODPOWIEDZI<br/>
                     ODP.Kraków<br/>
                     ODP. >>>Warszawa<br/>
@@ -119,9 +128,9 @@ export class TaskModalComponent {
   @Input() tasks: FormArray;
   task: Task;
 
-  @ViewChild("innerTaskModal") innerTaskModal: SemanticModalComponent;
-  @ViewChild("form") form: FormGroup;
-  @ViewChild("taskData") taskData: ElementRef;
+  @ViewChild('innerTaskModal') innerTaskModal: SemanticModalComponent;
+  @ViewChild('form') form: FormGroup;
+  @ViewChild('taskData') taskData: ElementRef;
 
   taskTypes = TaskModel.taskTypes;
   languages = TaskModel.languages;
@@ -166,11 +175,13 @@ export class TaskModalComponent {
             codeTaskTestSets: [task.codeTaskTestSets],
             questions: [task.questions],
             timeoutInMs: [task.timeoutInMs],
-            languages: [task.languages]
+            languages: [task.languages],
+            maxAttempts: [task.maxAttempts]
           })
         );
       }
       this.form.reset();
+      this.renderer.removeClass(this.taskData.nativeElement, 'error');
       return true;
     }
 
@@ -184,9 +195,9 @@ export class TaskModalComponent {
 
     try {
       if (task.strData) {
-        taskParser.parseStateFromStrData(task);
+        task = taskParser.parseStringDataFromTaskToTask(task);
       } else {
-        taskParser.buildStrDataFromState(task);
+        task.strData = taskParser.parseTaskToString(task);
       }
     } catch (err) {
       return false;
