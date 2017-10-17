@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.model.dto
+package pl.cyganki.tournament.model.request
 
 data class TournamentUserActionRequest(
         var action: TournamentUserActionType = TournamentUserActionType.JOIN,

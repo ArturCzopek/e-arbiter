@@ -6,17 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.cyganki.tournament.model.Tournament;
-import pl.cyganki.tournament.model.dto.TournamentUserActionRequest;
 import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
+import pl.cyganki.tournament.model.request.TournamentUserActionRequest;
 import pl.cyganki.tournament.service.TournamentDetailsService;
 import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
 import pl.cyganki.tournament.service.TournamentUserActionService;
 import pl.cyganki.utils.security.dto.User;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -90,12 +87,6 @@ public class TournamentController {
     @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
     public TournamentDetails getTournamentDetails(User user, @PathVariable("id") String tournamentId) {
         return tournamentDetailsService.getTournamentDetailsForUser(user.getId(), tournamentId);
-    }
-
-    @PostMapping("/save")
-    @ApiOperation("Endpoint for adding a new tournament. If is ok, then returns added tournament, else returns 4xx or 5xx code with error description")
-    public Tournament saveTournament(User user, @RequestBody @Valid Tournament tournament) {
-        return tournamentManagementService.saveTournament(user.getId(), tournament);
     }
 
     @PostMapping("/user-action/join")

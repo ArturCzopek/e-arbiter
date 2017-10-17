@@ -3,8 +3,8 @@ package pl.cyganki.tournament.service
 import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.*
 import pl.cyganki.tournament.model.TournamentStatus
-import pl.cyganki.tournament.model.dto.TournamentUserActionRequest
-import pl.cyganki.tournament.model.dto.TournamentUserActionType
+import pl.cyganki.tournament.model.request.TournamentUserActionRequest
+import pl.cyganki.tournament.model.request.TournamentUserActionType
 import pl.cyganki.tournament.repository.TournamentRepository
 
 @Service

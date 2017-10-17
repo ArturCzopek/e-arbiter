@@ -13,8 +13,8 @@ typealias GitHubUserMap = Map<String, Any>
 
 @Service
 class AuthService(
-        val userRepository: UserRepository,
-        val roleRepository: RoleRepository
+        private val userRepository: UserRepository,
+        private val roleRepository: RoleRepository
 ) {
 
     fun getLoggedInUser(userMap: GitHubUserMap): User {
@@ -44,7 +44,6 @@ class AuthService(
     private fun createUser(githubId: Long, githubLogin: String): DbUser {
         val defaultRole = roleRepository.findOneByName(GlobalValues.DEFAULT_ROLE_NAME)
         val newUser = DbUser(githubId = githubId, name = githubLogin, roles = listOf(defaultRole))
-        userRepository.save(newUser)
-        return newUser
+        return userRepository.save(newUser)
     }
 }

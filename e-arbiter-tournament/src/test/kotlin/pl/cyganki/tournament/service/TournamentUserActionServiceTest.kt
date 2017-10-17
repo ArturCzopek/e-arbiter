@@ -12,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import pl.cyganki.tournament.EArbiterTournamentApplication
 import pl.cyganki.tournament.exception.*
-import pl.cyganki.tournament.model.dto.TournamentUserActionRequest
-import pl.cyganki.tournament.model.dto.TournamentUserActionType
+import pl.cyganki.tournament.model.request.TournamentUserActionRequest
+import pl.cyganki.tournament.model.request.TournamentUserActionType
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.tournament.utils.SampleDataLoader
 
