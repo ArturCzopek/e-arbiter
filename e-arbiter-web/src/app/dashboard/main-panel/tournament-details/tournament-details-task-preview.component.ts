@@ -75,12 +75,19 @@ export class TournamentDetailsTaskPreviewComponent implements OnChanges {
 
     if (newTaskPreview) {
       this.codeSubmitForm.tournamentId = newTaskPreview.tournamentId;
-      this.codeSubmitForm.taskId = newTaskPreview.taskUserDetails.taskId;
+      if (newTaskPreview.taskUserDetails) {
+        this.codeSubmitForm.taskId = newTaskPreview.taskUserDetails.taskId;
+      }
     }
   }
 
   public convertAttempts(): string {
-    const {maxAttempts} = this.taskPreview.taskUserDetails;
+    let maxAttempts: any = '';
+
+    if (this.taskPreview && this.taskPreview.taskUserDetails) {
+      maxAttempts = this.taskPreview.taskUserDetails.maxAttempts;
+    }
+
     return `${(_.isNumber(maxAttempts)) ? maxAttempts : '-' }`;
   }
 

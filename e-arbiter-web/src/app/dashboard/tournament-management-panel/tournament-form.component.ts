@@ -179,11 +179,10 @@ export class TournamentFormComponent implements OnInit {
     const ms = this.modalService;
 
     // TODO: as part of validation, handle error responses in a better way
-    // remember that validation alerts should be in polish there
     this.tournamentManagementService.saveTournament(tournament)
       .subscribe(
-        (data) => ms.showAlert('Adding successful.'),
-        (err) => ms.showAlert('Couldn\'t add tournament.')
+        data => ms.showAlert('Dodano turniej pomyślnie'),
+        err => ms.showAlert('Nie można dodać turnieju. Spróbuj jeszcze raz lub spytaj administratora o przyczyny')
       );
   }
 }

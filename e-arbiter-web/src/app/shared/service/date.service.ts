@@ -10,7 +10,7 @@ declare var moment: any;
 export class DateService {
 
   public parseDateToString(dateObj: Date): string {
-    return (dateObj) ? moment(dateObj).format('YYYY-MM-DD[T]HH:mm:ss:SSS') : '';
+    return (dateObj) ? moment(dateObj).format('YYYY-MM-DD[T]HH:mm:ss.SSS') : '';
   }
 
   public parseLocalDateTimeToString(localDateTimeObj: LocalDateTime): string {

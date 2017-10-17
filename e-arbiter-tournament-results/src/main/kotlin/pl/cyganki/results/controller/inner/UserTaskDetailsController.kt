@@ -12,14 +12,6 @@ import pl.cyganki.utils.model.TaskUserDetails
 @RequestMapping("/inner/user-details")
 class UserTaskDetailsController(private val userTaskDetailsService: UserTaskDetailsService) {
 
-    @GetMapping(value = *arrayOf("/", ""))
-    @ApiOperation("Returns data for user about his progress with task by passed id")
-    fun getTaskUserDetails(
-            @RequestParam("taskId") taskId: String,
-            @RequestParam("tournamentId") tournamentId: String,
-            @RequestParam("userId") userId: Long
-    ): TaskUserDetails = userTaskDetailsService.getTaskUserDetails(tournamentId, taskId, userId)
-
     @GetMapping("/all")
     @ApiOperation("Returns data for user about his progress with all tasks in tournament by passed id and tasks with passed ids")
     fun getTasksUserDetails(
