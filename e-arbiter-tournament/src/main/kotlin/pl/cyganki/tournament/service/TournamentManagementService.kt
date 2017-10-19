@@ -39,4 +39,17 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
             return tournamentRepository.save(this)
         }
     }
+
+    fun activateTournament(requestAuthorId: Long, tournamentId: String): Tournament {
+        with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+
+            when {
+                ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
+                status != TournamentStatus.DRAFT -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.DRAFT))
+            }
+
+            this.status = TournamentStatus.ACTIVE
+            return tournamentRepository.save(this)
+        }
+    }
 }

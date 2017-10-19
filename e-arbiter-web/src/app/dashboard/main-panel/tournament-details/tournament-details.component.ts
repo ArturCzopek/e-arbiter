@@ -40,6 +40,9 @@ import {MainPanelStream} from '../service/main-panel.stream';
             [startDate]="startDate"
           ></arb-tour-details-stats>
         </div>
+        <arb-tour-details-manage
+            [tournamentDetails]="tournamentDetails"
+        ></arb-tour-details-manage>
       </div>
     </div>
   `

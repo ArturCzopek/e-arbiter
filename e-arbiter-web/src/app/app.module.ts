@@ -23,6 +23,7 @@ import {TournamentDetailsService} from './shared/service/tournament-details.serv
 import {TournamentUserActionService} from './dashboard/main-panel/service/tournament-user-action.service';
 import {TaskService} from './dashboard/main-panel/service/task.service';
 import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream';
+import {TournamentManageService} from "./dashboard/main-panel/service/tournament-manage.service";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream'
     TournamentDetailsService,
     TournamentPreviewService,
     TournamentUserActionService,
+    TournamentManageService,
     TaskService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

@@ -102,4 +102,11 @@ public class TournamentController {
         tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);
         return ResponseEntity.ok("User has left tournament");
     }
+
+    @GetMapping("/manage/{id}/activate")
+    @ApiOperation("Endpoint for activating a tournament with given id.")
+    public ResponseEntity<String> activateTournament(User user, @PathVariable("id") String tournamentId) {
+        tournamentManagementService.activateTournament(user.getId(), tournamentId);
+        return ResponseEntity.ok("Successfully changed tournaments status to ACTIVE.");
+    }
 }
