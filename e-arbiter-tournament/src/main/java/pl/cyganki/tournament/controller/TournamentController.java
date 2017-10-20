@@ -4,12 +4,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
-import pl.cyganki.tournament.model.request.TournamentUserActionRequest;
 import pl.cyganki.tournament.service.TournamentDetailsService;
 import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
@@ -66,54 +63,10 @@ public class TournamentController {
         return tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
     }
 
-    @GetMapping("/management/draft")
-    @ApiOperation("Returns a page with draft tournaments which were created by user")
-    public Page<TournamentPreview> getDraftTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
-        return tournamentPreviewsFetcher.getDraftTournamentsCreatedByUser(user.getId(), pageable, query);
-    }
-
-    @GetMapping("/management/active")
-    @ApiOperation("Returns a page with active tournaments which were created by user")
-    public Page<TournamentPreview> getActiveTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
-        return tournamentPreviewsFetcher.getActiveTournamentsCreatedByUser(user.getId(), pageable, query);
-    }
-
-    @GetMapping("/management/finished")
-    @ApiOperation("Returns a page with finished tournaments which were created by user")
-    public Page<TournamentPreview> getFinishedTournamentsCreatedByUser(User user, Pageable pageable, @RequestParam(value = "query", required = false) String query) {
-        return tournamentPreviewsFetcher.getFinishedTournamentsCreatedByUser(user.getId(), pageable, query);
-    }
 
     @GetMapping("/user-details/{id}")
     @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
     public TournamentDetails getTournamentDetails(User user, @PathVariable("id") String tournamentId) {
         return tournamentDetailsService.getTournamentDetailsForUser(user.getId(), tournamentId);
-    }
-
-    @PostMapping("/user-action/join")
-    @ApiOperation("Endpoint for joining to an existing and active tournament.")
-    public ResponseEntity<String> joinToTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
-        tournamentUserActionService.joinToTournament(user.getId(), tournamentUserActionRequest);
-        return ResponseEntity.ok("User has joined to tournament");
-    }
-
-    @PostMapping("/user-action/leave")
-    @ApiOperation("Endpoint for leaving from an existing and active tournament.")
-    public ResponseEntity<String> leaveTournament(User user, @RequestBody TournamentUserActionRequest tournamentUserActionRequest) {
-        tournamentUserActionService.leaveTournament(user.getId(), tournamentUserActionRequest);
-        return ResponseEntity.ok("User has left tournament");
-    }
-
-    @GetMapping("/manage/{id}/activate")
-    @ApiOperation("Endpoint for activating a tournament with given id.")
-    public ResponseEntity<String> activateTournament(User user, @PathVariable("id") String tournamentId) {
-        tournamentManagementService.activateTournament(user.getId(), tournamentId);
-        return ResponseEntity.ok("Successfully changed tournaments status to ACTIVE.");
-    }
-
-    @GetMapping("/manage/{id}")
-    @ApiOperation("Endpoint for fetching Tournament by id and user id.")
-    public Tournament getById(User user, @PathVariable("id") String id) {
-        return tournamentManagementService.findTournamentByIdAndOwnerId(id, user.getId());
     }
 }

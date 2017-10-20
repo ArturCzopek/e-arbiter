@@ -62,6 +62,7 @@ class TournamentDetailsService(
                     it.name,
                     it.description,
                     it.maxPoints,
+                    if (it is QuizTask) "QUIZ" else "CODE",
                     getTaskUserDetails(it, tasksUserDetails, canSeeTaskFooter(accessDetails))
             )
         }

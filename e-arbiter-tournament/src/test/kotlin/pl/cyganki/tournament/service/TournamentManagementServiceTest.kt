@@ -144,8 +144,88 @@ class TournamentManagementServiceTest {
         Assert.assertEquals(amountsOfUserBeforeRemoving, amountsOfUserAfterRemoving)
     }
 
+    /**
+     * activateTournament
+     */
+
+    // TODO: Maciek - missing tests
+
+
+    /**
+     * deleteTournament
+     */
+
+    @Test
+    fun `should remove tournament which user is an owner`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.draftOwnerTournamentId
+        val tournamentsBeforeDelete = tournamentRepository.count()
+
+        // when
+        tournamentManagementService.deleteTournament(userId, tournamentId)
+
+        // then
+        tournamentRepository.apply {
+            Assert.assertNull(findOne(tournamentId))
+            Assert.assertEquals(tournamentsBeforeDelete - 1, count())
+        }
+    }
+
+    @Test(expected = UserIsNotAnOwnerException::class)
+    fun `should not remove tournament which user is not an owner`() {
+        // given
+        val userId = TestData.notOwnerUserId
+        val tournamentId = TestData.draftOwnerTournamentId
+        val tournamentsBeforeDelete = tournamentRepository.count()
+
+        // when
+        tournamentManagementService.deleteTournament(userId, tournamentId)
+
+        // then
+        tournamentRepository.apply {
+            Assert.assertNull(findOne(tournamentId))
+            Assert.assertEquals(tournamentsBeforeDelete, count())
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not remove tournament which user is an owner and tournament is active`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.activeOwnerTournamentId
+        val tournamentsBeforeDelete = tournamentRepository.count()
+
+        // when
+        tournamentManagementService.deleteTournament(userId, tournamentId)
+
+        // then
+        tournamentRepository.apply {
+            Assert.assertNull(findOne(tournamentId))
+            Assert.assertEquals(tournamentsBeforeDelete, count())
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not remove tournament which user is an owner and tournament is finished`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.finishedOwnerTournamentId
+        val tournamentsBeforeDelete = tournamentRepository.count()
+
+        // when
+        tournamentManagementService.deleteTournament(userId, tournamentId)
+
+        // then
+        tournamentRepository.apply {
+            Assert.assertNull(findOne(tournamentId))
+            Assert.assertEquals(tournamentsBeforeDelete, count())
+        }
+    }
+
     private object TestData {
         val ownerUserId = 3L
+        val notOwnerUserId = 4L
         val participatingActiveUserId = 5L
         val participatingFinishedUserId = 2L
         val notParticipatingUserId = 1L

@@ -11,12 +11,14 @@ import {TournamentDetailsTaskPreviewComponent} from './tournament-details/tourna
 import {TournamentDetailsActionComponent} from './tournament-details/tournament-details-action.component';
 import {TournamentDetailsManageComponent} from './tournament-details/tournament-details-manage.component';
 import {FormsModule} from '@angular/forms';
+import {TournamentDetailsDeleteModalComponent} from './tournament-details/tournament-details-delete.modal.component';
 
 @NgModule({
   declarations: [
     MainPanelComponent,
     TournamentDetailsActionComponent,
     TournamentDetailsComponent,
+    TournamentDetailsDeleteModalComponent,
     TournamentDetailsHeaderComponent,
     TournamentDetailsStatisticsComponent,
     TournamentDetailsManageComponent,
