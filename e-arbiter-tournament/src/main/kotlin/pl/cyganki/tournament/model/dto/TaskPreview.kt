@@ -7,5 +7,6 @@ data class TaskPreview(
         val name: String,
         val description: String,
         val maxPoints: Int,
+        val type: String,
         val taskUserDetails: TaskUserDetails?
 )

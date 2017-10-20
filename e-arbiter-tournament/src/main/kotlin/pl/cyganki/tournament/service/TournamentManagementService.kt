@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.exception.UserIsNotAnOwnerException
-import pl.cyganki.tournament.exception.WrongUserParticipateStatusException
 import pl.cyganki.tournament.model.Tournament
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
@@ -42,12 +41,11 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
             when {
                 ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
-                status != TournamentStatus.ACTIVE -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.ACTIVE))
-                !joinedUsersIds.contains(userToBeRemovedId) -> throw WrongUserParticipateStatusException(userToBeRemovedId, tournamentId)
+                else -> {
+                    this.removeUser(userToBeRemovedId)
+                    return tournamentRepository.save(this)
+                }
             }
-
-            this.joinedUsersIds -= userToBeRemovedId
-            return tournamentRepository.save(this)
         }
     }
 
@@ -56,10 +54,21 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
             when {
                 ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
+                else -> {
+                    activate()
+                    return tournamentRepository.save(this)
+                }
             }
+        }
+    }
 
-            activate()
-            return tournamentRepository.save(this)
+    fun deleteTournament(userId: Long, tournamentId: String) {
+        with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+            when {
+                ownerId != userId -> throw UserIsNotAnOwnerException(userId, tournamentId)
+                status != TournamentStatus.DRAFT -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.DRAFT))
+                else -> tournamentRepository.delete(this)
+            }
         }
     }
 }

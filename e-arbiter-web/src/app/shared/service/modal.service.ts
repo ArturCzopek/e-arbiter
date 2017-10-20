@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import * as _ from 'lodash';
 
 declare var $: any;
 
@@ -9,7 +10,7 @@ export class ModalService {
 
   // TODO: add second parameter: a callback function to execute on alert close
   // for example (redirect to another page)
-  public showAlert(message: string): void {
+  public showAlert(message: string, onHiddenCallback?: any): void {
     const modalElement =
       $(`<div class="ui small basic modal">
             <div class="ui icon header" style="white-space: pre-line"><i class="help icon"></i>${message}</div>
@@ -18,7 +19,12 @@ export class ModalService {
     this.bodyElement.append(modalElement);
     modalElement
       .modal({
-        onHidden: () => modalElement.remove()
+        onHidden: () => {
+          if (onHiddenCallback && _.isFunction(onHiddenCallback)) {
+            onHiddenCallback();
+          }
+          modalElement.remove();
+        }
       })
       .modal('show');
   }

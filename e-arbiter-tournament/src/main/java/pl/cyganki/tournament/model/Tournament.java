@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
+import pl.cyganki.tournament.exception.WrongUserParticipateStatusException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Document(collection = "TOURNAMENTS")
@@ -163,6 +166,11 @@ public class Tournament {
 
     public void removeUser(Long userId) {
         checkTournamentStatus(AllowedStatuses.ACTIVE);
+
+        if (!this.joinedUsersIds.contains(userId)) {
+            throw new WrongUserParticipateStatusException(userId, this.id);
+        }
+
         this.joinedUsersIds.remove(userId);
     }
 
@@ -181,6 +189,11 @@ public class Tournament {
 
     public void activate() {
         checkTournamentStatus(AllowedStatuses.DRAFT);
+
+        if (this.endDate.isBefore(LocalDateTime.now())) {
+            throw new DateTimeException("Tournament cannot end earlier than now!");
+        }
+
         this.status = TournamentStatus.ACTIVE;
         this.startDate = LocalDateTime.now();
         this.joinedUsersIds = new ArrayList<>();
@@ -201,8 +214,11 @@ public class Tournament {
         this.tasks.add(task);
     }
 
-    public Task getTask(int taskIndex) {
-        return this.tasks.get(taskIndex);
+    public Task getTask(String taskId) {
+        return this.tasks.stream()
+                .filter(task -> task.getId().equals(taskId))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<CodeTask> getCodeTasks() {
@@ -212,14 +228,29 @@ public class Tournament {
                 .collect(Collectors.toList());
     }
 
-    public void removeTask(int taskIndex) {
+    public void removeTask(String taskId) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
-        this.tasks.remove(taskIndex);
+        this.tasks.remove(
+                this.tasks.stream()
+                        .filter(task -> task.getId().equals(taskId))
+                        .findFirst()
+                        .orElse(null)
+        );
     }
 
-    public void updateTask(Task task, int taskIndex) {
+    public void updateTask(Task taskToUpdate) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
-        this.tasks.set(taskIndex, task);
+
+        final int notFoundIndex = -1;
+
+        int taskToUpdateIndex = IntStream
+                .range(0, tasks.size())
+                .filter(i -> this.tasks.get(i).getId().equals(taskToUpdate.getId())).findFirst()
+                .orElse(notFoundIndex);
+
+        if (taskToUpdateIndex != notFoundIndex) {
+            this.tasks.set(taskToUpdateIndex, taskToUpdate);
+        }
     }
 
     private void checkTournamentStatus(List<TournamentStatus> allowedStatuses) {

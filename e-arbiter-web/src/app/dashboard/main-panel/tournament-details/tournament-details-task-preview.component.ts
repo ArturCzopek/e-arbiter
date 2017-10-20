@@ -12,8 +12,7 @@ import {TaskService} from '../service/task.service';
       <sm-accordion>
         <sm-accordion-item>
           <accordion-title>
-            <!--Since only code execution can be infinite (null in details), we can determine type in this way without casting it-->
-            <i class="icon" [ngClass]="convertAttempts() === '-' ? 'code outline' :'help'"></i>
+            <i class="icon" [ngClass]="isQuizTask() ? 'help' : 'code outline'"></i>
             {{taskPreview.name}}
           </accordion-title>
           <accordion-content>
@@ -79,6 +78,10 @@ export class TournamentDetailsTaskPreviewComponent implements OnChanges {
         this.codeSubmitForm.taskId = newTaskPreview.taskUserDetails.taskId;
       }
     }
+  }
+
+  public isQuizTask() {
+    return this.taskPreview && this.taskPreview.type.toUpperCase() === 'QUIZ';
   }
 
   public convertAttempts(): string {

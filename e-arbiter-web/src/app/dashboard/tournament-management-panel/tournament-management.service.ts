@@ -22,7 +22,7 @@ export class TournamentManagementService {
 
   public getById(id: string): Observable<Tournament> {
     return this.http
-      .get(`${environment.server.api.url}/tournament/api/manage/${id}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.tournament.managementTournamentsUrl}/${id}`, this.authService.prepareAuthOptions())
       .map(res => res.json());
   }
 }

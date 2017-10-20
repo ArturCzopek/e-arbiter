@@ -103,7 +103,9 @@ declare var $: any;
           </div>
         </div>
         <div class="main-button-container">
-          <button [disabled]="!myForm.valid" class="ui teal button huge" type="submit">{{ inEditMode ? 'Zapisz' : 'Utwórz' }}</button>
+          <button [disabled]="!myForm.valid" class="ui teal button huge" type="submit">
+            {{ inEditMode ? 'Zapisz' : 'Utwórz' }}
+          </button>
         </div>
       </form>
 
@@ -220,7 +222,10 @@ export class TournamentFormComponent implements OnInit {
 
     this.tournamentManagementService.saveTournament(tournament)
       .subscribe(
-        data => this.routeService.goToTournamentManagement(),
+        data => ms.showAlert(
+          `Pomyślnie ${this.inEditMode ? 'zaaktualizowano' : 'utworzono'} turniej`,
+          () => this.routeService.goToTournamentManagement()
+        ),
         err => ms.showAlert('Nie można dodać turnieju. Spróbuj jeszcze raz lub spytaj administratora o przyczyny')
       );
   }
