@@ -20,8 +20,16 @@ export class RouteService {
     this.router.navigate([environment.client.dashboard.url]);
   }
 
+  public goToTournamentManagement() {
+    this.router.navigate([`${environment.client.dashboard.managementPanelUrl}`]);
+  }
+
   public goToTournamentForm() {
     this.router.navigate([`${environment.client.dashboard.managementPanelUrl}/new`])
+  }
+
+  public goToTournamentEditForm(id: string) {
+    this.router.navigate([`${environment.client.dashboard.managementPanelUrl}/edit`, id])
   }
 
   public goToLoginServerPage() {

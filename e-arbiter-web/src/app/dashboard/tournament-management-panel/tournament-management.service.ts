@@ -19,4 +19,10 @@ export class TournamentManagementService {
         this.authService.prepareAuthOptions())
       .map(res => res.json());
   }
+
+  public getById(id: string): Observable<Tournament> {
+    return this.http
+      .get(`${environment.server.api.url}/tournament/api/manage/${id}`, this.authService.prepareAuthOptions())
+      .map(res => res.json());
+  }
 }

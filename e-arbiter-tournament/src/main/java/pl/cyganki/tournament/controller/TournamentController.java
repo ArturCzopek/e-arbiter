@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
 import pl.cyganki.tournament.model.request.TournamentUserActionRequest;
@@ -108,5 +109,11 @@ public class TournamentController {
     public ResponseEntity<String> activateTournament(User user, @PathVariable("id") String tournamentId) {
         tournamentManagementService.activateTournament(user.getId(), tournamentId);
         return ResponseEntity.ok("Successfully changed tournaments status to ACTIVE.");
+    }
+
+    @GetMapping("/manage/{id}")
+    @ApiOperation("Endpoint for fetching Tournament by id and user id.")
+    public Tournament getById(User user, @PathVariable("id") String id) {
+        return tournamentManagementService.findTournamentByIdAndOwnerId(id, user.getId());
     }
 }

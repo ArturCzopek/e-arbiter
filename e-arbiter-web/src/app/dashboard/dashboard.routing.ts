@@ -21,6 +21,7 @@ const dashboardRoutes: Routes = [
       {path: 'active', component: ActiveTournamentsComponent},
       {path: 'management', component: TournamentManagementPanelComponent},
       {path: 'management/new', component: TournamentFormComponent},
+      {path: 'management/edit/:id', component: TournamentFormComponent},
       {path: 'admin', component: AdminPanelComponent},
       {path: 'development', component: DevelopmentCardComponent, canActivate: [DevelopmentModeGuard]}
     ]

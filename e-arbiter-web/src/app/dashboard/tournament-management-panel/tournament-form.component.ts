@@ -1,4 +1,4 @@
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Translations} from '../../shared/model/calendar.model';
 import {Tournament} from './interface/tournament.interface';
@@ -7,6 +7,8 @@ import {TournamentManagementService} from './tournament-management.service';
 import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
 import {ModalService} from '../../shared/service/modal.service';
 import {DateService} from '../../shared/service/date.service';
+import {ActivatedRoute} from "@angular/router";
+import {RouteService} from "../../shared/service/route.service";
 
 declare var $: any;
 
@@ -101,7 +103,7 @@ declare var $: any;
           </div>
         </div>
         <div class="main-button-container">
-          <button [disabled]="!myForm.valid" class="ui teal button huge" type="submit">Utwórz</button>
+          <button [disabled]="!myForm.valid" class="ui teal button huge" type="submit">{{ inEditMode ? 'Zapisz' : 'Utwórz' }}</button>
         </div>
       </form>
 
@@ -113,16 +115,30 @@ declare var $: any;
 export class TournamentFormComponent implements OnInit {
   myForm: FormGroup;
   showPassword: boolean;
+  inEditMode: boolean;
 
   @ViewChild('taskModal') taskModal: TaskModalComponent;
 
   constructor(private fb: FormBuilder,
               private tournamentManagementService: TournamentManagementService,
               private modalService: ModalService,
-              private dateService: DateService) {
+              private dateService: DateService,
+              private route: ActivatedRoute,
+              private routeService: RouteService) {
   }
 
   ngOnInit() {
+
+    this.route.params.first().subscribe(
+      params => {
+        if (params['id']) {
+          this.tournamentManagementService.getById(params['id']).first().subscribe(
+            tournament => this.updateForm(tournament)
+          )
+        }
+      }
+    );
+
     $('#calendar').calendar({
       ampm: false,
       text: {
@@ -175,13 +191,36 @@ export class TournamentFormComponent implements OnInit {
     passwordControl.updateValueAndValidity();
   }
 
+  private updateForm(tournament: Tournament): void {
+    this.inEditMode = true;
+    this.myForm.addControl('id', new FormControl(tournament.id));
+
+    const controls = this.myForm.controls;
+    controls['name'].setValue(tournament.name);
+    controls['description'].setValue(tournament.description);
+    controls['publicFlag'].setValue(tournament.publicFlag);
+    controls['resultsVisibleForJoinedUsers'].setValue(tournament.resultsVisibleForJoinedUsers);
+    tournament.tasks.forEach(task => {
+      (<FormArray>this.myForm.controls['tasks']).push(this.fb.group({
+        type: [task.type],
+        name: [task.name],
+        description: [task.description],
+        codeTaskTestSets: [task.codeTaskTestSets],
+        questions: [task.questions],
+        timeoutInMs: [task.timeoutInMs],
+        languages: [task.languages],
+        maxAttempts: [task.maxAttempts]
+      }));
+    });
+    $('#calendar').calendar('set date', new Date(tournament.endDate));
+  }
+
   save(tournament: Tournament) {
     const ms = this.modalService;
 
-    // TODO: as part of validation, handle error responses in a better way
     this.tournamentManagementService.saveTournament(tournament)
       .subscribe(
-        data => ms.showAlert('Dodano turniej pomyślnie'),
+        data => this.routeService.goToTournamentManagement(),
         err => ms.showAlert('Nie można dodać turnieju. Spróbuj jeszcze raz lub spytaj administratora o przyczyny')
       );
   }

@@ -19,6 +19,17 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
     fun findTournamentById(tournamentId: String): Tournament = this.tournamentRepository.findOne(tournamentId)
 
+    fun findTournamentByIdAndOwnerId(tournamentId: String, requestAuthorId: Long): Tournament {
+        with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+
+            when {
+                ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
+            }
+
+            return this
+        }
+    }
+
     fun findTournamentByIdAndJoinedUserId(tournamentId: String, userId: Long): Tournament? {
         val tournament: Tournament = findTournamentById(tournamentId)
         val userIsEnrolled: Boolean = tournament.joinedUsersIds.contains(userId)
@@ -45,10 +56,9 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
             when {
                 ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
-                status != TournamentStatus.DRAFT -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.DRAFT))
             }
 
-            this.status = TournamentStatus.ACTIVE
+            activate()
             return tournamentRepository.save(this)
         }
     }
