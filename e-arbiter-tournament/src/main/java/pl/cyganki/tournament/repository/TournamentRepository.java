@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.model.TournamentStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TournamentRepository extends MongoRepository<Tournament, String> {
@@ -78,14 +79,30 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
                     "{ 'status': ?1 }," +
                     "{ " +
                         "$or: [" +
-                            "{ 'name': {$regex: ?2, $options: 'i'} }," +
-                            "{ 'description': {$regex: ?2, $options: 'i'} }" +
+                            "{ 'name': { $regex: ?2, $options: 'i' } }," +
+                            "{ 'description': { $regex: ?2, $options: 'i' } }" +
                         "]" +
                     "}" +
                 "]" +
             "}")
     Page<Tournament> findTournamentsCreatedByUserByStatusAndQuery(long userId, TournamentStatus status, String query, Pageable pageable);
 
+    @Query("{" +
+                "$and: [" +
+                    "{ 'status': 'ACTIVE' }," +
+                    "{ 'endDate': { $lt: ?0 } }" +
+                "]" +
+            "}")
+    List<Tournament> findActiveTournamentsWhereEndDateIsEarlierThan(LocalDateTime endDate);
+
+    @Query("{" +
+                "$and: [" +
+                    "{ 'id': ?0 }," +
+                    "{ 'status': 'ACTIVE' }," +
+                    "{ 'joinedUsersIds': ?1 }" +
+                "]" +
+            "}")
+    Tournament findActiveTournamentInWhichUserParticipatesById(String tournamentId, Long userId);
     // @formatter:on
 }
 
