@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.cyganki.tournament.model.CodeSubmitForm;
 import pl.cyganki.tournament.model.CodeTask;
 import pl.cyganki.tournament.model.Tournament;
+import pl.cyganki.tournament.repository.TournamentRepository;
 import pl.cyganki.utils.modules.ExecutorModuleInterface;
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface;
 import pl.cyganki.utils.modules.executor.model.ExecutionRequest;
@@ -22,14 +23,14 @@ public class TaskService {
     private static final ExecutionResult BAD_REQUEST_RESULT =
             new ExecutionResult(ExecutionResult.Status.FAILURE, "Cannot execute code for given task.");
 
-    private final TournamentManagementService tournamentManagementService;
+    private final TournamentRepository tournamentRepository;
     private final ExecutorModuleInterface executorModuleInterface;
     private final TournamentResultsModuleInterface tournamentResultsModuleInterface;
 
     @Autowired
-    public TaskService(TournamentManagementService tournamentManagementService, ExecutorModuleInterface executorModuleInterface,
+    public TaskService(TournamentRepository tournamentRepository, ExecutorModuleInterface executorModuleInterface,
                        TournamentResultsModuleInterface tournamentResultsModuleInterface) {
-        this.tournamentManagementService = tournamentManagementService;
+        this.tournamentRepository = tournamentRepository;
         this.executorModuleInterface = executorModuleInterface;
         this.tournamentResultsModuleInterface = tournamentResultsModuleInterface;
     }
@@ -54,7 +55,7 @@ public class TaskService {
 
     private CodeTask findCodeTaskToExecute(long userId, CodeSubmitForm csf) {
         final Optional<Tournament> tournament = Optional.ofNullable(
-                tournamentManagementService.findTournamentByIdAndJoinedUserId(csf.getTournamentId(), userId));
+                tournamentRepository.findActiveTournamentInWhichUserParticipatesById(csf.getTournamentId(), userId));
 
         if (tournament.isPresent()) {
             return tournament.get().getCodeTasks().stream()

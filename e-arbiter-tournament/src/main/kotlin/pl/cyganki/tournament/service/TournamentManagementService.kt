@@ -16,8 +16,6 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
         return this.tournamentRepository.save(tournament)
     }
 
-    fun findTournamentById(tournamentId: String): Tournament = this.tournamentRepository.findOne(tournamentId)
-
     fun findTournamentByIdAndOwnerId(tournamentId: String, requestAuthorId: Long): Tournament {
         with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
 
@@ -27,13 +25,6 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
 
             return this
         }
-    }
-
-    fun findTournamentByIdAndJoinedUserId(tournamentId: String, userId: Long): Tournament? {
-        val tournament: Tournament = findTournamentById(tournamentId)
-        val userIsEnrolled: Boolean = tournament.joinedUsersIds.contains(userId)
-
-        return if (userIsEnrolled) tournament else null
     }
 
     fun removeUserFromTournament(requestAuthorId: Long, userToBeRemovedId: Long, tournamentId: String): Tournament {
