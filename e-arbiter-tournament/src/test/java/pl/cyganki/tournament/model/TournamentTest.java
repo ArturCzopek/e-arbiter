@@ -5,10 +5,7 @@ import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Period;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -201,10 +198,10 @@ public class TournamentTest {
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForExtendingDeadlineForDraftTournament() {
         tournament = new MockTournament(TournamentStatus.DRAFT, TestData.END_DATE);
-        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_PERIOD);
+        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_DURATION);
 
         // when
-        tournament.extendDeadline(TestData.FIVE_DAYS_PERIOD);
+        tournament.extendDeadline(TestData.FIVE_DAYS_DURATION);
 
         // then
         assertEquals(extendedDate, tournament.getEndDate());
@@ -213,10 +210,10 @@ public class TournamentTest {
     @Test
     public void shouldExtendDeadlineForActiveTournament() {
         tournament = new MockTournament(TournamentStatus.ACTIVE, TestData.END_DATE);
-        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_PERIOD);
+        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_DURATION);
 
         // when
-        tournament.extendDeadline(TestData.FIVE_DAYS_PERIOD);
+        tournament.extendDeadline(TestData.FIVE_DAYS_DURATION);
 
         // then
         assertEquals(extendedDate, tournament.getEndDate());
@@ -225,10 +222,10 @@ public class TournamentTest {
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForExtendingDeadlineForFinishedTournament() {
         tournament = new MockTournament(TournamentStatus.FINISHED, TestData.END_DATE);
-        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_PERIOD);
+        LocalDateTime extendedDate = TestData.END_DATE.plus(TestData.FIVE_DAYS_DURATION);
 
         // when
-        tournament.extendDeadline(TestData.FIVE_DAYS_PERIOD);
+        tournament.extendDeadline(TestData.FIVE_DAYS_DURATION);
 
         // then
         assertEquals(extendedDate, tournament.getEndDate());
@@ -707,7 +704,7 @@ public class TournamentTest {
         final static String NAME = "Test tournament";
         final static String DESCRIPTION = "Test description Test description Test description Test description Test description";
         final static LocalDateTime END_DATE = LocalDateTime.of(2017, Month.AUGUST, 1, 15, 0, 0, 0);
-        final static Period FIVE_DAYS_PERIOD = Period.ofDays(5);
+        final static Duration FIVE_DAYS_DURATION = Duration.ofDays(5);
         final static boolean PUBLIC_FLAG = true;
         final static boolean RESULTS_VISIBLE = true;
         final static String PASSWORD = "Test123";
