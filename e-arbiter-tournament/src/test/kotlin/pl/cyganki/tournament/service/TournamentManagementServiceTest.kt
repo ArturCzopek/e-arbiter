@@ -15,8 +15,10 @@ import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.exception.UserIsNotAnOwnerException
 import pl.cyganki.tournament.exception.WrongUserParticipateStatusException
+import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.tournament.utils.SampleDataLoader
+import java.time.Duration
 
 /**
  * Tournaments to tests are defined in proper JSONs
@@ -56,7 +58,7 @@ class TournamentManagementServiceTest {
         val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        val tournamentAfterRemoving = tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        val tournamentAfterRemoving = tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
 
         // then
         tournamentAfterRemoving.apply {
@@ -73,7 +75,7 @@ class TournamentManagementServiceTest {
         val tournamentId = TestData.invalidTournamentId
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
     }
 
     @Test(expected = UserIsNotAnOwnerException::class)
@@ -86,7 +88,7 @@ class TournamentManagementServiceTest {
         val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
 
         // then
         val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
@@ -103,7 +105,7 @@ class TournamentManagementServiceTest {
         val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
 
         // then
         val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
@@ -120,7 +122,7 @@ class TournamentManagementServiceTest {
         val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
 
         // then
         val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
@@ -137,7 +139,7 @@ class TournamentManagementServiceTest {
         val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, userToBeRemovedId, tournamentId)
+        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
 
         // then
         val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
@@ -148,7 +150,57 @@ class TournamentManagementServiceTest {
      * activateTournament
      */
 
-    // TODO: Maciek - missing tests
+    @Test
+    fun `should activate draft tournament which user is an owner`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.draftOwnerTournamentId
+
+        // when
+        tournamentManagementService.activateTournament(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(TournamentStatus.ACTIVE, tournamentRepository.findOne(tournamentId).status)
+    }
+
+    @Test(expected = UserIsNotAnOwnerException::class)
+    fun `should not activate tournament which user is not an owner`() {
+        // given
+        val userId = TestData.notOwnerUserId
+        val tournamentId = TestData.draftOwnerTournamentId
+
+        // when
+        tournamentManagementService.activateTournament(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(TournamentStatus.DRAFT, tournamentRepository.findOne(tournamentId).status)
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not activate active tournament which user is an owner`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.activeOwnerTournamentId
+
+        // when
+        tournamentManagementService.activateTournament(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(TournamentStatus.ACTIVE, tournamentRepository.findOne(tournamentId).status)
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not activate finished tournament which user is an owner`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.finishedOwnerTournamentId
+
+        // when
+        tournamentManagementService.activateTournament(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(TournamentStatus.FINISHED, tournamentRepository.findOne(tournamentId).status)
+    }
 
 
     /**
@@ -156,7 +208,7 @@ class TournamentManagementServiceTest {
      */
 
     @Test
-    fun `should remove tournament which user is an owner`() {
+    fun `should remove draft tournament which user is an owner`() {
         // given
         val userId = TestData.ownerUserId
         val tournamentId = TestData.draftOwnerTournamentId
@@ -223,6 +275,86 @@ class TournamentManagementServiceTest {
         }
     }
 
+    /**
+     * extendTournamentDeadline
+     */
+
+    @Test
+    fun `should extend active tournament deadline which user is an owner`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.activeOwnerTournamentId
+        val tournamentsBeforeExtend = tournamentRepository.findOne(tournamentId)
+        val durationToExtend = TestData.durationToExtend
+
+        // when
+        tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
+
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(TournamentStatus.ACTIVE, status)
+            Assert.assertEquals(tournamentsBeforeExtend.endDate.plus(durationToExtend), endDate)
+        }
+    }
+
+    @Test(expected = UserIsNotAnOwnerException::class)
+    fun `should not extend tournament deadline which user is not an owner`() {
+        // given
+        val userId = TestData.notOwnerUserId
+        val tournamentId = TestData.activeOwnerTournamentId
+        val tournamentsBeforeExtend = tournamentRepository.findOne(tournamentId)
+        val durationToExtend = TestData.durationToExtend
+
+        // when
+        tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
+
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(TournamentStatus.ACTIVE, status)
+            Assert.assertEquals(tournamentsBeforeExtend.endDate, endDate)
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not extend tournament deadline which user is an owner and tournament is draft`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.draftOwnerTournamentId
+        val tournamentsBeforeExtend = tournamentRepository.findOne(tournamentId)
+        val durationToExtend = TestData.durationToExtend
+
+        // when
+        tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
+
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(TournamentStatus.DRAFT, status)
+            Assert.assertEquals(tournamentsBeforeExtend.endDate, endDate)
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not extend tournament deadline which user is an owner and tournament is finished`() {
+        // given
+        val userId = TestData.ownerUserId
+        val tournamentId = TestData.finishedOwnerTournamentId
+        val tournamentsBeforeExtend = tournamentRepository.findOne(tournamentId)
+        val durationToExtend = TestData.durationToExtend
+
+        // when
+        tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
+
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(TournamentStatus.FINISHED, status)
+            Assert.assertEquals(tournamentsBeforeExtend.endDate, endDate)
+        }
+    }
+
     private object TestData {
         val ownerUserId = 3L
         val notOwnerUserId = 4L
@@ -234,6 +366,7 @@ class TournamentManagementServiceTest {
         val activeNotOwnerTournamentId = "000000000000000000000020"
         val finishedOwnerTournamentId = "000000000000000000000023"
         val invalidTournamentId = "xxx"
+        val durationToExtend: Duration = Duration.ofHours(16)!!
     }
 }
 

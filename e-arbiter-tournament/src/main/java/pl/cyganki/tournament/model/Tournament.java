@@ -16,8 +16,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -149,9 +149,9 @@ public class Tournament {
         this.endDate = endDate;
     }
 
-    public void extendDeadline(Period period) {
+    public void extendDeadline(Duration duration) {
         checkTournamentStatus(AllowedStatuses.ACTIVE);
-        this.endDate = this.endDate.plus(period);
+        this.endDate = this.endDate.plus(duration);
     }
 
     public void setPublicFlag(boolean publicFlag) {
