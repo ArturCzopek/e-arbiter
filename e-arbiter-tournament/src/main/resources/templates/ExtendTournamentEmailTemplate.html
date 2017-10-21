@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    </head>
-    <body>
-        <h3>Witaj, <span th:text="${userName}"></span>!</h3>
-        <p>Chcielibyśmy Cię uprzejmie poinformować, że turniej <b><span th:text="${tournamentName}"></span></b> został przedłużony, a nowa data zakończenia to <b><span th:text="${newDeadline}"></span></b>.</p>
-        <p>Pozdrawiamy,</p>
-        <p>e-Arbiter</p>
-    </body>
+<head>
+</head>
+<body>
+    <center><img src="../static/img/logo.jpg"></center>
+    <h3>Witaj, <span th:text="${userName}"></span>!</h3>
+    <br/>
+    <p>Chcielibyśmy Cię poinformować, że data końcowa turnieju <b><span th:text="${tournamentName}"></span></b> została przedłużona.
+        Nowa data zakończenia to <b><span th:text="${newDeadline}"></span></b>.</p>
+    <br/>
+    <p>Pozdrawiamy,</p>
+    <p>e-Arbiter</p>
+</body>
 </html>

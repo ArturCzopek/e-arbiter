@@ -1,11 +1,7 @@
 package pl.cyganki.auth.controller.inner
 
 import io.swagger.annotations.ApiOperation
-import org.springframework.cache.annotation.Cacheable
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import pl.cyganki.auth.service.UserService
 
 /**
@@ -18,7 +14,26 @@ import pl.cyganki.auth.service.UserService
 class InnerUserDataController(private val userService: UserService) {
 
     @GetMapping("/name/{id}")
-    @Cacheable(value = "inner-name", key = "#id")   // it doesn't have to be cleaned, name is taken from gh, it's immutable
-    @ApiOperation("Returns a name of user by passed user id. Used for fetching information about tournament. There always should be user because passed id is from module where existing user's id is stored")
+    @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
     fun getUserNameById(@PathVariable("id") id: Long) = userService.getUserNameById(id)
+
+    @GetMapping("/names")
+    @ApiOperation("Returns names of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
+    fun getUserNamesByIds(@RequestBody usersIds: List<Long>) = usersIds.map { userService.getUserNameById(it) }
+
+    @GetMapping("/names/all")
+    @ApiOperation("Returns names of all users")
+    fun getAllUserNames() = userService.getAllUserNames()
+
+    @GetMapping("/email/{id}")
+    @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
+    fun getEmailById(@PathVariable("id") id: Long) = userService.getUserEmailById(id)
+
+    @GetMapping("/emails")
+    @ApiOperation("Returns mails of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
+    fun getEmailsByIds(@RequestBody usersIds: List<Long>) = usersIds.map { userService.getUserEmailById(it) }
+
+    @GetMapping("/emails/all")
+    @ApiOperation("Returns emails of all users")
+    fun getAllUsersEmails() = userService.getAllUsersEmails()
 }

@@ -7,4 +7,11 @@ import pl.cyganki.auth.repository.UserRepository
 class UserService(private val userRepository: UserRepository) {
 
     fun getUserNameById(id: Long) = userRepository.findUserNameById(id)
+
+    fun getAllUserNames() = userRepository.findAllUserNames()
+
+    fun getUserEmailById(id: Long) = userRepository.findUserEmailById(id)
+
+    fun getAllUsersEmails() = userRepository.findAllUsersEmails()
+
 }

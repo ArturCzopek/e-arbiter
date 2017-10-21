@@ -36,4 +36,17 @@ class UserServiceTest {
         listOf("TestowyUser", "UserLol", "ArturCzopek", "KonradOnieszczuk", "Miracle")
                 .forEachIndexed { index, name -> Assert.assertEquals(name, foundNames[index]) }
     }
+
+    @Test
+    fun `should return valid list of emails`() {
+        // given
+        val ids = (1L..5L)  // 1, 2, 3, 4, 5
+
+        // when
+        val foundEmails = ids.map { userService.getUserEmailById(it) }
+
+        // then
+        listOf("TestowyUser@TestowyUser.com", "UserLol@UserLol.pl", "arturcz32@gmail.com", "k2nder@gmail.com", "Miracle@Miracle.com")
+                .forEachIndexed { index, email -> Assert.assertEquals(email, foundEmails[index])}
+    }
 }
