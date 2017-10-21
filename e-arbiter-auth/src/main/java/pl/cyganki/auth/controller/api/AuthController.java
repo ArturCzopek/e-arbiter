@@ -40,6 +40,7 @@ public class AuthController {
     @ApiOperation("Returns a current logged in user based on passed token. If user does not exist, then is created.")
     public User getUser(@RequestHeader(GlobalValues.AUTH_TOKEN) String token) {
         Map<String, Object> userMap = restTemplate.getForObject("https://api.github.com/user?access_token=" + token, Map.class);
+        userMap.put(GlobalValues.AUTH_TOKEN, token);
         return authService.getLoggedInUser(userMap);
     }
 

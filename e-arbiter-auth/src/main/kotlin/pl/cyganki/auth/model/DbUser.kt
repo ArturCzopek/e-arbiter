@@ -18,6 +18,9 @@ data class DbUser(
         @Column(name = "user_name", unique = true, nullable = false)
         var name: String = "",
 
+        @Column(name = "email", unique = true, nullable = false)
+        var email: String = "",
+
         // is user enabled, by default - yes
         @Column(name = "enabled")
         var enabled: Boolean = true,

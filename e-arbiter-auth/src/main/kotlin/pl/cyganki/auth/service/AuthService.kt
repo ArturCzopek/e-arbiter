@@ -1,6 +1,7 @@
 package pl.cyganki.auth.service
 
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 import pl.cyganki.auth.model.DbUser
 import pl.cyganki.auth.repository.RoleRepository
 import pl.cyganki.auth.repository.UserRepository
@@ -14,7 +15,8 @@ typealias GitHubUserMap = Map<String, Any>
 @Service
 class AuthService(
         private val userRepository: UserRepository,
-        private val roleRepository: RoleRepository
+        private val roleRepository: RoleRepository,
+        private val restTemplate: RestTemplate
 ) {
 
     fun getLoggedInUser(userMap: GitHubUserMap): User {
@@ -29,7 +31,12 @@ class AuthService(
                 throw WrongGithubUserException()
             }
 
-            dbUser = createUser(githubId, githubLogin)
+            val userEmail = (restTemplate.getForObject(
+                    "https://api.github.com/user/emails?access_token=" + userMap[GlobalValues.AUTH_TOKEN],
+                    List::class.java
+            )[0] as Map<String, Any>)[GlobalValues.GH_EMAIL] as String? ?: ""
+
+            dbUser = createUser(githubId, githubLogin, userEmail)
         }
 
         var roles: List<Role> = emptyList()
@@ -41,9 +48,9 @@ class AuthService(
 
     fun getAllUsersFromDb() = userRepository.findAll()
 
-    private fun createUser(githubId: Long, githubLogin: String): DbUser {
+    private fun createUser(githubId: Long, githubLogin: String, githubEmail: String): DbUser {
         val defaultRole = roleRepository.findOneByName(GlobalValues.DEFAULT_ROLE_NAME)
-        val newUser = DbUser(githubId = githubId, name = githubLogin, roles = listOf(defaultRole))
+        val newUser = DbUser(githubId = githubId, name = githubLogin, email = githubEmail, roles = listOf(defaultRole))
         return userRepository.save(newUser)
     }
 }

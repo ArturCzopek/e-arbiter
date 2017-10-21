@@ -10,6 +10,7 @@
             <column name="user_id" type="numeric"/>
             <column name="github_id" type="numeric"/>
             <column name="user_name" type="string"/>
+            <column name="email" type="string"/>
             <column name="enabled" type="boolean"/>
         </loadData>
     </changeSet>
