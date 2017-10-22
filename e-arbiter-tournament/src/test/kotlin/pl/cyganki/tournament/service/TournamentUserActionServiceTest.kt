@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootContextLoader
 import org.springframework.boot.test.context.SpringBootTest
@@ -38,9 +39,13 @@ class TournamentUserActionServiceTest {
     @Autowired
     lateinit var sampleDataLoader: SampleDataLoader
 
+    lateinit var mailService: MailService
+
     @Before
     fun `set up`() {
-        tournamentUserActionService = TournamentUserActionService(tournamentRepository, hashingService)
+        mailService = Mockito.mock(MailService::class.java)
+        Mockito.`when`(mailService.sendJoinedToTournamentEmail(Mockito.anyString(), Mockito.anyLong())).then { println("Mock joined mail") }
+        tournamentUserActionService = TournamentUserActionService(tournamentRepository, hashingService, mailService)
         sampleDataLoader.run(null)
     }
 

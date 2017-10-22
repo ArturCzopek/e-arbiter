@@ -4,13 +4,17 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootContextLoader
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.client.RestTemplate
 import pl.cyganki.auth.EArbiterAuthApplication
+import pl.cyganki.auth.repository.RoleRepository
 import pl.cyganki.auth.repository.UserRepository
 import pl.cyganki.utils.GlobalValues
 import pl.cyganki.utils.exception.WrongGithubUserException
@@ -25,19 +29,27 @@ import pl.cyganki.utils.security.dto.User
 @RunWith(SpringJUnit4ClassRunner::class)
 @ContextConfiguration(classes = arrayOf(EArbiterAuthApplication::class), loader = SpringBootContextLoader::class)
 @ActiveProfiles("test")
+@Transactional
 class AuthServiceTest {
 
     @Autowired
-    lateinit var authService: AuthService
+    lateinit var userRepository: UserRepository
 
     @Autowired
-    lateinit var userRepository: UserRepository
+    lateinit var roleRepository: RoleRepository
+
+    lateinit var restTemplate: RestTemplate
+
+    lateinit var authService: AuthService
 
     var initUsersSize = 0L
 
     @Before
     fun `set init user size`() {
         initUsersSize = userRepository.count()
+        restTemplate = Mockito.mock(RestTemplate::class.java)
+        Mockito.`when`(restTemplate.getForObject(Mockito.anyString(), Mockito.any(Class::class.java))).thenReturn(listOf(mapOf(GlobalValues.GH_EMAIL to "test@test.com")))
+        authService = AuthService(userRepository, roleRepository, restTemplate)
     }
 
     @Test
