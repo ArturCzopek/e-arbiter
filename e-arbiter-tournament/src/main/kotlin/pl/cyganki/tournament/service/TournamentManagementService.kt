@@ -1,5 +1,7 @@
 package pl.cyganki.tournament.service
 
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
@@ -10,7 +12,10 @@ import pl.cyganki.tournament.repository.TournamentRepository
 import java.time.Duration
 
 @Service
-class TournamentManagementService(private val tournamentRepository: TournamentRepository) {
+class TournamentManagementService(
+        private val tournamentRepository: TournamentRepository,
+        private val mailService: MailService
+) {
 
     fun saveTournament(userId: Long, tournament: Tournament): Tournament {
         tournament.ownerId = userId
@@ -32,7 +37,14 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
                 ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
                 else -> {
                     activate()
-                    return tournamentRepository.save(this)
+                    val savedTournament = tournamentRepository.save(this)
+                    if (TournamentStatus.ACTIVE == savedTournament.status) {
+                        launch(CommonPool) { mailService.sendActivatedTournamentEmail(tournamentId) }
+                    } else {
+                        throw RuntimeException("Tournament $tournamentId was not activated by user $requestAuthorId")
+                    }
+
+                    return savedTournament
                 }
             }
         }
@@ -54,7 +66,15 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
                 ownerId != requestAuthorId -> throw UserIsNotAnOwnerException(requestAuthorId, tournamentId)
                 else -> {
                     this.removeUser(userToBeRemovedId)
-                    return tournamentRepository.save(this)
+                    val savedTournament = tournamentRepository.save(this)
+
+                    if (!savedTournament.joinedUsersIds.contains(userToBeRemovedId)) {
+                        launch(CommonPool) { mailService.sendRemovedUserFromTournamentEmail(tournamentId, userToBeRemovedId) }
+                    } else {
+                        throw RuntimeException("User $userToBeRemovedId was not removed from tournament $tournamentId by user $requestAuthorId")
+                    }
+
+                    return savedTournament
                 }
             }
         }
@@ -65,8 +85,17 @@ class TournamentManagementService(private val tournamentRepository: TournamentRe
             when {
                 ownerId != userId -> throw UserIsNotAnOwnerException(userId, tournamentId)
                 else -> {
+                    val oldDate = this.endDate
                     extendDeadline(extendDuration)
-                    return tournamentRepository.save(this)
+                    val savedTournament = tournamentRepository.save(this)
+
+                    if (savedTournament.endDate.isAfter(oldDate)) {
+                        launch(CommonPool) { mailService.sendExtendedTournamentDeadlineEmail(tournamentId) }
+                    } else {
+                        throw RuntimeException("Tournament $tournamentId end date was not extended by user $userId")
+                    }
+
+                    return savedTournament
                 }
             }
         }

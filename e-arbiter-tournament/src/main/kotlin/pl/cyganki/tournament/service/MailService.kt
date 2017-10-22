@@ -78,7 +78,7 @@ class MailService(
 
     fun sendActivatedTournamentEmail(tournamentId: String) {
         val tournament = tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)
-        val user = authModuleInterface.getUserNamesAndEmailsByIds(tournament.joinedUsersIds.toTypedArray())[0]    // only one result for one user
+        val user = authModuleInterface.getUserNamesAndEmailsByIds(arrayOf(tournament.ownerId))[0]   // only one result for one user
         launch(CommonPool) {
             try {
                 javaMailSender.send({

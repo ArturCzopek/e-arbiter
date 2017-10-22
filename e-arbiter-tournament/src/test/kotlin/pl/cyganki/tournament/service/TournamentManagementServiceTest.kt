@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootContextLoader
 import org.springframework.boot.test.context.SpringBootTest
@@ -38,9 +39,15 @@ class TournamentManagementServiceTest {
     @Autowired
     lateinit var sampleDataLoader: SampleDataLoader
 
+    lateinit var mailService: MailService
+
     @Before
     fun `set up`() {
-        tournamentManagementService = TournamentManagementService(tournamentRepository)
+        mailService = Mockito.mock(MailService::class.java)
+        Mockito.`when`(mailService.sendActivatedTournamentEmail(Mockito.anyString())).then { println("Mock activate mail") }
+        Mockito.`when`(mailService.sendRemovedUserFromTournamentEmail(Mockito.anyString(), Mockito.anyLong())).then { println("Mock removed mail") }
+        Mockito.`when`(mailService.sendExtendedTournamentDeadlineEmail(Mockito.anyString())).then { println("Mock extended mail") }
+        tournamentManagementService = TournamentManagementService(tournamentRepository, mailService)
         sampleDataLoader.run(null)
     }
 
