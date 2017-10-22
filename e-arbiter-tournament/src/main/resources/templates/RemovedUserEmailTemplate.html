@@ -3,12 +3,13 @@
 <head>
 </head>
 <body>
-    <center><img src="../static/img/logo.jpg"></center>
-    <h3>Witaj, <span th:text="${userName}"></span>!</h3>
-    <br/>
-    <p>Chcielibyśmy Cię poinformować, że zostałeś wyrzucony z turnieju <b><span th:text="${tournamentName}"></span></b> przez administratoar.
-    <br/>
-    <p>Pozdrawiamy,</p>
-    <p>e-Arbiter</p>
+<center><img src="logo.jpg" th:src="|cid:${logo}|"/></center>
+
+<h2>Witaj, <span th:text="${userName}"></span>!</h2>
+<br/>
+<p>Chcielibyśmy Cię poinformować, że zostałeś wyrzucony z turnieju <b><span th:text="${tournamentName}"></span></b>
+    przez administratora.</p>
+<br/>
+<p>Pozdrawiamy,<br/>e-Arbiter</p>
 </body>
 </html>

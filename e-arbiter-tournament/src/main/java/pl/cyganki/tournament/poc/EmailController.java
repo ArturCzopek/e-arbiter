@@ -12,23 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.tournament.service.MailService;
 import pl.cyganki.utils.security.dto.User;
 
+/**
+ * Simple poc controller for checking email templates. If possible, mail is sent automatically only to
+ * user which triggered this poc request. Everything is "GET" because it's easy and simple to test.
+ * In application, mail sending will be just added to proper functions, but endpoint for sending email will be available
+ * only for admin broadcast
+ */
+
 @Profile("dev")
 @RestController
 @RequestMapping("/poc/email")
 @Slf4j
 public class EmailController {
 
-    private MailService emailService;
+    private MailService mailService;
 
     @Autowired
-    public EmailController(MailService emailService) {
-        this.emailService = emailService;
+    public EmailController(MailService mailService) {
+        this.mailService = mailService;
     }
 
     @GetMapping("/finished/{id}")
     public ResponseEntity<String> finishedTournament(@PathVariable("id") String tournamentId) {
         try {
-            emailService.sendFinishedTournamentEmail(tournamentId);
+            mailService.sendFinishedTournamentEmail(tournamentId);
             return ResponseEntity.ok("Email about finished tournament has been sent!");
         } catch (Exception ex) {
             log.warn("Error while trying to send finished tournament email: {}", ex.getMessage());
@@ -39,29 +46,40 @@ public class EmailController {
     @GetMapping("/extend/{id}")
     public ResponseEntity<String> extendTournament(@PathVariable("id") String tournamentId) {
         try {
-            emailService.sendExtendTournamentDeadlineEmail(tournamentId);
+            mailService.sendExtendTournamentDeadlineEmail(tournamentId);
             return ResponseEntity.ok("Email about extend tournament has been sent!");
         } catch (Exception ex) {
             log.warn("Error while trying to send extend tournament email: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send extend tournament email: {}" + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send extend tournament email: " + ex.getMessage());
         }
     }
 
-    @GetMapping("/removed/{id}/{user-id}")
-    public ResponseEntity<String> removedUser(@PathVariable("id") String tournamentId, @PathVariable("user-id") long userId) {
+    @GetMapping("/activate/{id}")
+    public ResponseEntity<String> activateTournament(@PathVariable("id") String tournamentId) {
         try {
-            emailService.sendRemovedUserEmail(tournamentId, userId);
+            mailService.sendActivateTournamentEmail(tournamentId);
+            return ResponseEntity.ok("Email about activating tournament has been sent!");
+        } catch (Exception ex) {
+            log.warn("Error while trying to send extend tournament email: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send extend tournament email: " + ex.getMessage());
+        }
+    }
+
+    @GetMapping("/removed/{id}")
+    public ResponseEntity<String> removedUser(@PathVariable("id") String tournamentId, User user) {
+        try {
+            mailService.sendRemovedUserEmail(tournamentId, user.getId());
             return ResponseEntity.ok("Email about removing user has been sent!");
         } catch (Exception ex) {
             log.warn("Error while trying to send removing user email: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send finished tournament email: {}" + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send finished tournament email: " + ex.getMessage());
         }
     }
 
     @GetMapping("/broadcast")
     public ResponseEntity<String> adminBroadcast(User user) {
         try {
-            emailService.sendAdminBroadcastEmail(user, "test tournamentinio", "Wiadomość testowa do wszystkich uczestników.");
+            mailService.sendAdminBroadcastEmail(user, "test tournamentinio", "Wiadomość testowa do wszystkich uczestników.");
             return ResponseEntity.ok("Admin broadcast email has been sent!");
         } catch (Exception ex) {
             log.warn("Error while trying to send admin email: {}", ex.getMessage());

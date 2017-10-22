@@ -4,11 +4,11 @@
 </head>
 <body>
 <center><img src="logo.jpg" th:src="|cid:${logo}|"/></center>
-
 <h2>Witaj, <span th:text="${userName}"></span>!</h2>
 <br/>
-<p>Chcielibyśmy Cię poinformować, że data końcowa turnieju <b><span th:text="${tournamentName}"></span></b> została
-    przedłużona. Nowa data zakończenia to <b><span th:text="${deadline}"></span></b>.</p>
+<p>Chcielibyśmy Cię poinformować, że turniej <b><span th:text="${tournamentName}"></span></b>, którego jesteś
+    administratorem, właśnie wystartował. Końcowa data turnieju to <b><span th:text="${deadline}"></span></b>.
+    Pamiętaj, że zawsze możesz ją przedłużyć :)</p>
 <br/>
 <p>Pozdrawiamy,<br/>e-Arbiter</p>
 </body>

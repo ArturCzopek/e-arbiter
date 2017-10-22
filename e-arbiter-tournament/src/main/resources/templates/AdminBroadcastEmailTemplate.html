@@ -3,12 +3,12 @@
 <head>
 </head>
 <body>
-    <center><img src="../static/img/logo.jpg"></center>
-    <h3>Witaj, <span th:text="${userName}"></span>!</h3>
-    <br/>
-    <p><span th:text="${message}"></span></p>
-    <br/>
-    <p>Pozdrawiamy,</p>
-    <p>e-Arbiter</p>
+<center><img src="logo.jpg" th:src="|cid:${logo}|"/></center>
+
+<h2>Witaj, <span th:text="${userName}"></span>!</h2>
+<br/>
+<p><span th:text="${message}"></span></p>
+<br/>
+<p>Pozdrawiamy,<br/>e-Arbiter</p>
 </body>
 </html>

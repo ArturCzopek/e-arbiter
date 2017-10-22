@@ -1,10 +1,10 @@
-import {Component} from "@angular/core";
-import {AuthService} from "../../shared/service/auth.service";
-import {Http} from "@angular/http";
-import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import {ModalService} from "../../shared/service/modal.service";
+import {Component} from '@angular/core';
+import {AuthService} from '../../shared/service/auth.service';
+import {Http} from '@angular/http';
+import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import {ModalService} from '../../shared/service/modal.service';
 
 @Component({
   selector: 'arb-dvlp',
@@ -31,9 +31,26 @@ import {ModalService} from "../../shared/service/modal.service";
         </div>
         <button (click)="uploadCode()" class="ui teal medium button">/code (console)</button>
       </form>
-    </div>`
+      <h3>Testowe maile</h3>
+      <div class="ui form">
+        <div class="field">
+          <label>Tournament Id</label>
+          <input type="text" name="tournamentId" [(ngModel)]="tournamentId" placeholder="testowe tour id"/>
+        </div>
+      </div>
+      <div class="ui buttons">
+        <button (click)="sendFinishedEmail()" class="ui pink medium button">Zakończony</button>
+        <button (click)="sendExtendedEmail()" class="ui yellow medium button">Przedłużony</button>
+        <button (click)="sendActivatedEmail()" class="ui olive medium button">Aktywowany</button>
+        <button (click)="sendRemovedEmail()" class="ui violet medium button">Usunięty</button>
+      </div>
+      <p>Mail Status: {{mailStatus}}</p>
+      </div>`
 })
 export class DevelopmentCardComponent {
+
+  tournamentId = '000000000000000000000015';
+  mailStatus = '';
 
   submitRequest = {
     tournamentId: '',
@@ -70,5 +87,37 @@ export class DevelopmentCardComponent {
   public uploadCode() {
     this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest,
       this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
+  }
+
+  public sendFinishedEmail() {
+    this.http
+      .get(`${environment.server.api.url}/tournament/poc/email/finished/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .first()
+      .map(res => '' + res)
+      .subscribe(data => this.mailStatus = data);
+  }
+
+  public sendExtendedEmail() {
+    this.http
+      .get(`${environment.server.api.url}/tournament/poc/email/extend/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .first()
+      .map(res => '' + res)
+      .subscribe(data => this.mailStatus = data);
+  }
+
+  public sendActivatedEmail() {
+    this.http
+      .get(`${environment.server.api.url}/tournament/poc/email/activate/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .first()
+      .map(res => '' + res)
+      .subscribe(data => this.mailStatus = data);
+  }
+
+  public sendRemovedEmail() {
+    this.http
+      .get(`${environment.server.api.url}/tournament/poc/email/removed/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .first()
+      .map(res => '' + res)
+      .subscribe(data => this.mailStatus = data);
   }
 }
