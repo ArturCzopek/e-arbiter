@@ -66,7 +66,7 @@ class UserServiceTest {
 
         // then
         foundData.apply {
-            Assert.assertEquals(20, size)   // there are 20 test users
+            Assert.assertEquals(21, size)   // there are 21 test users
             forEach { Assert.assertTrue(it.email.contains("@")) }
         }
     }

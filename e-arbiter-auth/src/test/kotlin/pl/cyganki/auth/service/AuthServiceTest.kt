@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
 import pl.cyganki.auth.EArbiterAuthApplication
 import pl.cyganki.auth.repository.RoleRepository
@@ -28,6 +29,7 @@ import pl.cyganki.utils.security.dto.User
 @RunWith(SpringJUnit4ClassRunner::class)
 @ContextConfiguration(classes = arrayOf(EArbiterAuthApplication::class), loader = SpringBootContextLoader::class)
 @ActiveProfiles("test")
+@Transactional
 class AuthServiceTest {
 
     @Autowired
