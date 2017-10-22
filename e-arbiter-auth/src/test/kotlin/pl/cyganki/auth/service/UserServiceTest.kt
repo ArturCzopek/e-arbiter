@@ -38,15 +38,36 @@ class UserServiceTest {
     }
 
     @Test
-    fun `should return valid list of emails`() {
+    fun `should return a name with email for user with a valid id`() {
         // given
         val ids = (1L..5L)  // 1, 2, 3, 4, 5
 
         // when
-        val foundEmails = ids.map { userService.getUserEmailById(it) }
+        val foundNamesEmails = ids.map { userService.getUserNameAndEmailById(it) }
 
         // then
-        listOf("TestowyUser@TestowyUser.com", "UserLol@UserLol.pl", "arturcz32@gmail.com", "k2nder@gmail.com", "Miracle@Miracle.com")
-                .forEachIndexed { index, email -> Assert.assertEquals(email, foundEmails[index])}
+        val expectedNamesEmails = mapOf(
+                "TestowyUser" to "TestowyUser@TestowyUser.com",
+                "UserLol" to "UserLol@UserLol.pl",
+                "ArturCzopek" to "arturcz32@gmail.com",
+                "KonradOnieszczuk" to "k2nder@gmail.com",
+                "Miracle" to "Miracle@Miracle.com"
+        )
+
+        foundNamesEmails.forEach { Assert.assertEquals(expectedNamesEmails[it.name], it.email) }
+    }
+
+    @Test
+    fun `should return names with emails for all users`() {
+        // given
+
+        // when
+        val foundData = userService.getAllUserNamesAndEmails()
+
+        // then
+        foundData.apply {
+            Assert.assertEquals(20, size)   // there are 20 test users
+            forEach { Assert.assertTrue(it.email.contains("@")) }
+        }
     }
 }

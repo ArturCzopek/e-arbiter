@@ -20,23 +20,11 @@ class InnerUserDataController(private val userService: UserService) {
     @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
     fun getUserNameById(@PathVariable("id") id: Long) = userService.getUserNameById(id)
 
-    @GetMapping("/names/{user-ids}")
-    @ApiOperation("Returns names of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
-    fun getUserNamesByIds(@PathVariable("user-ids") usersIds: List<Long>) = usersIds.map { userService.getUserNameById(it) }
+    @GetMapping("/names-emails/{user-ids}")
+    @ApiOperation("Returns names with emails of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
+    fun getUserNamesAndEmailsByIds(@PathVariable("user-ids") usersIds: Array<Long>) = usersIds.map { userService.getUserNameAndEmailById(it) }
 
-    @GetMapping("/names/all")
-    @ApiOperation("Returns names of all users")
-    fun getAllUserNames() = userService.getAllUserNames()
-
-    @GetMapping("/email/{id}")
-    @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
-    fun getEmailById(@PathVariable("id") id: Long) = userService.getUserEmailById(id)
-
-    @GetMapping("/emails/{user-ids}")
-    @ApiOperation("Returns mails of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
-    fun getEmailsByIds(@PathVariable("user-ids") usersIds: List<Long>) = usersIds.map { userService.getUserEmailById(it) }
-
-    @GetMapping("/emails/all")
-    @ApiOperation("Returns emails of all users")
-    fun getAllUsersEmails() = userService.getAllUsersEmails()
+    @GetMapping("/names-emails/all")
+    @ApiOperation("Returns names with emails of all users")
+    fun getAllUserNamesAndEmails() = userService.getAllUserNamesAndEmails()
 }

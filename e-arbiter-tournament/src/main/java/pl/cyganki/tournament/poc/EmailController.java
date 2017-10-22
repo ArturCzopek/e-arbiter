@@ -46,7 +46,7 @@ public class EmailController {
     @GetMapping("/extend/{id}")
     public ResponseEntity<String> extendTournament(@PathVariable("id") String tournamentId) {
         try {
-            mailService.sendExtendTournamentDeadlineEmail(tournamentId);
+            mailService.sendExtendedTournamentDeadlineEmail(tournamentId);
             return ResponseEntity.ok("Email about extend tournament has been sent!");
         } catch (Exception ex) {
             log.warn("Error while trying to send extend tournament email: {}", ex.getMessage());
@@ -57,22 +57,33 @@ public class EmailController {
     @GetMapping("/activate/{id}")
     public ResponseEntity<String> activateTournament(@PathVariable("id") String tournamentId) {
         try {
-            mailService.sendActivateTournamentEmail(tournamentId);
+            mailService.sendActivatedTournamentEmail(tournamentId);
             return ResponseEntity.ok("Email about activating tournament has been sent!");
         } catch (Exception ex) {
-            log.warn("Error while trying to send extend tournament email: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send extend tournament email: " + ex.getMessage());
+            log.warn("Error while trying to send activating tournament email: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send activating tournament email: " + ex.getMessage());
         }
     }
 
     @GetMapping("/removed/{id}")
-    public ResponseEntity<String> removedUser(@PathVariable("id") String tournamentId, User user) {
+    public ResponseEntity<String> removedUserFromTournament(@PathVariable("id") String tournamentId, User user) {
         try {
-            mailService.sendRemovedUserEmail(tournamentId, user.getId());
-            return ResponseEntity.ok("Email about removing user has been sent!");
+            mailService.sendRemovedUserFromTournamentEmail(tournamentId, user.getId());
+            return ResponseEntity.ok("Email about removing user from tournament has been sent!");
         } catch (Exception ex) {
-            log.warn("Error while trying to send removing user email: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send finished tournament email: " + ex.getMessage());
+            log.warn("Error while trying to send removing user from tournament email: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send removing user from tournament email: " + ex.getMessage());
+        }
+    }
+
+    @GetMapping("/joined/{id}")
+    public ResponseEntity<String> joinedToTournament(@PathVariable("id") String tournamentId, User user) {
+        try {
+            mailService.sendJoinedToTournamentEmail(tournamentId, user.getId());
+            return ResponseEntity.ok("Email about joining user has been sent!");
+        } catch (Exception ex) {
+            log.warn("Error while trying to send joining user email: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while trying to send joining tournament email: " + ex.getMessage());
         }
     }
 

@@ -43,6 +43,7 @@ import {ModalService} from '../../shared/service/modal.service';
         <button (click)="sendExtendedEmail()" class="ui yellow medium button">Przedłużony</button>
         <button (click)="sendActivatedEmail()" class="ui olive medium button">Aktywowany</button>
         <button (click)="sendRemovedEmail()" class="ui violet medium button">Usunięty</button>
+        <button (click)="sendJoinedEmail()" class="ui purple medium button">Dołączył</button>
       </div>
       <p>Mail Status: {{mailStatus}}</p>
       </div>`
@@ -116,6 +117,14 @@ export class DevelopmentCardComponent {
   public sendRemovedEmail() {
     this.http
       .get(`${environment.server.api.url}/tournament/poc/email/removed/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .first()
+      .map(res => '' + res)
+      .subscribe(data => this.mailStatus = data);
+  }
+
+  public sendJoinedEmail() {
+    this.http
+      .get(`${environment.server.api.url}/tournament/poc/email/joined/${this.tournamentId}`, this.authService.prepareAuthOptions())
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);
