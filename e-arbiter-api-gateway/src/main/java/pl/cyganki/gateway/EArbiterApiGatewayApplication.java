@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import pl.cyganki.utils.annotation.EnableArbiterAdminServiceData;
 import pl.cyganki.utils.annotation.EnableArbiterModules;
 
+@EnableArbiterAdminServiceData
 @EnableArbiterModules
 @EnableCircuitBreaker
 @EnableEurekaClient
