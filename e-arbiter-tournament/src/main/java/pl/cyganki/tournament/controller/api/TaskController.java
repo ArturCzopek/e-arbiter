@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.controller;
+package pl.cyganki.tournament.controller.api;
 
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.CodeSubmitForm;
