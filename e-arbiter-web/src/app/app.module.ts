@@ -24,6 +24,7 @@ import {TournamentUserActionService} from './dashboard/main-panel/service/tourna
 import {TaskService} from './dashboard/main-panel/service/task.service';
 import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream';
 import {TournamentManageService} from "./dashboard/main-panel/service/tournament-manage.service";
+import {AdminService} from "./dashboard/admin-panel/service/admin.service";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {TournamentManageService} from "./dashboard/main-panel/service/tournament
     HttpModule
   ],
   providers: [
+    AdminService,
     AuthService,
     DateService,
     DevelopmentModeGuard,

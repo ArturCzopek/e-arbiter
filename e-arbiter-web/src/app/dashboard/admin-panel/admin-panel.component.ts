@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'arb-admin-panel',
-  template: '<div class="ui container center aligned scrollable-page-view"><h1>Jestę admin panelę</h1></div>'
+  template: `
+    <arb-admin-panel-services-details></arb-admin-panel-services-details>`
 })
 export class AdminPanelComponent {
 

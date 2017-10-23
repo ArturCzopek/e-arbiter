@@ -1,0 +1,59 @@
+.service-details-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: $card-spacing;
+}
+
+arb-admin-panel-services-details-card + arb-admin-panel-services-details-card {
+  border-top: 1px solid lightgrey;
+}
+
+.service-details-card__title-container {
+  display: flex;
+  height: $card-section-height;
+  justify-content: space-between;
+}
+
+.service-details-card__title-container__status {
+  align-items: flex-end;
+  font-weight: bold;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.service-details-card__title-container__status--OK {
+  color: green;
+}
+
+.service-details-card__title-container__status--NOT-OK {
+  color: red;
+}
+
+.service-details-card__data-row-container {
+  display: flex;
+  flex-direction: row;
+  height: $card-section-height;
+  justify-content: space-between;
+}
+
+.service-details-card__data-row-container__property {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+}
+
+.service-details-card__data-row-container__property__label {
+  font-weight: bold;
+}
+
+.service-details-card__data-row-container__property__value {
+
+}
+
+.service-details-card__link {
+  a {
+    cursor: pointer;
+    font-size: 1.4vh;
+  }
+}
