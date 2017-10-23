@@ -41,6 +41,19 @@ arb-admin-panel-services-details-card + arb-admin-panel-services-details-card {
   align-items: flex-start;
   display: flex;
   flex-direction: row;
+  width: 33%;
+}
+
+.service-details-card__data-row-container__property:nth-of-type(1) {
+  justify-content: flex-start;
+}
+
+.service-details-card__data-row-container__property:nth-of-type(2) {
+  justify-content: center;
+}
+
+.service-details-card__data-row-container__property:nth-of-type(3) {
+  justify-content: flex-end;
 }
 
 .service-details-card__data-row-container__property__label {
@@ -48,12 +61,12 @@ arb-admin-panel-services-details-card + arb-admin-panel-services-details-card {
 }
 
 .service-details-card__data-row-container__property__value {
-
+  margin-left: 0.4rem;
 }
 
 .service-details-card__link {
   a {
     cursor: pointer;
-    font-size: 1.4vh;
+    font-size: 1.4rem;
   }
 }

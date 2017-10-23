@@ -27,7 +27,7 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
           <div class="service-details-card__data-row-container__property__label">
             Logi:
           </div>
-          <div class="service-details-card__data-row-value">
+          <div class="service-details-card__data-row-container__property__value">
             {{serviceDetails.logFilePath}}
           </div>
         </div>
@@ -35,7 +35,7 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
           <div class="service-details-card__data-row-container__property__label">
             Profile:
           </div>
-          <div class="service-details-card__data-row-value">
+          <div class="service-details-card__data-row-container__property__value">
             {{serviceDetails.profiles}}
           </div>
         </div>
@@ -45,7 +45,7 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
           <div class="service-details-card__data-row-container__property__label">
             Wolna pamięć:
           </div>
-          <div class="service-details-card__data-row-value">
+          <div class="service-details-card__data-row-container__property__value">
             {{serviceDetails.memoryFree}}
           </div>
         </div>
@@ -53,15 +53,15 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
           <div class="service-details-card__data-row-container__property__label">
             Całkowita pamięc:
           </div>
-          <div class="service-details-card__data-row-value">
+          <div class="service-details-card__data-row-container__property__value">
             {{serviceDetails.memoryTotal}}
           </div>
         </div>
         <div class="service-details-card__data-row-container__property">
           <div class="service-details-card__data-row-container__property__label">
-            Maksymalna pamięć
+            Maksymalna pamięć:
           </div>
-          <div class="service-details-card__data-row-value">
+          <div class="service-details-card__data-row-container__property__value">
             {{serviceDetails.memoryMax}}
           </div>
         </div>
