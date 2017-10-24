@@ -7,5 +7,6 @@ export interface AdminServiceData {
   memoryFree: string;
   memoryTotal: string;
   memoryMax: string;
-  health: string
+  health: string;
+  modulePath?: string;
 }

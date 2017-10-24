@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {AdminServiceData} from './interface/admin-service-data.interface';
+import {AdminService} from './service/admin.service';
 
 @Component({
   selector: 'arb-admin-panel-services-details-card',
@@ -14,13 +15,13 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
           <h4>{{serviceDetails.health}}</h4>
         </div>
       </div>
-      <div *ngIf="serviceDetails.port" class="service-details-card__data-row-container">
+      <div class="service-details-card__data-row-container">
         <div class="service-details-card__data-row-container__property">
           <div class="service-details-card__data-row-container__property__label">
             Wersja Javy:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.javaVersion}}
+            {{serviceDetails.javaVersion || '-'}}
           </div>
         </div>
         <div class="service-details-card__data-row-container__property">
@@ -28,7 +29,7 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
             Logi:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.logFilePath}}
+            {{serviceDetails.logFilePath || '-'}}
           </div>
         </div>
         <div class="service-details-card__data-row-container__property">
@@ -36,17 +37,17 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
             Profile:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.profiles}}
+            {{serviceDetails.profiles || '-'}}
           </div>
         </div>
       </div>
-      <div *ngIf="serviceDetails.port" class="service-details-card__data-row-container">
+      <div class="service-details-card__data-row-container">
         <div class="service-details-card__data-row-container__property">
           <div class="service-details-card__data-row-container__property__label">
             Wolna pamięć:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.memoryFree}}
+            {{serviceDetails.memoryFree || '-'}}
           </div>
         </div>
         <div class="service-details-card__data-row-container__property">
@@ -54,7 +55,7 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
             Całkowita pamięc:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.memoryTotal}}
+            {{serviceDetails.memoryTotal || '-'}}
           </div>
         </div>
         <div class="service-details-card__data-row-container__property">
@@ -62,16 +63,30 @@ import {AdminServiceData} from './interface/admin-service-data.interface';
             Maksymalna pamięć:
           </div>
           <div class="service-details-card__data-row-container__property__value">
-            {{serviceDetails.memoryMax}}
+            {{serviceDetails.memoryMax || '-'}}
           </div>
         </div>
       </div>
-      <div *ngIf="serviceDetails.port"  class="service-details-card__link">
-        <a href="dupa">Pokaż logi</a>
+      <div *ngIf="serviceDetails.port" class="service-details-card__link">
+        <a [attr.disabled]="!serviceDetails.port" (click)="getLogs()">Pokaż logi</a>
       </div>
     </div>
   `
 })
 export class AdminPanelServicesDetailsCardComponent {
   @Input() serviceDetails: AdminServiceData;
+
+  constructor(private adminService: AdminService) {
+
+  }
+
+
+  getLogs(): void {
+    this.adminService.getLogs(this.serviceDetails.modulePath)
+      .first()
+      .subscribe(
+        // todo: emit this logs to stream with logs modal
+        data => console.log(data)
+      );
+  }
 }

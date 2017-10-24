@@ -1,8 +1,8 @@
 .tournament-card {
   display: flex;
   flex-direction: column;
-  padding: $card-spacing;
   margin: 0 auto;
+  padding: $card-spacing;
 }
 
 arb-tour-prev-card + arb-tour-prev-card {

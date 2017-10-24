@@ -17,4 +17,11 @@ export class AdminService {
     )
       .map(res => res.json());
   }
+
+  public getLogs(serviceGatewayAddress: string): Observable<any> {
+    return this.http.get(`${environment.server.api.url}${serviceGatewayAddress}/logfile`,
+      this.authService.prepareAuthOptions()
+    )
+      .map(res => res.text());
+  }
 }
