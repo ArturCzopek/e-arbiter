@@ -73,7 +73,7 @@ arb-admin-panel-services-details-card + arb-admin-panel-services-details-card {
 .code-container {
   background-color: lightgray;
   border: 1px solid gray;
-  font-family: "Courier New";
+  font-family: $code-font-family;
   overflow-wrap: break-word;
   padding: 1em;
 }

@@ -18,7 +18,8 @@ export const environment = {
       logoutGatewayUrl: `${devData.serverUrl}/auth/api/logout`,
       userUrl: `${devData.serverUrl}/auth/api/user`,
       meUrl: `${devData.serverUrl}/auth/api/me`,
-      loginUrl: `${devData.authUrl}/login`   // login by routing seems to not work currently, TODO: #48 @ trello
+      loginUrl: `${devData.authUrl}/login`,   // login by routing seems to not work currently, TODO: #48 @ trello
+      adminUrl: `${devData.serverUrl}/auth/admin`
     },
     tournament: {
       allTournamentsUrl: `${devData.serverUrl}/tournament/api/all`,

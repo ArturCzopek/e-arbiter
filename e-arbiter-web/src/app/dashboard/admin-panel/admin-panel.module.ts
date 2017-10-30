@@ -7,12 +7,14 @@ import {AdminPanelServicesDetailsCardComponent} from './admin-panel-service-deta
 import {NgSemanticModule} from 'ng-semantic';
 import {AdminPanelMailCardComponent} from './admin-panel-mail-card.component';
 import {FormsModule} from '@angular/forms';
+import {AdminPanelUserCardComponent} from './admin-panel-user-card.component';
 
 @NgModule({
   declarations: [
     AdminPanelComponent,
     AdminPanelMailCardComponent,
-    AdminPanelServicesDetailsCardComponent
+    AdminPanelServicesDetailsCardComponent,
+    AdminPanelUserCardComponent
   ],
   imports: [
     CommonModule,
