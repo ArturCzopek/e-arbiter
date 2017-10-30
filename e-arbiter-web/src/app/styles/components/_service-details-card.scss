@@ -74,6 +74,8 @@ arb-admin-panel-services-details-card + arb-admin-panel-services-details-card {
   background-color: lightgray;
   border: 1px solid gray;
   font-family: $code-font-family;
+  height: 70vh;
   overflow-wrap: break-word;
+  overflow-y: auto;
   padding: 1em;
 }

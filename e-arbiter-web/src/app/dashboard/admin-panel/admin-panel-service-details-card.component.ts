@@ -69,7 +69,8 @@ import {ServiceLogs} from "./model/service-logs.model";
         </div>
       </div>
       <div *ngIf="serviceDetails.port" class="service-details-card__link">
-        <a [attr.disabled]="!serviceDetails.port" (click)="getLogs()">Pokaż logi</a>
+        <div *ngIf="isLoadingLogs" class="ui active inline loader"></div>
+        <a [attr.disabled]="!serviceDetails.port" *ngIf="!isLoadingLogs" (click)="getLogs()">Pokaż logi</a>
       </div>
     </div>
   `
@@ -78,15 +79,20 @@ export class AdminPanelServicesDetailsCardComponent {
   @Input() serviceDetails: AdminServiceData;
   @Output() onLogsLoaded = new EventEmitter<ServiceLogs>();
 
+  public isLoadingLogs = false;
+
   constructor(private adminService: AdminService) {
 
   }
 
   getLogs(): void {
+    this.isLoadingLogs = true;
     this.adminService.getLogs(this.serviceDetails.modulePath)
       .first()
       .subscribe(
         logs => this.onLogsLoaded.emit(new ServiceLogs(this.serviceDetails.serviceName, logs)),
+        error => console.error(error),
+        () => this.isLoadingLogs = false
       );
   }
 }
