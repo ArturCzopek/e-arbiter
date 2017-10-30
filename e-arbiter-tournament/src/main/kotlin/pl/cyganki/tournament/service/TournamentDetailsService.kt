@@ -16,9 +16,9 @@ import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
 @Service
 class TournamentDetailsService(
-        val tournamentRepository: TournamentRepository,
-        val authModuleInterface: AuthModuleInterface,
-        val tournamentResultsModuleInterface: TournamentResultsModuleInterface
+        private val tournamentRepository: TournamentRepository,
+        private val authModuleInterface: AuthModuleInterface,
+        private val tournamentResultsModuleInterface: TournamentResultsModuleInterface
 ) {
 
     fun getTournamentDetailsForUser(userId: Long, tournamentId: String): TournamentDetails {

@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.turbine.EnableTurbine;
+import pl.cyganki.utils.annotation.EnableArbiterAdminServiceData;
 
+@EnableArbiterAdminServiceData
 @EnableDiscoveryClient
 @EnableHystrixDashboard
 @EnableTurbine

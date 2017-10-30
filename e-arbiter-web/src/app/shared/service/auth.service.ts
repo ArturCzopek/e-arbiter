@@ -85,8 +85,12 @@ export class AuthService {
   }
 
   public getUserImgLink(): string {
-    return `${environment.githubUrl}/${this.getLoggedInUserName()}.png`
+    return this.getUserImgLinkByName(this.getLoggedInUserName());
   };
+
+  public getUserImgLinkByName(name: string) {
+    return `${environment.githubUrl}/${name}.png`;
+  }
 
   public isLoggedInUserAdmin(): boolean {
     return this.user && this.user.roles.some(role => role.name.toUpperCase() === 'ADMIN')

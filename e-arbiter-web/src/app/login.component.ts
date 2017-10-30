@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {AuthService} from "./shared/service/auth.service";
-import {RouteService} from "./shared/service/route.service";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from './shared/service/auth.service';
+import {RouteService} from './shared/service/route.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'arb-login',
@@ -14,7 +14,7 @@ import {ActivatedRoute} from "@angular/router";
           <i class="github icon"></i>Zaloguj się
         </button>
       </div>
-      
+
       <ng-template #goToPanel class="full-page-view__subcard">
         <img class="ui small centered circular image" src="{{authService.getUserImgLink()}}">
         <h3>Witaj, {{authService.getLoggedInUserName()}}</h3>

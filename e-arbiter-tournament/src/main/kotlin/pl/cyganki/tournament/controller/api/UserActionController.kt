@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.controller
+package pl.cyganki.tournament.controller.api
 
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity

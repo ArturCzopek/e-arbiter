@@ -2,15 +2,15 @@
 
 Admin Controller
 
-#### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
+#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /admin/ping
+GET /admin/all
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|string|
+|200|OK|DbUser array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -24,15 +24,15 @@ GET /admin/ping
 
 * */*
 
-#### Returns all users from db. Filter returns 401 if user has no admin role what is checked by API Gateway.
+#### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
-GET /admin/all
+GET /admin/ping
 ```
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|DbUser array|
+|200|OK|string|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|

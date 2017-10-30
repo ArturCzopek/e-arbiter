@@ -48,8 +48,6 @@ class UserSessionCache(val authModule: AuthModuleInterface) {
         users[token] = user
     }
 
-    fun isLoggedInUserSysAdmin() = users[getLoggedInUserAuthToken()]?.roles?.any { it.name == GlobalValues.SYS_ADMIN_ROLE_NAME } ?: false
-
     fun isLoggedInUserAdmin() = users[getLoggedInUserAuthToken()]?.roles?.any { it.name == GlobalValues.ADMIN_ROLE_NAME } ?: false
 
     companion object: KLogging()

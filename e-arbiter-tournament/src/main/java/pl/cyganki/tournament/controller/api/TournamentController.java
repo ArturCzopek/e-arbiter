@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.controller;
+package pl.cyganki.tournament.controller.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.dto.TournamentDetails;
 import pl.cyganki.tournament.model.dto.TournamentPreview;
 import pl.cyganki.tournament.service.TournamentDetailsService;
-import pl.cyganki.tournament.service.TournamentManagementService;
 import pl.cyganki.tournament.service.TournamentPreviewsFetcher;
-import pl.cyganki.tournament.service.TournamentUserActionService;
 import pl.cyganki.utils.security.dto.User;
 
 @RestController
@@ -18,19 +16,12 @@ import pl.cyganki.utils.security.dto.User;
 public class TournamentController {
 
     private TournamentPreviewsFetcher tournamentPreviewsFetcher;
-    private TournamentManagementService tournamentManagementService;
     private TournamentDetailsService tournamentDetailsService;
-    private TournamentUserActionService tournamentUserActionService;
 
     @Autowired
-    public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher,
-                                TournamentManagementService tournamentManagementService,
-                                TournamentDetailsService tournamentDetailsService,
-                                TournamentUserActionService tournamentUserActionService) {
+    public TournamentController(TournamentPreviewsFetcher tournamentPreviewsFetcher, TournamentDetailsService tournamentDetailsService) {
         this.tournamentPreviewsFetcher = tournamentPreviewsFetcher;
-        this.tournamentManagementService = tournamentManagementService;
         this.tournamentDetailsService = tournamentDetailsService;
-        this.tournamentUserActionService = tournamentUserActionService;
     }
 
     @GetMapping("/all/active")
@@ -62,7 +53,6 @@ public class TournamentController {
     public Page<TournamentPreview> getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(User user, Pageable pageable) {
         return tournamentPreviewsFetcher.getActiveAlmostEndedTournamentsInWhichUserDoesNotParticipate(user.getId(), pageable);
     }
-
 
     @GetMapping("/user-details/{id}")
     @ApiOperation("Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament")
