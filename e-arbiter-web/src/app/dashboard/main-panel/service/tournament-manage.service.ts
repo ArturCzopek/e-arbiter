@@ -23,4 +23,11 @@ export class TournamentManageService {
       this.authService.prepareAuthOptions()
     );
   }
+
+  public extendDeadline(id: string, seconds: number): Observable<any> {
+    return this.http.put(`${environment.server.tournament.managementTournamentsUrl}/${id}/extend/${seconds}`,
+      {},
+      this.authService.prepareAuthOptions()
+    );
+  }
 }

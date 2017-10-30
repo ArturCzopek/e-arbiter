@@ -14,6 +14,16 @@ import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/to
       <button (click)="activateTournament()" class="ui teal button">Aktywuj</button>
       <button (click)="showDeleteModal()" class="ui red button">Usuń</button>
     </div>
+    <div *ngIf="isUserTheOwner() && isActive()" class="ui center aligned segment">
+      <div class="ui action input">
+        <input [(ngModel)]="extendValue" type="number" min="0">
+        <select [(ngModel)]="extendUnit" class="ui compact selection dropdown">
+          <option selected="" value="d">Dni</option>
+          <option value="h">Godzin</option>
+        </select>
+        <div (click)="extendDeadline()" class="ui button">Przedłuż</div>
+      </div>
+    </div>
 
     <arb-tour-details-delete-modal
       #deleteTournamentModal
@@ -26,12 +36,19 @@ export class TournamentDetailsManageComponent {
   @Input() tournamentDetails: TournamentDetails;
   @ViewChild('deleteTournamentModal') deleteTournamentModal: TournamentDetailsDeleteModalComponent;
 
+  extendValue: number = 0;
+  extendUnit: string = 'd';
+
   constructor(private authService: AuthService, private modalService: ModalService,
               private tournamentManageService: TournamentManageService, private routeService: RouteService) {
   }
 
   isDraft(): boolean {
     return this.tournamentDetails.status === 'DRAFT';
+  }
+
+  isActive(): boolean {
+    return this.tournamentDetails.status === 'ACTIVE';
   }
 
   isUserTheOwner(): boolean {
@@ -50,6 +67,20 @@ export class TournamentDetailsManageComponent {
       );
   }
 
+  extendDeadline(): void {
+    const multiplier = this.extendUnit === 'd' ? TimeMultiplier.SEC_IN_DAY :
+      TimeMultiplier.SEC_IN_HOUR;
+
+    this.tournamentManageService.extendDeadline(this.tournamentDetails.id, Math.ceil(this.extendValue * multiplier))
+      .first()
+      .subscribe(
+        data => {
+          this.modalService.showAlert('Deadline zaktualizowany.', () => this.routeService.goToTournamentManagement());
+        },
+        error => this.modalService.showAlert('Nie można zaktualizować deadline-u.')
+      );
+  }
+
   editTournament(): void {
     this.routeService.goToTournamentEditForm(this.tournamentDetails.id);
   }
@@ -58,3 +89,8 @@ export class TournamentDetailsManageComponent {
     this.deleteTournamentModal.showModal();
   }
 }
+
+const TimeMultiplier = {
+  SEC_IN_DAY: 24 * 60 * 60,
+  SEC_IN_HOUR: 60 * 60
+};
