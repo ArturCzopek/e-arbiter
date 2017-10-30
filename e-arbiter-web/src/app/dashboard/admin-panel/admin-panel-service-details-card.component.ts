@@ -1,6 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AdminServiceData} from './interface/admin-service-data.interface';
 import {AdminService} from './service/admin.service';
+import {ServiceLogs} from "./model/service-logs.model";
 
 @Component({
   selector: 'arb-admin-panel-services-details-card',
@@ -75,18 +76,17 @@ import {AdminService} from './service/admin.service';
 })
 export class AdminPanelServicesDetailsCardComponent {
   @Input() serviceDetails: AdminServiceData;
+  @Output() onLogsLoaded = new EventEmitter<ServiceLogs>();
 
   constructor(private adminService: AdminService) {
 
   }
 
-
   getLogs(): void {
     this.adminService.getLogs(this.serviceDetails.modulePath)
       .first()
       .subscribe(
-        // todo: emit this logs to stream with logs modal
-        data => console.log(data)
+        logs => this.onLogsLoaded.emit(new ServiceLogs(this.serviceDetails.serviceName, logs)),
       );
   }
 }

@@ -26,7 +26,8 @@ export const environment = {
       userDetailsTournamentUrl: `${devData.serverUrl}/tournament/api/user-details`,
       userActionTournamentUrl: `${devData.serverUrl}/tournament/api/user-action`,
       saveUrl: `${devData.serverUrl}/tournament/api/management/save`,
-      submitTaskUrl: `${devData.serverUrl}/tournament/api/task/submit`
+      submitTaskUrl: `${devData.serverUrl}/tournament/api/task/submit`,
+      adminUrl: `${devData.serverUrl}/tournament/admin`
     },
     tournamentResults: {
       taskUserDetailsUrl: `${devData.serverUrl}/results/api/user-details`

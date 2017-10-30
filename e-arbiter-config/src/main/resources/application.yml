@@ -3,6 +3,7 @@ e-arbiter:
   clientUrl: ${E_ARB_HOST}:${E_ARB_CLIENT_PORT}
   proxyUrl: ${E_ARB_HOST}:${E_ARB_API_PORT}
   monitoringUrl: ${E_ARB_HOST}:${E_ARB_HYS_PORT}
+  service-data.enabled: true
 
 server:
   port: ${E_ARB_CFG_PORT}
