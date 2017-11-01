@@ -10,7 +10,7 @@ class TournamentDetailsController(private val tournamentDetailsService: Tourname
 
     @GetMapping("/{tournamentId}")
     @ApiOperation("Returns result data about tournament by passed id")
-    fun getTaskUserDetails (@PathVariable("tournamentId")  tournamentId: String) : List<TournamentDetailsService.UserTasksDetails> {
+    fun getTaskUserDetails (@PathVariable("tournamentId")  tournamentId: String) : List<TournamentDetailsService.UserTournamentDetails> {
        return(tournamentDetailsService.getTournamentDetails(tournamentId))
     }
 }
