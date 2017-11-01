@@ -9,12 +9,15 @@ import pl.cyganki.tournament.exception.UserIsNotAnOwnerException
 import pl.cyganki.tournament.model.Tournament
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.utils.modules.AuthModuleInterface
+import pl.cyganki.utils.security.dto.User
 import java.time.Duration
 
 @Service
 class TournamentManagementService(
         private val tournamentRepository: TournamentRepository,
-        private val mailService: MailService
+        private val mailService: MailService,
+        private val authModuleInterface: AuthModuleInterface
 ) {
 
     fun saveTournament(userId: Long, tournament: Tournament): Tournament {
@@ -56,6 +59,15 @@ class TournamentManagementService(
                 ownerId != userId -> throw UserIsNotAnOwnerException(userId, tournamentId)
                 status != TournamentStatus.DRAFT -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.DRAFT))
                 else -> tournamentRepository.delete(this)
+            }
+        }
+    }
+
+    fun getUsersEnrolledIntoTournament(userId: Long, tournamentId: String): List<User> {
+        with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+            when {
+                ownerId != userId -> throw UserIsNotAnOwnerException(userId, tournamentId)
+                else -> return joinedUsersIds.map { User(it, authModuleInterface.getUserNameById(it)) }
             }
         }
     }

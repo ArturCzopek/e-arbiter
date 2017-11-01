@@ -43,6 +43,11 @@ class TournamentManagementController(
     fun getById(user: User, @PathVariable("id") id: String) =
             tournamentManagementService.findTournamentByIdAndOwnerId(id, user.id)
 
+    @GetMapping("/{id}/enrolled-users")
+    @ApiOperation("Endpoint for fetching a list of users enrolled in given tournament.")
+    fun getEnrolledUsers(user: User, @PathVariable("id") tournamentId: String) =
+            tournamentManagementService.getUsersEnrolledIntoTournament(user.id, tournamentId)
+
     @PutMapping("/{id}/activate")
     @ApiOperation("Endpoint for activating a tournament with given id.")
     fun activateTournament(user: User, @PathVariable("id") tournamentId: String): ResponseEntity<String> {

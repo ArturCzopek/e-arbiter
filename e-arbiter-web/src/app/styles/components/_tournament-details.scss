@@ -123,3 +123,18 @@ arb-tour-details-stats {
   box-shadow: none;
   border: none;
 }
+
+arb-tour-details-manage {
+  .list {
+    margin-bottom: 30px;
+
+    .icon {
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .description {
+      text-align: left;
+    }
+  }
+}

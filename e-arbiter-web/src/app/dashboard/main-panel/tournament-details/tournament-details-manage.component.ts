@@ -1,10 +1,11 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {TournamentDetails} from '../interface/tournament-details.interface';
 import {AuthService} from '../../../shared/service/auth.service';
 import {TournamentManageService} from '../service/tournament-manage.service';
 import {ModalService} from '../../../shared/service/modal.service';
 import {RouteService} from '../../../shared/service/route.service';
 import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/tournament-details/tournament-details-delete.modal.component';
+import {User} from "../../../shared/interface/user.interface";
 
 @Component({
   selector: 'arb-tour-details-manage',
@@ -15,6 +16,18 @@ import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/to
       <button (click)="showDeleteModal()" class="ui red button">Usuń</button>
     </div>
     <div *ngIf="isUserTheOwner() && isActive()" class="ui center aligned segment">
+      <div>
+        <h4 *ngIf="enrolledUsers && enrolledUsers.length > 0">Uczestnicy</h4>
+        <div class="ui list">
+          <div *ngFor="let user of enrolledUsers" class="item">
+            <i (click)="removeUser(user)" class="remove user icon"></i>
+            <div class="content">
+              <a class="header">{{user.name}}</a>
+              <div class="description">id: {{user.id}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="ui action input">
         <input [(ngModel)]="extendValue" type="number" min="0">
         <select [(ngModel)]="extendUnit" class="ui compact selection dropdown">
@@ -31,7 +44,7 @@ import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/to
     ></arb-tour-details-delete-modal>
   `
 })
-export class TournamentDetailsManageComponent {
+export class TournamentDetailsManageComponent implements OnInit {
 
   @Input() tournamentDetails: TournamentDetails;
   @ViewChild('deleteTournamentModal') deleteTournamentModal: TournamentDetailsDeleteModalComponent;
@@ -39,8 +52,20 @@ export class TournamentDetailsManageComponent {
   extendValue: number = 0;
   extendUnit: string = 'd';
 
+  enrolledUsers: User[];
+
   constructor(private authService: AuthService, private modalService: ModalService,
               private tournamentManageService: TournamentManageService, private routeService: RouteService) {
+  }
+
+  ngOnInit() {
+    if (this.isUserTheOwner() && this.isActive()) {
+      this.tournamentManageService.getEnrolledUsers(this.tournamentDetails.id)
+        .first()
+        .subscribe(
+          users => this.enrolledUsers = users
+        )
+    }
   }
 
   isDraft(): boolean {
@@ -79,6 +104,17 @@ export class TournamentDetailsManageComponent {
         },
         error => this.modalService.showAlert('Nie można zaktualizować deadline-u.')
       );
+  }
+
+  removeUser(userToRemove: User): void {
+    this.modalService.askQuestion(`Czy na pewno usunąć z turnieju użytkownika ${userToRemove.name + '(id: ' + userToRemove.id + ')'}?`, () => {
+      this.tournamentManageService.removeUserFromTournament(this.tournamentDetails.id, userToRemove.id)
+        .first()
+        .subscribe(
+          data => this.enrolledUsers = this.enrolledUsers.filter(user => user.id != userToRemove.id),
+          error => this.modalService.showAlert('Nie można usunąć użytkownika.')
+        );
+    })
   }
 
   editTournament(): void {
