@@ -1,7 +1,6 @@
 package pl.cyganki.auth.controller.inner
 
 import io.swagger.annotations.ApiOperation
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,7 +17,14 @@ import pl.cyganki.auth.service.UserService
 class InnerUserDataController(private val userService: UserService) {
 
     @GetMapping("/name/{id}")
-    @Cacheable(value = "inner-name", key = "#id")   // it doesn't have to be cleaned, name is taken from gh, it's immutable
-    @ApiOperation("Returns a name of user by passed user id. Used for fetching information about tournament. There always should be user because passed id is from module where existing user's id is stored")
+    @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
     fun getUserNameById(@PathVariable("id") id: Long) = userService.getUserNameById(id)
+
+    @GetMapping("/names-emails/{user-ids}")
+    @ApiOperation("Returns names with emails of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
+    fun getUserNamesAndEmailsByIds(@PathVariable("user-ids") usersIds: Array<Long>) = usersIds.map { userService.getUserNameAndEmailById(it) }
+
+    @GetMapping("/names-emails/all")
+    @ApiOperation("Returns names with emails of all users")
+    fun getAllUserNamesAndEmails() = userService.getAllUserNamesAndEmails()
 }

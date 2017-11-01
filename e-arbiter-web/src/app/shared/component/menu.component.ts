@@ -19,7 +19,8 @@ import 'rxjs/operator/filter';
       >{{element.label}}</a>
       <div class="right menu">
         <div class="item">
-          <form class="ui form no-margin-below" [ngClass]="querySearchEnabled ? '' : 'corner-tiny-form'">
+          <form *ngIf="querySearchEnabled || pageSizeSearchEnabled"
+                class="ui form no-margin-below" [ngClass]="querySearchEnabled ? '' : 'corner-tiny-form'">
             <div [ngClass]="querySearchEnabled ? 'fields' : 'one field'">
               <div class="field narrow">
                 <input
@@ -29,7 +30,7 @@ import 'rxjs/operator/filter';
                   step="1"
                   placeholder="ile?">
               </div>
-              <div *ngIf="querySearchEnabled" class="field broad ui icon input">
+             <div *ngIf="querySearchEnabled" class="field broad ui icon input">
                 <input
                   #queryInput
                   type="text"
@@ -46,9 +47,10 @@ import 'rxjs/operator/filter';
 export class MenuComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   @Input() query = '';
-  @Input() pageSize: number;
+  @Input() pageSize = 5;
   @Input() menuElements: MenuElement[] = [];
   @Input() querySearchEnabled = true;
+  @Input() pageSizeSearchEnabled = true;
 
   @Output() onTabChange: EventEmitter<any> = new EventEmitter();
   @Output() onSearch: EventEmitter<any> = new EventEmitter();

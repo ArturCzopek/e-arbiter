@@ -1,4 +1,4 @@
-package pl.cyganki.tournament.controller
+package pl.cyganki.tournament.controller.api
 
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
@@ -14,14 +14,14 @@ import pl.cyganki.utils.security.dto.User
 @RequestMapping("/api/user-action")
 class UserActionController(private val tournamentUserActionService: TournamentUserActionService) {
 
-    @PostMapping("/user-action/join")
+    @PostMapping("/join")
     @ApiOperation("Endpoint for joining to an existing and active tournament.")
     fun joinToTournament(user: User, @RequestBody tournamentUserActionRequest: TournamentUserActionRequest): ResponseEntity<String> {
         tournamentUserActionService.joinToTournament(user.id, tournamentUserActionRequest)
         return ResponseEntity.ok("User has joined to tournament.")
     }
 
-    @PostMapping("/user-action/leave")
+    @PostMapping("/leave")
     @ApiOperation("Endpoint for leaving from an existing and active tournament.")
     fun leaveTournament(user: User, @RequestBody tournamentUserActionRequest: TournamentUserActionRequest): ResponseEntity<String> {
         tournamentUserActionService.leaveTournament(user.id, tournamentUserActionRequest)

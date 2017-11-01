@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/data")
-public class DataController {
+class DataController {
 
-    @Value("${e-arbiter.clientUrl}")
-    private String clientUrl;
+    @Value("\${e-arbiter.clientUrl}")
+    lateinit var clientUrl: String
 
     @GetMapping("/clientUrl")
     @ApiOperation("Returns a web client url. It is used for redirecting from server to client")
-    public String getClientUrl() {
-        return clientUrl;
-    }
+    fun fetchClientUrl(): String = clientUrl
 }

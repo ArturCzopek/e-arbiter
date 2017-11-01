@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<center><img src="logo.jpg" th:src="|cid:${logo}|"/></center>
+<h2>Witaj, <span th:text="${userName}"></span>!</h2>
+<br/>
+<p>Chcielibyśmy Cię poinformować, że właśnie dołączyłeś do turnieju <b><span th:text="${tournamentName}"></span></b>.
+    Turniej jest dostępny w zakładce "Aktywne" na karcie "Dashboard". Końcowa data turnieju to <b><span th:text="${deadline}"></span></b>.</p>
+<br/>
+<p>Pozdrawiamy,<br/>e-Arbiter</p>
+</body>
+</html>

@@ -11,4 +11,8 @@ class MockAuthModule : AuthModuleInterface {
     override fun getUserFromRequest(user: User) = throw UnsupportedOperationException("This mock shouldn't call this method")
 
     override fun getUserNameById(id: Long) = "Test Owner"
+
+    override fun getAllUserNamesAndEmails()= throw UnsupportedOperationException("This mock shouldn't call this method")
+
+    override fun getUserNamesAndEmailsByIds(usersIds: Array<Long>)= throw UnsupportedOperationException("This mock shouldn't call this method")
 }

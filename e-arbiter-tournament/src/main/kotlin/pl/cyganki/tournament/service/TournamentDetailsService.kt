@@ -5,7 +5,6 @@ import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.model.QuizTask
 import pl.cyganki.tournament.model.Task
-import pl.cyganki.tournament.model.Tournament
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.model.dto.AccessDetails
 import pl.cyganki.tournament.model.dto.TaskPreview
@@ -17,30 +16,27 @@ import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
 @Service
 class TournamentDetailsService(
-        val tournamentRepository: TournamentRepository,
-        val authModuleInterface: AuthModuleInterface,
-        val tournamentResultsModuleInterface: TournamentResultsModuleInterface
+        private val tournamentRepository: TournamentRepository,
+        private val authModuleInterface: AuthModuleInterface,
+        private val tournamentResultsModuleInterface: TournamentResultsModuleInterface
 ) {
 
     fun getTournamentDetailsForUser(userId: Long, tournamentId: String): TournamentDetails {
-        val tournament: Tournament = tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)
+        with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
 
-        if (tournament.status == TournamentStatus.DRAFT && tournament.ownerId != userId) {
-            throw IllegalTournamentStatusException(TournamentStatus.DRAFT, listOf(TournamentStatus.ACTIVE, TournamentStatus.FINISHED))
-        }
+            if (status == TournamentStatus.DRAFT && ownerId != userId) {
+                throw IllegalTournamentStatusException(TournamentStatus.DRAFT, listOf(TournamentStatus.ACTIVE, TournamentStatus.FINISHED))
+            }
 
-        val accessDetails = tournament.run {
-            AccessDetails(
+            val accessDetails = AccessDetails(
                     isPublicFlag,
                     ownerId == userId,
                     joinedUsersIds.contains(userId),
                     isResultsVisibleForJoinedUsers
             )
-        }
 
-        if (!canSeeTournamentMainDetails(accessDetails)) {
-            return tournament.run {
-                TournamentDetails(
+            if (!canSeeTournamentMainDetails(accessDetails)) {
+                return TournamentDetails(
                         id,
                         authModuleInterface.getUserNameById(ownerId),
                         name,
@@ -48,27 +44,25 @@ class TournamentDetailsService(
                         accessDetails
                 )
             }
-        }
 
-        val tasksUserDetails = tournamentResultsModuleInterface.getTasksUserDetails(
-                tournament.tasks.map { it.id },
-                tournament.id,
-                userId
-        )
-
-        val taskPreviews = tournament.tasks.map {
-            TaskPreview(
-                    it.id,
-                    it.name,
-                    it.description,
-                    it.maxPoints,
-                    if (it is QuizTask) "QUIZ" else "CODE",
-                    getTaskUserDetails(it, tasksUserDetails, canSeeTaskFooter(accessDetails))
+            val tasksUserDetails = tournamentResultsModuleInterface.getTasksUserDetails(
+                    tasks.map { it.id },
+                    id,
+                    userId
             )
-        }
 
-        return tournament.run {
-            TournamentDetails(
+            val taskPreviews = tasks.map {
+                TaskPreview(
+                        it.id,
+                        it.name,
+                        it.description,
+                        it.maxPoints,
+                        if (it is QuizTask) "QUIZ" else "CODE",
+                        getTaskUserDetails(it, tasksUserDetails, canSeeTaskFooter(accessDetails))
+                )
+            }
+
+            return TournamentDetails(
                     id,
                     authModuleInterface.getUserNameById(ownerId),
                     name,

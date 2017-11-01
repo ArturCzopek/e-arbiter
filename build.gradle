@@ -4,6 +4,11 @@ apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.sonarqube'
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
 
 buildscript {
     repositories {
@@ -99,14 +104,14 @@ subprojects {
         compile('org.springframework.boot:spring-boot-devtools')
         compile('org.springframework.cloud:spring-cloud-starter-hystrix')
         compile('org.springframework.boot:spring-boot-starter-actuator')
-        compile('org.springframework.boot:spring-boot-starter-mail')
         compile('org.springframework.cloud:spring-cloud-starter-config')
         compile('org.jetbrains.kotlin:kotlin-stdlib-jre8:' + kotlinVersion)
         compile('org.jetbrains.kotlin:kotlin-reflect:' + kotlinVersion)
+        compile('org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18')
         compile('org.projectlombok:lombok:' + lombokVersion)
         compile('io.github.microutils:kotlin-logging:' + kotlinLoggerVersion)
         compile('pl.cyganki:e-arbiter-utils:' + version)   // comment it if you're using your version of utils lib
-//        compile fileTree(dir: "${project.rootDir}/libs", include: ['*.jar'])    // PUSH COMMENTED!!! uncomment it if you're using your version of utils lib
+//        compile fileTree(dir: "${project.rootDir}/libs", include: ['*.jar'])  // PUSH COMMENTED!!! uncomment it if you're using your version of utils lib
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('io.springfox:springfox-staticdocs:' + swaggerVersion)
     }

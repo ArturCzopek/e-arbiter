@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    </head>
-    <body>
-        <h3>Witaj, <span th:text="${userName}"></span>!</h3>
-        <p>Chcielibyśmy Cię uprzejmie poinformować, że turniej <b><span th:text="${tournamentName}"></span></b> w którym bierzesz udział się zakończył.</p>
-        <p>Pozdrawiamy,</p>
-        <p>e-Arbiter</p>
-    </body>
+<head>
+</head>
+<body>
+<center><img src="logo.jpg" th:src="|cid:${logo}|"/></center>
+
+<h2>Witaj, <span th:text="${userName}"></span>!</h2>
+<br/>
+<p>Chcielibyśmy Cię uprzejmie poinformować, że turniej <b><span th:text="${tournamentName}"></span></b> w którym
+    bierzesz udział właśnie się zakończył. Przejdź do zakładki "Zakończone" na karcie "Dashboard", aby zobaczyć Twoje rezultaty.</p>
+<br/>
+<p>Pozdrawiamy,<br/>e-Arbiter</p>
+</body>
 </html>

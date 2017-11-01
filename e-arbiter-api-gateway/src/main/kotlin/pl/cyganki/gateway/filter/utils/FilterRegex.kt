@@ -24,15 +24,6 @@ object FilterRegex {
     /**
      * This regex says:
      * - case insensitive
-     * - match 1 or more letters (module name)
-     * - match "/sysadmin" path
-     * - match any sign (0 or more)
-     */
-    val SYS_ADMIN_PATH = "(?i)/\\w+/sysadmin\\S*"
-
-    /**
-     * This regex says:
-     * - case insensitive
      * - match "auth/api/logout" path
      * - match any sign (0 or more)
      */
@@ -63,4 +54,14 @@ object FilterRegex {
      * - match any sign (0 or more)
      */
     val REST_API_PATH = "(?i)/\\w+/rest-api\\S*"
+
+
+    /**
+     * This regex says:
+     * - case insensitive
+     * - match 1 or more letters (module name)
+     * - match "/logfile/" path
+     * - match any sign (0 or more)
+     */
+    val LOG_PATH = "(?i)/\\w+/logfile\\S*"
 }

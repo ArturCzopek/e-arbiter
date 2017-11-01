@@ -15,7 +15,7 @@ import java.util.regex.Pattern
 @Component
 class AdminFilter(private val userSessionCache: UserSessionCache) : ZuulFilter() {
 
-    override fun shouldFilter() = Pattern.matches(FilterRegex.ADMIN_PATH, getRequest().requestURI)
+    override fun shouldFilter() = (Pattern.matches(FilterRegex.ADMIN_PATH, getRequest().requestURI) || Pattern.matches(FilterRegex.LOG_PATH, getRequest().requestURI))
             && !getRequest().method.equals(RequestMethod.OPTIONS.toString(), ignoreCase = true)
 
     override fun filterType() = FilterType.PRE.value

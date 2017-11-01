@@ -8,8 +8,6 @@ export class ModalService {
 
   private bodyElement = $('body');
 
-  // TODO: add second parameter: a callback function to execute on alert close
-  // for example (redirect to another page)
   public showAlert(message: string, onHiddenCallback?: any): void {
     const modalElement =
       $(`<div class="ui small basic modal">

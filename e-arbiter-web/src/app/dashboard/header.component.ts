@@ -29,9 +29,6 @@ declare var $: any;
           <p class="header__link header__link--dropdown">{{authService.getLoggedInUserName()}}</p>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="header__link header__link--dropdown-item">
-              To nic nie robi :)
-            </a>
             <a *ngIf="authService.isLoggedInUserAdmin()" [routerLink]="[adminPanelUrl]"
                class="header__link header__link--dropdown-item">
               Panel administratora

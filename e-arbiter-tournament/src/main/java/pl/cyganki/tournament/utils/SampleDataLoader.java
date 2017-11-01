@@ -62,7 +62,7 @@ import java.util.Scanner;
  * The same applies to tournaments ids:
  * DRAFT -> 1 to 10
  * ACTIVE -> 11 to 20
- * FINISHED -> 21 to 20
+ * FINISHED -> 21 to 30
  */
 
 

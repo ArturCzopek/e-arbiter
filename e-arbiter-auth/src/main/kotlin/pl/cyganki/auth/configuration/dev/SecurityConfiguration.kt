@@ -21,7 +21,7 @@ class SecurityConfiguration(
     override fun configure(http: HttpSecurity) {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/", "/index.html", "/login**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html", "/hystrix.stream**").permitAll()
+                .antMatchers("/", "/index.html", "/login**", "/admin/**", "/api/**", "/inner/**", h2ConsoleUrl, "/$swaggerUrl", "/swagger-ui.html", "/hystrix.stream**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(LoginUrlAuthenticationEntryPoint("/"))
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("$clientUrl/#/logout")

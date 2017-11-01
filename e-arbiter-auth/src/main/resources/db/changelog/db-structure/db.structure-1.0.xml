@@ -25,6 +25,9 @@
             <column name="user_name" type="nvarchar(100)">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="email" type="nvarchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
             <column name="enabled" type="boolean" defaultValue="true">
                 <constraints nullable="false"/>
             </column>
