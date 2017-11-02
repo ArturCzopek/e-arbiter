@@ -11,5 +11,5 @@ import pl.cyganki.tournament.service.TournamentDetailsService
 class TournamentDataController(private val tournamentDetailsService: TournamentDetailsService) {
 
     @GetMapping("/users-tasks-list/{id}")
-    fun getUsersTasksList(@PathVariable("id") tournamentId: String) = tournamentDetailsService.getTasksList(tournamentId)
+    fun getUsersTasksList(@PathVariable("id") tournamentId: String) = tournamentDetailsService.getUsersTasksList(tournamentId)
 }

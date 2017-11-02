@@ -80,12 +80,19 @@ class TournamentDetailsService(
         }
     }
 
-    fun getTasksList(tournamentId: String) =
+    fun getUsersTasksList(tournamentId: String) =
             with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
                 UsersTasksList(
                         joinedUsersIds,
                         tasks.map { it.id }
                 )
+            }
+
+    fun getTournamentResults(userId: Long, tournamentId: String) =
+            if (canSeeResults(getTournamentDetailsForUser(userId, tournamentId).accessDetails)) {
+                tournamentResultsModuleInterface.getTournamentResults(tournamentId, getUsersTasksList(tournamentId))
+            } else {
+                listOf()
             }
 
     private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean): TaskUserDetails? {
@@ -115,8 +122,11 @@ class TournamentDetailsService(
     }
 
     // user cannot see tournament details only if: tournament is not public and user is not an owner and user does not even participate
-    private fun canSeeTournamentMainDetails(accessDetails: AccessDetails): Boolean =
+    private fun canSeeTournamentMainDetails(accessDetails: AccessDetails) =
             !(!accessDetails.publicFlag && !accessDetails.owner && !accessDetails.participateInTournament)
 
     private fun canSeeTaskFooter(accessDetails: AccessDetails) = accessDetails.participateInTournament
+
+    private fun canSeeResults(accessDetails: AccessDetails) =
+            accessDetails.resultsVisible && accessDetails.participateInTournament || accessDetails.owner
 }
