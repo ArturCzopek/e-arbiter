@@ -1,16 +1,18 @@
 package pl.cyganki.results.controller.inner
 
 import io.swagger.annotations.ApiOperation
-import org.springframework.web.bind.annotation.*
-import pl.cyganki.results.service.TournamentDetailsService
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import pl.cyganki.results.service.ResultService
 
 @RestController
-@RequestMapping("/inner/tournament-details")
-class TournamentDetailsController(private val tournamentDetailsService: TournamentDetailsService) {
+@RequestMapping("/inner/results")
+class TournamentDetailsController(private val resultService: ResultService) {
 
-    @GetMapping("/{tournamentId}")
-    @ApiOperation("Returns result data about tournament by passed id")
-    fun getTaskUserDetails (@PathVariable("tournamentId")  tournamentId: String) : List<TournamentDetailsService.UserTournamentDetails> {
-       return(tournamentDetailsService.getTournamentDetails(tournamentId))
-    }
+    @GetMapping("/{id}")
+    @ApiOperation("Returns all results for tournament by passed id")
+    fun getTournamentResults(@PathVariable("id") tournamentId: String) = resultService.getTournamentResults(tournamentId)
+
 }

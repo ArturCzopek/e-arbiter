@@ -14,9 +14,9 @@ class UserTaskDetailsController(private val userTaskDetailsService: UserTaskDeta
 
     @GetMapping("/all")
     @ApiOperation("Returns data for user about his progress with all tasks in tournament by passed id and tasks with passed ids")
-    fun getTasksUserDetails(
+    fun getUserTasksDetails(
             @RequestParam("taskIds") taskIds: List<String>,
             @RequestParam("userId") userId: Long,
             @RequestParam("tournamentId") tournamentId: String
-    ): Map<String, TaskUserDetails> = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, taskIds, userId)
+    ): Map<String, TaskUserDetails> = userTaskDetailsService.getAllUserTasksDetailsInTournament(tournamentId, taskIds, userId)
 }

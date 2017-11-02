@@ -7,11 +7,11 @@ import pl.cyganki.tournament.model.CodeSubmitForm;
 import pl.cyganki.tournament.model.CodeTask;
 import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.repository.TournamentRepository;
+import pl.cyganki.utils.model.executor.ExecutionRequest;
+import pl.cyganki.utils.model.executor.ExecutionResult;
+import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto;
 import pl.cyganki.utils.modules.ExecutorModuleInterface;
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface;
-import pl.cyganki.utils.modules.executor.model.ExecutionRequest;
-import pl.cyganki.utils.modules.executor.model.ExecutionResult;
-import pl.cyganki.utils.modules.tournamentresult.dto.CodeTaskResultDto;
 
 import java.util.Optional;
 import java.util.regex.Matcher;

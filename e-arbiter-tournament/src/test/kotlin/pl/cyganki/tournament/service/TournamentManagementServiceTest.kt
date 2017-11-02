@@ -18,7 +18,9 @@ import pl.cyganki.tournament.exception.UserIsNotAnOwnerException
 import pl.cyganki.tournament.exception.WrongUserParticipateStatusException
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.repository.TournamentRepository
+import pl.cyganki.tournament.testutils.MockAuthModule
 import pl.cyganki.tournament.utils.SampleDataLoader
+import pl.cyganki.utils.modules.AuthModuleInterface
 import java.time.Duration
 
 /**
@@ -39,15 +41,19 @@ class TournamentManagementServiceTest {
     @Autowired
     lateinit var sampleDataLoader: SampleDataLoader
 
+    @Autowired
+    lateinit var authModuleInterface: AuthModuleInterface
+
     lateinit var mailService: MailService
 
     @Before
     fun `set up`() {
+        authModuleInterface = MockAuthModule()
         mailService = Mockito.mock(MailService::class.java)
         Mockito.`when`(mailService.sendActivatedTournamentEmail(Mockito.anyString())).then { println("Mock activate mail") }
         Mockito.`when`(mailService.sendRemovedUserFromTournamentEmail(Mockito.anyString(), Mockito.anyLong())).then { println("Mock removed mail") }
         Mockito.`when`(mailService.sendExtendedTournamentDeadlineEmail(Mockito.anyString())).then { println("Mock extended mail") }
-        tournamentManagementService = TournamentManagementService(tournamentRepository, mailService)
+        tournamentManagementService = TournamentManagementService(tournamentRepository, mailService, authModuleInterface)
         sampleDataLoader.run(null)
     }
 

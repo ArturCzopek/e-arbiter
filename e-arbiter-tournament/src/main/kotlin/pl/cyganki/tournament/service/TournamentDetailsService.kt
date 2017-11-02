@@ -11,6 +11,7 @@ import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.utils.model.TaskUserDetails
+import pl.cyganki.utils.model.tournamentresults.UsersTasksList
 import pl.cyganki.utils.modules.AuthModuleInterface
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
@@ -78,6 +79,14 @@ class TournamentDetailsService(
             )
         }
     }
+
+    fun getTasksList(tournamentId: String) =
+            with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+                UsersTasksList(
+                        joinedUsersIds,
+                        tasks.map { it.id }
+                )
+            }
 
     private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean): TaskUserDetails? {
         val taskUserDetails: TaskUserDetails?

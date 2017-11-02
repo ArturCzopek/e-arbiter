@@ -1,8 +1,8 @@
 package pl.cyganki.tournament.testutils
 
 import pl.cyganki.utils.model.TaskUserDetails
+import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
-import pl.cyganki.utils.modules.tournamentresult.dto.CodeTaskResultDto
 
 
 class MockTourResModule: TournamentResultsModuleInterface {
