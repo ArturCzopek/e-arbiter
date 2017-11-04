@@ -3,17 +3,16 @@ package pl.cyganki.tournament.service;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.cyganki.tournament.model.CodeSubmitForm;
-import pl.cyganki.tournament.model.CodeTask;
-import pl.cyganki.tournament.model.Task;
-import pl.cyganki.tournament.model.Tournament;
+import pl.cyganki.tournament.model.*;
 import pl.cyganki.tournament.repository.TournamentRepository;
 import pl.cyganki.utils.model.executor.ExecutionRequest;
 import pl.cyganki.utils.model.executor.ExecutionResult;
 import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto;
+import pl.cyganki.utils.model.tournamentresults.QuizTaskResultDto;
 import pl.cyganki.utils.modules.ExecutorModuleInterface;
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +64,37 @@ public class TaskService {
         return executionResult;
     }
 
+    public void submitQuiz(long userId, QuizSubmission quizSubmission) {
+        final QuizTask quizTask = findQuizTaskToValidate(userId, quizSubmission);
+
+        final QuizTaskResultDto quizTaskResultDto = new QuizTaskResultDto(
+                userId,
+                quizSubmission.getTournamentId(),
+                quizSubmission.getTaskId(),
+                getQuizEarnedPoints(quizTask, quizSubmission.getQuestions()));
+
+        this.tournamentResultsModuleInterface.saveQuizTaskResult(quizTaskResultDto);
+    }
+
+    private String getQuizEarnedPoints(QuizTask quizTask, List<Question> userSubmission) {
+        final List<Question> originalQuestions = quizTask.getQuestions();
+
+        StringBuilder earnedPoints = new StringBuilder("");
+        for (int i = 0; i < originalQuestions.size(); i++) {
+            final int userSelectedAnswer = userSubmission.get(i).getSelectedAnswer();
+            final boolean isCorrect = userSelectedAnswer >= 0 &&
+                    originalQuestions.get(i).getAnswers().get(userSelectedAnswer).getCorrect();
+
+            earnedPoints.append(isCorrect ? '1' : '0');
+
+            if (i + 1 < originalQuestions.size()) {
+                earnedPoints.append(',');
+            }
+        }
+
+        return earnedPoints.toString();
+    }
+
     private CodeTask findCodeTaskToExecute(long userId, CodeSubmitForm csf) {
         final Optional<Tournament> tournament = Optional.ofNullable(
                 tournamentRepository.findActiveTournamentInWhichUserParticipatesById(csf.getTournamentId(), userId));
@@ -72,6 +102,20 @@ public class TaskService {
         if (tournament.isPresent()) {
             return tournament.get().getCodeTasks().stream()
                     .filter(task -> task.getId().equals(csf.getTaskId()))
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        return null;
+    }
+
+    private QuizTask findQuizTaskToValidate(long userId, QuizSubmission qs) {
+        final Optional<Tournament> tournament = Optional.ofNullable(
+                tournamentRepository.findActiveTournamentInWhichUserParticipatesById(qs.getTournamentId(), userId));
+
+        if (tournament.isPresent()) {
+            return tournament.get().getQuizTasks().stream()
+                    .filter(task -> task.getId().equals(qs.getTaskId()))
                     .findFirst()
                     .orElse(null);
         }

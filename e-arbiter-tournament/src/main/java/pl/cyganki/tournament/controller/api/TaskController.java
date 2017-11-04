@@ -33,6 +33,6 @@ public class TaskController {
 
     @PostMapping("/submit/quiz")
     public void submitQuiz(User user, @RequestBody @Valid QuizSubmission quizSubmission) {
-
+        taskService.submitQuiz(user.getId(), quizSubmission);
     }
 }

@@ -4,6 +4,7 @@ import {TaskService} from "../service/task.service";
 import {ModalService} from "../../../shared/service/modal.service";
 import {Task} from "../../tournament-management-panel/interface/task.interface";
 import {Question} from "../../tournament-management-panel/interface/question.interface";
+import {MainPanelStream} from "../service/main-panel.stream";
 
 @Component({
   selector: 'arb-tour-details-quiz-upload',
@@ -42,7 +43,8 @@ export class TournamentDetailsQuizUploadComponent {
     questions: []
   };
 
-  constructor(private taskService: TaskService, private modalService: ModalService) {}
+  constructor(private taskService: TaskService, private modalService: ModalService,
+              private mainPanelStream: MainPanelStream) {}
 
   public show(tournamentId: string, taskId: string) {
     this.quizSubmission.tournamentId = tournamentId;
@@ -61,8 +63,12 @@ export class TournamentDetailsQuizUploadComponent {
     this.taskService.submitQuiz(this.quizSubmission)
       .first()
       .subscribe(
-        data => (this.task = undefined) && this.quizUploadModal.hide(),
-        error => this.quizUploadModal.hide() && this.modalService.showAlert('Nie udało się wysłać quizu.')
+        data => {
+          this.task = undefined;
+          this.quizUploadModal.hide();
+        },
+        error => this.quizUploadModal.hide() && this.modalService.showAlert('Nie udało się wysłać quizu.'),
+        () => this.mainPanelStream.callUpdateCurrentTournamentDetails()
       );
   }
 
