@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.cyganki.tournament.model.CodeSubmitForm;
 import pl.cyganki.tournament.model.CodeTask;
+import pl.cyganki.tournament.model.Task;
 import pl.cyganki.tournament.model.Tournament;
 import pl.cyganki.tournament.repository.TournamentRepository;
 import pl.cyganki.utils.modules.ExecutorModuleInterface;
@@ -33,6 +34,17 @@ public class TaskService {
         this.tournamentRepository = tournamentRepository;
         this.executorModuleInterface = executorModuleInterface;
         this.tournamentResultsModuleInterface = tournamentResultsModuleInterface;
+    }
+
+    public Task getTaskById(long userId, String tournamentId, String taskId) {
+        final Optional<Tournament> tournament = Optional.ofNullable(
+                tournamentRepository.findActiveTournamentInWhichUserParticipatesById(tournamentId, userId));
+
+        if (tournament.isPresent()) {
+            return tournament.get().getTask(taskId);
+        }
+
+        return null;
     }
 
     public ExecutionResult submitCode(long userId, CodeSubmitForm csf) {

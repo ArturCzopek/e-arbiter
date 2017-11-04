@@ -2,6 +2,7 @@ package pl.cyganki.tournament.controller.api;
 
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.CodeSubmitForm;
+import pl.cyganki.tournament.model.Task;
 import pl.cyganki.tournament.service.TaskService;
 import pl.cyganki.utils.modules.executor.model.ExecutionResult;
 import pl.cyganki.utils.security.dto.User;
@@ -16,6 +17,12 @@ public class TaskController {
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
+    }
+
+    @GetMapping("/{tournamentId}/{taskId}")
+    public Task getTask(User user, @PathVariable("tournamentId") String tournamentId,
+                        @PathVariable("taskId") String taskId) {
+        return taskService.getTaskById(user.getId(), tournamentId, taskId);
     }
 
     @PostMapping("/submit")

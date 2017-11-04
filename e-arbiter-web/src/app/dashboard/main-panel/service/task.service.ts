@@ -5,6 +5,8 @@ import {CodeSubmitForm} from '../../../shared/interface/code-submit-form.interfa
 import {environment} from 'environments/environment';
 import {ModalService} from '../../../shared/service/modal.service';
 import {MainPanelStream} from './main-panel.stream';
+import {Task} from "../../tournament-management-panel/interface/task.interface";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class TaskService {
@@ -25,6 +27,11 @@ export class TaskService {
         err => this.modalService.showAlert('Błąd wykonania'),
         () => this.mainPanelStream.callUpdateCurrentTournamentDetails()
       );
+  }
+
+  public getTask(tournamentId: string, taskId: string): Observable<Task> {
+    return this.http.get(`${environment.server.api.url}/tournament/api/task/${tournamentId}/${taskId}`, this.authService.prepareAuthOptions())
+      .map(res => res.json());
   }
 
 }
