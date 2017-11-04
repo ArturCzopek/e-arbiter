@@ -2,6 +2,7 @@ package pl.cyganki.tournament.controller.api;
 
 import org.springframework.web.bind.annotation.*;
 import pl.cyganki.tournament.model.CodeSubmitForm;
+import pl.cyganki.tournament.model.QuizSubmission;
 import pl.cyganki.tournament.model.Task;
 import pl.cyganki.tournament.service.TaskService;
 import pl.cyganki.utils.modules.executor.model.ExecutionResult;
@@ -28,5 +29,10 @@ public class TaskController {
     @PostMapping("/submit")
     public ExecutionResult submitCode(User user, @RequestBody @Valid CodeSubmitForm codeSubmitForm) {
         return taskService.submitCode(user.getId(), codeSubmitForm);
+    }
+
+    @PostMapping("/submit/quiz")
+    public void submitQuiz(User user, @RequestBody @Valid QuizSubmission quizSubmission) {
+
     }
 }

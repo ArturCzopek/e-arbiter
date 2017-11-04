@@ -23,7 +23,7 @@ public class Question {
     @Size(min = 2, message = "Question must contain at least two different answers")
     private List<Answer> answers;
 
-    private int selectedAnswer;
+    private int selectedAnswer = -1;
 
     @JsonProperty
     public void setSelectedAnswer(int selectedAnswer) {

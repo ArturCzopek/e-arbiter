@@ -3,6 +3,7 @@ import {SemanticModalComponent} from "ng-semantic";
 import {TaskService} from "../service/task.service";
 import {ModalService} from "../../../shared/service/modal.service";
 import {Task} from "../../tournament-management-panel/interface/task.interface";
+import {Question} from "../../tournament-management-panel/interface/question.interface";
 
 @Component({
   selector: 'arb-tour-details-quiz-upload',
@@ -35,14 +36,17 @@ export class TournamentDetailsQuizUploadComponent {
   @ViewChild('quizUploadModal') quizUploadModal: SemanticModalComponent;
   task: Task;
 
-  private tournamentId: string;
-  private taskId: string;
+  private quizSubmission: QuizSubmission = {
+    tournamentId: '',
+    taskId: '',
+    questions: []
+  };
 
   constructor(private taskService: TaskService, private modalService: ModalService) {}
 
   public show(tournamentId: string, taskId: string) {
-    this.tournamentId = tournamentId;
-    this.taskId = taskId;
+    this.quizSubmission.tournamentId = tournamentId;
+    this.quizSubmission.taskId = taskId;
 
     this.taskService.getTask(tournamentId, taskId)
       .first()
@@ -53,9 +57,19 @@ export class TournamentDetailsQuizUploadComponent {
   }
 
   uploadAnswers(): void {
-    console.log(this.tournamentId, this.taskId, this.task.questions);
-    this.task = undefined;
-    this.quizUploadModal.hide();
+    this.quizSubmission.questions = this.task.questions;
+    this.taskService.submitQuiz(this.quizSubmission)
+      .first()
+      .subscribe(
+        data => (this.task = undefined) && this.quizUploadModal.hide(),
+        error => this.quizUploadModal.hide() && this.modalService.showAlert('Nie udało się wysłać quizu.')
+      );
   }
 
+}
+
+export interface QuizSubmission {
+  tournamentId: string;
+  taskId: string;
+  questions: Question[];
 }
