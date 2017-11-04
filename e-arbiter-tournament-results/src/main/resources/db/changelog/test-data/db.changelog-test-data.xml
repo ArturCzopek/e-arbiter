@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="Insert test results for Result table" author="e-Arbiter" runAlways="true">
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-01.csv">
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-01.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -16,7 +16,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-02.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-02.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -26,7 +27,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-03.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-03.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -36,7 +38,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-04.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-04.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -46,7 +49,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-05.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-05.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -56,7 +60,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-06.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-06.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -66,7 +71,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-07.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-07.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -76,7 +82,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-08.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-08.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -86,7 +93,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-08.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-08.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -96,7 +104,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-09.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-09.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -106,7 +115,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-active-10.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/active/db.result-active-10.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -116,7 +126,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-1.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-01.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -126,7 +137,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-2.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-02.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -136,7 +148,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-3.csv">-->
+
+        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-03.csv">-->
             <!--<column name="user_id" type="numeric"/>-->
             <!--<column name="tournament_id" type="string"/>-->
             <!--<column name="task_id" type="string"/>-->
@@ -146,7 +159,8 @@
             <!--<column name="earned_points" type="string"/>-->
             <!--<column name="result_type" type="string"/>-->
         <!--</loadData>-->
-        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-4.csv">-->
+
+        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-04.csv">-->
             <!--<column name="user_id" type="numeric"/>-->
             <!--<column name="tournament_id" type="string"/>-->
             <!--<column name="task_id" type="string"/>-->
@@ -156,7 +170,8 @@
             <!--<column name="earned_points" type="string"/>-->
             <!--<column name="result_type" type="string"/>-->
         <!--</loadData>-->
-        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-5.csv">-->
+
+        <!--<loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-05.csv">-->
             <!--<column name="user_id" type="numeric"/>-->
             <!--<column name="tournament_id" type="string"/>-->
             <!--<column name="task_id" type="string"/>-->
@@ -166,7 +181,8 @@
             <!--<column name="earned_points" type="string"/>-->
             <!--<column name="result_type" type="string"/>-->
         <!--</loadData>-->
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-6.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-06.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -176,7 +192,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-7.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-07.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -186,7 +203,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-8.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-08.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -196,7 +214,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-9.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-09.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>
@@ -206,7 +225,8 @@
             <column name="earned_points" type="string"/>
             <column name="result_type" type="string"/>
         </loadData>
-        <loadData tableName="result" separator=";" file="db/changelog/test-data/db.result-finished-10.csv">
+
+        <loadData tableName="result" separator=";" file="db/changelog/test-data/finished/db.result-finished-10.csv">
             <column name="user_id" type="numeric"/>
             <column name="tournament_id" type="string"/>
             <column name="task_id" type="string"/>

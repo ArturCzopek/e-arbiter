@@ -60,7 +60,7 @@ class TournamentDetailsService(
                         it.description,
                         it.maxPoints,
                         if (it is QuizTask) "QUIZ" else "CODE",
-                        getTaskUserDetails(it, tasksUserDetails, canSeeTaskFooter(accessDetails))
+                        getTaskUserDetails(it, tasksUserDetails, canSeePoints(accessDetails))
                 )
             }
 
@@ -76,7 +76,8 @@ class TournamentDetailsService(
                     endDate,
                     taskPreviews,
                     getTournamentMaxPoints(taskPreviews),
-                    if (canSeeTaskFooter(accessDetails)) getEarnedPointsByUser(taskPreviews) else null
+                    if (canSeePoints(accessDetails)) getEarnedPointsByUser(taskPreviews) else null,
+                    if (canSeePoints(accessDetails)) getUserPosition(userId, tournamentId) else null
             )
         }
     }
@@ -88,6 +89,9 @@ class TournamentDetailsService(
                 throw InvalidResultsRightsException(userId, tournamentId)
             }
 
+    private fun getUserPosition(userId: Long, tournamentId: String)
+            = tournamentResultsModuleInterface.getUserPlaceInTournament(tournamentId, userId, getUsersTasksList(tournamentId))
+
     private fun getUsersTasksList(tournamentId: String) =
             with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
                 UsersTasksList(
@@ -96,8 +100,8 @@ class TournamentDetailsService(
                 )
             }
 
-    private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean) =
-            if (canSeeTaskFooter) {
+    private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeePoints: Boolean) =
+            if (canSeePoints) {
                 (tasksUserDetails[task.id] ?: TaskUserDetails()).apply { maxAttempts = (task as? QuizTask)?.maxAttempts }
             } else {
                 null
@@ -116,7 +120,7 @@ class TournamentDetailsService(
     private fun canSeeTournamentMainDetails(accessDetails: AccessDetails) =
             !(!accessDetails.publicFlag && !accessDetails.owner && !accessDetails.participateInTournament)
 
-    private fun canSeeTaskFooter(accessDetails: AccessDetails) = accessDetails.participateInTournament
+    private fun canSeePoints(accessDetails: AccessDetails) = accessDetails.participateInTournament
 
     private fun canSeeResults(accessDetails: AccessDetails) =
             accessDetails.resultsVisible && accessDetails.participateInTournament || accessDetails.owner
