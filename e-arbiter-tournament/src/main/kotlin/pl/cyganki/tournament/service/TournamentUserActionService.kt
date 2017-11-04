@@ -23,14 +23,14 @@ data class TournamentUserActionService(
                 tournamentUserActionRequest.action != TournamentUserActionType.JOIN -> throw IllegalTournamentUserActionTypeException(tournamentUserActionRequest.action, listOf(TournamentUserActionType.JOIN))
                 ownerId == userId -> throw UserIsAnOwnerException(userId, id)
                 status != TournamentStatus.ACTIVE -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.ACTIVE))
-                joinedUsersIds.contains(userId) -> throw WrongUserParticipateStatusException(userId, id)
+                userId in joinedUsersIds-> throw WrongUserParticipateStatusException(userId, id)
                 !isPublicFlag && !hashingService.checkPassword(tournamentUserActionRequest.password, password) -> throw IncorrectPasswordException()
             }
 
             joinedUsersIds += userId
             val savedTournament = tournamentRepository.save(this)
 
-            if (savedTournament.joinedUsersIds.contains(userId)) {
+            if (userId in savedTournament.joinedUsersIds) {
                 logger.info { "User $userId has joined to tournament $id" }
                 launch(CommonPool) { mailService.sendJoinedToTournamentEmail(id, userId) }
             } else {
@@ -47,7 +47,7 @@ data class TournamentUserActionService(
                 tournamentUserActionRequest.action != TournamentUserActionType.LEAVE -> throw IllegalTournamentUserActionTypeException(tournamentUserActionRequest.action, listOf(TournamentUserActionType.LEAVE))
                 ownerId == userId -> throw UserIsAnOwnerException(userId, id)
                 status != TournamentStatus.ACTIVE -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.ACTIVE))
-                !joinedUsersIds.contains(userId) -> throw WrongUserParticipateStatusException(userId, id)
+                userId !in joinedUsersIds -> throw WrongUserParticipateStatusException(userId, id)
             }
 
             joinedUsersIds -= userId

@@ -66,7 +66,7 @@ class TournamentUserActionServiceTest {
 
         // then
         Assert.assertTrue(hasJoined)
-        Assert.assertTrue(tournamentAfterJoin.joinedUsersIds.contains(userId))
+        Assert.assertTrue(userId in tournamentAfterJoin.joinedUsersIds)
     }
 
     @Test
@@ -83,7 +83,7 @@ class TournamentUserActionServiceTest {
 
         // then
         Assert.assertTrue(hasJoined)
-        Assert.assertTrue(tournamentAfterJoin.joinedUsersIds.contains(userId))
+        Assert.assertTrue(userId in tournamentAfterJoin.joinedUsersIds)
     }
 
     @Test(expected = InvalidTournamentIdException::class)
@@ -171,7 +171,7 @@ class TournamentUserActionServiceTest {
 
         // then
         Assert.assertTrue(hasLeft)
-        Assert.assertFalse(tournamentAfterJoin.joinedUsersIds.contains(userId))
+        Assert.assertFalse(userId in tournamentAfterJoin.joinedUsersIds)
     }
 
     @Test(expected = InvalidTournamentIdException::class)

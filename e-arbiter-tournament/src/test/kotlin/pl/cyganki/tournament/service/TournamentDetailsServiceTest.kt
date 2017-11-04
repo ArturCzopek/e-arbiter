@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import pl.cyganki.tournament.EArbiterTournamentApplication
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
+import pl.cyganki.tournament.exception.InvalidResultsRightsException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.model.TournamentStatus
 import pl.cyganki.tournament.model.dto.TaskPreview
@@ -184,6 +185,66 @@ class TournamentDetailsServiceTest {
         }
     }
 
+    /**
+     * getTournamentResults
+     */
+
+    @Test
+    fun `should allows users to see results when are available and user participates`() {
+        // given
+        val userId = TestData.userId
+        val tournamentId = TestData.participatesWithResultsTournamentId
+
+        // when
+        val foundResults = tournamentDetailsService.getTournamentResults(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(1, foundResults.size) // mock results has only one empty record
+    }
+
+    @Test
+    fun `should allows users to see results when user is an owner`() {
+        // given
+        val userId = TestData.userId
+        val tournamentId = TestData.publicOwnerTournamentId
+
+        // when
+        val foundResults = tournamentDetailsService.getTournamentResults(userId, tournamentId)
+
+        // then
+        Assert.assertEquals(1, foundResults.size) // mock results has only one empty record
+    }
+
+    @Test(expected = InvalidResultsRightsException::class)
+    fun `should throw exception for checking results when user does not participate`() {
+        // given
+        val userId = TestData.userId
+        val tournamentId = TestData.notParticipatesWithResultsTournamentId
+
+        // when
+        tournamentDetailsService.getTournamentResults(userId, tournamentId)
+    }
+
+    @Test(expected = InvalidResultsRightsException::class)
+    fun `should throw exception for checking results when user participates but results are not visible`() {
+        // given
+        val userId = TestData.userId
+        val tournamentId = TestData.participatesWithoutResultsTournamentId
+
+        // when
+         tournamentDetailsService.getTournamentResults(userId, tournamentId)
+    }
+
+    @Test(expected = InvalidResultsRightsException::class)
+    fun `should throw exception for checking results when results are visible but user does not participate`() {
+        // given
+        val userId = TestData.userId
+        val tournamentId = TestData.publicNotParticipateTournamentId
+
+        // when
+        tournamentDetailsService.getTournamentResults(userId, tournamentId)
+    }
+
     private object TestData {
         val nonExistingTournamentId = "xxx"
         val notUserDraftTournamentId = "000000000000000000000003"
@@ -191,6 +252,9 @@ class TournamentDetailsServiceTest {
         val privateForbiddenTournamentId = "000000000000000000000014"
         val privateParticipateTournamentId = "000000000000000000000011"
         val publicOwnerTournamentId = "000000000000000000000019"
+        val participatesWithResultsTournamentId = "000000000000000000000027"
+        val notParticipatesWithResultsTournamentId = "000000000000000000000021"
+        val participatesWithoutResultsTournamentId = "000000000000000000000024"
         val userId = 3L
     }
 }

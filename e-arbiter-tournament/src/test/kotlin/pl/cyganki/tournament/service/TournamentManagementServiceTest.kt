@@ -76,7 +76,7 @@ class TournamentManagementServiceTest {
         // then
         tournamentAfterRemoving.apply {
             Assert.assertEquals(amountsOfUserBeforeRemoving - 1, joinedUsersIds.size)
-            Assert.assertFalse(joinedUsersIds.contains(userToBeRemovedId))
+            Assert.assertFalse(userToBeRemovedId in joinedUsersIds)
         }
     }
 

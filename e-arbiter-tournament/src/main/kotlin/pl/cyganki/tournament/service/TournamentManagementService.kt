@@ -80,7 +80,7 @@ class TournamentManagementService(
                     this.removeUser(userToBeRemovedId)
                     val savedTournament = tournamentRepository.save(this)
 
-                    if (!savedTournament.joinedUsersIds.contains(userToBeRemovedId)) {
+                    if (userToBeRemovedId !in savedTournament.joinedUsersIds) {
                         launch(CommonPool) { mailService.sendRemovedUserFromTournamentEmail(tournamentId, userToBeRemovedId) }
                     } else {
                         throw RuntimeException("User $userToBeRemovedId was not removed from tournament $tournamentId by user $requestAuthorId")

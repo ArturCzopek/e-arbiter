@@ -90,7 +90,7 @@ class UserServiceTest {
         // then
         updatedUser.apply {
             Assert.assertEquals(userId, id)
-            Assert.assertTrue(roles.contains(adminRole))
+            Assert.assertTrue(adminRole in roles)
         }
     }
 
@@ -106,7 +106,7 @@ class UserServiceTest {
         // then
         updatedUser.apply {
             Assert.assertEquals(userId, id)
-            Assert.assertFalse(roles.contains(adminRole))
+            Assert.assertFalse(adminRole in roles)
         }
     }
 
