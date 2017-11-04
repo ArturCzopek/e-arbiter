@@ -88,6 +88,7 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   public onUserTournamentStatusChange(tournamentUserActionType: TournamentUserActionType) {
     if (tournamentUserActionType === TournamentUserActionType.JOIN) {
       this.loadTournamentDetails();
+      this.mainPanelStream.callLoadCurrentTournamentResults();
     } else {
       this.routeService.goToDashboard();
     }
@@ -131,6 +132,7 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
 
   private loadTournamentDetails() {
     this.tournamentDetailsService.getDetailsForTournament(this.tournamentId)
+      .first()
       .subscribe(
         details => {
           this.tournamentDetails = details;

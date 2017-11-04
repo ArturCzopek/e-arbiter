@@ -1,8 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {TournamentDetails} from '../interface/tournament-details.interface';
 import {ResultService} from '../service/result.service';
 import {UserTournamentResults} from '../interface/user-tournament-results.interface';
 import {AuthService} from '../../../shared/service/auth.service';
+import {ModalService} from '../../../shared/service/modal.service';
+import {TournamentManagementService} from '../../tournament-management-panel/tournament-management.service';
+import {TournamentManageService} from '../service/tournament-manage.service';
+import {User} from '../../../shared/interface/user.interface';
+import {MainPanelStream} from '../service/main-panel.stream';
+import {Subscription} from 'rxjs/Subscription';
 
 declare var $: any;
 
@@ -35,9 +41,11 @@ declare var $: any;
             <a class="table-link" target="_blank" href="https://github.com/{{userResults.userName}}">
               {{userResults.userName}}
             </a>
+            <i *ngIf="isUserTheOwner() && isActive()" (click)="removeUser(userResults.userName)"
+               class="remove user icon"></i>
           </td>
           <td *ngFor="let taskResult of userResults.taskResults"
-          [ngClass]="(taskResult.earnedPoints == 0) ? 'negative' : ''">
+              [ngClass]="(taskResult.earnedPoints == 0) ? 'negative' : ''">
             {{taskResult.earnedPoints}}
           </td>
           <td>
@@ -53,18 +61,28 @@ declare var $: any;
     </div>
   `
 })
-export class TournamentDetailsResultsComponent implements OnInit {
+export class TournamentDetailsResultsComponent implements OnInit, OnDestroy {
   @Input() tournamentDetails: TournamentDetails;
   public results: UserTournamentResults[] = [];
   public errorMessage = '';
 
-  constructor(private resultService: ResultService, private authService: AuthService) {
+  private enrolledUsers: User[];
+  private loadResults$: Subscription;
+
+  constructor(private resultService: ResultService, private tournamentManageService: TournamentManageService,
+              private authService: AuthService, private modalService: ModalService, private mainPanelStream: MainPanelStream) {
   }
 
   ngOnInit(): void {
-    if (this.canSeeResults()) {
-      this.loadResults();
-    }
+    this.loadResults$ = this.mainPanelStream.getLoadCurrentTournamentResults()
+      .subscribe(this.updateResults.bind(this));
+
+    this.updateResults();
+  }
+
+
+  ngOnDestroy(): void {
+    this.loadResults$.unsubscribe();
   }
 
   public canSeeResults(): boolean {
@@ -74,6 +92,37 @@ export class TournamentDetailsResultsComponent implements OnInit {
 
     const {resultsVisible, owner, participateInTournament} = this.tournamentDetails.accessDetails;
     return (owner || (participateInTournament && resultsVisible)) && this.tournamentDetails.status !== 'DRAFT';
+  }
+
+  public isUserTheOwner(): boolean {
+    return this.authService.getLoggedInUserName() === this.tournamentDetails.ownerName;
+  }
+
+  isActive(): boolean {
+    return this.tournamentDetails.status === 'ACTIVE';
+  }
+
+  public removeUser(username: string): void {
+    const userToRemove = this.enrolledUsers.find(user => user.name === username);
+    this.modalService.askQuestion(`Czy na pewno usunąć z turnieju użytkownika ${userToRemove.name}?`, () => {
+      this.tournamentManageService.removeUserFromTournament(this.tournamentDetails.id, userToRemove.id)
+        .first()
+        .subscribe(
+          data => {
+            this.mainPanelStream.callUpdateCurrentTournamentDetails();
+            this.mainPanelStream.callLoadCurrentTournamentResults();
+          },
+          error => {
+            this.modalService.showAlert('Nie można usunąć użytkownika.')
+          });
+    });
+  }
+
+  private updateResults() {
+    if (this.canSeeResults()) {
+      this.loadResults();
+      this.loadUsers();
+    }
   }
 
   private loadResults() {
@@ -87,6 +136,24 @@ export class TournamentDetailsResultsComponent implements OnInit {
         error => {
           this.errorMessage = 'Nie udało się wczytać wyników';
           this.results = [];
+          this.enrolledUsers = [];
         });
+  }
+
+  private loadUsers() {
+    if (this.isUserTheOwner()) {
+      this.tournamentManageService.getEnrolledUsers(this.tournamentDetails.id)
+        .first()
+        .subscribe(
+          users => {
+            this.errorMessage = '';
+            this.enrolledUsers = users;
+          },
+          error => {
+            this.errorMessage = 'Nie udało się wczytać wyników';
+            this.results = [];
+            this.enrolledUsers = [];
+          });
+    }
   }
 }
