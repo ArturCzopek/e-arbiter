@@ -32,7 +32,7 @@ class TournamentPreviewsFetcher(
         val lastElement = if (lastElementByPageable < tournaments.size - 1) lastElementByPageable else tournaments.size - 1    // we don't want to outofbound exception
 
         val tournamentPreviews = tournaments
-                .filterIndexed { index, _ -> (firstElement..lastElement).contains(index) }  // if there is empty page, there range will be empty too
+                .filterIndexed { index, _ -> index in (firstElement..lastElement) }  // if there is empty page, there range will be empty too
                 .map {
                     TournamentPreview(
                             it.id,

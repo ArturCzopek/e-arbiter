@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.executor.code.docker.DockerCodeRunner;
-import pl.cyganki.utils.modules.executor.model.ExecutionRequest;
-import pl.cyganki.utils.modules.executor.model.ExecutionResult;
+import pl.cyganki.utils.model.executor.ExecutionRequest;
+import pl.cyganki.utils.model.executor.ExecutionResult;
 
 @RestController
 @RequestMapping("/inner")

@@ -23,7 +23,7 @@ class UserService(
         val user = userRepository.findOne(userId)
         val adminRole = roleRepository.findOneByName(GlobalValues.ADMIN_ROLE_NAME)
 
-        if (user.roles.contains(adminRole)) user.roles -= adminRole else user.roles += adminRole
+        if (adminRole in user.roles) user.roles -= adminRole else user.roles += adminRole
         return userRepository.save(user)
     }
 

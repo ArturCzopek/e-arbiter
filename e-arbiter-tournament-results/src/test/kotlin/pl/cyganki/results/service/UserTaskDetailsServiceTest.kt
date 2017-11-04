@@ -83,7 +83,7 @@ class UserTaskDetailsServiceTest {
     }
 
     /**
-     * getAllTasksUserDetailsInTournament
+     * getAllUserTasksDetailsInTournament
      */
 
     @Test
@@ -94,7 +94,7 @@ class UserTaskDetailsServiceTest {
         val userId = TestData.userId
 
         // when
-        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+        val foundDetailsMap = userTaskDetailsService.getAllUserTasksDetailsInTournament(tournamentId, tasksIds, userId)
 
         // then
         foundDetailsMap.apply {
@@ -125,7 +125,7 @@ class UserTaskDetailsServiceTest {
         val userId = TestData.userId
 
         // when
-        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+        val foundDetailsMap = userTaskDetailsService.getAllUserTasksDetailsInTournament(tournamentId, tasksIds, userId)
 
         // then
         foundDetailsMap.apply {
@@ -141,7 +141,7 @@ class UserTaskDetailsServiceTest {
         val userId = TestData.userId
 
         // when
-        val foundDetailsMap = userTaskDetailsService.getAllTasksUserDetailsInTournament(tournamentId, tasksIds, userId)
+        val foundDetailsMap = userTaskDetailsService.getAllUserTasksDetailsInTournament(tournamentId, tasksIds, userId)
 
         // then
         foundDetailsMap.apply {

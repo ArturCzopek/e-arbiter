@@ -8,6 +8,7 @@ import pl.cyganki.utils.annotation.*;
 
 @EnableArbiterAdminServiceData
 @EnableArbiterBasicSecurity
+@EnableArbiterModules
 @EnableArbiterResolvers
 @EnableArbiterSwagger
 @EnableCircuitBreaker

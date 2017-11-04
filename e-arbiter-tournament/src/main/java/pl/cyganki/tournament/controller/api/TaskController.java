@@ -1,9 +1,12 @@
 package pl.cyganki.tournament.controller.api;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.cyganki.tournament.model.CodeSubmitForm;
 import pl.cyganki.tournament.service.TaskService;
-import pl.cyganki.utils.modules.executor.model.ExecutionResult;
+import pl.cyganki.utils.model.executor.ExecutionResult;
 import pl.cyganki.utils.security.dto.User;
 
 import javax.validation.Valid;
