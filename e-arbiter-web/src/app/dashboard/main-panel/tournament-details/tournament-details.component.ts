@@ -39,9 +39,12 @@ import {MainPanelStream} from '../service/main-panel.stream';
             [tournamentDetails]="tournamentDetails"
             [startDate]="startDate"
           ></arb-tour-details-stats>
+          <arb-tour-details-results
+            [tournamentDetails]="tournamentDetails"
+          ></arb-tour-details-results>
         </div>
         <arb-tour-details-manage
-            [tournamentDetails]="tournamentDetails"
+          [tournamentDetails]="tournamentDetails"
         ></arb-tour-details-manage>
       </div>
     </div>
@@ -85,6 +88,7 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
   public onUserTournamentStatusChange(tournamentUserActionType: TournamentUserActionType) {
     if (tournamentUserActionType === TournamentUserActionType.JOIN) {
       this.loadTournamentDetails();
+      this.mainPanelStream.callLoadCurrentTournamentResults();
     } else {
       this.routeService.goToDashboard();
     }
@@ -128,6 +132,7 @@ export class TournamentDetailsComponent implements OnInit, OnDestroy {
 
   private loadTournamentDetails() {
     this.tournamentDetailsService.getDetailsForTournament(this.tournamentId)
+      .first()
       .subscribe(
         details => {
           this.tournamentDetails = details;

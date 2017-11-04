@@ -24,7 +24,7 @@ export class TaskService {
       .map(res => res.json())
       .first()
       .subscribe(
-        data => this.modalService.showAlert(data.output),
+        data => this.modalService.showAlert(data.output, () => this.mainPanelStream.callLoadCurrentTournamentResults()),
         err => this.modalService.showAlert('Błąd wykonania'),
         () => this.mainPanelStream.callUpdateCurrentTournamentDetails()
       );

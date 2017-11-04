@@ -7,7 +7,7 @@ import {RouteService} from "../../../shared/service/route.service";
   template: `
     <div class="tournament-details-card__stats-panel">
       <div class="tournament-details-card__subtitle">
-        <h4>Statystyki</h4>
+        <h4><i class="bar chart icon"></i>Statystyki</h4>
       </div>
       <div class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Autor:</strong>
@@ -43,10 +43,6 @@ import {RouteService} from "../../../shared/service/route.service";
         <strong class="tournament-details-card__stats-panel__stat__label">Twoje punkty:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.earnedPoints}}</p>
       </div>
-      <div class="tournament-details-card__stats-panel__stat tournament-details-card__stats-panel__stat--single">
-        <a *ngIf="canSeeResults()" (click)="goToResults()" class="tournament-details-card__stats-panel__stat__link">Zobacz
-          wyniki</a>
-      </div>
     </div>
   `
 })
@@ -66,11 +62,6 @@ export class TournamentDetailsStatisticsComponent implements OnInit {
 
   public canSeePoints(): boolean {
     return this.tournamentDetails.accessDetails.participateInTournament;
-  }
-
-  public canSeeResults(): boolean {
-    const {resultsVisible, owner, participateInTournament} = this.tournamentDetails.accessDetails;
-    return (owner || participateInTournament) && resultsVisible;
   }
 
   public convertStatus(): void {

@@ -89,7 +89,10 @@ declare var $: any;
         </div>
         <div class="pull-right inline fields">
           <div class="field">
-            <button class="ui teal button" type="button" (click)="taskModal.addTask()">Dodaj zadanie</button>
+            <button class="ui large teal button" type="button" (click)="taskModal.addTask()">
+              <i class="add circle icon"></i>
+              Dodaj zadanie
+            </button>
           </div>
         </div>
         <div class="pull-center inline fields" *ngIf="!myForm.controls['publicFlag'].value">
