@@ -13,6 +13,7 @@ import {TournamentDetailsManageComponent} from './tournament-details/tournament-
 import {FormsModule} from '@angular/forms';
 import {TournamentDetailsDeleteModalComponent} from './tournament-details/tournament-details-delete.modal.component';
 import {TournamentDetailsQuizUploadComponent} from "./tournament-details/tournament-details-quiz-upload.component";
+import {TournamentDetailsResultsComponent} from './tournament-details/tournament-details-results.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,12 @@ import {TournamentDetailsQuizUploadComponent} from "./tournament-details/tournam
     TournamentDetailsComponent,
     TournamentDetailsDeleteModalComponent,
     TournamentDetailsHeaderComponent,
-    TournamentDetailsStatisticsComponent,
     TournamentDetailsManageComponent,
+    TournamentDetailsQuizUploadComponent,
+    TournamentDetailsResultsComponent,
+    TournamentDetailsStatisticsComponent,
     TournamentDetailsTaskListComponent,
-    TournamentDetailsTaskPreviewComponent,
-    TournamentDetailsQuizUploadComponent
+    TournamentDetailsTaskPreviewComponent
   ],
   imports: [
     CommonModule,

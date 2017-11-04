@@ -6,7 +6,7 @@ import {TaskPreview} from '../../../shared/interface/task-preview.interface';
   template: `
     <div class="tournament-details-card__tasks-panel">
       <div class="tournament-details-card__subtitle">
-        <h4>Zadania</h4>
+        <h4><i class="list layout icon"></i>Zadania</h4>
       </div>
       <div class="tournament-details-card__tasks-panel__tasks-list">
         <arb-tour-details-task-prev

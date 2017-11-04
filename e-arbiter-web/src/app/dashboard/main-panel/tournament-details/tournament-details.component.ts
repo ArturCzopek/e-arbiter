@@ -39,9 +39,12 @@ import {MainPanelStream} from '../service/main-panel.stream';
             [tournamentDetails]="tournamentDetails"
             [startDate]="startDate"
           ></arb-tour-details-stats>
+          <arb-tour-details-results
+            [tournamentDetails]="tournamentDetails"
+          ></arb-tour-details-results>
         </div>
         <arb-tour-details-manage
-            [tournamentDetails]="tournamentDetails"
+          [tournamentDetails]="tournamentDetails"
         ></arb-tour-details-manage>
       </div>
     </div>

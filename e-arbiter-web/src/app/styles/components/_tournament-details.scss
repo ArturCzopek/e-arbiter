@@ -1,5 +1,6 @@
 .tournament-details-card {
   display: flex;
+  flex-wrap: wrap;
   padding: $tournament-details-spacing;
 }
 
@@ -105,6 +106,33 @@ arb-tour-details-stats {
 
 .tournament-details-card__stats-panel__stat__link {
   cursor: pointer;
+}
+
+arb-tour-details-results {
+  width: 100%;
+
+  table {
+    thead {
+      tr {
+        th:not(:first-of-type) {
+          border-top: 0.2em solid $main-color;
+        }
+      }
+    }
+    tbody {
+      tr {
+        &.active-user {
+          background: lighten($main-lighten-color, 8%) !important;
+        }
+
+        td {
+          a.table-link {
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+  }
 }
 
 .tournament-details-action-panel {
