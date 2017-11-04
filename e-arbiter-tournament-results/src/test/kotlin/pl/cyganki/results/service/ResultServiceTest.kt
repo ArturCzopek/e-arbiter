@@ -80,4 +80,42 @@ class ResultServiceTest {
             results.forEach { Assert.assertEquals(usersAndTasks.tasks.size, it.taskResults.size) }
         }
     }
+
+    @Test
+    fun `should return valid positions for users in tournament`() {
+        // given
+        val usersAndTasks = UsersTasksList(
+                listOf(19, 10, 15, 7),
+                (184..190).map { "000000000000000000000$it" }
+        )
+        val tournamentId = "000000000000000000000022"
+
+        Mockito.`when`(authModuleInterface.getUserNamesByIds(usersAndTasks.users.toTypedArray())).thenReturn(
+                mapOf(
+                        7L to "7",
+                        10L to "10",
+                        15L to "15",
+                        19L to "19"
+                )
+        )
+
+        Mockito.`when`(authModuleInterface.getUserNameById(7L)).thenReturn("7")
+        Mockito.`when`(authModuleInterface.getUserNameById(10L)).thenReturn("10")
+        Mockito.`when`(authModuleInterface.getUserNameById(15L)).thenReturn("15")
+        Mockito.`when`(authModuleInterface.getUserNameById(19L)).thenReturn("19")
+
+        // when
+        val places = usersAndTasks.users
+                .map { it to resultService.getUserPlaceInTournament(tournamentId, it, usersAndTasks) }
+                .toMap()
+
+        // then
+        places.apply {
+            Assert.assertEquals(4, size)
+            Assert.assertEquals(4, places[7])
+            Assert.assertEquals(2, places[10])  // the same amount of points, both should be equal
+            Assert.assertEquals(2, places[15])
+            Assert.assertEquals(1, places[19])
+        }
+    }
 }

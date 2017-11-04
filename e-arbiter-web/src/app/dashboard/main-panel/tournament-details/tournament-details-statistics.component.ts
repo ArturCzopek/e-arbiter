@@ -22,6 +22,10 @@ import {RouteService} from "../../../shared/service/route.service";
         <strong class="tournament-details-card__stats-panel__stat__label">Liczba użytkowników:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.users}}</p>
       </div>
+      <div *ngIf="canSeePoints()" class="tournament-details-card__stats-panel__stat">
+        <strong class="tournament-details-card__stats-panel__stat__label">Twoja pozycja:</strong>
+        <p class="tournament-details-card__stats-panel__stat__value">{{tournamentDetails?.position}}</p>
+      </div>
       <div class="tournament-details-card__stats-panel__stat">
         <strong class="tournament-details-card__stats-panel__stat__label">Data rozpoczęcia:</strong>
         <p class="tournament-details-card__stats-panel__stat__value">{{startDate}}</p>

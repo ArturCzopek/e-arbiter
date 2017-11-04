@@ -15,5 +15,6 @@ data class TournamentDetails(
         val endDate: LocalDateTime? = null,
         val taskPreviews: List<TaskPreview> = emptyList(),
         val maxPoints: Int? = null,
-        val earnedPoints: Int? = null
+        val earnedPoints: Int? = null,
+        val position: Int? = null
 )
