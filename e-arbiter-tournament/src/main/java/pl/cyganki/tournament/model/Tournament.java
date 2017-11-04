@@ -228,6 +228,13 @@ public class Tournament {
                 .collect(Collectors.toList());
     }
 
+    public List<QuizTask> getQuizTasks() {
+        return tasks.stream()
+                .filter(QuizTask.class::isInstance)
+                .map(QuizTask.class::cast)
+                .collect(Collectors.toList());
+    }
+
     public void removeTask(String taskId) {
         checkTournamentStatus(AllowedStatuses.DRAFT);
         this.tasks.remove(

@@ -12,6 +12,7 @@ import {TournamentDetailsActionComponent} from './tournament-details/tournament-
 import {TournamentDetailsManageComponent} from './tournament-details/tournament-details-manage.component';
 import {FormsModule} from '@angular/forms';
 import {TournamentDetailsDeleteModalComponent} from './tournament-details/tournament-details-delete.modal.component';
+import {TournamentDetailsQuizUploadComponent} from "./tournament-details/tournament-details-quiz-upload.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {TournamentDetailsDeleteModalComponent} from './tournament-details/tourna
     TournamentDetailsStatisticsComponent,
     TournamentDetailsManageComponent,
     TournamentDetailsTaskListComponent,
-    TournamentDetailsTaskPreviewComponent
+    TournamentDetailsTaskPreviewComponent,
+    TournamentDetailsQuizUploadComponent
   ],
   imports: [
     CommonModule,

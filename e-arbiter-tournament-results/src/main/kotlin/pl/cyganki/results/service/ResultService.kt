@@ -3,6 +3,7 @@ package pl.cyganki.results.service
 import org.springframework.stereotype.Service
 import pl.cyganki.results.repository.ResultRepository
 import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto
+import pl.cyganki.utils.model.tournamentresults.QuizTaskResultDto
 import pl.cyganki.utils.model.tournamentresults.UserTournamentResults
 import pl.cyganki.utils.model.tournamentresults.UsersTasksList
 import pl.cyganki.utils.modules.AuthModuleInterface
@@ -18,6 +19,16 @@ class ResultService(
         val codeTaskResult = ResultBuilder.codeTaskResultFromDto(codeTaskResultDto)
 
         this.resultRepository.save(codeTaskResult)?.let {
+            return true
+        }
+
+        return false
+    }
+
+    fun saveQuizTaskResult(quizTaskResultDto: QuizTaskResultDto): Boolean {
+        val quizTaskResult = ResultBuilder.quizTaskResultFromDto(quizTaskResultDto)
+
+        this.resultRepository.save(quizTaskResult)?.let {
             return true
         }
 

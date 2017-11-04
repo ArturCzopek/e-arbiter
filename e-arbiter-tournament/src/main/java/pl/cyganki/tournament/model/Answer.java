@@ -1,5 +1,7 @@
 package pl.cyganki.tournament.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,4 +18,14 @@ public class Answer {
     private String content;
 
     private boolean correct;
+
+    @JsonProperty
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
+    }
+
+    @JsonIgnore
+    public boolean getCorrect() {
+        return this.correct;
+    }
 }

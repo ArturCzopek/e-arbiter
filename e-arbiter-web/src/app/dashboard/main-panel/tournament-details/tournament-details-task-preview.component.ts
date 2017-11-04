@@ -22,7 +22,7 @@ import {TaskService} from '../service/task.service';
               <p>Punkty: {{taskPreview.taskUserDetails.earnedPoints}}/{{taskPreview.maxPoints}}</p>
               <button
                 [ngClass]="canExecuteTask() ? 'ui button medium teal' : 'ui button medium teal disabled'"
-                (click)="codeUploadModal.show()"
+                (click)="isQuizTask() ? quizUploadModal.show(taskPreview.tournamentId, taskPreview.taskUserDetails.taskId) : codeUploadModal.show()"
               >
                 <i class="terminal icon"></i>
                 Wykonaj zadanie
@@ -48,6 +48,8 @@ import {TaskService} from '../service/task.service';
         </div>
       </modal-actions>
     </sm-modal>
+    
+    <arb-tour-details-quiz-upload #quizUploadModal></arb-tour-details-quiz-upload>
 
   `
 })
