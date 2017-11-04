@@ -17,7 +17,7 @@ class UserTaskDetailsService(private val resultRepository: ResultRepository) {
             }
 
 
-    fun getAllTasksUserDetailsInTournament(tournamentId: String, taskIds: List<String>, userId: Long) =
+    fun getAllUserTasksDetailsInTournament(tournamentId: String, taskIds: List<String>, userId: Long) =
             taskIds
                     .map { it to this.getTaskUserDetails(tournamentId, it, userId) }
                     .toMap()

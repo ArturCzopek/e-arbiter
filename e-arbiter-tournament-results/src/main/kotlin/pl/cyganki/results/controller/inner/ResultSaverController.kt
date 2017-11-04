@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import pl.cyganki.results.service.ResultService
-import pl.cyganki.utils.modules.tournamentresult.dto.CodeTaskResultDto
+import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto
 
 @RestController
 @RequestMapping("/inner")

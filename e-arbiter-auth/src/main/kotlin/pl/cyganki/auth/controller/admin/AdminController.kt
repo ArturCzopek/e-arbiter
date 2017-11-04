@@ -27,6 +27,6 @@ class AdminController(
     fun toggleAdminRole(@PathVariable("id") userId: Long): ResponseEntity<DbUser> = ResponseEntity.ok(this.userService.toggleAdminRole(userId))
 
     @PutMapping("/status/{id}")
-    @ApiOperation("Toggle user enablestatus")
+    @ApiOperation("Toggle user enable status")
     fun toggleStatus(@PathVariable("id") userId: Long): ResponseEntity<DbUser> = ResponseEntity.ok(this.userService.toggleStatus(userId))
 }

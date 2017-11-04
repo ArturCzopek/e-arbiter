@@ -1,7 +1,7 @@
 package pl.cyganki.results.service
 
 import pl.cyganki.results.model.database.CodeTaskResult
-import pl.cyganki.utils.modules.tournamentresult.dto.CodeTaskResultDto
+import pl.cyganki.utils.model.tournamentresults.CodeTaskResultDto
 
 object ResultBuilder {
 

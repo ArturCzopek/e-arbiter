@@ -38,6 +38,7 @@ import {ModalService} from '../../shared/service/modal.service';
           <input type="text" name="tournamentId" [(ngModel)]="tournamentId" placeholder="testowe tour id"/>
         </div>
       </div>
+      <button (click)="getResults()" class="ui teal medium button">/results (console, id brane z inputa powyzej)</button>
       <div class="ui buttons">
         <button (click)="sendFinishedEmail()" class="ui pink medium button">Zakończony</button>
         <button (click)="sendExtendedEmail()" class="ui yellow medium button">Przedłużony</button>
@@ -88,6 +89,11 @@ export class DevelopmentCardComponent {
   public uploadCode() {
     this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest,
       this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
+  }
+
+  public getResults() {
+    this.http.get(`${environment.server.api.url}/tournament/api/results/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)), data => this.modalService.showAlert(JSON.stringify(data)));
   }
 
   public sendFinishedEmail() {

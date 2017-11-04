@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.cyganki.executor.code.CodeRunner;
-import pl.cyganki.utils.modules.executor.model.ExecutionRequest;
-import pl.cyganki.utils.modules.executor.model.ExecutionResult;
-import pl.cyganki.utils.modules.executor.model.ExecutionResult.Status;
+import pl.cyganki.utils.model.executor.ExecutionRequest;
+import pl.cyganki.utils.model.executor.ExecutionResult;
 
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
@@ -63,9 +62,9 @@ public class DockerCodeRunner implements CodeRunner {
             }
 
         } catch (DockerException | InterruptedException e) {
-            result = new ExecutionResult(Status.INTERNAL_ERROR, e.getMessage());
+            result = new ExecutionResult(ExecutionResult.Status.INTERNAL_ERROR, e.getMessage());
         } catch (TimeoutException e) {
-            result = new ExecutionResult(Status.TIMEOUT, "");
+            result = new ExecutionResult(ExecutionResult.Status.TIMEOUT, "");
         } finally {
             if (containerId != null) {
                 try {
@@ -83,7 +82,7 @@ public class DockerCodeRunner implements CodeRunner {
     }
 
     private ExecutionResult parseOutput(String output) {
-        Status status = output.contains("ALL PASSED") ? Status.SUCCESS : Status.FAILURE;
+        ExecutionResult.Status status = output.contains("ALL PASSED") ? ExecutionResult.Status.SUCCESS : ExecutionResult.Status.FAILURE;
         return new ExecutionResult(status, output);
     }
 }

@@ -2,6 +2,7 @@ package pl.cyganki.tournament.service
 
 import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
+import pl.cyganki.tournament.exception.InvalidResultsRightsException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
 import pl.cyganki.tournament.model.QuizTask
 import pl.cyganki.tournament.model.Task
@@ -11,6 +12,7 @@ import pl.cyganki.tournament.model.dto.TaskPreview
 import pl.cyganki.tournament.model.dto.TournamentDetails
 import pl.cyganki.tournament.repository.TournamentRepository
 import pl.cyganki.utils.model.TaskUserDetails
+import pl.cyganki.utils.model.tournamentresults.UsersTasksList
 import pl.cyganki.utils.modules.AuthModuleInterface
 import pl.cyganki.utils.modules.TournamentResultsModuleInterface
 
@@ -31,7 +33,7 @@ class TournamentDetailsService(
             val accessDetails = AccessDetails(
                     isPublicFlag,
                     ownerId == userId,
-                    joinedUsersIds.contains(userId),
+                    userId in joinedUsersIds,
                     isResultsVisibleForJoinedUsers
             )
 
@@ -79,35 +81,43 @@ class TournamentDetailsService(
         }
     }
 
-    private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean): TaskUserDetails? {
-        val taskUserDetails: TaskUserDetails?
+    fun getTournamentResults(userId: Long, tournamentId: String) =
+            if (canSeeResults(getTournamentDetailsForUser(userId, tournamentId).accessDetails)) {
+                tournamentResultsModuleInterface.getTournamentResults(tournamentId, getUsersTasksList(tournamentId))
+            } else {
+                throw InvalidResultsRightsException(userId, tournamentId)
+            }
 
-        if (canSeeTaskFooter) {
-            taskUserDetails = (tasksUserDetails[task.id] ?: TaskUserDetails())
-            taskUserDetails.maxAttempts = (task as? QuizTask)?.maxAttempts
-        } else {
-            taskUserDetails = null
-        }
+    private fun getUsersTasksList(tournamentId: String) =
+            with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+                UsersTasksList(
+                        joinedUsersIds,
+                        tasks.map { it.id }
+                )
+            }
 
-        return taskUserDetails
-    }
+    private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeeTaskFooter: Boolean) =
+            if (canSeeTaskFooter) {
+                (tasksUserDetails[task.id] ?: TaskUserDetails()).apply { maxAttempts = (task as? QuizTask)?.maxAttempts }
+            } else {
+                null
+            }
 
-    private fun getTournamentMaxPoints(taskPreviews: List<TaskPreview>): Int {
-        return taskPreviews
-                .map { it.maxPoints }
-                .reduce { total, taskMaxPoints -> total + taskMaxPoints }
-    }
+    private fun getTournamentMaxPoints(taskPreviews: List<TaskPreview>) = taskPreviews
+            .map { it.maxPoints }
+            .reduce { total, taskMaxPoints -> total + taskMaxPoints }
 
-    private fun getEarnedPointsByUser(taskPreviews: List<TaskPreview>): Int {
-        return taskPreviews
-                .map { it.taskUserDetails }
-                .map { it?.earnedPoints ?: 0 }
-                .reduce { total, taskEarnedPoints -> total + taskEarnedPoints }
-    }
+    private fun getEarnedPointsByUser(taskPreviews: List<TaskPreview>) = taskPreviews
+            .map { it.taskUserDetails }
+            .map { it?.earnedPoints ?: 0 }
+            .reduce { total, taskEarnedPoints -> total + taskEarnedPoints }
 
     // user cannot see tournament details only if: tournament is not public and user is not an owner and user does not even participate
-    private fun canSeeTournamentMainDetails(accessDetails: AccessDetails): Boolean =
+    private fun canSeeTournamentMainDetails(accessDetails: AccessDetails) =
             !(!accessDetails.publicFlag && !accessDetails.owner && !accessDetails.participateInTournament)
 
     private fun canSeeTaskFooter(accessDetails: AccessDetails) = accessDetails.participateInTournament
+
+    private fun canSeeResults(accessDetails: AccessDetails) =
+            accessDetails.resultsVisible && accessDetails.participateInTournament || accessDetails.owner
 }

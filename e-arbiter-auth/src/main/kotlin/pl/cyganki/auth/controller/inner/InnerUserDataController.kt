@@ -20,9 +20,12 @@ class InnerUserDataController(private val userService: UserService) {
     @ApiOperation("Returns a name of user by passed user id. There always should be user because passed id is from module where existing user's id is stored")
     fun getUserNameById(@PathVariable("id") id: Long) = userService.getUserNameById(id)
 
-    @GetMapping("/names-emails/{user-ids}")
+    @GetMapping("/names/{users-ids}")
+    fun getUserNamesByIds(@PathVariable("users-ids") usersIds: Array<Long>) = usersIds.map { it to userService.getUserNameById(it) }.toMap()
+
+    @GetMapping("/names-emails/{users-ids}")
     @ApiOperation("Returns names with emails of users by passed user ids. There always should be user because passed id is from module where existing user's id is stored")
-    fun getUserNamesAndEmailsByIds(@PathVariable("user-ids") usersIds: Array<Long>) = usersIds.map { userService.getUserNameAndEmailById(it) }
+    fun getUserNamesAndEmailsByIds(@PathVariable("users-ids") usersIds: Array<Long>) = usersIds.map { userService.getUserNameAndEmailById(it) }
 
     @GetMapping("/names-emails/all")
     @ApiOperation("Returns names with emails of all users")
