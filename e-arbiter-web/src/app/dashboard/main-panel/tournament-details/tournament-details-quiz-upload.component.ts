@@ -66,9 +66,10 @@ export class TournamentDetailsQuizUploadComponent {
         data => {
           this.task = undefined;
           this.quizUploadModal.hide();
+          this.mainPanelStream.callUpdateCurrentTournamentDetails();
+          this.mainPanelStream.callLoadCurrentTournamentResults();
         },
         error => this.quizUploadModal.hide() && this.modalService.showAlert('Nie udało się wysłać quizu.'),
-        () => this.mainPanelStream.callUpdateCurrentTournamentDetails()
       );
   }
 
