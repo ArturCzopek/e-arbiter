@@ -16,6 +16,7 @@ bootRepackage {
 }
 
 dependencies {
+    compile('commons-io:commons-io:' + commonsVersion)
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:' + jacksonDatatypeVersion)
     compile('io.springfox:springfox-swagger2:' + swaggerVersion)
     compile('org.springframework.cloud:spring-cloud-starter-eureka')

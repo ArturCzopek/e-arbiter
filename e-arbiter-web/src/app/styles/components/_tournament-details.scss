@@ -5,7 +5,7 @@
 }
 
 .tournament-details-card__subtitle {
-  margin-bottom: 4vh;
+  margin-bottom: 2.5vh;
 }
 
 arb-tour-details-task-list {
@@ -112,6 +112,8 @@ arb-tour-details-results {
   width: 100%;
 
   table {
+    margin-bottom: 2vh !important;
+
     thead {
       tr {
         th:not(:first-of-type) {

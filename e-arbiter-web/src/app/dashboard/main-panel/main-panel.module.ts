@@ -12,8 +12,11 @@ import {TournamentDetailsActionComponent} from './tournament-details/tournament-
 import {TournamentDetailsManageComponent} from './tournament-details/tournament-details-manage.component';
 import {FormsModule} from '@angular/forms';
 import {TournamentDetailsDeleteModalComponent} from './tournament-details/tournament-details-delete.modal.component';
-import {TournamentDetailsQuizUploadComponent} from "./tournament-details/tournament-details-quiz-upload.component";
+import {TournamentDetailsQuizUploadComponent} from './tournament-details/tournament-details-quiz-upload.component';
 import {TournamentDetailsResultsComponent} from './tournament-details/tournament-details-results.component';
+import {TournamentDetailsManageActiveComponent} from './tournament-details/tournament-details-manage-active.component';
+import {TournamentDetailsManageDraftComponent} from './tournament-details/tournament-details-manage-draft.component';
+import {TournamentDetailsManageFinishedComponent} from './tournament-details/tournament-details-manage-finished.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import {TournamentDetailsResultsComponent} from './tournament-details/tournament
     TournamentDetailsComponent,
     TournamentDetailsDeleteModalComponent,
     TournamentDetailsHeaderComponent,
+    TournamentDetailsManageActiveComponent,
     TournamentDetailsManageComponent,
+    TournamentDetailsManageDraftComponent,
+    TournamentDetailsManageFinishedComponent,
     TournamentDetailsQuizUploadComponent,
     TournamentDetailsResultsComponent,
     TournamentDetailsStatisticsComponent,

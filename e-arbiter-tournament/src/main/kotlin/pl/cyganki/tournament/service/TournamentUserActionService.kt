@@ -11,7 +11,7 @@ import pl.cyganki.tournament.model.request.TournamentUserActionType
 import pl.cyganki.tournament.repository.TournamentRepository
 
 @Service
-data class TournamentUserActionService(
+class TournamentUserActionService(
         private val tournamentRepository: TournamentRepository,
         private val hashingService: HashingService,
         private val mailService: MailService

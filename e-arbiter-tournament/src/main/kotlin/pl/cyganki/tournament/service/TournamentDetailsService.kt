@@ -89,16 +89,16 @@ class TournamentDetailsService(
                 throw InvalidResultsRightsException(userId, tournamentId)
             }
 
-    private fun getUserPosition(userId: Long, tournamentId: String)
-            = tournamentResultsModuleInterface.getUserPlaceInTournament(tournamentId, userId, getUsersTasksList(tournamentId))
-
-    private fun getUsersTasksList(tournamentId: String) =
+    fun getUsersTasksList(tournamentId: String) =
             with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
                 UsersTasksList(
                         joinedUsersIds,
                         tasks.map { it.id }
                 )
             }
+
+    private fun getUserPosition(userId: Long, tournamentId: String)
+            = tournamentResultsModuleInterface.getUserPlaceInTournament(tournamentId, userId, getUsersTasksList(tournamentId))
 
     private fun getTaskUserDetails(task: Task, tasksUserDetails: Map<String, TaskUserDetails>, canSeePoints: Boolean) =
             if (canSeePoints) {
