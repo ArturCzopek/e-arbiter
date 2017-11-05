@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 
 @Injectable()
 export class ReportService {
+
   constructor(private http: Http, private authService: AuthService) {
   }
 
@@ -20,10 +21,11 @@ export class ReportService {
       options
     )
       .first()
+      .map(res => res.blob());
   }
 
   public downloadPdf(file: Blob, name: string) {
-    const blob = new Blob([file], { type: 'application/pdf' });
+    const blob = new Blob([file], {type: 'application/pdf'});
     FileSaver.saveAs(blob, `Raport_${name}.pdf`);
   }
 }
