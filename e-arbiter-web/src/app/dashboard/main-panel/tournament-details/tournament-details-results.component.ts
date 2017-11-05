@@ -15,7 +15,7 @@ declare var $: any;
 @Component({
   selector: 'arb-tour-details-results',
   template: `
-    <div class="tournament-details-card__results-panel" *ngIf="canSeeResults()">
+    <div class="tournament-details-card__results-panel" *ngIf="canSeeResults() && tournamentDetails?.users > 0">
       <div class="tournament-details-card__subtitle">
         <h4><i class="table icon"></i>Wyniki</h4>
       </div>
