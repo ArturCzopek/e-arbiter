@@ -16,6 +16,7 @@ bootRepackage {
 }
 
 dependencies {
+    compile('com.itextpdf:itextpdf:' + itextVersion)
     compile('com.h2database:h2:' + h2Version)
     compile('io.springfox:springfox-swagger2:' + swaggerVersion)
     compile('org.liquibase:liquibase-core:' + liquibaseVersion)

@@ -36,6 +36,7 @@ out/
 
 # Folder for custom local libs
 libs/
+tmp
 
 # Unignore
 !/gradle/wrapper/gradle-wrapper.jar

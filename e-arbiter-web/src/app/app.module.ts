@@ -26,6 +26,7 @@ import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream'
 import {TournamentManageService} from "./dashboard/main-panel/service/tournament-manage.service";
 import {AdminService} from "./dashboard/admin-panel/service/admin.service";
 import {ResultService} from "./dashboard/main-panel/service/result.service";
+import {ReportService} from "./dashboard/main-panel/service/report.service";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {ResultService} from "./dashboard/main-panel/service/result.service";
     MainPanelStream,
     ModalService,
     PageCounterService,
+    ReportService,
     ResultService,
     RouteService,
     TournamentDetailsService,

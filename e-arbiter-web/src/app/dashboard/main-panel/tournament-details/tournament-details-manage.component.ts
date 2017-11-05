@@ -5,6 +5,7 @@ import {TournamentManageService} from '../service/tournament-manage.service';
 import {ModalService} from '../../../shared/service/modal.service';
 import {RouteService} from '../../../shared/service/route.service';
 import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/tournament-details/tournament-details-delete.modal.component';
+import {ReportService} from '../service/report.service';
 
 @Component({
   selector: 'arb-tour-details-manage',
@@ -33,6 +34,25 @@ import {TournamentDetailsDeleteModalComponent} from 'app/dashboard/main-panel/to
         <div (click)="extendDeadline()" class="ui teal large button">Przedłuż</div>
       </div>
     </div>
+    <div *ngIf="isUserTheOwner() && isFinished()">
+      <div class="tournament-details-card__subtitle">
+        <h4><i class="download icon"></i>Generuj raport</h4>
+      </div>
+      <div class="ui buttons">
+        <button (click)="generatePdfReport()" class="ui large red button">
+          <i class="file pdf outline icon"></i>
+          PDF
+        </button>
+        <div class="or" data-text="lub"></div>
+        <button (click)="generateXlsxReport()" class="ui large teal button">
+          <i class="file excel outline icon"></i>
+          Excel
+        </button>
+      </div>
+      <div class="ui red message" *ngIf="errorMessage.length > 0">
+        {{errorMessage}}
+      </div>
+    </div>
 
     <arb-tour-details-delete-modal
       #deleteTournamentModal
@@ -45,10 +65,12 @@ export class TournamentDetailsManageComponent {
   @Input() tournamentDetails: TournamentDetails;
   @ViewChild('deleteTournamentModal') deleteTournamentModal: TournamentDetailsDeleteModalComponent;
 
+  public errorMessage = '';
+
   extendValue = 0;
   extendUnit = 'd';
 
-  constructor(private authService: AuthService, private modalService: ModalService,
+  constructor(private authService: AuthService, private modalService: ModalService, private reportService: ReportService,
               private tournamentManageService: TournamentManageService, private routeService: RouteService) {
   }
 
@@ -58,6 +80,10 @@ export class TournamentDetailsManageComponent {
 
   isActive(): boolean {
     return this.tournamentDetails.status === 'ACTIVE';
+  }
+
+  isFinished(): boolean {
+    return this.tournamentDetails.status === 'FINISHED';
   }
 
   isUserTheOwner(): boolean {
@@ -77,8 +103,7 @@ export class TournamentDetailsManageComponent {
   }
 
   extendDeadline(): void {
-    const multiplier = this.extendUnit === 'd' ? TimeMultiplier.SEC_IN_DAY :
-      TimeMultiplier.SEC_IN_HOUR;
+    const multiplier = this.extendUnit === 'd' ? TimeMultiplier.SEC_IN_DAY : TimeMultiplier.SEC_IN_HOUR;
 
     this.tournamentManageService.extendDeadline(this.tournamentDetails.id, Math.ceil(this.extendValue * multiplier))
       .first()
@@ -96,6 +121,22 @@ export class TournamentDetailsManageComponent {
 
   showDeleteModal(): void {
     this.deleteTournamentModal.showModal();
+  }
+
+  generateXlsxReport() {
+    console.log('todo: implement')
+  }
+
+  generatePdfReport() {
+    this.reportService.getPdfReport(this.tournamentDetails.id)
+      .map(res => res.blob())
+      .subscribe(
+        file => {
+          this.reportService.downloadPdf(file, this.tournamentDetails.name.replace(' ', '-'));
+          this.errorMessage = '';
+        },
+        error => this.errorMessage = 'Nie udało się wygenerować raportu PDF. Spróbuj później, a w razie dalszych problemów, skontaktuj się z administratorem'
+      );
   }
 }
 

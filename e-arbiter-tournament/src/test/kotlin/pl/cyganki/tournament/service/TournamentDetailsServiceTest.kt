@@ -53,6 +53,10 @@ class TournamentDetailsServiceTest {
         sampleDataLoader.run(null)
     }
 
+    /**
+     * getTournamentDetailsForUser
+     */
+
     @Test(expected = InvalidTournamentIdException::class)
     fun `should throw invalidTournamentIdException for id for non-existing tournament`() {
         // given
@@ -95,7 +99,7 @@ class TournamentDetailsServiceTest {
             Assert.assertNull(users)
             Assert.assertNull(startDate)
             Assert.assertNull(endDate)
-            Assert.assertEquals(emptyList<TaskPreview>(),taskPreviews)
+            Assert.assertEquals(emptyList<TaskPreview>(), taskPreviews)
             Assert.assertNull(maxPoints)
             Assert.assertNull(earnedPoints)
         }
@@ -232,7 +236,7 @@ class TournamentDetailsServiceTest {
         val tournamentId = TestData.participatesWithoutResultsTournamentId
 
         // when
-         tournamentDetailsService.getTournamentResults(userId, tournamentId)
+        tournamentDetailsService.getTournamentResults(userId, tournamentId)
     }
 
     @Test(expected = InvalidResultsRightsException::class)
@@ -243,6 +247,26 @@ class TournamentDetailsServiceTest {
 
         // when
         tournamentDetailsService.getTournamentResults(userId, tournamentId)
+    }
+
+    /**
+     * getUsersTasksList
+     */
+    fun `should return valid list of users and tasks for tournament`() {
+        // given
+        val tournamentId = TestData.participatesWithResultsTournamentId
+
+        // when
+        val foundUsersAndTasks = tournamentDetailsService.getUsersTasksList(tournamentId)
+
+        // then
+        val expectedUsers = listOf(3L, 5L, 7L)
+        val expectedTasks = (244..249).map { "000000000000000000000$it" }
+
+        foundUsersAndTasks.apply {
+            Assert.assertEquals(expectedUsers, users)
+            Assert.assertEquals(expectedTasks, tasks)
+        }
     }
 
     private object TestData {
