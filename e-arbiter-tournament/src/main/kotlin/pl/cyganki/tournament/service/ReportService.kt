@@ -23,4 +23,13 @@ class ReportService(
                     else -> tournamentResultsModuleInterface.getPdfReport(tournamentId, name, tournamentDetailsService.getUsersTasksList(tournamentId))
                 }
             }
+
+    fun getXlsxReport(userId: Long, tournamentId: String) =
+            with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
+                when {
+                    ownerId != userId -> throw UserIsNotAnOwnerException(userId, tournamentId)
+                    status != TournamentStatus.FINISHED -> throw IllegalTournamentStatusException(status, listOf(TournamentStatus.FINISHED))
+                    else -> tournamentResultsModuleInterface.getXlsxReport(tournamentId, name, tournamentDetailsService.getUsersTasksList(tournamentId))
+                }
+            }
 }
