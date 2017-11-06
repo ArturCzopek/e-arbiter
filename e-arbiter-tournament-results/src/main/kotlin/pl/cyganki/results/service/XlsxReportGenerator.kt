@@ -1,44 +1,44 @@
 package pl.cyganki.results.service
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
 import mu.KLogging
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.BorderStyle
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.IndexedColors
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import pl.cyganki.results.utils.XlsxRowData
+import pl.cyganki.results.utils.plusAssign
 import pl.cyganki.utils.model.tournamentresults.UserTournamentResults
 import pl.cyganki.utils.model.tournamentresults.UsersTasksList
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 
 @Service
 class XlsxReportGenerator(private val resultService: ResultService) : ReportGenerator {
 
-    override val extension = "xlsx"
+    override val fileExtension = "xlsx"
 
     @Value("\${e-arbiter.tmpFolder:tmp/}")
     lateinit var tmpFolder: String
 
-    val removeFileDelay = 3000L
-
     override fun generate(tournamentId: String, tournamentName: String, usersAndTasks: UsersTasksList): File {
         val workbook = HSSFWorkbook()
-        val document = workbook.createSheet("Raport - $tournamentName")
+        val document = workbook.createSheet(generateTitle(tournamentName))
+        val reportFile = createReportFile(tmpFolder, tournamentName)
 
-        val filePath = generateFilePath(tmpFolder, tournamentName)
+        val headerStyle = generateHeaderStyle(workbook)
+        val boldStyle = generateBoldStyle(workbook)
 
-        val reportFile = File(filePath)
-        reportFile.parentFile.mkdirs()
-
-        if (!reportFile.createNewFile()) {
-            throw IOException("File $filePath cannot be created!")
-        }
+        val columns = getColumnsAmount(usersAndTasks.tasks.size).value
 
         document.apply {
-            generateResults(document, tournamentId, usersAndTasks)
+            generateTableHead(document, usersAndTasks.tasks.size, headerStyle)
+            generateResults(this, tournamentId, usersAndTasks, headerStyle, boldStyle)
+            (0 until columns).forEach { this.autoSizeColumn(it) }
         }
 
         FileOutputStream(reportFile, false).run {
@@ -47,43 +47,56 @@ class XlsxReportGenerator(private val resultService: ResultService) : ReportGene
             close()
         }
 
-        launch(CommonPool) {
-            delay(removeFileDelay)
-            reportFile.delete()
-            logger.debug { "Removed file ${reportFile.name}" }
-        }
+        asyncRemoveFile(reportFile)
 
         logger.debug { "Generated report ${reportFile.name}" }
         return reportFile
     }
 
-    private fun generateResults(document: HSSFSheet, tournamentId: String, usersAndTasks: UsersTasksList) {
-//        val placeColumnAmount = 1
-//        val userColumnAmount = 1
-//        val summaryPointsColumnAmount = 1
-//
-//        val columns = userColumnAmount + placeColumnAmount + usersAndTasks.tasks.size + summaryPointsColumnAmount
-//
-        val results= resultService.getTournamentResults(tournamentId, usersAndTasks)
+    private fun generateTableHead(document: HSSFSheet, tasksSize: Int, headStyle: CellStyle) {
+        val rows = listOf(ReportGenerator.placeColumnTitle, ReportGenerator.userColumnTitle) +
+                (1..tasksSize).map { "${ReportGenerator.nrSuffix}$it" } +
+                ReportGenerator.summaryColumnTitle
 
-        results.forEachIndexed { rowNr, result ->
-            generateOneResult(document, result, rowNr)
+        val styles = rows.mapIndexed { index, _ -> index to headStyle }.toMap()
+
+        document += XlsxRowData(0, rows, styles)
+    }
+
+    private fun generateResults(document: HSSFSheet, tournamentId: String, usersAndTasks: UsersTasksList, headerStyle: CellStyle, boldStyle: CellStyle) {
+        resultService.getTournamentResults(tournamentId, usersAndTasks)
+                .forEachIndexed { index, result ->
+                    generateOneResult(document, result, index + 1, boldStyle)
+                }
+    }
+
+    private fun generateOneResult(document: HSSFSheet, userResult: UserTournamentResults, rowNr: Int, boldStyle: CellStyle) {
+        val rows = listOf("${ReportGenerator.nrSuffix}${userResult.position}", userResult.userName) +
+                userResult.taskResults.map { "${it.earnedPoints}" } +
+                "${userResult.summaryPoints}"
+
+        val styles = mapOf(0 to boldStyle, 2 + userResult.taskResults.size to boldStyle)
+
+        document += XlsxRowData(rowNr, rows, styles)
+    }
+
+    private fun generateBoldStyle(workbook: HSSFWorkbook): HSSFCellStyle {
+        return workbook.createCellStyle().apply {
+            setFont(workbook.createFont().apply { bold = true })
         }
     }
 
-    private fun generateOneResult(document: HSSFSheet, result: UserTournamentResults, rowNr: Int) {
-        val row = document.createRow(rowNr)
-        val placeCell = row.createCell(0)
-        placeCell.setCellValue("#${result.position}")
-        val userNameCell = row.createCell(1)
-        userNameCell.setCellValue(result.userName)
-        result.taskResults.forEachIndexed { cellNr, taskResult ->
-            val pointsCell = row.createCell(cellNr + 2)
-            pointsCell.setCellValue("${taskResult.earnedPoints}")
+    private fun generateHeaderStyle(workbook: HSSFWorkbook): HSSFCellStyle {
+        return workbook.createCellStyle().apply {
+            setFont(workbook.createFont().apply { bold = true })
+            setBorderBottom(BorderStyle.THIN)
+            setBorderLeft(BorderStyle.THIN)
+            setBorderRight(BorderStyle.THIN)
+            fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
+            setFillPattern(FillPatternType.SOLID_FOREGROUND)
         }
-        val summaryCell = row.createCell(2 + result.taskResults.size)
-        summaryCell.setCellValue("${result.summaryPoints}")
     }
 
     companion object : KLogging()
+
 }
