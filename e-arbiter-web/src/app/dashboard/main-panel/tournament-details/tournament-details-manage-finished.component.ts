@@ -32,7 +32,11 @@ export class TournamentDetailsManageFinishedComponent {
   }
 
   generateXlsxReport() {
-    console.log('todo: implement')
+    this.reportService.getXlsxReport(this.tournamentDetails.id)
+      .subscribe(
+        file => this.reportService.downloadXlsx(file, this.tournamentDetails.name.replace(' ', '-')),
+        error => this.modalService.showAlert('Nie udało się wygenerować raportu XLSX.')
+      );
   }
 
   generatePdfReport() {

@@ -12,20 +12,35 @@ export class ReportService {
   }
 
   public getPdfReport(tournamentId: string): Observable<any> {
+    return this.getReport(tournamentId, 'pdf');
+  }
 
+  public getXlsxReport(tournamentId: string): Observable<any> {
+    return this.getReport(tournamentId, 'xlsx');
+  }
+
+  public downloadPdf(file: Blob, name: string) {
+    this.downloadFile(file, name, 'application/pdf', 'pdf');
+  }
+
+  public downloadXlsx(file: Blob, name: string) {
+    this.downloadFile(file, name, 'application/vnd.ms-excel', 'xlsx');
+  }
+
+  private getReport(tournamentId: string, type: string) {
     const options = this.authService.prepareAuthOptions();
     options.responseType = ResponseContentType.ArrayBuffer;
 
     return this.http.get(
-      `${environment.server.tournament.reportUrl}/pdf/${tournamentId}`,
+      `${environment.server.tournament.reportUrl}/${type}/${tournamentId}`,
       options
     )
       .first()
       .map(res => res.blob());
   }
 
-  public downloadPdf(file: Blob, name: string) {
-    const blob = new Blob([file], {type: 'application/pdf'});
-    FileSaver.saveAs(blob, `Raport_${name}.pdf`);
+  private downloadFile(file: Blob, name: string, type: string, extension: string) {
+    const blob = new Blob([file], {type});
+    FileSaver.saveAs(blob, `Raport_${name}.${extension}`);
   }
 }

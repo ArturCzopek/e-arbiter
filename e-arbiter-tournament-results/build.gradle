@@ -19,6 +19,7 @@ dependencies {
     compile('com.itextpdf:itextpdf:' + itextVersion)
     compile('com.h2database:h2:' + h2Version)
     compile('io.springfox:springfox-swagger2:' + swaggerVersion)
+    compile('org.apache.poi:poi:' + apachePoiVersion)
     compile('org.liquibase:liquibase-core:' + liquibaseVersion)
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.cloud:spring-cloud-starter-feign:' + springBootCloudVersion)

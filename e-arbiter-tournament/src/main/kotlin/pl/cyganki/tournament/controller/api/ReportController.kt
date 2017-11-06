@@ -22,4 +22,11 @@ class ReportController(private val reportService: ReportService) {
             FileInputStream(reportService.getPdfReport(user.id, tournamentId)).use {
                 IOUtils.toByteArray(it)
             } ?: throw InvalidResultsRightsException(user.id, tournamentId)
+
+    @GetMapping("/xlsx/{id}", produces = arrayOf("application/vnd.ms-excel"))
+    @ApiOperation("Returns report as a xlsx file for tournament with passed id")
+    fun getXlsxReportFromTournament(user: User, @PathVariable("id") tournamentId: String) =
+            FileInputStream(reportService.getXlsxReport(user.id, tournamentId)).use {
+                IOUtils.toByteArray(it)
+            } ?: throw InvalidResultsRightsException(user.id, tournamentId)
 }

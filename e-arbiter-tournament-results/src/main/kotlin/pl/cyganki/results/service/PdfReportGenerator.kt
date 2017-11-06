@@ -17,12 +17,11 @@ import pl.cyganki.utils.model.tournamentresults.UsersTasksList
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 
 @Service
 class PdfReportGenerator(private val resultService: ResultService) : ReportGenerator {
+
+    override val extension = "pdf"
 
     @Value("\${e-arbiter.tmpFolder:tmp/}")
     lateinit var tmpFolder: String
@@ -68,9 +67,8 @@ class PdfReportGenerator(private val resultService: ResultService) : ReportGener
 
         val pageOrientation = if (usersAndTasks.tasks.size > maxTasksForHorizontalOrientation) Orientation.HORIZONTAL else Orientation.VERTICAL
 
-        val createReportTime = LocalDateTime.now()
         var document = Document(PageSize.getRectangle(pageDimension[pageOrientation]))
-        val filePath = generateFilePath(tournamentName, createReportTime)
+        val filePath = generateFilePath(tmpFolder, tournamentName)
 
         val reportFile = File(filePath)
         reportFile.parentFile.mkdirs()
@@ -79,9 +77,6 @@ class PdfReportGenerator(private val resultService: ResultService) : ReportGener
             throw IOException("File $filePath cannot be created!")
         }
 
-        val fileOutputStream = FileOutputStream(reportFile, false)
-        PdfWriter.getInstance(document, fileOutputStream)
-
         document.apply {
             open()
             generateMetaData(document, tournamentName)
@@ -89,6 +84,9 @@ class PdfReportGenerator(private val resultService: ResultService) : ReportGener
             generateResults(document, pageOrientation, tournamentId, usersAndTasks)
             close()
         }
+
+        val fileOutputStream = FileOutputStream(reportFile, false)
+        PdfWriter.getInstance(document, fileOutputStream)
 
         launch(CommonPool) {
             delay(removeFileDelay)
@@ -102,9 +100,6 @@ class PdfReportGenerator(private val resultService: ResultService) : ReportGener
 
     private fun calculatePointsColumnWidth(columnsAmount: Int, orientation: Orientation)
             = (1f - placeColumnPercentWidth[orientation]!! - userNameColumnPercentWidth[orientation]!! - summaryResultColumnPercentWidth[orientation]!!) / columnsAmount
-
-    private fun generateFilePath(name: String, date: LocalDateTime)
-            = "$tmpFolder${name.replace(" ", "-")}_${with(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) { date.format(this) }}.pdf"
 
     private fun generateMetaData(document: Document, tournamentName: String) =
             document.apply {
