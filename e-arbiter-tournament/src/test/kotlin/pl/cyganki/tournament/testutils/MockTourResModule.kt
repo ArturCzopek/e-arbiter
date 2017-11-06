@@ -20,4 +20,6 @@ class MockTourResModule : TournamentResultsModuleInterface {
     override fun getUserPlaceInTournament(tournamentId: String, userId: Long, usersAndTasks: UsersTasksList) = 1 // does not matter for our tests
 
     override fun getPdfReport(tournamentId: String, tournamentName: String, usersAndTasks: UsersTasksList) = throw UnsupportedOperationException("This mock shouldn't call this method")
+
+    override fun getXlsxReport(tournamentId: String, tournamentName: String, usersAndTasks: UsersTasksList) = throw UnsupportedOperationException("This mock shouldn't call this method")
 }
