@@ -48,6 +48,11 @@ class TournamentManagementController(
     fun getEnrolledUsers(user: User, @PathVariable("id") tournamentId: String) =
             tournamentManagementService.getUsersEnrolledIntoTournament(user.id, tournamentId)
 
+    @GetMapping("/{id}/blocked-users")
+    @ApiOperation("Endpoint for fetching a list of users blocked in given tournament.")
+    fun getBlockedUsers(user: User, @PathVariable("id") tournamentId: String) =
+            tournamentManagementService.getUsersBlockedInTournament(user.id, tournamentId)
+
     @PutMapping("/{id}/activate")
     @ApiOperation("Endpoint for activating a tournament with given id.")
     fun activateTournament(user: User, @PathVariable("id") tournamentId: String): ResponseEntity<String> {
@@ -62,11 +67,15 @@ class TournamentManagementController(
         return ResponseEntity.ok("Successfully deleted tournament.")
     }
 
-    @PutMapping("/{id}/remove-user/{user-id}")
-    @ApiOperation("Endpoint for removing user from the tournament. If user has been removed, tournament is returned, else returns 4xx or 5xx code with error description")
-    fun removeUserFromTournament(user: User, @PathVariable("id") tournamentId: String, @PathVariable("user-id") userToBeRemovedId: Long) =
-            tournamentManagementService.removeUserFromTournament(user.id, tournamentId, userToBeRemovedId)
+    @PutMapping("/{id}/block-user/{user-id}")
+    @ApiOperation("Endpoint for blocking user inthe tournament. If user has been blocked, tournament is returned, else returns 4xx or 5xx code with error description")
+    fun blockUserInTournament(user: User, @PathVariable("id") tournamentId: String, @PathVariable("user-id") userToBeBlockedId: Long) =
+            tournamentManagementService.blockUserInTournament(user.id, tournamentId, userToBeBlockedId)
 
+    @PutMapping("/{id}/unblock-user/{user-id}")
+    @ApiOperation("Endpoint for unblocking user in the tournament. If user has been unblocked, tournament is returned, else returns 4xx or 5xx code with error description")
+    fun unblockUserInTournament(user: User, @PathVariable("id") tournamentId: String, @PathVariable("user-id") userToBeUnblockedId: Long) =
+            tournamentManagementService.unblockUserInTournament(user.id, tournamentId, userToBeUnblockedId)
 
     @PutMapping("/{id}/extend/{duration-in-sec}")
     @ApiOperation("Endpoint for extending tournament deadline. If tournament deadline has been extended, tournament is returned, else returns 4xx or 5xx code with error description")

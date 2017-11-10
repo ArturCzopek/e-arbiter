@@ -27,5 +27,4 @@ class UserActionController(private val tournamentUserActionService: TournamentUs
         tournamentUserActionService.leaveTournament(user.id, tournamentUserActionRequest)
         return ResponseEntity.ok("User has left tournament.")
     }
-
 }

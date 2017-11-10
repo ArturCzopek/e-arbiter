@@ -9,6 +9,7 @@
   "status": "DRAFT",
   "password": "password783971",
   "joinedUsersIds": [],
+  "blockedUsersIds": [],
   "tasks": [
     {
       "type": "CodeTask",

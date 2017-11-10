@@ -17,6 +17,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
                 "$and: [" +
                     "{ 'ownerId': { $ne: ?0 } }," +
                     "{ 'joinedUsersIds': ?0 }," +
+                    "{ 'blockedUsersIds': { $ne: ?0 } }," +
                     "{ 'status': ?1 }" +
                 "]" +
             "}")
@@ -27,6 +28,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
                 "$and: [" +
                     "{ 'ownerId': { $ne: ?0 } }," +
                     "{ 'joinedUsersIds': ?0 }," +
+                    "{ 'blockedUsersIds': { $ne: ?0 } }," +
                     "{ 'status': ?1 }," +
                     "{ " +
                         "$or: [" +
@@ -42,6 +44,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
     @Query("{" +
                 "$and: [" +
                     "{ 'joinedUsersIds': { $ne: ?0 } }," +  // user is not in tournament
+                    "{ 'blockedUsersIds': { $ne: ?0 } }," +
                     "{ 'ownerId': { $ne: ?0 } }," +         // also, user is not an owner
                     "{ 'status': 'ACTIVE' }," +             // tournament must be active
                     "{ 'publicFlag': true }" +              // and public
@@ -58,6 +61,7 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
     @Query("{" +
                 "$and: [" +
                     "{ 'joinedUsersIds': { $ne: ?0 } }," +  // user is not in tournament
+                    "{ 'blockedUsersIds': { $ne: ?0 } }," +
                     "{ 'ownerId': { $ne: ?0 } }," +         // also, user is not an owner
                     "{ 'status': 'ACTIVE' }," +             // tournament must be active
                     "{ 'publicFlag': true }" +              // and public
@@ -99,7 +103,8 @@ public interface TournamentRepository extends MongoRepository<Tournament, String
                 "$and: [" +
                     "{ 'id': ?0 }," +
                     "{ 'status': 'ACTIVE' }," +
-                    "{ 'joinedUsersIds': ?1 }" +
+                    "{ 'joinedUsersIds': ?1 }," +
+                    "{ 'blockedUsersIds': { $ne: ?1 } }" +
                 "]" +
             "}")
     Tournament findActiveTournamentInWhichUserParticipatesById(String tournamentId, Long userId);

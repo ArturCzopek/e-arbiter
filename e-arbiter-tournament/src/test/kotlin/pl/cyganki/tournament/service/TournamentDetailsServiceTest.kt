@@ -170,10 +170,10 @@ class TournamentDetailsServiceTest {
         // when
         val foundDetails = tournamentDetailsService.getTournamentDetailsForUser(userId, tournamentId)
 
-        // then - check active-tournament-1.json
+        // then - check active-tournament-8.json
         foundDetails.apply {
             Assert.assertEquals(tournamentId, id)
-            Assert.assertEquals("aliqua tempor excepteur ea consectetur ad", name)
+            Assert.assertEquals("in est culpa tempor non consequat", name)
             Assert.assertEquals(TournamentStatus.ACTIVE, status)
             Assert.assertFalse(accessDetails.publicFlag)
             Assert.assertFalse(accessDetails.owner)
@@ -274,7 +274,7 @@ class TournamentDetailsServiceTest {
         val notUserDraftTournamentId = "000000000000000000000003"
         val publicNotParticipateTournamentId = "000000000000000000000013"
         val privateForbiddenTournamentId = "000000000000000000000014"
-        val privateParticipateTournamentId = "000000000000000000000011"
+        val privateParticipateTournamentId = "000000000000000000000018"
         val publicOwnerTournamentId = "000000000000000000000019"
         val participatesWithResultsTournamentId = "000000000000000000000027"
         val notParticipatesWithResultsTournamentId = "000000000000000000000021"

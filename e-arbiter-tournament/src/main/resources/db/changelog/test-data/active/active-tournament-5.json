@@ -5,7 +5,7 @@
   "startDate": "2017-07-10T12:34:37",
   "endDate": "2017-12-24T03:28:33",
   "publicFlag": true,
-  "resultsVisibleForJoinedUsers": false,
+  "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
   "password": null,
   "joinedUsersIds": [
@@ -14,9 +14,11 @@
     11,
     13,
     8,
-    5,
     3,
     20
+  ],
+  "blockedUsersIds": [
+    5
   ],
   "tasks": [
     {

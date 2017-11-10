@@ -51,112 +51,232 @@ class TournamentManagementServiceTest {
         authModuleInterface = MockAuthModule()
         mailService = Mockito.mock(MailService::class.java)
         Mockito.`when`(mailService.sendActivatedTournamentEmail(Mockito.anyString())).then { println("Mock activate mail") }
-        Mockito.`when`(mailService.sendRemovedUserFromTournamentEmail(Mockito.anyString(), Mockito.anyLong())).then { println("Mock removed mail") }
+        Mockito.`when`(mailService.sendBlockedUserInTournamentEmail(Mockito.anyString(), Mockito.anyLong())).then { println("Mock removed mail") }
         Mockito.`when`(mailService.sendExtendedTournamentDeadlineEmail(Mockito.anyString())).then { println("Mock extended mail") }
         tournamentManagementService = TournamentManagementService(tournamentRepository, mailService, authModuleInterface)
         sampleDataLoader.run(null)
     }
 
     /**
-     * removeUserFromTournament
+     * blockUserInTournament
      */
 
     @Test
-    fun `should removed user from active tournament in which user participates when request author is an owner`() {
+    fun `should blocked user inactive tournament in which user participates when request author is an owner`() {
         // given
         val requestAuthorId = TestData.ownerUserId
-        val userToBeRemovedId = TestData.participatingActiveUserId
+        val userToBeBlockedId = TestData.participatingActiveUserId
         val tournamentId = TestData.activeOwnerTournamentId
 
-        val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
+        val amountsOfUserBeforeBlocking = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
 
         // when
-        val tournamentAfterRemoving = tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        val tournamentAfterBlocking = tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
 
         // then
-        tournamentAfterRemoving.apply {
-            Assert.assertEquals(amountsOfUserBeforeRemoving - 1, joinedUsersIds.size)
-            Assert.assertFalse(userToBeRemovedId in joinedUsersIds)
+        tournamentAfterBlocking.apply {
+            Assert.assertEquals(amountsOfUserBeforeBlocking - 1, joinedUsersIds.size)
+            Assert.assertFalse(userToBeBlockedId in joinedUsersIds)
+            Assert.assertTrue(userToBeBlockedId in blockedUsersIds)
         }
     }
 
     @Test(expected = InvalidTournamentIdException::class)
-    fun `should not removed user if tournament does not exist`() {
+    fun `should not blocked user if tournament does not exist`() {
         // given
         val requestAuthorId = TestData.ownerUserId      // doesn't matter in this test, tournament id matters
-        val userToBeRemovedId = TestData.ownerUserId    // doesn't matter in this test, tournament id matters
+        val userToBeBlockedId = TestData.ownerUserId    // doesn't matter in this test, tournament id matters
         val tournamentId = TestData.invalidTournamentId
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
     }
 
     @Test(expected = UserIsNotAnOwnerException::class)
-    fun `should not removed user if request author user is not an owner`() {
+    fun `should not blocked user if request author user is not an owner`() {
         // given
         val requestAuthorId = TestData.ownerUserId
-        val userToBeRemovedId = TestData.participatingActiveUserId
+        val userToBeBlockedId = TestData.participatingActiveUserId
         val tournamentId = TestData.activeNotOwnerTournamentId
 
-        val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
+        val tournamentBeforeBlocking = tournamentRepository.findOne(tournamentId)
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
 
         // then
-        val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
-        Assert.assertEquals(amountsOfUserBeforeRemoving, amountsOfUserAfterRemoving)
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeBlocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeBlocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
     }
 
     @Test(expected = IllegalTournamentStatusException::class)
-    fun `should not removed user from finished tournament if participates`() {
+    fun `should not blocked user from finished tournament if participates`() {
         // given
         val requestAuthorId = TestData.ownerUserId
-        val userToBeRemovedId = TestData.participatingFinishedUserId
+        val userToBeBlockedId = TestData.participatingFinishedUserId
         val tournamentId = TestData.finishedOwnerTournamentId
 
-        val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
+        val tournamentBeforeBlocking = tournamentRepository.findOne(tournamentId)
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
 
         // then
-        val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
-        Assert.assertEquals(amountsOfUserBeforeRemoving, amountsOfUserAfterRemoving)
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeBlocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeBlocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
     }
 
     @Test(expected = IllegalTournamentStatusException::class)
-    fun `should not removed user from draft tournament`() {
+    fun `should not blocked user from draft tournament`() {
         // given
         val requestAuthorId = TestData.ownerUserId
-        val userToBeRemovedId = TestData.ownerUserId    // doesn't matter in this test, status matters
+        val userToBeBlockedId = TestData.ownerUserId    // doesn't matter in this test, status matters
         val tournamentId = TestData.draftOwnerTournamentId
 
-        val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
+        val tournamentBeforeBlocking = tournamentRepository.findOne(tournamentId)
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
 
         // then
-        val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
-        Assert.assertEquals(amountsOfUserBeforeRemoving, amountsOfUserAfterRemoving)
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeBlocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeBlocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
     }
 
     @Test(expected = WrongUserParticipateStatusException::class)
-    fun `should not removed user if user does not participate`() {
+    fun `should not blocked user if user does not participate`() {
         // given
         val requestAuthorId = TestData.ownerUserId
-        val userToBeRemovedId = TestData.notParticipatingUserId
+        val userToBeBlockedId = TestData.notParticipatingUserId
         val tournamentId = TestData.activeOwnerTournamentId
 
-        val amountsOfUserBeforeRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
+        val tournamentBeforeBlocking = tournamentRepository.findOne(tournamentId)
 
         // when
-        tournamentManagementService.removeUserFromTournament(requestAuthorId, tournamentId, userToBeRemovedId)
+        tournamentManagementService.blockUserInTournament(requestAuthorId, tournamentId, userToBeBlockedId)
 
         // then
-        val amountsOfUserAfterRemoving = tournamentRepository.findOne(tournamentId).joinedUsersIds.size
-        Assert.assertEquals(amountsOfUserBeforeRemoving, amountsOfUserAfterRemoving)
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeBlocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeBlocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
+    }
+
+    /**
+     * unblockUserInTournament
+     */
+
+    @Test
+    fun `should unblocked user intournament in which user participates when request author is an owner`() {
+        // given
+        val requestAuthorId = TestData.ownerBlockedUserId
+        val userToBeUnblockedId = TestData.blockedUserId
+        val tournamentId = TestData.blockedActiveTournamentId
+
+        val amountsOfBlockedUsersBeforeUnblocking = tournamentRepository.findOne(tournamentId).blockedUsersIds.size
+
+        // when
+        val tournamentAfterUnblocking = tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+
+        // then
+        tournamentAfterUnblocking.apply {
+            Assert.assertEquals(amountsOfBlockedUsersBeforeUnblocking - 1, blockedUsersIds.size)
+            Assert.assertTrue(userToBeUnblockedId in joinedUsersIds)
+            Assert.assertFalse(userToBeUnblockedId in blockedUsersIds)
+        }
+    }
+
+    @Test(expected = InvalidTournamentIdException::class)
+    fun `should not unblocked user if tournament does not exist`() {
+        // given
+        val requestAuthorId = TestData.ownerUserId      // doesn't matter in this test, tournament id matters
+        val userToBeUnblockedId = TestData.ownerUserId    // doesn't matter in this test, tournament id matters
+        val tournamentId = TestData.invalidTournamentId
+
+        // when
+        tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+    }
+
+    @Test(expected = UserIsNotAnOwnerException::class)
+    fun `should not unblocked user if request author user is not an owner`() {
+        // given
+        val requestAuthorId = TestData.ownerUserId
+        val userToBeUnblockedId = TestData.participatingActiveUserId
+        val tournamentId = TestData.activeNotOwnerTournamentId
+
+        val tournamentBeforeUnblocking = tournamentRepository.findOne(tournamentId)
+
+        // when
+        tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeUnblocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeUnblocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not unblocked user from finished tournament if participates`() {
+        // given
+        val requestAuthorId = TestData.ownerUserId
+        val userToBeUnblockedId = TestData.participatingFinishedUserId
+        val tournamentId = TestData.finishedOwnerTournamentId
+
+        val tournamentBeforeUnblocking = tournamentRepository.findOne(tournamentId)
+
+        // when
+        tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeUnblocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeUnblocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
+    }
+
+    @Test(expected = IllegalTournamentStatusException::class)
+    fun `should not unblocked user from draft tournament`() {
+        // given
+        val requestAuthorId = TestData.ownerUserId
+        val userToBeUnblockedId = TestData.ownerUserId    // doesn't matter in this test, status matters
+        val tournamentId = TestData.draftOwnerTournamentId
+
+        val tournamentBeforeUnblocking = tournamentRepository.findOne(tournamentId)
+
+        // when
+        tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeUnblocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeUnblocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
+    }
+
+    @Test(expected = WrongUserParticipateStatusException::class)
+    fun `should not unblocked user if user does not participate`() {
+        // given
+        val requestAuthorId = TestData.ownerUserId
+        val userToBeUnblockedId = TestData.notParticipatingUserId
+        val tournamentId = TestData.activeOwnerTournamentId
+
+        val tournamentBeforeUnblocking = tournamentRepository.findOne(tournamentId)
+
+        // when
+        tournamentManagementService.unblockUserInTournament(requestAuthorId, tournamentId, userToBeUnblockedId)
+
+        // then
+        tournamentRepository.findOne(tournamentId).apply {
+            Assert.assertEquals(tournamentBeforeUnblocking.joinedUsersIds.size, joinedUsersIds.size)
+            Assert.assertEquals(tournamentBeforeUnblocking.blockedUsersIds.size, blockedUsersIds.size)
+        }
     }
 
     /**
@@ -303,7 +423,6 @@ class TournamentManagementServiceTest {
         // when
         tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
 
-
         // then
         tournamentRepository.findOne(tournamentId).apply {
             Assert.assertEquals(TournamentStatus.ACTIVE, status)
@@ -321,7 +440,6 @@ class TournamentManagementServiceTest {
 
         // when
         tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
-
 
         // then
         tournamentRepository.findOne(tournamentId).apply {
@@ -341,7 +459,6 @@ class TournamentManagementServiceTest {
         // when
         tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
 
-
         // then
         tournamentRepository.findOne(tournamentId).apply {
             Assert.assertEquals(TournamentStatus.DRAFT, status)
@@ -360,7 +477,6 @@ class TournamentManagementServiceTest {
         // when
         tournamentManagementService.extendTournamentDeadline(userId, tournamentId, durationToExtend)
 
-
         // then
         tournamentRepository.findOne(tournamentId).apply {
             Assert.assertEquals(TournamentStatus.FINISHED, status)
@@ -370,11 +486,14 @@ class TournamentManagementServiceTest {
 
     private object TestData {
         val ownerUserId = 3L
+        val ownerBlockedUserId = 1L
+        val blockedUserId = 3L
         val notOwnerUserId = 4L
         val participatingActiveUserId = 5L
         val participatingFinishedUserId = 2L
         val notParticipatingUserId = 1L
         val draftOwnerTournamentId = "000000000000000000000002"
+        val blockedActiveTournamentId = "000000000000000000000011"
         val activeOwnerTournamentId = "000000000000000000000019"
         val activeNotOwnerTournamentId = "000000000000000000000020"
         val finishedOwnerTournamentId = "000000000000000000000023"

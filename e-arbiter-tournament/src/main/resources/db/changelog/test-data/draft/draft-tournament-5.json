@@ -9,6 +9,7 @@
   "status": "DRAFT",
   "password": "password403951",
   "joinedUsersIds": [],
+  "blockedUsersIds": [],
   "tasks": [
     {
       "type": "QuizTask",

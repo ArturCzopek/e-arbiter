@@ -39,6 +39,7 @@ var gen =
 
             return usersList;
         },
+        'blockedUsersIds': [],
         'tasks': [
             '{{repeat(0, 10)}}', // code task first
             {

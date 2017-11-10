@@ -39,8 +39,22 @@ export class TournamentManageService {
       .map(res => res.json());
   }
 
-  public removeUserFromTournament(tournamentId: string, userId: number): Observable<any> {
-    return this.http.put(`${environment.server.tournament.managementTournamentsUrl}/${tournamentId}/remove-user/${userId}`,
+  public getBlockedUsers(id: string): Observable<User[]> {
+    return this.http.get(`${environment.server.tournament.managementTournamentsUrl}/${id}/blocked-users`,
+      this.authService.prepareAuthOptions()
+    )
+      .map(res => res.json());
+  }
+
+  public blockUserInTournament(tournamentId: string, userId: number): Observable<any> {
+    return this.http.put(`${environment.server.tournament.managementTournamentsUrl}/${tournamentId}/block-user/${userId}`,
+      {},
+      this.authService.prepareAuthOptions()
+    );
+  }
+
+  public unblockUserInTournament(tournamentId: string, userId: number): Observable<any> {
+    return this.http.put(`${environment.server.tournament.managementTournamentsUrl}/${tournamentId}/unblock-user/${userId}`,
       {},
       this.authService.prepareAuthOptions()
     );

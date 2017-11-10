@@ -71,7 +71,7 @@ class TournamentDetailsService(
                     status,
                     accessDetails,
                     description,
-                    joinedUsersIds.size,
+                    joinedUsersIds.size + blockedUsersIds.size,
                     startDate,
                     endDate,
                     taskPreviews,
@@ -92,7 +92,7 @@ class TournamentDetailsService(
     fun getUsersTasksList(tournamentId: String) =
             with(tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)) {
                 UsersTasksList(
-                        joinedUsersIds,
+                        joinedUsersIds + blockedUsersIds,
                         tasks.map { it.id }
                 )
             }

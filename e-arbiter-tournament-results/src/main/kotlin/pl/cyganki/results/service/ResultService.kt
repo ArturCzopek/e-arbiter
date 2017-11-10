@@ -76,6 +76,7 @@ class ResultService(
             }
         }
     }
+            .sortedBy { it.userName }
             .sortedByDescending { it.summaryPoints }
 
 
