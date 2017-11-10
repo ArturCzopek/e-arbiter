@@ -26,7 +26,7 @@ class TournamentPreviewsFetcher(
 
     fun getActiveMostPopularTournamentsInWhichUserDoesNotParticipate(userId: Long, pageable: Pageable): Page<TournamentPreview> {
         val tournaments = tournamentRepository.findAllPublicActiveTournamentsInWhichUserDoesNotParticipate(userId)
-        tournaments.sortByDescending { it.joinedUsersIds.size }
+        tournaments.sortByDescending { it.joinedUsersIds.size + it.blockedUsersIds.size }
         val firstElement = pageable.pageNumber * pageable.pageSize
         val lastElementByPageable = (pageable.pageSize * (pageable.pageNumber + 1)) - 1         // pageable indexing from 0
         val lastElement = if (lastElementByPageable < tournaments.size - 1) lastElementByPageable else tournaments.size - 1    // we don't want to outofbound exception
@@ -41,7 +41,7 @@ class TournamentPreviewsFetcher(
                             it.description,
                             it.isPublicFlag,
                             it.status,
-                            it.joinedUsersIds.size,
+                            it.joinedUsersIds.size + it.blockedUsersIds.size,
                             it.endDate
                     )
                 }
@@ -71,7 +71,7 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size,
+                    it.joinedUsersIds.size + it.blockedUsersIds.size,
                     it.endDate
             )
         }
@@ -87,7 +87,7 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size,
+                    it.joinedUsersIds.size + it.blockedUsersIds.size,
                     it.endDate
             )
         }
@@ -105,7 +105,7 @@ class TournamentPreviewsFetcher(
                     it.description,
                     it.isPublicFlag,
                     it.status,
-                    it.joinedUsersIds.size,
+                    it.joinedUsersIds.size + it.blockedUsersIds.size,
                     it.endDate
             )
         }

@@ -19,6 +19,7 @@
     16,
     2
   ],
+  "blockedUsersIds": [],
   "tasks": [
     {
       "type": "QuizTask",

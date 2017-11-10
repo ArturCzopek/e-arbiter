@@ -4,10 +4,10 @@
   "description": "Ea Lorem ex exercitation aliquip ex ea exercitation. Qui laboris elit id deserunt adipisicing est elit voluptate culpa aliquip velit. Mollit proident laboris sint id ullamco labore sint irure ullamco aliquip fugiat.",
   "startDate": "2017-08-20T01:59:21",
   "endDate": "2017-12-06T05:57:51",
-  "publicFlag": true,
+  "publicFlag": false,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
-  "password": null,
+  "password": "password12345",
   "joinedUsersIds": [
     4,
     14,
@@ -19,6 +19,7 @@
     13,
     6
   ],
+  "blockedUsersIds": [],
   "tasks": [
     {
       "type": "CodeTask",

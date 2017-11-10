@@ -56,6 +56,8 @@ public class Tournament {
 
     private List<Long> joinedUsersIds = new LinkedList<>();
 
+    private List<Long> blockedUsersIds = new LinkedList<>();
+
     private boolean resultsVisibleForJoinedUsers;
 
     private String password;
@@ -107,6 +109,10 @@ public class Tournament {
 
     public List<Long> getJoinedUsersIds() {
         return joinedUsersIds;
+    }
+
+    public List<Long> getBlockedUsersIds() {
+        return blockedUsersIds;
     }
 
     public boolean isResultsVisibleForJoinedUsers() {
@@ -164,7 +170,7 @@ public class Tournament {
         this.joinedUsersIds.add(userId);
     }
 
-    public void removeUser(Long userId) {
+    public void blockUser(Long userId) {
         checkTournamentStatus(AllowedStatuses.ACTIVE);
 
         if (!this.joinedUsersIds.contains(userId)) {
@@ -172,6 +178,18 @@ public class Tournament {
         }
 
         this.joinedUsersIds.remove(userId);
+        this.blockedUsersIds.add(userId);
+    }
+
+    public void unblockUser(Long userId) {
+        checkTournamentStatus(AllowedStatuses.ACTIVE);
+
+        if (!this.blockedUsersIds.contains(userId)) {
+            throw new WrongUserParticipateStatusException(userId, this.id);
+        }
+
+        this.blockedUsersIds.remove(userId);
+        this.joinedUsersIds.add(userId);
     }
 
     public void setResultsVisibleForJoinedUsers(boolean resultsVisibleForJoinedUsers) {
@@ -197,6 +215,7 @@ public class Tournament {
         this.status = TournamentStatus.ACTIVE;
         this.startDate = LocalDateTime.now();
         this.joinedUsersIds = new ArrayList<>();
+        this.blockedUsersIds = new ArrayList<>();
     }
 
     public void finish() {

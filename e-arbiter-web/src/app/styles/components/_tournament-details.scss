@@ -127,6 +127,15 @@ arb-tour-details-results {
           background: lighten($main-lighten-color, 8%) !important;
         }
 
+        &.blocked-user {
+          background: lightgray;
+          color: darken(lightgray, 10%) !important;
+
+          i {
+            color: black;
+          }
+        }
+
         td {
           a.table-link {
             font-size: 0.9em;

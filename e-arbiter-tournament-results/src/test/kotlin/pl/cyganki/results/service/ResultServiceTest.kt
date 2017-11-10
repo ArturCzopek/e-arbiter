@@ -74,6 +74,9 @@ class ResultServiceTest {
                 for (j in i + 1..3) {
                     Assert.assertTrue(results[i].position <= results[j].position)
                     Assert.assertTrue(results[i].summaryPoints >= results[j].summaryPoints)
+                    if (results[i].summaryPoints == results[j].summaryPoints) {
+                        Assert.assertTrue(results[i].userName < results[j].userName)
+                    }
                 }
             }
 

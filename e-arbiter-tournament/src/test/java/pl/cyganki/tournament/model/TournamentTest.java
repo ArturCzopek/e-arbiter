@@ -41,7 +41,9 @@ public class TournamentTest {
         assertEquals(expectedPoints, foundPoints);
     }
 
-    // Owner Id
+    /**
+     * setOwnerId
+     */
 
     @Test
     public void shouldSetOwnerIdForDraftTournament() {
@@ -79,7 +81,9 @@ public class TournamentTest {
         assertNotEquals(TestData.USER_ID, tournament.getOwnerId());
     }
 
-    // Name
+    /**
+     * setName
+     */
 
     @Test
     public void shouldSetNameForDraftTournament() {
@@ -117,7 +121,9 @@ public class TournamentTest {
         assertNotEquals(TestData.NAME, tournament.getName());
     }
 
-    // Description
+    /**
+     * setDescription
+     */
 
     @Test
     public void shouldSetDescriptionForDraftTournament() {
@@ -155,7 +161,9 @@ public class TournamentTest {
         assertNotEquals(TestData.DESCRIPTION, tournament.getDescription());
     }
 
-    // End date
+    /**
+     * setEndDate
+     */
 
     @Test
     public void shouldSetEndDateForDraftTournament() {
@@ -193,7 +201,9 @@ public class TournamentTest {
         assertNotEquals(TestData.END_DATE, tournament.getEndDate());
     }
 
-    // extend deadline
+    /**
+     * extendDeadline
+     */
 
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForExtendingDeadlineForDraftTournament() {
@@ -231,7 +241,9 @@ public class TournamentTest {
         assertEquals(extendedDate, tournament.getEndDate());
     }
 
-    // Public flag
+    /**
+     * setPublicFlag
+     */
 
     @Test
     public void shouldSetPublicFlagForDraftTournament() {
@@ -269,7 +281,9 @@ public class TournamentTest {
         assertNotEquals(TestData.PUBLIC_FLAG, tournament.isPublicFlag());
     }
 
-    // User
+    /**
+     * addUser
+     */
 
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForAddingUserToDraftTournament() {
@@ -312,51 +326,111 @@ public class TournamentTest {
         assertFalse(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
     }
 
+    /**
+     * blockUser
+     */
+
     @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForRemovingUserToDraftTournament() {
+    public void shouldThrowExceptionForBlockingUserInDraftTournament() {
         // given
         tournament = MockTournament.getDraft();
 
         // when
-        tournament.removeUser(TestData.USER_ID);
+        tournament.blockUser(TestData.USER_ID);
 
         // then
         assertTrue(tournament.getJoinedUsersIds().isEmpty()); // for draft list is empty at first
+        assertTrue(tournament.getBlockedUsersIds().isEmpty()); // for draft list is empty at first
     }
 
     @Test
-    public void shouldRemoveUserFromActiveTournament() {
+    public void shouldBlockUserInActiveTournament() {
         // given
         tournament = MockTournament.getActive();
         tournament.getJoinedUsersIds().add(TestData.USER_ID);
         tournament.getJoinedUsersIds().add(TestData.USER_ID + 1);
 
         // when
-        int usersInTournamentBeforeAdding = tournament.getJoinedUsersIds().size();
-        tournament.removeUser(TestData.USER_ID);
+        int usersInTournamentBeforeBlocking = tournament.getJoinedUsersIds().size();
+        tournament.blockUser(TestData.USER_ID);
 
         // then
-        assertEquals(usersInTournamentBeforeAdding - 1, tournament.getJoinedUsersIds().size());
+        assertEquals(usersInTournamentBeforeBlocking - 1, tournament.getJoinedUsersIds().size());
         assertFalse(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
+        assertTrue(tournament.getBlockedUsersIds().contains(TestData.USER_ID));
     }
 
     @Test(expected = IllegalTournamentStatusException.class)
-    public void shouldThrowExceptionForRemovingUserToFinishedTournament() {
+    public void shouldThrowExceptionForBlockingUserInFinishedTournament() {
         // given
         tournament = MockTournament.getFinished();
         tournament.getJoinedUsersIds().add(TestData.USER_ID);
         tournament.getJoinedUsersIds().add(TestData.USER_ID + 1);
 
         // when
-        int usersInTournamentBeforeAdding = tournament.getJoinedUsersIds().size();
-        tournament.removeUser(TestData.USER_ID);
+        int usersInTournamentBeforeBlocking = tournament.getJoinedUsersIds().size();
+        tournament.blockUser(TestData.USER_ID);
 
         // then
-        assertEquals(usersInTournamentBeforeAdding, tournament.getJoinedUsersIds().size());
-        assertFalse(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
+        assertEquals(usersInTournamentBeforeBlocking, tournament.getJoinedUsersIds().size());
+        assertTrue(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
+        assertFalse(tournament.getBlockedUsersIds().contains(TestData.USER_ID));
     }
 
-    // Results visible for joined users
+    /**
+     * unblockUser
+     */
+
+    @Test(expected = IllegalTournamentStatusException.class)
+    public void shouldThrowExceptionForUnblockingUserInDraftTournament() {
+        // given
+        tournament = MockTournament.getDraft();
+
+        // when
+        tournament.unblockUser(TestData.USER_ID);
+
+        // then
+        assertTrue(tournament.getJoinedUsersIds().isEmpty()); // for draft list is empty at first
+        assertTrue(tournament.getBlockedUsersIds().isEmpty()); // for draft list is empty at first
+    }
+
+    @Test
+    public void shouldUnlockUserInActiveTournament() {
+        // given
+        tournament = MockTournament.getActive();
+        tournament.getBlockedUsersIds().add(TestData.USER_ID);
+        tournament.getBlockedUsersIds().add(TestData.USER_ID + 1);
+
+        // when
+        int usersInTournamentBeforeUnblocking = tournament.getBlockedUsersIds().size();
+        tournament.unblockUser(TestData.USER_ID);
+
+        // then
+        assertEquals(usersInTournamentBeforeUnblocking - 1, tournament.getBlockedUsersIds().size());
+        assertTrue(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
+        assertFalse(tournament.getBlockedUsersIds().contains(TestData.USER_ID));
+    }
+
+    @Test(expected = IllegalTournamentStatusException.class)
+    public void shouldThrowExceptionForUnlockingUserInFinishedTournament() {
+        // given
+        tournament = MockTournament.getFinished();
+        tournament.getBlockedUsersIds().add(TestData.USER_ID);
+        tournament.getBlockedUsersIds().add(TestData.USER_ID + 1);
+
+        // when
+        int usersInTournamentBeforeAdding = tournament.getBlockedUsersIds().size();
+        tournament.unblockUser(TestData.USER_ID);
+
+        // then
+        assertEquals(usersInTournamentBeforeAdding, tournament.getBlockedUsersIds().size());
+        assertFalse(tournament.getJoinedUsersIds().contains(TestData.USER_ID));
+        assertTrue(tournament.getBlockedUsersIds().contains(TestData.USER_ID));
+    }
+
+    /**
+     * setResultsVisibleForJoinedUsers
+     */
 
     @Test
     public void shouldSetResultsVisibleForJoinedUsersForDraftTournament() {
@@ -394,7 +468,9 @@ public class TournamentTest {
         assertNotEquals(TestData.RESULTS_VISIBLE, tournament.isResultsVisibleForJoinedUsers());
     }
 
-    // Password
+    /**
+     * setPassword
+     */
 
     @Test
     public void shouldSetPasswordForDraftTournament() {
@@ -432,7 +508,9 @@ public class TournamentTest {
         assertEquals(TestData.PASSWORD, tournament.getPassword());
     }
 
-    // activate
+    /**
+     * activate
+     */
 
     @Test
     public void shouldActivateDraftTournament() {
@@ -448,6 +526,7 @@ public class TournamentTest {
         assertEquals(TournamentStatus.ACTIVE, tournament.getStatus());
         assertNotNull(tournament.getStartDate());
         assertTrue(tournament.getJoinedUsersIds().isEmpty());
+        assertTrue(tournament.getBlockedUsersIds().isEmpty());
     }
 
     @Test(expected = DateTimeException.class)
@@ -464,6 +543,7 @@ public class TournamentTest {
         assertEquals(TournamentStatus.DRAFT, tournament.getStatus());
         assertNull(tournament.getStartDate());
         assertTrue(tournament.getJoinedUsersIds().isEmpty());
+        assertTrue(tournament.getBlockedUsersIds().isEmpty());
     }
 
     @Test(expected = IllegalTournamentStatusException.class)
@@ -478,6 +558,7 @@ public class TournamentTest {
         // then
         assertEquals(TournamentStatus.ACTIVE, tournament.getStatus());
         assertFalse(tournament.getJoinedUsersIds().isEmpty());
+        assertFalse(tournament.getBlockedUsersIds().isEmpty());
     }
 
     @Test(expected = IllegalTournamentStatusException.class)
@@ -492,9 +573,12 @@ public class TournamentTest {
         // then
         assertEquals(TournamentStatus.FINISHED, tournament.getStatus());
         assertFalse(tournament.getJoinedUsersIds().isEmpty());
+        assertFalse(tournament.getBlockedUsersIds().isEmpty());
     }
 
-    // finish
+    /**
+     * finish
+     */
 
     @Test(expected = IllegalTournamentStatusException.class)
     public void shouldThrowExceptionForFinishingDraftTournament() {
@@ -532,7 +616,9 @@ public class TournamentTest {
         assertEquals(TournamentStatus.FINISHED, tournament.getStatus());
     }
 
-    // Tasks
+    /**
+     * setTasks
+     */
 
     @Test
     public void shouldSetTasksForDraftTournament() {
@@ -569,6 +655,10 @@ public class TournamentTest {
         // then
         assertNotEquals(TestData.TASKS, tournament.getTasks());
     }
+
+    /**
+     * addTask
+     */
 
     @Test
     public void shouldAddTaskForDraftTournament() {
@@ -628,6 +718,10 @@ public class TournamentTest {
         assertNotNull(foundTask);
     }
 
+    /**
+     * removeTask
+     */
+
     @Test
     public void shouldRemoveTaskFromDraftTournament() {
         // given
@@ -669,6 +763,10 @@ public class TournamentTest {
         // then
         assertEquals(tasksSize, tournament.getTasks().size());
     }
+
+    /**
+     * addTask
+     */
 
     @Test
     public void shouldUpdateTaskInDraftTournament() {

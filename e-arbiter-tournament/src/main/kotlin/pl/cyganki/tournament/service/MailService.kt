@@ -98,7 +98,7 @@ class MailService(
         }
     }
 
-    fun sendRemovedUserFromTournamentEmail(tournamentId: String, userId: Long) {
+    fun sendBlockedUserInTournamentEmail(tournamentId: String, userId: Long) {
         val tournament = tournamentRepository.findOne(tournamentId) ?: throw InvalidTournamentIdException(tournamentId)
         val user = authModuleInterface.getUserNamesAndEmailsByIds(arrayOf(userId))[0]    // only one result for one user
 
@@ -107,16 +107,16 @@ class MailService(
                 javaMailSender.send({
                     MimeMessageHelper(it, true).apply {
                         setTo(user.email)
-                        setSubject("e-Arbiter - zostałeś usunięty z turnieju ${tournament.name}")
-                        setText(buildRemovedUserFromTournamentEmail(tournament.name, user.name), true)
+                        setSubject("e-Arbiter - zostałeś zablokowany w turnieju ${tournament.name}")
+                        setText(buildBlockedUserFromTournamentEmail(tournament.name, user.name), true)
                         addInline(VarName.logo, getLogoImageAsByteArrayResource(), Logo.contentType)
                     }
                 })
 
-                logger.debug { "Sent email ${TemplateName.removedUserFromTournament} to ${user.name} on mail ${user.email}" }
+                logger.debug { "Sent email ${TemplateName.blockedUserInTournament} to ${user.name} on mail ${user.email}" }
             } catch (e: MailException) {
                 logger.warn { e.message }
-                throw object : MailException("Cannot send email ${TemplateName.removedUserFromTournament} to ${user.name}: ${e.message}") {}
+                throw object : MailException("Cannot send email ${TemplateName.blockedUserInTournament} to ${user.name}: ${e.message}") {}
             }
         }
     }
@@ -199,12 +199,12 @@ class MailService(
                 templateEngine.process(TemplateName.activatedTournament, this)
             }
 
-    private fun buildRemovedUserFromTournamentEmail(tournamentName: String, userName: String) =
+    private fun buildBlockedUserFromTournamentEmail(tournamentName: String, userName: String) =
             Context().run {
                 setVariable(VarName.tournamentName, tournamentName)
                 setVariable(VarName.userName, userName)
                 setVariable(VarName.logo, VarName.logo)
-                templateEngine.process(TemplateName.removedUserFromTournament, this)
+                templateEngine.process(TemplateName.blockedUserInTournament, this)
             }
 
     private fun buildJoinedToTournamentEmail(tournamentName: String, userName: String, deadline: LocalDateTime) =
@@ -245,7 +245,7 @@ class MailService(
         val finishedTournament = "FinishedTournamentEmailTemplate"
         val extendedTournament = "ExtendedTournamentEmailTemplate"
         val activatedTournament = "ActivatedTournamentEmailTemplate"
-        val removedUserFromTournament = "RemovedUserFromTournamentEmailTemplate"
+        val blockedUserInTournament = "BlockedUserInTournamentEmailTemplate"
         val joinedToTournament = "JoinedToTournamentEmailTemplate"
         val adminBroadcast = "AdminBroadcastEmailTemplate"
     }

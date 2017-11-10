@@ -63,8 +63,8 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
-            Assert.assertEquals(5, numberOfElements)
+            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(4, numberOfElements)
             Assert.assertEquals(1, totalPages)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
         }
@@ -73,15 +73,15 @@ class TournamentPreviewsFetcherTest {
     @Test
     fun `should return one page active user's tournament in which user participates and information about two available pages`() {
         // given
-        val pageRequest = PageRequest(0, 4)
+        val pageRequest = PageRequest(0, 3)
 
         // when
         val foundTournamentsPage = tournamentPreviewsFetcher.getActiveTournamentsInWhichUserParticipates(userId, pageRequest, null)
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
-            Assert.assertEquals(4, numberOfElements)
+            Assert.assertEquals(4, totalElements)
+            Assert.assertEquals(3, numberOfElements)
             Assert.assertEquals(2, totalPages)
             Assert.assertFalse(isLast)
             content.forEach { Assert.assertEquals(TournamentStatus.ACTIVE, it.status) }
@@ -98,10 +98,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(4, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..3) {
-                for (j in i + 1..4) {
+            for (i in 0..2) {
+                for (j in i + 1..3) {
                     Assert.assertTrue(content[i].name > content[j].name)
                 }
             }
@@ -119,10 +119,10 @@ class TournamentPreviewsFetcherTest {
 
         // then
         foundTournamentsPage.apply {
-            Assert.assertEquals(5, totalElements)
+            Assert.assertEquals(4, totalElements)
             Assert.assertEquals(1, totalPages)
-            for (i in 0..3) {
-                for (j in i + 1..4) {
+            for (i in 0..2) {
+                for (j in i + 1..3) {
                     Assert.assertTrue(content[i].name < content[j].name)
                 }
             }

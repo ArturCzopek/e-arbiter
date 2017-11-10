@@ -232,7 +232,7 @@ class TournamentUserActionServiceTest {
     private object TestData {
         val wrongTournamentId = "xxx"
         val activePublicTournamentIdInWhichUserDoesNotParticipate = "000000000000000000000012"
-        val activePublicTournamentIdInWhichUserParticipates = "000000000000000000000011"
+        val activePublicTournamentIdInWhichUserParticipates = "000000000000000000000018"
         val activePublicTournamentIdWhereUserIsAnOwner = "000000000000000000000017"
         val activePrivateTournamentIdInWhichUserDoesNotParticipate = "000000000000000000000014"
         val finishedPublicTournamentIdInWhichUserDoesNotParticipate = "000000000000000000000021"

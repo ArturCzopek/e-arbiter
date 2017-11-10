@@ -19,6 +19,7 @@
     10,
     16
   ],
+  "blockedUsersIds": [],
   "tasks": [
     {
       "type": "CodeTask",
