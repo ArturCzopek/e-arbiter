@@ -6,6 +6,7 @@ import pl.cyganki.tournament.model.QuizSubmission;
 import pl.cyganki.tournament.model.Task;
 import pl.cyganki.tournament.service.TaskService;
 import pl.cyganki.utils.model.executor.ExecutionResult;
+import pl.cyganki.utils.model.tournamentresults.QuizTaskResultDto;
 import pl.cyganki.utils.security.dto.User;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class TaskController {
     }
 
     @PostMapping("/submit/quiz")
-    public void submitQuiz(User user, @RequestBody @Valid QuizSubmission quizSubmission) {
-        taskService.submitQuiz(user.getId(), quizSubmission);
+    public QuizTaskResultDto submitQuiz(User user, @RequestBody @Valid QuizSubmission quizSubmission) {
+        return taskService.submitQuiz(user.getId(), quizSubmission);
     }
 }

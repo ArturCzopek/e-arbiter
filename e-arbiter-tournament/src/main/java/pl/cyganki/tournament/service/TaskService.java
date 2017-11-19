@@ -64,7 +64,7 @@ public class TaskService {
         return executionResult;
     }
 
-    public void submitQuiz(long userId, QuizSubmission quizSubmission) {
+    public QuizTaskResultDto submitQuiz(long userId, QuizSubmission quizSubmission) {
         final QuizTask quizTask = findQuizTaskToValidate(userId, quizSubmission);
 
         final QuizTaskResultDto quizTaskResultDto = new QuizTaskResultDto(
@@ -74,6 +74,7 @@ public class TaskService {
                 getQuizEarnedPoints(quizTask, quizSubmission.getQuestions()));
 
         this.tournamentResultsModuleInterface.saveQuizTaskResult(quizTaskResultDto);
+        return quizTaskResultDto;
     }
 
     private String getQuizEarnedPoints(QuizTask quizTask, List<Question> userSubmission) {
