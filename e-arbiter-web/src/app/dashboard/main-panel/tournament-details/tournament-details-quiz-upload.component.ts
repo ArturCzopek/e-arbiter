@@ -1,10 +1,10 @@
-import {Component, ViewChild} from "@angular/core";
-import {SemanticModalComponent} from "ng-semantic";
-import {TaskService} from "../service/task.service";
-import {ModalService} from "../../../shared/service/modal.service";
-import {Task} from "../../tournament-management-panel/interface/task.interface";
-import {Question} from "../../tournament-management-panel/interface/question.interface";
-import {MainPanelStream} from "../service/main-panel.stream";
+import { Component, ViewChild } from "@angular/core";
+import { SemanticModalComponent } from "ng-semantic";
+import { TaskService } from "../service/task.service";
+import { ModalService } from "../../../shared/service/modal.service";
+import { Task } from "../../tournament-management-panel/interface/task.interface";
+import { Question } from "../../tournament-management-panel/interface/question.interface";
+import { MainPanelStream } from "../service/main-panel.stream";
 
 @Component({
   selector: 'arb-tour-details-quiz-upload',
@@ -53,7 +53,7 @@ export class TournamentDetailsQuizUploadComponent {
     this.taskService.getTask(tournamentId, taskId)
       .first()
       .subscribe(
-        task => (this.task = task) && this.quizUploadModal.show(),
+        task => (this.task = task) && this.quizUploadModal.show({ observeChanges: true }),
         error => this.modalService.showAlert('Nie można pobrać danych odnośnie zadania.')
       );
   }
