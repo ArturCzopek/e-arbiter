@@ -1,8 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { TaskPreview } from '../../../shared/interface/task-preview.interface';
 import * as _ from 'lodash';
 import { SemanticModalComponent } from 'ng-semantic';
-import { CodeSubmitForm } from '../../../shared/interface/code-submit-form.interface';
 import { TaskService } from '../service/task.service';
 
 @Component({
@@ -41,6 +39,15 @@ import { TaskService } from '../service/task.service';
         <form class="ui form">
           <div class="field">
             <textarea name="program" [(ngModel)]="codeSubmitForm.program" placeholder="Rozwiązanie..."></textarea>
+          </div>
+          <div class="field">
+            <sm-select
+              placeholder="Wybierz..."
+              [model]="codeSubmitForm.language"
+              class="fluid search disabled"
+            >
+              <option *ngFor="let language of taskPreview.languages" [value]="language">{{ language }}</option>
+            </sm-select>
           </div>
         </form>
       </modal-content>
