@@ -1,5 +1,6 @@
 package pl.cyganki.tournament.model.dto
 
+import pl.cyganki.utils.model.Language
 import pl.cyganki.utils.model.TaskUserDetails
 
 data class TaskPreview(
@@ -8,5 +9,6 @@ data class TaskPreview(
         val description: String,
         val maxPoints: Int,
         val type: String,
-        val taskUserDetails: TaskUserDetails?
+        val taskUserDetails: TaskUserDetails?,
+        val languages: List<Language> = emptyList()
 )

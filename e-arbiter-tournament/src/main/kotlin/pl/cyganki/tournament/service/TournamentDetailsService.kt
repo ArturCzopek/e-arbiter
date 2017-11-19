@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import pl.cyganki.tournament.exception.IllegalTournamentStatusException
 import pl.cyganki.tournament.exception.InvalidResultsRightsException
 import pl.cyganki.tournament.exception.InvalidTournamentIdException
+import pl.cyganki.tournament.model.CodeTask
 import pl.cyganki.tournament.model.QuizTask
 import pl.cyganki.tournament.model.Task
 import pl.cyganki.tournament.model.TournamentStatus
@@ -60,7 +61,8 @@ class TournamentDetailsService(
                         it.description,
                         it.maxPoints,
                         if (it is QuizTask) "QUIZ" else "CODE",
-                        getTaskUserDetails(it, tasksUserDetails, canSeePoints(accessDetails))
+                        getTaskUserDetails(it, tasksUserDetails, canSeePoints(accessDetails)),
+                        if (it is CodeTask) it.languages else emptyList()
                 )
             }
 

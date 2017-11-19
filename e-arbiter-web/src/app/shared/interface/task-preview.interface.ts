@@ -2,7 +2,7 @@
  * Generic interface for displaying task preview
  * More details will be passed in other interface
  */
-import {TaskUserDetails} from './task-user-details.interface';
+import { TaskUserDetails } from './task-user-details.interface';
 
 export interface TaskPreview {
   tournamentId: string,
@@ -10,6 +10,7 @@ export interface TaskPreview {
   description: string,
   maxPoints: number,
   type: string,
-  taskUserDetails?: TaskUserDetails
+  taskUserDetails?: TaskUserDetails,
+  languages: String[]
 }
 

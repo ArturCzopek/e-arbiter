@@ -1,9 +1,9 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {TaskPreview} from '../../../shared/interface/task-preview.interface';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { TaskPreview } from '../../../shared/interface/task-preview.interface';
 import * as _ from 'lodash';
-import {SemanticModalComponent} from 'ng-semantic';
-import {CodeSubmitForm} from '../../../shared/interface/code-submit-form.interface';
-import {TaskService} from '../service/task.service';
+import { SemanticModalComponent } from 'ng-semantic';
+import { CodeSubmitForm } from '../../../shared/interface/code-submit-form.interface';
+import { TaskService } from '../service/task.service';
 
 @Component({
   selector: 'arb-tour-details-task-prev',
@@ -16,6 +16,9 @@ import {TaskService} from '../service/task.service';
             {{taskPreview.name}}
           </accordion-title>
           <accordion-content>
+            <p *ngIf="taskPreview.languages && taskPreview.languages.length > 0">
+              {{taskPreview.languages.join(', ')}}
+            </p>
             <p>{{taskPreview.description}}</p>
             <div *ngIf="canSeeTaskFooter" class="accordion-content-footer">
               <p>Podejścia: {{taskPreview.taskUserDetails.userAttempts}}/{{convertAttempts()}}</p>
