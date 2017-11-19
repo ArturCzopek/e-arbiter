@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { TaskPreview } from '../../../shared/interface/task-preview.interface';
 import * as _ from 'lodash';
 import { SemanticModalComponent } from 'ng-semantic';
+import { CodeSubmitForm } from '../../../shared/interface/code-submit-form.interface';
 import { TaskService } from '../service/task.service';
 
 @Component({
