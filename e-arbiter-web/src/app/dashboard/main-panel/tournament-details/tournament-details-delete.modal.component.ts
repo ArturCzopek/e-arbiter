@@ -3,7 +3,7 @@ import {SemanticModalComponent} from 'ng-semantic';
 import {TournamentManageService} from '../service/tournament-manage.service';
 import {ModalService} from '../../../shared/service/modal.service';
 import {RouteService} from '../../../shared/service/route.service';
-import {TournamentDetails} from "../interface/tournament-details.interface";
+import {TournamentDetails} from '../interface/tournament-details.interface';
 
 @Component({
   selector: 'arb-tour-details-delete-modal',

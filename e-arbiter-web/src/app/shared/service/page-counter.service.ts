@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {EMPTY_PAGE, Page} from '../interface/page.interface';
 import * as _ from 'lodash';
 
-
 /**
  * Service responsible for calculating pages to display for pagination
  */

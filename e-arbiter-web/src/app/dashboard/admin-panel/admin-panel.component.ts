@@ -5,7 +5,7 @@ import {AdminService} from './service/admin.service';
 import {ServiceLogs} from './model/service-logs.model';
 import {SemanticModalComponent} from 'ng-semantic';
 import {User} from '../../shared/interface/user.interface';
-import {AuthService} from "../../shared/service/auth.service";
+import {AuthService} from '../../shared/service/auth.service';
 
 @Component({
   selector: 'arb-admin-panel',
@@ -77,7 +77,7 @@ export class AdminPanelComponent implements OnInit {
   public showLogsModal(serviceLogs: ServiceLogs) {
     this.logsModalTitle = `Logi - ${serviceLogs.serviceName}`;
     this.logs = serviceLogs.logs;
-    this.logsModal.show();
+    this.logsModal.show({observeChanges: true});
   }
 
   public trackByUserId(index: number, user: User) {

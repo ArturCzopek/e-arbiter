@@ -1,6 +1,6 @@
 import {
-  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, Renderer2, SimpleChanges,
-  ViewChild
+  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
+  OnDestroy, Output, Renderer2, SimpleChanges, ViewChild
 } from '@angular/core';
 import {MenuElement} from '../model/menu-element.model';
 import {Subscription} from 'rxjs/Subscription';
@@ -30,7 +30,7 @@ import 'rxjs/operator/filter';
                   step="1"
                   placeholder="ile?">
               </div>
-             <div *ngIf="querySearchEnabled" class="field broad ui icon input">
+              <div *ngIf="querySearchEnabled" class="field broad ui icon input">
                 <input
                   #queryInput
                   type="text"

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AdminServiceData} from './interface/admin-service-data.interface';
 import {AdminService} from './service/admin.service';
-import {ServiceLogs} from "./model/service-logs.model";
+import {ServiceLogs} from './model/service-logs.model';
 
 @Component({
   selector: 'arb-admin-panel-services-details-card',

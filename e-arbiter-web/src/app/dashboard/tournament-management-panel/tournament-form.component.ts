@@ -7,8 +7,8 @@ import {TournamentManagementService} from './tournament-management.service';
 import {TournamentStatus} from '../../shared/interface/tournament-status.enum';
 import {ModalService} from '../../shared/service/modal.service';
 import {DateService} from '../../shared/service/date.service';
-import {ActivatedRoute} from "@angular/router";
-import {RouteService} from "../../shared/service/route.service";
+import {ActivatedRoute} from '@angular/router';
+import {RouteService} from '../../shared/service/route.service';
 
 declare var $: any;
 

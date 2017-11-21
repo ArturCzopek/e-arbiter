@@ -1,4 +1,4 @@
-import {Answer} from "./answer.interface";
+import {Answer} from './answer.interface';
 
 export interface Question {
   content: string;

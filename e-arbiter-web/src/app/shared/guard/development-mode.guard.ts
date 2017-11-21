@@ -1,7 +1,7 @@
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
-import {environment} from "../../../environments/environment";
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../environments/environment';
 
 
 /**
@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
 @Injectable()
 export class DevelopmentModeGuard implements CanActivate {
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean {
     return !environment.production;
   }
 }

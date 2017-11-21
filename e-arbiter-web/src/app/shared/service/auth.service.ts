@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions} from '@angular/http';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/catch';
@@ -8,15 +8,23 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {User} from '../interface/user.interface';
 import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+import {UserStorage} from "./user.storage";
 
 declare var window: any;
 
 @Injectable()
 export class AuthService {
+  static get disabledUserStatus(): number {
+    return this._disabledUserStatus;
+  }
 
-  private user: User = null;
+  private static _disabledUserStatus = 423;
 
-  constructor(private http: Http) {}
+  private userDisabled: Subject<string> = new Subject();
+
+  constructor(private http: Http, private userStorage: UserStorage) {
+  }
 
   public logIn() {
 
@@ -40,24 +48,16 @@ export class AuthService {
   }
 
   public logOut(): any {
-    this.http.post(environment.server.auth.logoutGatewayUrl, {}, this.prepareAuthOptions())
+    this.http.post(environment.server.auth.logoutGatewayUrl, {})
       .catch(this.handleFailLogout.bind(this))
       .first()
       .subscribe(
         ok => {
           this.clearToken();
-          this.user = null;
+          this.userStorage.clearUser();
           window.location = environment.server.auth.logoutUrl;
         }
       )
-  }
-
-  public prepareAuthOptions(): RequestOptions {
-    const headers = new Headers();
-    headers.append(environment.authToken, localStorage.getItem(environment.authToken));
-    const options = new RequestOptions();
-    options.headers = headers;
-    return options;
   }
 
   public getTokenFromRouteParams(route: ActivatedRoute): string {
@@ -73,15 +73,16 @@ export class AuthService {
   }
 
   public isLoggedInUser(): boolean {
-    return !!this.user;
+    return !!this.userStorage.getUser();
   }
 
   public getLoggedInUserName(): string {
-    return (this.user) ? this.user.name : 'Niezalogowany';
+    const user = this.userStorage.getUser();
+    return (user) ? user.name : 'Niezalogowany';
   }
 
   public getMeInfo(): Observable<any> {
-    return this.http.get(environment.server.auth.meUrl, this.prepareAuthOptions()).map(res => res.json());
+    return this.http.get(environment.server.auth.meUrl).map(res => res.json());
   }
 
   public getUserImgLink(): string {
@@ -93,28 +94,33 @@ export class AuthService {
   }
 
   public isLoggedInUserAdmin(): boolean {
-    return this.user && this.user.roles.some(role => role.name.toUpperCase() === 'ADMIN')
+    const user = this.userStorage.getUser();
+    return user && user.roles.some(role => role.name.toUpperCase() === 'ADMIN')
+  }
+
+  public getUserDisabledStream(): Subject<string> {
+    return this.userDisabled;
   }
 
   private getUserFromServer(): any {
-    this.http.get(`${environment.server.auth.userUrl}`, this.prepareAuthOptions())
+    this.http.get(`${environment.server.auth.userUrl}`)
       .map(res => res.json())
-      .catch(this.handleInvalidToken.bind(this))      // token is invalid
       .first()
       .subscribe(
         user => {
-          this.user = user;
+          this.userStorage.setUser(user);
+        },
+        error => {
+          this.clearToken();
+          if (error.status === AuthService.disabledUserStatus) { // status for disabled user
+            this.userDisabled.next(JSON.parse(error._body).message);
+          }
         }
       );
   }
 
   private clearToken() {
     localStorage.removeItem(environment.authToken);
-  }
-
-  private handleInvalidToken() {
-    this.clearToken();
-    return Observable.throw('Invalid token');
   }
 
   private handleFailLogout() {

@@ -106,6 +106,7 @@ export class TournamentManagementPanelComponent implements OnInit {
     this.isLoading = true;
 
     this.tournamentPreviewService.getDraftManageTournaments(this.currentPage, this.pageSize, this.query)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';
@@ -124,6 +125,7 @@ export class TournamentManagementPanelComponent implements OnInit {
     this.isLoading = true;
 
     this.tournamentPreviewService.getActiveManageTournaments(this.currentPage, this.pageSize, this.query)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';
@@ -140,6 +142,7 @@ export class TournamentManagementPanelComponent implements OnInit {
 
   private loadFinishedTournaments(): void {
     this.tournamentPreviewService.getFinishedManageTournaments(this.currentPage, this.pageSize, this.query)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';

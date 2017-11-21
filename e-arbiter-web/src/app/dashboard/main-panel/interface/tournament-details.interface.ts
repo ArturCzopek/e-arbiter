@@ -1,6 +1,5 @@
 import {LocalDateTime} from '../../../shared/interface/local-date-time.interface';
 import {AccessDetails} from './access-details.interface';
-import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 import {TaskPreview} from '../../../shared/interface/task-preview.interface';
 
 export interface TournamentDetails {
@@ -9,7 +8,6 @@ export interface TournamentDetails {
   name: string,
   accessDetails: AccessDetails,
   status: string,
-
 
   // nullable fields depending on user access to tournament
   // if user, for example, doesn't have access to private tournament,

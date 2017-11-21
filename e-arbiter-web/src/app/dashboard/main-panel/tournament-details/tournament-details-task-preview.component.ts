@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { TaskPreview } from '../../../shared/interface/task-preview.interface';
+import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {TaskPreview} from '../../../shared/interface/task-preview.interface';
 import * as _ from 'lodash';
-import { SemanticModalComponent } from 'ng-semantic';
-import { CodeSubmitForm } from '../../../shared/interface/code-submit-form.interface';
-import { TaskService } from '../service/task.service';
+import {SemanticModalComponent} from 'ng-semantic';
+import {CodeSubmitForm} from '../../../shared/interface/code-submit-form.interface';
+import {TaskService} from '../service/task.service';
 
 @Component({
   selector: 'arb-tour-details-task-prev',
@@ -14,11 +14,13 @@ import { TaskService } from '../service/task.service';
           <accordion-title>
             <i class="icon" [ngClass]="isQuizTask() ? 'help' : 'code outline'"></i>
             {{taskPreview.name}}
+            <div *ngFor="let language of taskPreview.languages"
+                 [ngClass]="getLanguageClass(language)"
+            >
+              {{language}}
+            </div>
           </accordion-title>
           <accordion-content>
-            <p *ngIf="taskPreview.languages && taskPreview.languages.length > 0">
-              {{taskPreview.languages.join(', ')}}
-            </p>
             <p>{{taskPreview.description}}</p>
             <div *ngIf="canSeeTaskFooter" class="accordion-content-footer">
               <p>Podejścia: {{taskPreview.taskUserDetails.userAttempts}}/{{convertAttempts()}}</p>
@@ -60,7 +62,7 @@ import { TaskService } from '../service/task.service';
         </div>
       </modal-actions>
     </sm-modal>
-    
+
     <arb-tour-details-quiz-upload #quizUploadModal></arb-tour-details-quiz-upload>
 
   `
@@ -125,5 +127,23 @@ export class TournamentDetailsTaskPreviewComponent implements OnChanges {
 
   public executeTask() {
     this.taskService.submitCode(this.codeSubmitForm);
+  }
+
+  public getLanguageClass(language: string) {
+    let labelClass = 'ui label ';
+
+    if (language === 'CPP') {
+      labelClass += 'blue';
+    } else if (language === 'C11') {
+      labelClass += 'green';
+    } else if (language === 'JAVA') {
+      labelClass += 'red';
+    } else if (language === 'PYTHON') {
+      labelClass += 'yellow';
+    } else {
+      labelClass += 'gray';
+    }
+
+    return labelClass;
   }
 }

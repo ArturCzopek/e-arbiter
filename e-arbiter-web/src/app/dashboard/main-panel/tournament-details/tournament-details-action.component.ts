@@ -107,7 +107,7 @@ export class TournamentDetailsActionComponent {
           this.modalMessage = `Hura! Udało dołączyć się do turnieju ${this.tournamentDetails.name}!`;
           this.modalTitle = 'Dołączanie do turnieju';
           this.modalButtonLabel = 'Pokaż turniej';
-          this.actionInfoModal.show({closable: false});
+          this.actionInfoModal.show({closable: false, observeChanges: true});
         },
         error => {
           this.errorMessage = `Coś poszło nie tak. ${(this.tournamentDetails.accessDetails.publicFlag) ? '' : 'Może podałeś złe hasło?'}
@@ -135,7 +135,7 @@ export class TournamentDetailsActionComponent {
           this.modalMessage = `Udało się opuścić turniej ${this.tournamentDetails.name}`;
           this.modalTitle = 'Opuszczanie turnieju';
           this.modalButtonLabel = 'Przejdź do dashboardu';
-          this.actionInfoModal.show({closable: false});
+          this.actionInfoModal.show({closable: false, observeChanges: true});
         },
         error => {
           this.errorMessage = `Coś poszło nie tak. Jeżeli nie jesteś pewien co może być przyczyną twoich problemów,

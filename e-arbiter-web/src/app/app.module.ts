@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
@@ -23,10 +23,12 @@ import {TournamentDetailsService} from './shared/service/tournament-details.serv
 import {TournamentUserActionService} from './dashboard/main-panel/service/tournament-user-action.service';
 import {TaskService} from './dashboard/main-panel/service/task.service';
 import {MainPanelStream} from './dashboard/main-panel/service/main-panel.stream';
-import {TournamentManageService} from "./dashboard/main-panel/service/tournament-manage.service";
-import {AdminService} from "./dashboard/admin-panel/service/admin.service";
-import {ResultService} from "./dashboard/main-panel/service/result.service";
-import {ReportService} from "./dashboard/main-panel/service/report.service";
+import {TournamentManageService} from './dashboard/main-panel/service/tournament-manage.service';
+import {AdminService} from './dashboard/admin-panel/service/admin.service';
+import {ResultService} from './dashboard/main-panel/service/result.service';
+import {ReportService} from './dashboard/main-panel/service/report.service';
+import {ArbiterHttpService} from './shared/service/arbiter-http.service';
+import {UserStorage} from "./shared/service/user.storage";
 
 @NgModule({
   declarations: [
@@ -60,6 +62,14 @@ import {ReportService} from "./dashboard/main-panel/service/report.service";
     TournamentUserActionService,
     TournamentManageService,
     TaskService,
+    UserStorage,
+    {
+      provide: Http,
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, userStorage: UserStorage, routeService: RouteService) => {
+        return new ArbiterHttpService(backend, defaultOptions, userStorage, routeService);
+      },
+      deps: [XHRBackend, RequestOptions, UserStorage, RouteService]
+    },
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [

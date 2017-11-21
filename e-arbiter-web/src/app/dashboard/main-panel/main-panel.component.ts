@@ -96,6 +96,7 @@ export class MainPanelComponent implements OnInit {
     this.isLoading = true;
 
     this.tournamentPreviewService.getUserActiveTournaments(this.currentPage, this.pageSize, this.query)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';
@@ -112,6 +113,7 @@ export class MainPanelComponent implements OnInit {
 
   private loadFinishedTournaments(): void {
     this.tournamentPreviewService.getUserFinishedTournaments(this.currentPage, this.pageSize, this.query)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';

@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {RouteService} from "./shared/service/route.service";
+import {Component, OnInit} from '@angular/core';
+import {RouteService} from './shared/service/route.service';
 
 @Component({
   selector: 'arb-logout',
@@ -14,7 +14,6 @@ export class LogoutComponent implements OnInit {
   private readonly redirectTimeoutInMs = 3000;
 
   constructor(private routeService: RouteService) {
-
   }
 
   ngOnInit(): void {

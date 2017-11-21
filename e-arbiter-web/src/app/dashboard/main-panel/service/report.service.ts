@@ -8,7 +8,7 @@ import * as FileSaver from 'file-saver';
 @Injectable()
 export class ReportService {
 
-  constructor(private http: Http, private authService: AuthService) {
+  constructor(private http: Http) {
   }
 
   public getPdfReport(tournamentId: string): Observable<any> {
@@ -28,12 +28,9 @@ export class ReportService {
   }
 
   private getReport(tournamentId: string, type: string) {
-    const options = this.authService.prepareAuthOptions();
-    options.responseType = ResponseContentType.ArrayBuffer;
-
     return this.http.get(
       `${environment.server.tournament.reportUrl}/${type}/${tournamentId}`,
-      options
+      {responseType: ResponseContentType.ArrayBuffer}
     )
       .first()
       .map(res => res.blob());

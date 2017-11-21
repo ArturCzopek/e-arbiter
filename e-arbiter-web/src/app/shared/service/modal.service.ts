@@ -12,7 +12,8 @@ export class ModalService {
     const modalElement =
       $(`<div class="ui small basic modal">
             <div class="ui icon header" style="white-space: pre-line"><i class="help icon"></i>${message}</div>
-         </div>`);
+         </div>`
+      );
 
     this.bodyElement.append(modalElement);
     modalElement

@@ -68,7 +68,7 @@ export class DevelopmentCardComponent {
   public executeBlockedInnerRequest() {
     this.http
     // existing endpoint
-      .get(`${environment.server.api.url}/auth/inner/user/name/1`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/auth/inner/user/name/1`)
       .map(res => res.json())
       .catch((e) => {
         console.log(`Tak miało być, catched, blocked, not found`);
@@ -87,18 +87,21 @@ export class DevelopmentCardComponent {
   }
 
   public uploadCode() {
-    this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest,
-      this.authService.prepareAuthOptions()).map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
+    this.http.post(`${environment.server.api.url}/tournament/api/task/submit`, this.submitRequest)
+      .map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)));
   }
 
   public getResults() {
-    this.http.get(`${environment.server.api.url}/tournament/api/results/${this.tournamentId}`, this.authService.prepareAuthOptions())
-      .map(res => res.json()).first().subscribe(data => this.modalService.showAlert(JSON.stringify(data)), data => this.modalService.showAlert(JSON.stringify(data)));
+    this.http.get(`${environment.server.api.url}/tournament/api/results/${this.tournamentId}`)
+      .map(res => res.json()).first().subscribe(
+        data => this.modalService.showAlert(JSON.stringify(data)),
+        error => this.modalService.showAlert(JSON.stringify(error))
+    );
   }
 
   public sendFinishedEmail() {
     this.http
-      .get(`${environment.server.api.url}/tournament/poc/email/finished/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/tournament/poc/email/finished/${this.tournamentId}`)
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);
@@ -106,7 +109,7 @@ export class DevelopmentCardComponent {
 
   public sendExtendedEmail() {
     this.http
-      .get(`${environment.server.api.url}/tournament/poc/email/extend/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/tournament/poc/email/extend/${this.tournamentId}`)
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);
@@ -114,7 +117,7 @@ export class DevelopmentCardComponent {
 
   public sendActivatedEmail() {
     this.http
-      .get(`${environment.server.api.url}/tournament/poc/email/activate/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/tournament/poc/email/activate/${this.tournamentId}`)
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);
@@ -122,7 +125,7 @@ export class DevelopmentCardComponent {
 
   public sendRemovedEmail() {
     this.http
-      .get(`${environment.server.api.url}/tournament/poc/email/removed/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/tournament/poc/email/removed/${this.tournamentId}`)
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);
@@ -130,7 +133,7 @@ export class DevelopmentCardComponent {
 
   public sendJoinedEmail() {
     this.http
-      .get(`${environment.server.api.url}/tournament/poc/email/joined/${this.tournamentId}`, this.authService.prepareAuthOptions())
+      .get(`${environment.server.api.url}/tournament/poc/email/joined/${this.tournamentId}`)
       .first()
       .map(res => '' + res)
       .subscribe(data => this.mailStatus = data);

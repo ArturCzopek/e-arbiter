@@ -66,7 +66,7 @@ export class ActiveTournamentsComponent implements OnInit {
   }
 
   public findTournaments(queryData: any) {
-    const {pageSize, query} = queryData;
+    const {pageSize} = queryData;
 
     if (pageSize !== this.pageSize) {
       this.currentPage = 1;
@@ -94,6 +94,7 @@ export class ActiveTournamentsComponent implements OnInit {
     this.isLoading = true;
 
     this.tournamentPreviewService.getNewestPublicTournaments(this.currentPage, this.pageSize)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';
@@ -110,6 +111,7 @@ export class ActiveTournamentsComponent implements OnInit {
 
   private loadMostPopularTournaments(): void {
     this.tournamentPreviewService.getMostPopularPublicTournaments(this.currentPage, this.pageSize)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';
@@ -126,6 +128,7 @@ export class ActiveTournamentsComponent implements OnInit {
 
   private loadAlmostEndedTournaments() {
     this.tournamentPreviewService.getAlmostEndedPublicTournaments(this.currentPage, this.pageSize)
+      .first()
       .subscribe(
         page => {
           this.errorMessage = '';

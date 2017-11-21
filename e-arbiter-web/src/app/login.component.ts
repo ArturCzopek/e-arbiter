@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './shared/service/auth.service';
 import {RouteService} from './shared/service/route.service';
 import {ActivatedRoute} from '@angular/router';
+import {ModalService} from './shared/service/modal.service';
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'arb-login',
@@ -25,13 +27,20 @@ import {ActivatedRoute} from '@angular/router';
     </div>
   `
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(public authService: AuthService, private routeService: RouteService, private route: ActivatedRoute) {
+  private disabledUser$: Subscription;
 
+  constructor(public authService: AuthService, private routeService: RouteService,
+              private route: ActivatedRoute, private modalService: ModalService) {
   }
 
   public ngOnInit(): void {
+
+    this.disabledUser$ = this.authService.getUserDisabledStream()
+      .subscribe(
+        blockedUser => this.modalService.showAlert(`Konto ${blockedUser} jest zablokowane! W celu wyjaśnienia sprawy, skontaktuj się z administracją`)
+      );
 
     const tokenFromRouteParams = this.authService.getTokenFromRouteParams(this.route);
     const tokenFromLocalStorage = this.authService.getTokenFromLocalStorage();
@@ -41,6 +50,10 @@ export class LoginComponent implements OnInit {
     } else if (tokenFromLocalStorage && tokenFromLocalStorage.length > 0) {
       this.authService.logIn();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.disabledUser$.unsubscribe();
   }
 
   public loginUser() {

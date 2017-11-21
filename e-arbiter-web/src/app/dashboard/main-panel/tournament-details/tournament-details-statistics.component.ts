@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TournamentDetails} from '../interface/tournament-details.interface';
-import {RouteService} from "../../../shared/service/route.service";
+import {RouteService} from '../../../shared/service/route.service';
 
 @Component({
   selector: 'arb-tour-details-stats',
@@ -72,9 +72,5 @@ export class TournamentDetailsStatisticsComponent implements OnInit {
     } else if (this.tournamentDetails.status === 'FINISHED') {
       this.status = 'Zakończony';
     }
-  }
-
-  public goToResults(): void {
-    this.routeService.goToTournamentResults(this.tournamentDetails.id);
   }
 }
