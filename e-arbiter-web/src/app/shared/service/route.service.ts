@@ -9,7 +9,6 @@ declare var window: any;
 export class RouteService {
 
   constructor(private router: Router) {
-
   }
 
   public goToLoginPage() {
@@ -38,9 +37,5 @@ export class RouteService {
 
   public goToTournamentDetails(id: string) {
     this.router.navigate([environment.client.dashboard.tournamentUrl, id])
-  }
-
-  public goToTournamentResults(tournamentId: string) {
-    console.log('Click click, to do me')
   }
 }

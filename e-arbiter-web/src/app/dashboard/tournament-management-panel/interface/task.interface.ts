@@ -1,7 +1,7 @@
-import {Question} from "./question.interface";
-import {CodeTaskTestSet} from "./code-task-test-set.interface";
-import {CodeTaskParser} from "../task-parsers/code-task.parser";
-import {QuizTaskParser} from "../task-parsers/quiz-task.parser";
+import {Question} from './question.interface';
+import {CodeTaskTestSet} from './code-task-test-set.interface';
+import {CodeTaskParser} from '../task-parsers/code-task.parser';
+import {QuizTaskParser} from '../task-parsers/quiz-task.parser';
 
 const TaskModel = {
   taskTypes: [

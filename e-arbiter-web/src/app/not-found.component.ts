@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {RouteService} from "./shared/service/route.service";
+import {Component, OnInit} from '@angular/core';
+import {RouteService} from './shared/service/route.service';
 
 @Component({
   selector: 'arb-not-found',
@@ -16,7 +16,6 @@ export class NotFoundComponent implements OnInit {
   private readonly redirectTimeoutInMs = 5000;
 
   constructor(private routeService: RouteService) {
-
   }
 
   ngOnInit(): void {

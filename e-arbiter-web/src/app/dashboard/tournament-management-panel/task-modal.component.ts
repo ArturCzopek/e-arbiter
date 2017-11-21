@@ -56,7 +56,10 @@ import {TaskParser} from './task-parsers/task.parser';
             </div>
           </div>
           <div class="field" #taskData [ngClass]="{ 'error' : strData.invalid && strData.touched }">
-            <label>{{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}<i class="help circle icon" (click)="myPopup.show($event, {position: 'right center', on: 'hover'})"></i></label>
+            <label>
+              {{ task.type === taskTypes[0].value ? 'Dane testowe' : 'Pytania testowe' }}
+              <i class="help circle icon" (click)="myPopup.show($event, {position: 'right center', on: 'hover', observeChanges: true})"></i>
+            </label>
             <textarea rows="5" name="taskData" [(ngModel)]="task.strData" #strData="ngModel" required></textarea>
             <div
               *ngIf="strData.invalid && strData.touched"

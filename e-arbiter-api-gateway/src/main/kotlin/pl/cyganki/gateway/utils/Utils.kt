@@ -4,9 +4,9 @@ import com.google.common.io.CharStreams
 import com.netflix.zuul.context.RequestContext
 import org.springframework.http.HttpStatus
 import pl.cyganki.utils.GlobalValues
+import java.io.InputStreamReader
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.io.InputStreamReader
 
 val STREAM_ENCODING = "UTF-8"
 

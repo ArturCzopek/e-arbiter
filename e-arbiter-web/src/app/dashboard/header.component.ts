@@ -1,6 +1,6 @@
-import {AfterViewInit, Component} from "@angular/core";
-import {environment} from "../../environments/environment";
-import {AuthService} from "../shared/service/auth.service";
+import {AfterViewInit, Component} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {AuthService} from '../shared/service/auth.service';
 
 declare var $: any;
 
@@ -56,7 +56,6 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    $('.ui.dropdown')
-      .dropdown();
+    $('.ui.dropdown').dropdown();
   }
 }

@@ -25,10 +25,6 @@ export class TournamentDetailsTaskListComponent {
   @Input() status: string;
   @Input() canSeeTaskFooter: boolean;
 
-
-  constructor() {
-  }
-
   public trackByName(index: number, task: TaskPreview): string {
     return task.name;
   }

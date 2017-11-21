@@ -6,6 +6,7 @@ import pl.cyganki.auth.model.DbUser
 import pl.cyganki.auth.repository.RoleRepository
 import pl.cyganki.auth.repository.UserRepository
 import pl.cyganki.utils.GlobalValues
+import pl.cyganki.utils.exception.DisabledUserException
 import pl.cyganki.utils.exception.WrongGithubUserException
 import pl.cyganki.utils.security.dto.Role
 import pl.cyganki.utils.security.dto.User
@@ -37,6 +38,8 @@ class AuthService(
             )[0] as Map<String, Any>)[GlobalValues.GH_EMAIL] as String? ?: ""
 
             dbUser = createUser(githubId, githubLogin, userEmail)
+        } else if (!dbUser.enabled) {
+            throw DisabledUserException(dbUser.name)
         }
 
         var roles: List<Role> = emptyList()

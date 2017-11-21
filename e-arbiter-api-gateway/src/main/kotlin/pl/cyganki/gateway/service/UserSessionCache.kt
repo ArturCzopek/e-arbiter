@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import pl.cyganki.gateway.utils.getLoggedInUserAuthToken
 import pl.cyganki.utils.GlobalValues
 import pl.cyganki.utils.modules.AuthModuleInterface
+import pl.cyganki.utils.security.dto.Role
 import pl.cyganki.utils.security.dto.User
 
 
@@ -44,11 +45,23 @@ class UserSessionCache(val authModule: AuthModuleInterface) {
         users.remove(token)
     }
 
+    fun toggleUserStatus(name: String) {
+        users
+                .filter { entry -> entry.value.name == name }
+                .forEach { _, user -> user.enabled = !user.enabled }
+    }
+
+    fun updateUserRoles(name: String, roles: List<Role>) {
+        users
+                .filter { entry -> entry.value.name == name }
+                .forEach { _, user -> user.roles = roles }
+    }
+
     fun setUser(token: String, user: User) {
         users[token] = user
     }
 
     fun isLoggedInUserAdmin() = users[getLoggedInUserAuthToken()]?.roles?.any { it.name == GlobalValues.ADMIN_ROLE_NAME } ?: false
 
-    companion object: KLogging()
+    companion object : KLogging()
 }

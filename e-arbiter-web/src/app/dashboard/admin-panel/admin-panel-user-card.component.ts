@@ -83,7 +83,7 @@ export class AdminPanelUserCardComponent implements OnInit {
   }
 
   public toggleStatus(): void {
-    this.statusButtonText += ' loading';
+    this.statusButtonClass += ' loading';
     this.adminService.toggleStatus(this.user.id)
       .first()
       .subscribe(

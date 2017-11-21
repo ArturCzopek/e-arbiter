@@ -1,5 +1,5 @@
-import {Task} from "./task.interface";
-import {TournamentStatus} from "../../../shared/interface/tournament-status.enum";
+import {Task} from './task.interface';
+import {TournamentStatus} from '../../../shared/interface/tournament-status.enum';
 
 export interface Tournament {
   id?: string;
