@@ -12,6 +12,7 @@ env:
 branches:
   only:
   - master
+  - release
 
 apt:
   sources:
@@ -38,6 +39,7 @@ before_script:
 # - npm install -g angular-cli-ghpages
  - cd e-arbiter-web
  - npm install
+ - npm install typescript@'>=2.1.0 <2.4.0'
  - cd $TRAVIS_BUILD_DIR
  - e-arbiter-mongo/set_mongodb_password.sh
 

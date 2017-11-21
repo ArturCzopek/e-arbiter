@@ -65,9 +65,7 @@ import {UserStorage} from "./shared/service/user.storage";
     UserStorage,
     {
       provide: Http,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, userStorage: UserStorage, routeService: RouteService) => {
-        return new ArbiterHttpService(backend, defaultOptions, userStorage, routeService);
-      },
+      useFactory: httpLoader,
       deps: [XHRBackend, RequestOptions, UserStorage, RouteService]
     },
     {provide: LocationStrategy, useClass: HashLocationStrategy}
@@ -77,4 +75,8 @@ import {UserStorage} from "./shared/service/user.storage";
   ]
 })
 export class AppModule {
+}
+
+export function httpLoader(backend: XHRBackend, defaultOptions: RequestOptions, userStorage: UserStorage, routeService: RouteService) {
+  return new ArbiterHttpService(backend, defaultOptions, userStorage, routeService);
 }
