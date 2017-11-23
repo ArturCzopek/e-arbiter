@@ -2,6 +2,35 @@
 
 Admin Controller
 
+#### Toggle user enable status
+```
+PUT /admin/status/{id}
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|id|id|true|integer (int64)||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|DbUser|
+|201|Created|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Toggle user admin role
 ```
 PUT /admin/admin-role/{id}
@@ -53,35 +82,6 @@ GET /admin/all
 
 * */*
 
-#### Toggle user enable status
-```
-PUT /admin/status/{id}
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|id|id|true|integer (int64)||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|DbUser|
-|201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
 #### Ping for admins. Filter returns 401 if user has no admin role what is checked by API Gateway.
 ```
 GET /admin/ping
@@ -110,7 +110,7 @@ Admin Service Data Controller
 
 #### getModuleData
 ```
-GET /admin/service-data
+GET /admin/service-data/
 ```
 
 ##### Responses
@@ -132,7 +132,7 @@ GET /admin/service-data
 
 #### getModuleData
 ```
-GET /admin/service-data/
+GET /admin/service-data
 ```
 
 ##### Responses
@@ -154,34 +154,6 @@ GET /admin/service-data/
 
 
 Auth Controller
-
-#### Returns a current logged in user based on passed token. If user does not exist, then is created.
-```
-GET /api/user
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|HeaderParameter|oauth-token|oauth-token|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
 
 #### Returns a token for current logged in user. Token is widely used in app to authenticate user.
 ```
@@ -234,6 +206,34 @@ POST /api/logout
 
 * */*
 
+#### Returns a current logged in user based on passed token. If user does not exist, then is created.
+```
+GET /api/user
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|HeaderParameter|oauth-token|oauth-token|true|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Returns a current logged in user based on object from request from API Gateway
 ```
 GET /api/me
@@ -246,6 +246,7 @@ GET /api/me
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 
 
 ##### Responses
@@ -355,6 +356,7 @@ POST /admin/send-email
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |BodyParameter|adminMailRequest|adminMailRequest|true|AdminMailRequest||
 
 
@@ -427,38 +429,6 @@ GET /admin/service-data
 
 Report Controller
 
-#### Returns report as a pdf file for tournament with passed id
-```
-GET /api/report/pdf/{id}
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|PathParameter|id|id|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|string (byte) array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* application/pdf
-
 #### Returns report as a xlsx file for tournament with passed id
 ```
 GET /api/report/xlsx/{id}
@@ -471,6 +441,7 @@ GET /api/report/xlsx/{id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -491,6 +462,39 @@ GET /api/report/xlsx/{id}
 
 * application/vnd.ms-excel
 
+#### Returns report as a pdf file for tournament with passed id
+```
+GET /api/report/pdf/{id}
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|PathParameter|id|id|true|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|string (byte) array|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* application/pdf
+
 
 Result Controller
 
@@ -506,6 +510,7 @@ GET /api/results/{id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -529,9 +534,9 @@ GET /api/results/{id}
 
 Task Controller
 
-#### getTask
+#### submitQuiz
 ```
-GET /api/task/{tournamentId}/{taskId}
+POST /api/task/submit/quiz
 ```
 
 ##### Parameters
@@ -541,14 +546,15 @@ GET /api/task/{tournamentId}/{taskId}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-|PathParameter|tournamentId|tournamentId|true|string||
-|PathParameter|taskId|taskId|true|string||
+|QueryParameter|enabled||false|boolean||
+|BodyParameter|quizSubmission|quizSubmission|true|QuizSubmission||
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|Task|
+|200|OK|QuizTaskResultDto|
+|201|Created|No Content|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -562,9 +568,9 @@ GET /api/task/{tournamentId}/{taskId}
 
 * */*
 
-#### submitQuiz
+#### getTask
 ```
-POST /api/task/submit/quiz
+GET /api/task/{tournamentId}/{taskId}
 ```
 
 ##### Parameters
@@ -574,14 +580,15 @@ POST /api/task/submit/quiz
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-|BodyParameter|quizSubmission|quizSubmission|true|QuizSubmission||
+|QueryParameter|enabled||false|boolean||
+|PathParameter|tournamentId|tournamentId|true|string||
+|PathParameter|taskId|taskId|true|string||
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|No Content|
-|201|Created|No Content|
+|200|OK|Task|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -607,6 +614,7 @@ POST /api/task/submit
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |BodyParameter|codeSubmitForm|codeSubmitForm|true|CodeSubmitForm||
 
 
@@ -631,9 +639,9 @@ POST /api/task/submit
 
 Tournament Controller
 
-#### Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament
+#### Returns a page with the newest tournaments in which user does not participate
 ```
-GET /api/user-details/{id}
+GET /api/all/newest
 ```
 
 ##### Parameters
@@ -643,13 +651,13 @@ GET /api/user-details/{id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-|PathParameter|id|id|true|string||
+|QueryParameter|enabled||false|boolean||
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|TournamentDetails|
+|200|OK|Page«TournamentPreview»|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -663,9 +671,9 @@ GET /api/user-details/{id}
 
 * */*
 
-#### Returns a page with almost ended tournaments in which user does not participate
+#### Returns specific information about tournament with passed id. Amount of information is depending on user access to that tournament
 ```
-GET /api/all/ending
+GET /api/user-details/{id}
 ```
 
 ##### Parameters
@@ -675,12 +683,14 @@ GET /api/all/ending
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|PathParameter|id|id|true|string||
 
 
 ##### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|Page«TournamentPreview»|
+|200|OK|TournamentDetails|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -706,69 +716,7 @@ GET /api/all/popular
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with finished tournaments' details in which logged in user participates
-```
-GET /api/all/finished
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with the newest tournaments in which user does not participate
-```
-GET /api/all/newest
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 
 
 ##### Responses
@@ -800,7 +748,73 @@ GET /api/all/active
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |QueryParameter|query|query|false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a page with finished tournaments' details in which logged in user participates
+```
+GET /api/all/finished
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|QueryParameter|query|query|false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a page with almost ended tournaments in which user does not participate
+```
+GET /api/all/ending
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 
 
 ##### Responses
@@ -824,6 +838,72 @@ GET /api/all/active
 
 Tournament Management Controller
 
+#### Returns a page with active tournaments which were created by user
+```
+GET /api/management/active
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|QueryParameter|query|query|false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a page with draft tournaments which were created by user
+```
+GET /api/management/draft
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|QueryParameter|query|query|false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
 #### Endpoint for fetching a list of users enrolled in given tournament.
 ```
 GET /api/management/{id}/enrolled-users
@@ -836,6 +916,7 @@ GET /api/management/{id}/enrolled-users
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -868,6 +949,7 @@ PUT /api/management/{id}/block-user/{user-id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 |PathParameter|user-id|user-id|true|integer (int64)||
 
@@ -902,6 +984,7 @@ PUT /api/management/{id}/extend/{duration-in-sec}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 |PathParameter|duration-in-sec|duration-in-sec|true|integer (int64)||
 
@@ -936,6 +1019,7 @@ PUT /api/management/{id}/activate
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -944,70 +1028,6 @@ PUT /api/management/{id}/activate
 |----|----|----|
 |200|OK|string|
 |201|Created|No Content|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with active tournaments which were created by user
-```
-GET /api/management/active
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with draft tournaments which were created by user
-```
-GET /api/management/draft
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -1033,6 +1053,7 @@ POST /api/management/save
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |BodyParameter|tournament|tournament|true|Tournament||
 
 
@@ -1041,6 +1062,72 @@ POST /api/management/save
 |----|----|----|
 |200|OK|Tournament|
 |201|Created|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Returns a page with finished tournaments which were created by user
+```
+GET /api/management/finished
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|QueryParameter|query|query|false|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|Page«TournamentPreview»|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
+
+
+##### Consumes
+
+* application/json
+
+##### Produces
+
+* */*
+
+#### Endpoint for fetching a list of users blocked in given tournament.
+```
+GET /api/management/{id}/blocked-users
+```
+
+##### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|roles[0].id||false|integer (int64)||
+|QueryParameter|roles[0].name||false|string||
+|QueryParameter|id||false|integer (int64)||
+|QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
+|PathParameter|id|id|true|string||
+
+
+##### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|User array|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -1066,6 +1153,7 @@ PUT /api/management/{id}/delete
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -1099,6 +1187,7 @@ GET /api/management/{id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 
 
@@ -1106,70 +1195,6 @@ GET /api/management/{id}
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|Tournament|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Endpoint for fetching a list of users blocked in given tournament.
-```
-GET /api/management/{id}/blocked-users
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|PathParameter|id|id|true|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|User array|
-|401|Unauthorized|No Content|
-|403|Forbidden|No Content|
-|404|Not Found|No Content|
-
-
-##### Consumes
-
-* application/json
-
-##### Produces
-
-* */*
-
-#### Returns a page with finished tournaments which were created by user
-```
-GET /api/management/finished
-```
-
-##### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|roles[0].id||false|integer (int64)||
-|QueryParameter|roles[0].name||false|string||
-|QueryParameter|id||false|integer (int64)||
-|QueryParameter|name||false|string||
-|QueryParameter|query|query|false|string||
-
-
-##### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|OK|Page«TournamentPreview»|
 |401|Unauthorized|No Content|
 |403|Forbidden|No Content|
 |404|Not Found|No Content|
@@ -1195,6 +1220,7 @@ PUT /api/management/{id}/unblock-user/{user-id}
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |PathParameter|id|id|true|string||
 |PathParameter|user-id|user-id|true|integer (int64)||
 
@@ -1233,6 +1259,7 @@ POST /api/user-action/leave
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |BodyParameter|tournamentUserActionRequest|tournamentUserActionRequest|true|TournamentUserActionRequest||
 
 
@@ -1266,6 +1293,7 @@ POST /api/user-action/join
 |QueryParameter|roles[0].name||false|string||
 |QueryParameter|id||false|integer (int64)||
 |QueryParameter|name||false|string||
+|QueryParameter|enabled||false|boolean||
 |BodyParameter|tournamentUserActionRequest|tournamentUserActionRequest|true|TournamentUserActionRequest||
 
 
@@ -1294,7 +1322,7 @@ Admin Service Data Controller
 
 #### getModuleData
 ```
-GET /admin/service-data/
+GET /admin/service-data
 ```
 
 ##### Responses
@@ -1316,7 +1344,7 @@ GET /admin/service-data/
 
 #### getModuleData
 ```
-GET /admin/service-data
+GET /admin/service-data/
 ```
 
 ##### Responses
