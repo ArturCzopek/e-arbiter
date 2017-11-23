@@ -12,4 +12,3 @@ docker build --file "e-arbiter-executor/Dockerfile" -t earbiterinfo/e-arbiter-ex
 docker build --file "e-arbiter-tournament/Dockerfile" -t earbiterinfo/e-arbiter-tournament:demo ./e-arbiter-tournament
 docker build --file "e-arbiter-tournament-results/Dockerfile" -t earbiterinfo/e-arbiter-tournament-results:demo ./e-arbiter-tournament-results
 docker build --file "e-arbiter-web/Dockerfile" -t earbiterinfo/e-arbiter-web:demo ./e-arbiter-web
-

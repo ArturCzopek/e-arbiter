@@ -11,4 +11,3 @@
   docker push earbiterinfo/e-arbiter-tournament:demo
   docker push earbiterinfo/e-arbiter-tournament-results:demo
   docker push earbiterinfo/e-arbiter-web:demo
-
