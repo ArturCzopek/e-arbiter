@@ -1,0 +1,179 @@
+version: '2.1'
+
+# To run demo, type: docker-compose up -f docker-compose.demo.yml
+
+services:
+  mongo:
+    image: earbiterinfo/e-arbiter-mongo:demo
+    ports:
+    - ${E_ARB_TOUR_DOCKER_MONGO_HOST}:${E_ARB_TOUR_MONGO_PORT}:${E_ARB_TOUR_MONGO_PORT}
+    environment:
+    - E_ARB_TOUR_DOCKER_MONGO_HOST=${E_ARB_TOUR_DOCKER_MONGO_HOST:-192.168.44.1}
+    - E_ARB_TOUR_MONGO_PORT=${E_ARB_TOUR_MONGO_PORT:-27017}
+    - MONGODB_USER=${E_ARB_TOUR_MONGO_USERNAME:-cyganki}
+    - MONGODB_PASS=${E_ARB_TOUR_MONGO_PASSWORD:-inzynier2017}
+
+  config:
+    image: earbiterinfo/e-arbiter-config:demo
+    ports:
+    - $E_ARB_CFG_PORT:$E_ARB_CFG_PORT
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_USR_NAME=e-Arbiter
+    - E_ARB_USR_PASS=${E_ARB_USR_PASS}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  eureka:
+    image: earbiterinfo/e-arbiter-eureka
+    ports:
+    - $E_ARB_EUR_PORT:$E_ARB_EUR_PORT:demo
+    depends_on:
+      config:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+
+  api-gateway:
+    image: earbiterinfo/e-arbiter-api-gateway
+    ports:
+    - $E_ARB_API_PORT:$E_ARB_API_PORT:demo
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_AUTH_PORT=${E_ARB_AUTH_PORT:-8090}
+    - E_ARB_EXEC_PORT=${E_ARB_EXEC_PORT:-8091}
+    - E_ARB_TOUR_PORT=${E_ARB_TOUR_PORT:-8092}
+    - E_ARB_TRES_PORT=${E_ARB_TRES_PORT:-8093}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  auth:
+    image: earbiterinfo/e-arbiter-auth
+    ports:
+    - $E_ARB_AUTH_PORT:$E_ARB_AUTH_PORT:demo
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_DEV_GH_CLIENT_ID=${E_ARB_DOCKER_DEV_GH_CLIENT_ID}
+    - E_ARB_DEV_GH_CLIENT_SECRET=${E_ARB_DOCKER_DEV_GH_CLIENT_SECRET}
+    - E_ARB_AUTH_PORT=${E_ARB_AUTH_PORT:-8090}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  executor:
+    image: earbiterinfo/e-arbiter-executor
+    ports:
+    - $E_ARB_EXEC_PORT:$E_ARB_EXEC_PORT:demo
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $E_ARB_EXEC_BINDING:$E_ARB_EXEC_BINDING
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_EXEC_BINDING=${E_ARB_EXEC_BINDING}
+    - E_ARB_EXEC_PORT=${E_ARB_EXEC_PORT:-8091}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  tournament:
+    image: earbiterinfo/e-arbiter-tournament
+    ports:
+    - $E_ARB_TOUR_PORT:$E_ARB_TOUR_PORT:demo
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_TOUR_MAIL_PASSWORD=${E_ARB_USR_PASS}
+    - E_ARB_AUTH_PORT=${E_ARB_AUTH_PORT:-8090}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+    - E_ARB_TOUR_PORT=${E_ARB_TOUR_PORT:-8092}
+    - E_ARB_TOUR_MONGO_USERNAME=${E_ARB_TOUR_MONGO_USERNAME:-cyganki}
+    - E_ARB_DEV_TOUR_MONGO_PASSWORD=${E_ARB_TOUR_MONGO_PASSWORD:-inzynier2017}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  tournament-results:
+    image: earbiterinfo/e-arbiter-tournament-results
+    ports:
+    - $E_ARB_TRES_PORT:$E_ARB_TRES_PORT:demo
+    depends_on:
+      config:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    environment:
+    - E_ARB_HOST=${E_ARB_DOCKER_HOST:-http://192.168.44.1}
+    - E_ARB_AUTH_PORT=${E_ARB_AUTH_PORT:-8090}
+    - E_ARB_TRES_PORT=${E_ARB_TRES_PORT:-8093}
+    - E_ARB_CFG_PORT=${E_ARB_CFG_PORT:-8096}
+    - E_ARB_EUR_PORT=${E_ARB_EUR_PORT:-8761}
+    - EUREKA_URI=${E_ARB_DOCKER_HOST:-http://192.168.44.1}:${E_ARB_EUR_PORT:-8761}/eureka
+
+  web:
+    image: earbiterinfo/e-arbiter-web
+    ports:
+    - $E_ARB_CLIENT_PORT:80
+    restart: always
+    environment:
+    - E_ARB_CLIENT_PORT=${E_ARB_CLIENT_PORT:-4200}
+
+networks:
+  default:
+    external:
+      name: e-arbiter
