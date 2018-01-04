@@ -1,9 +1,9 @@
 {
   "ownerId": 1,
-  "name": "in est culpa tempor non consequat",
-  "description": "Ea Lorem ex exercitation aliquip ex ea exercitation. Qui laboris elit id deserunt adipisicing est elit voluptate culpa aliquip velit. Mollit proident laboris sint id ullamco labore sint irure ullamco aliquip fugiat.",
+  "name": "Podstawy programowania",
+  "description": "Kurs dla ludzi, którzy chcą uczyc się programowania",
   "startDate": "2017-08-20T01:59:21",
-  "endDate": "2017-12-06T05:57:51",
+  "endDate": "2018-12-06T05:57:51",
   "publicFlag": false,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
@@ -23,8 +23,8 @@
   "tasks": [
     {
       "type": "CodeTask",
-      "name": "exercitation cillum id elit cillum",
-      "description": "Et amet in laborum irure nostrud voluptate Lorem nostrud do voluptate nostrud. Sit labore dolore dolore ex officia id ullamco deserunt nostrud.",
+      "name": "Lekcja 01 - zadanie programistyczne",
+      "description": "Proste zadanie programistyczne",
       "codeTaskTestSets": [
         {
           "expectedResult": 102,
@@ -37,13 +37,13 @@
         }
       ],
       "languages": [
-        "JAVA"
+        "CPP"
       ],
       "timeoutInMs": 50
     },
     {
       "type": "CodeTask",
-      "name": "eu duis sint proident minim",
+      "name": "Lekcja 02 - zadanie programistyczne",
       "description": "Eu quis quis nisi ipsum reprehenderit anim irure. Aliqua anim exercitation ad est.",
       "codeTaskTestSets": [
         {
@@ -69,7 +69,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "esse sit consectetur magna dolor",
+      "name": "Lekcja 03 - zadanie programistyczne",
       "description": "Ipsum est proident excepteur cillum tempor eiusmod. Eiusmod laborum excepteur consectetur laborum enim duis sit amet aute dolore.",
       "codeTaskTestSets": [
         {
@@ -97,7 +97,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "pariatur ipsum eu do velit",
+      "name": "Lekcja 04 - zadanie programistyczne",
       "description": "Laboris velit in Lorem nulla ullamco quis aute irure et tempor. Velit proident deserunt dolore ea nulla.",
       "codeTaskTestSets": [
         {
@@ -117,7 +117,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "ea magna dolor laboris nostrud",
+      "name": "Lekcja 05 - zadanie programistyczne",
       "description": "Laboris nostrud ullamco aliquip ea. Nisi consequat dolor enim exercitation velit do aliqua nulla.",
       "codeTaskTestSets": [
         {
@@ -136,7 +136,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "Lorem ad do id exercitation",
+      "name": "Lekcja 06 - zadanie programistyczne",
       "description": "Aute magna ex elit exercitation ea incididunt velit proident dolor incididunt incididunt. Dolore occaecat nisi cillum reprehenderit est Lorem amet occaecat est voluptate dolore nostrud elit.",
       "codeTaskTestSets": [
         {
@@ -198,90 +198,115 @@
     },
     {
       "type": "CodeTask",
-      "name": "aliqua adipisicing exercitation sunt et",
-      "description": "Lorem minim et laboris cillum fugiat fugiat minim amet dolore. Eiusmod dolore cupidatat consequat officia qui.",
+      "name": "Lekcja 07 - zadanie programistyczne",
+      "description": "Aute magna ex elit exercitation ea incididunt velit proident dolor incididunt incididunt. Dolore occaecat nisi cillum reprehenderit est Lorem amet occaecat est voluptate dolore nostrud elit.",
       "codeTaskTestSets": [
         {
-          "expectedResult": 263,
+          "expectedResult": 250,
           "parameters": [
-            25,
-            27,
+            -9,
+            -29
+          ]
+        },
+        {
+          "expectedResult": 238,
+          "parameters": [
+            16,
+            -22,
+            -11
+          ]
+        },
+        {
+          "expectedResult": 106,
+          "parameters": [
+            -28,
             -8,
-            -25
-          ]
-        },
-        {
-          "expectedResult": 289,
-          "parameters": [
             14,
-            1,
-            -14,
-            28,
-            -26
+            3
           ]
         },
         {
-          "expectedResult": 232,
+          "expectedResult": 195,
           "parameters": [
-            11
+            -6,
+            15,
+            15,
+            -10,
+            -18
+          ]
+        },
+        {
+          "expectedResult": 71,
+          "parameters": [
+            -10,
+            -18
+          ]
+        },
+        {
+          "expectedResult": 56,
+          "parameters": [
+            -3,
+            -29,
+            -9,
+            2
           ]
         }
       ],
       "languages": [
-        "CPP",
-        "PYTHON",
+        "JAVA",
         "C11"
       ],
-      "timeoutInMs": 50
+      "timeoutInMs": 5000
     },
+
     {
       "type": "QuizTask",
-      "name": "officia fugiat quis nostrud mollit",
-      "description": "Nisi aliquip deserunt non tempor occaecat id. Veniam ad dolore nisi nostrud nisi non mollit adipisicing excepteur do.",
+      "name": "Lekcja 01 - zadanie testowe",
+      "description": "Kilka prostych pytań związanych z programowaniem dla Ciebie, na dobry początek",
       "maxAttempts": 1,
       "questions": [
         {
-          "content": "duis tempor officia qui incididunt do irure consectetur ut laboris ullamco tempor velit nisi fugiat in enim aute id voluptate",
+          "content": "Zaznacz języki programowania",
           "answers": [
             {
-              "content": "eiusmod irure in est aute",
+              "content": "Suahili",
               "correct": false
             },
             {
-              "content": "aliqua adipisicing cillum proident adipisicing",
+              "content": "Java",
               "correct": true
             },
             {
-              "content": "exercitation in minim incididunt quis",
-              "correct": false
+              "content": "JavaScript",
+              "correct": true
             },
             {
-              "content": "nostrud anim proident eiusmod labore",
-              "correct": false
+              "content": "C++",
+              "correct": true
             }
           ]
         },
         {
-          "content": "dolore ad eu quis sunt reprehenderit ut anim exercitation tempor id eiusmod quis eiusmod commodo nostrud magna exercitation veniam minim",
+          "content": "Zaznacz słowa kluczowe w języku Java",
           "answers": [
             {
-              "content": "culpa incididunt occaecat laboris aliqua",
+              "content": "Integer",
               "correct": false
             },
             {
-              "content": "ut magna eu aliqua dolor",
+              "content": "String",
               "correct": false
             },
             {
-              "content": "quis do quis ipsum tempor",
+              "content": "Test",
               "correct": false
             },
             {
-              "content": "excepteur incididunt aliquip Lorem nostrud",
+              "content": "public",
               "correct": true
             },
             {
-              "content": "ut occaecat id aliquip enim",
+              "content": "static",
               "correct": true
             }
           ]
@@ -290,7 +315,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "proident do exercitation quis eu",
+      "name": "Lekcja 02 - zadanie testowe",
       "description": "Aute pariatur in labore labore reprehenderit aliquip exercitation sit nostrud culpa ut quis. Irure Lorem Lorem ipsum elit eu tempor nostrud.",
       "maxAttempts": 1,
       "questions": [
@@ -323,7 +348,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "consequat nostrud minim voluptate laborum",
+      "name": "Lekcja 03 - zadanie testowe",
       "description": "In ea reprehenderit sint magna ex et cillum do incididunt culpa et est. Mollit magna eu consectetur excepteur aliquip.",
       "maxAttempts": 1,
       "questions": [
@@ -356,7 +381,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "nulla laboris duis consequat tempor",
+      "name": "Lekcja 04 - zadanie testowe",
       "description": "Mollit Lorem ut laboris amet ex enim dolore voluptate deserunt tempor est elit qui reprehenderit. Non veniam dolor sint magna tempor et culpa est deserunt dolore et proident culpa consectetur.",
       "maxAttempts": 1,
       "questions": [
@@ -381,7 +406,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "velit sit qui ea laboris",
+      "name": "Lekcja 05 - zadanie testowe",
       "description": "Proident tempor sint reprehenderit nulla non eu. Sint eu duis amet fugiat qui culpa proident.",
       "maxAttempts": 2,
       "questions": [
@@ -444,7 +469,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "quis pariatur ea cillum eiusmod",
+      "name": "Lekcja 06 - zadanie testowe",
       "description": "Consequat exercitation sit aliquip excepteur Lorem do ex elit consectetur anim dolore cupidatat. Non occaecat ipsum ea ut in veniam fugiat duis incididunt incididunt deserunt ad.",
       "maxAttempts": 1,
       "questions": [

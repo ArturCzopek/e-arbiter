@@ -1,9 +1,9 @@
 {
   "ownerId": 3,
-  "name": "culpa nostrud excepteur irure id amet",
-  "description": "Velit proident dolor sit nostrud nulla eiusmod ea. Duis sint incididunt non eu commodo et ea. Ad nostrud excepteur nulla cillum est.",
+  "name": "Drafcik",
+  "description": "Jeszcze bez opisu",
   "startDate": null,
-  "endDate": "2017-12-29T05:36:19",
+  "endDate": "2018-12-29T05:36:19",
   "publicFlag": false,
   "resultsVisibleForJoinedUsers": true,
   "status": "DRAFT",
@@ -13,7 +13,7 @@
   "tasks": [
     {
       "type": "CodeTask",
-      "name": "laborum anim ex consectetur eiusmod",
+      "name": "Proste zadanie programistyczne",
       "description": "Irure consequat id anim non commodo. Nisi ullamco deserunt adipisicing minim dolore veniam nulla nostrud tempor.",
       "codeTaskTestSets": [
         {
@@ -38,7 +38,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "excepteur minim aute sunt id",
+      "name": "Proste zadanie programistyczne nr 2",
       "description": "Nisi sunt id fugiat nisi magna est laborum aliqua deserunt. Laborum veniam pariatur est ut irure voluptate officia amet incididunt.",
       "codeTaskTestSets": [
         {
@@ -78,7 +78,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "et consectetur fugiat est enim",
+      "name": "Rekurencja",
       "description": "Esse mollit aliquip irure voluptate sint occaecat esse. Officia adipisicing dolore velit dolore do culpa quis aliquip id.",
       "codeTaskTestSets": [
         {
@@ -106,7 +106,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "do incididunt eiusmod reprehenderit ullamco",
+      "name": "Obliczanie trasy",
       "description": "Est quis veniam magna pariatur labore. Aliqua proident fugiat nostrud adipisicing commodo aliqua amet.",
       "codeTaskTestSets": [
         {
@@ -143,7 +143,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "aliqua tempor mollit Lorem sit",
+      "name": "Algorytmy grafowe",
       "description": "Labore nulla sunt exercitation esse elit aliqua. Labore duis excepteur tempor labore ipsum veniam.",
       "codeTaskTestSets": [
         {
@@ -206,7 +206,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "irure Lorem nisi sint pariatur",
+      "name": "Historia Javy",
       "description": "Esse aliquip veniam id incididunt mollit voluptate aute id. Lorem eiusmod commodo deserunt esse.",
       "maxAttempts": 1,
       "questions": [
@@ -311,7 +311,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "quis nulla ipsum laborum sint",
+      "name": "Aplikacje Google",
       "description": "Esse non non id cupidatat et consectetur. Exercitation cupidatat est enim exercitation velit anim velit.",
       "maxAttempts": 1,
       "questions": [
@@ -378,7 +378,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "veniam ad dolor veniam non",
+      "name": "Historia komputerów",
       "description": "Et ex dolore eiusmod laboris adipisicing Lorem cupidatat ad aliqua minim. Excepteur commodo id voluptate eu ea proident sunt cupidatat consequat voluptate sunt eiusmod do.",
       "maxAttempts": 1,
       "questions": [

@@ -1,9 +1,9 @@
 {
   "ownerId": 7,
-  "name": "eiusmod commodo voluptate est aliqua dolore",
-  "description": "Quis aute et mollit adipisicing velit. Excepteur nostrud sit culpa ad nulla Lorem adipisicing. Incididunt officia consectetur deserunt incididunt laborum irure.",
+  "name": "Liczby pierwsze",
+  "description": "Jednozadaniowy turniej, jak w tytule.",
   "startDate": "2017-07-10T12:34:37",
-  "endDate": "2017-12-24T03:28:33",
+  "endDate": "2018-12-24T03:28:33",
   "publicFlag": true,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",

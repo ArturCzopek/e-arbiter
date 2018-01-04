@@ -1,9 +1,9 @@
 {
   "ownerId": 3,
-  "name": "nulla dolor proident pariatur pariatur laboris",
-  "description": "Reprehenderit consectetur officia officia cillum voluptate ex cupidatat velit nostrud duis Lorem cillum. Occaecat elit exercitation incididunt minim Lorem nisi pariatur do. Fugiat dolor adipisicing ipsum ad ut culpa proident elit sit.",
+  "name": "Turniej dla czytelników bloga simplecoding.pl",
+  "description": "Hasło w najnowszym poście",
   "startDate": null,
-  "endDate": "2017-12-07T11:58:36",
+  "endDate": "2018-12-07T11:58:36",
   "publicFlag": false,
   "resultsVisibleForJoinedUsers": false,
   "status": "DRAFT",

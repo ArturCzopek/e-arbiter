@@ -1,11 +1,11 @@
 {
   "ownerId": 7,
-  "name": "consectetur dolor magna do veniam consequat",
-  "description": "Non ea ea ipsum laborum nostrud officia ut enim ex eiusmod aute aliqua. Esse ut commodo proident labore magna nostrud aliqua ea consequat ex ex anim fugiat officia. Nulla pariatur ut proident nulla ullamco ipsum ex et.",
+  "name": "Mistrz Pythona",
+  "description": "Cześć, jestem mistrzem Pythona. Chcesz się zmierzyć?",
   "startDate": "2017-07-05T06:10:10",
-  "endDate": "2017-12-18T12:28:22",
+  "endDate": "2018-12-18T12:28:22",
   "publicFlag": true,
-  "resultsVisibleForJoinedUsers": false,
+  "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",
   "password": null,
   "joinedUsersIds": [
@@ -19,7 +19,7 @@
   "tasks": [
     {
       "type": "CodeTask",
-      "name": "mollit enim ullamco sit sint",
+      "name": "Szansa dla Javowców",
       "description": "Officia Lorem anim cupidatat aliquip adipisicing. Sint magna adipisicing consectetur irure aliquip laborum consequat deserunt nulla ad magna.",
       "codeTaskTestSets": [
         {
@@ -46,7 +46,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "cillum nisi sint anim enim",
+      "name": "Zadanie dla dinozaurów",
       "description": "Tempor culpa ea aute cupidatat consectetur dolore ullamco veniam aute irure exercitation dolore elit tempor. Labore esse officia adipisicing do in.",
       "codeTaskTestSets": [
         {
@@ -97,7 +97,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "labore deserunt veniam ad tempor",
+      "name": "Zliczanie liczb",
       "description": "Enim officia nulla Lorem minim tempor dolore. Ex excepteur aliqua consectetur duis cillum proident.",
       "codeTaskTestSets": [
         {
@@ -147,7 +147,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "qui laborum irure do consequat",
+      "name": "Programowanie funkcyjne",
       "description": "Eiusmod labore officia pariatur duis adipisicing velit nostrud minim esse. Ipsum veniam proident ut eiusmod magna velit labore eu cupidatat nostrud.",
       "codeTaskTestSets": [
         {
@@ -165,7 +165,7 @@
     },
     {
       "type": "CodeTask",
-      "name": "ullamco esse incididunt nisi laboris",
+      "name": "Programowanie obiektowe",
       "description": "Anim officia cillum ipsum velit deserunt quis tempor excepteur culpa qui amet consectetur eiusmod sunt. Est Lorem reprehenderit minim tempor enim et aliquip pariatur aliquip ea.",
       "codeTaskTestSets": [
         {
@@ -194,7 +194,7 @@
     },
     {
       "type": "QuizTask",
-      "name": "fugiat occaecat aliquip incididunt nisi",
+      "name": "Historia Pythona",
       "description": "Esse aute cupidatat culpa deserunt. Consectetur dolor aliqua esse duis consequat eu id fugiat cupidatat dolor.",
       "maxAttempts": 2,
       "questions": [

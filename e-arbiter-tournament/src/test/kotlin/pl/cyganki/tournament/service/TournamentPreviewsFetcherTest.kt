@@ -134,7 +134,7 @@ class TournamentPreviewsFetcherTest {
     fun `should return one active user's tournaments in which user participates by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val tournamentToFindName = "in est culpa tempor non consequat"
+        val tournamentToFindName = "Podstawy programowania"
         val query = tournamentToFindName.substring(1, 11)
 
         // when
@@ -235,7 +235,7 @@ class TournamentPreviewsFetcherTest {
     fun `should return one finished user's tournaments in which user participates by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val tournamentToFindName = "dolore Lorem non commodo cupidatat non"
+        val tournamentToFindName = "Polska Gola!"
         val tournamentToFindDescription = "Occaecat deserunt occaecat consequat pariatur consectetur qui elit veniam nostrud veniam magna ex duis."
         val query = tournamentToFindDescription.substring(5)
 
@@ -526,7 +526,7 @@ class TournamentPreviewsFetcherTest {
     fun `should return draft tournaments created by user by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val tournamentToFindName = "culpa nostrud excepteur irure id amet"
+        val tournamentToFindName = "Drafcik"
         val query = tournamentToFindName.substring(1, 15)
 
         // when
@@ -714,7 +714,7 @@ class TournamentPreviewsFetcherTest {
     fun `should return finished tournaments created by user by query`() {
         // given
         val pageRequest = PageRequest(0, 10)
-        val tournamentToFindName = "labore enim dolor sint culpa labore"
+        val tournamentToFindName = "Mistrzostwa osiedla w programowaniu funkcyjnym"
         val query = tournamentToFindName.substring(1, 15)
 
         // when

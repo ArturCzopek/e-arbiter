@@ -40,7 +40,7 @@ class UserServiceTest {
         val foundNames = ids.map { userService.getUserNameById(it) }
 
         // then
-        listOf("TestowyUser", "UserLol", "ArturCzopek", "KonradOnieszczuk", "Miracle")
+        listOf("billgates", "github", "ArturCzopek", "KonradOnieszczuk", "Miracle")
                 .forEachIndexed { index, name -> Assert.assertEquals(name, foundNames[index]) }
     }
 
@@ -54,8 +54,8 @@ class UserServiceTest {
 
         // then
         val expectedNamesEmails = mapOf(
-                "TestowyUser" to "TestowyUser@TestowyUser.com",
-                "UserLol" to "UserLol@UserLol.pl",
+                "billgates" to "billgates@billgates.com",
+                "github" to "github@github.pl",
                 "ArturCzopek" to "arturcz32@gmail.com",
                 "KonradOnieszczuk" to "k2nder@gmail.com",
                 "Miracle" to "Miracle@Miracle.com"

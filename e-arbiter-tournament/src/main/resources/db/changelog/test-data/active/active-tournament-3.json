@@ -1,9 +1,9 @@
 {
   "ownerId": 6,
-  "name": "voluptate tempor non ea ullamco ut",
-  "description": "Magna amet tempor excepteur cupidatat occaecat ipsum. Nisi labore veniam irure aliqua minim consequat laborum eiusmod culpa aliqua excepteur enim amet. Ad commodo occaecat qui velit consectetur laborum pariatur sint elit eu sint proident velit.",
+  "name": "Testowy turniej",
+  "description": "Sprawdzam działanie, nie klikajcie bo zepsujecie :(((",
   "startDate": "2017-08-05T03:24:21",
-  "endDate": "2017-12-21T09:58:42",
+  "endDate": "2018-12-21T09:58:42",
   "publicFlag": true,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",

@@ -1,9 +1,9 @@
 {
   "ownerId": 1,
-  "name": "aliqua tempor excepteur ea consectetur ad",
-  "description": "Aliqua consequat elit laboris non Lorem qui labore reprehenderit Lorem. Id duis veniam veniam ut excepteur duis esse et dolore aliquip et magna. In ea aliquip ex duis est eu minim.",
+  "name": "Programowanie współbieżne",
+  "description": "Proste zadania związane z programowaniem współbieżnym. Podstawowa znajomość Javy wymagana!",
   "startDate": "2017-08-26T01:06:23",
-  "endDate": "2017-12-04T06:25:31",
+  "endDate": "2018-12-04T06:25:31",
   "publicFlag": false,
   "resultsVisibleForJoinedUsers": true,
   "status": "ACTIVE",

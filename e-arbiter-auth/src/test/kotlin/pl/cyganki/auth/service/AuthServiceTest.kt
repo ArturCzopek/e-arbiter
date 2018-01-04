@@ -62,7 +62,7 @@ class AuthServiceTest {
         val usersInDb = userRepository.count()
 
         // then
-        val expectedUser = User(2, "UserLol", listOf(Role(1, GlobalValues.DEFAULT_ROLE_NAME)))
+        val expectedUser = User(2, "github", listOf(Role(1, GlobalValues.DEFAULT_ROLE_NAME)))
         assertEquals(expectedUser, user)
         assertEquals(initUsersSize, usersInDb)
     }

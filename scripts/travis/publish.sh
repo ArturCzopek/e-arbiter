@@ -26,6 +26,3 @@ then
 else
   echo "=> No analysis and docker images build and push"
 fi
-
-
-

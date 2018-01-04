@@ -1,6 +1,6 @@
 user_id;github_id;user_name;email;enabled
-1;348989234;TestowyUser;TestowyUser@TestowyUser.com;true
-2;1234234;UserLol;UserLol@UserLol.pl;true
+1;348989234;billgates;billgates@billgates.com;true
+2;1234234;github;github@github.pl;true
 3;11598413;ArturCzopek;arturcz32@gmail.com;true
 4;16167677;KonradOnieszczuk;k2nder@gmail.com;true
 5;6090794;Miracle;Miracle@Miracle.com;true
@@ -12,11 +12,11 @@ user_id;github_id;user_name;email;enabled
 11;1178222;Reyes;Reyes@Reyes.es;true
 12;9322527;Sherif;Sherif@Sherif.pl;true
 13;3522572;Shevqet;Shevqet@Shevqet.pl;true
-14;7819026;Galdim;Galdim@Galdim.pl;true
-15;2322509;Vajkal;Vajkal@Vajkal.com;false
+14;7819026;stachu;stachu@stachu.pl;true
+15;2322509;octo;octo@octo.octo;false
 16;0678784;Selimi;Selimi@Selimi.pl;true
 17;4371098;Smizoi;Smizoi@Smizoi.com;true
-18;2670368;Wkomn;Wkomn@Wkomn.pl;true
+18;2670368;wykop;wykop@wykop.pl;true
 19;7380273;Bhogzal;Bhogzal@Bhogzal.pl;false
 20;9808312;Bolanzud;Bolanzud@Bolanzud.com;false
 21;30443881;e-Arbiter;earbiterinfo@gmail.com;true

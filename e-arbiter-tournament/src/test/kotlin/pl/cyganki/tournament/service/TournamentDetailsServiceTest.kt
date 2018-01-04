@@ -117,7 +117,7 @@ class TournamentDetailsServiceTest {
         // then - check active-tournament-3.json
         foundDetails.apply {
             Assert.assertEquals(tournamentId, id)
-            Assert.assertEquals("voluptate tempor non ea ullamco ut", name)
+            Assert.assertEquals("Testowy turniej", name)
             Assert.assertEquals(TournamentStatus.ACTIVE, status)
             Assert.assertTrue(accessDetails.publicFlag)
             Assert.assertFalse(accessDetails.owner)
@@ -173,7 +173,7 @@ class TournamentDetailsServiceTest {
         // then - check active-tournament-8.json
         foundDetails.apply {
             Assert.assertEquals(tournamentId, id)
-            Assert.assertEquals("in est culpa tempor non consequat", name)
+            Assert.assertEquals("Podstawy programowania", name)
             Assert.assertEquals(TournamentStatus.ACTIVE, status)
             Assert.assertFalse(accessDetails.publicFlag)
             Assert.assertFalse(accessDetails.owner)
