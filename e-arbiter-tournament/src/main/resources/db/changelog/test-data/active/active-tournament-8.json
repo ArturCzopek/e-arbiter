@@ -24,22 +24,36 @@
     {
       "type": "CodeTask",
       "name": "Lekcja 01 - zadanie programistyczne",
-      "description": "Proste zadanie programistyczne",
+      "description": "Proste zadanie programistyczne. Napisz program konkatenujący dwa pierwsze łańcuchy znakowe. Na przykład dla \"Jestem\" i \"Michał\", program powinien zwrócić \"JestemMichał\"",
       "codeTaskTestSets": [
         {
-          "expectedResult": 102,
+          "expectedResult": 25,
           "parameters": [
-            -28,
-            9,
-            -27,
-            -15
+            2,
+            5,
+            2
+          ]
+        },
+        {
+          "expectedResult": "\"ala ma kota\"",
+          "parameters": [
+            "ala",
+            "\" ma kota\""
+          ]
+        },
+        {
+          "expectedResult": 147,
+          "parameters": [
+            14,
+            7
           ]
         }
       ],
       "languages": [
+        "C11",
         "CPP"
       ],
-      "timeoutInMs": 50
+      "timeoutInMs": 5000
     },
     {
       "type": "CodeTask",
@@ -266,28 +280,28 @@
       "maxAttempts": 1,
       "questions": [
         {
-          "content": "Zaznacz języki programowania",
+          "content": "Co NIE JEST językem programowania?",
           "answers": [
             {
               "content": "Suahili",
-              "correct": false
+              "correct": true
             },
             {
               "content": "Java",
-              "correct": true
+              "correct": false
             },
             {
               "content": "JavaScript",
-              "correct": true
+              "correct": false
             },
             {
               "content": "C++",
-              "correct": true
+              "correct": false
             }
           ]
         },
         {
-          "content": "Zaznacz słowa kluczowe w języku Java",
+          "content": "Zaznacz słowo kluczowe w języku Java",
           "answers": [
             {
               "content": "Integer",
@@ -306,7 +320,7 @@
               "correct": true
             },
             {
-              "content": "static",
+              "content": "virtuality",
               "correct": true
             }
           ]

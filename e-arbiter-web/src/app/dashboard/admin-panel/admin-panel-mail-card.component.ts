@@ -45,8 +45,8 @@ export class AdminPanelMailCardComponent {
     this.adminService.sendEmail(this.adminMail)
       .first()
       .subscribe(
-        success => this.successMessage = `Wiadomość z tytułem ${this.adminMail.subject} jest właśnie wysyłana do użytkowników`,
-        error => this.errorMessage = `Nie udało się zlecić maila z tytułem ${this.adminMail.subject} do wysłania. Sprawdź logi w celu uzyskania informacji`,
+        success => this.successMessage = `Wiadomość z tytułem "${this.adminMail.subject}" jest właśnie wysyłana do użytkowników`,
+        error => this.errorMessage = `Nie udało się zlecić maila z tytułem "${this.adminMail.subject}" do wysłania. Sprawdź logi w celu uzyskania informacji`,
       )
   }
 }
